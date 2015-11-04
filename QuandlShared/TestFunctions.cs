@@ -87,24 +87,24 @@ namespace Quandl.Shared
             return result;
         }
 
-        public static void populateData(string code, Excel.Range activeCell, ArrayList data, int columnCount)
+        public static void populateData(string code, Excel.Range activeCell, ArrayList data, int rowCount)
         {
             ArrayList columns = (ArrayList)data[0] as ArrayList;
             ArrayList dataList = (ArrayList)data[1] as ArrayList;
 
-            if (columnCount == 1)
+            if (rowCount == 1)
             {
                 for (int i = 0; i < columns.Count; i++)
                 {
-                    activeCell[columnCount, i + 2].Value2 = columns[i];
+                    activeCell[rowCount, i + 2].Value2 = columns[i];
                 }
 
             }
 
-            activeCell[columnCount + 1][1].Value2 = code;
+            activeCell[rowCount + 1][1].Value2 = code;
             for (int i = 0; i < dataList.Count; i++)
             {
-                activeCell[columnCount+1, i + 2].Value2 = dataList[i];
+                activeCell[rowCount+1, i + 2].Value2 = dataList[i];
              
             }
 
