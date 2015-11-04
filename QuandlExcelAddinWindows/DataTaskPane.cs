@@ -72,7 +72,7 @@ namespace Quandl.Excel.Addin
             JObject data = TestFunctions.SearchDatasets(this.databaseCode, (string)query);
             foreach (JObject dataset in data["datasets"])
             {
-                this.listBox1.Items.Add(new { Value = dataset["dataset_code"].ToObject<String>(), Name = dataset["name"].ToObject<String>(), Extras = dataset["column_names"] });
+                this.listBox1.Items.Add(new { Value = this.databaseCode + '/' + dataset["dataset_code"].ToObject<String>(), Name = dataset["name"].ToObject<String>(), Extras = dataset["column_names"] });
             }
 
             this.button2.Enabled = true;
