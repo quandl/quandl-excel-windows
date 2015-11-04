@@ -273,13 +273,14 @@
     <ManifestKeyFile>Quandl.Excel.Addin_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>F98A5B49D43E9EBCB1EB9936B4EB8BEDBB204DC3</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>A418FBF1F29F4A4C6FA72AFE1D437C3A7246D603</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Quandl.Excel.Addin_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
