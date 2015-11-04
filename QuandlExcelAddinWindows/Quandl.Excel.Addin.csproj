@@ -221,6 +221,7 @@
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
+    <None Include="Quandl.Excel.Addin_1_TemporaryKey.pfx" />
     <None Include="Quandl.Excel.Addin_TemporaryKey.pfx" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.cs</DependentUpon>
@@ -247,10 +248,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Quandl.Excel.Addin_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Quandl.Excel.Addin_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>F98A5B49D43E9EBCB1EB9936B4EB8BEDBB204DC3</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3FC3E6915B6FBA9E9BB17D34A71BCFE576E13711</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Threading;
 
 using ExcelDna.Integration;
@@ -16,39 +17,32 @@ namespace QuandlFunctions
         public static string qdata(
             [ExcelArgument("is the quandl database code")] string stockName)
         {
-
-            Excel.Range currentCell = Application.ActiveCell;
-
-            ProcessParams p = new ProcessParams();
-            p.range = currentCell;
-            p.response = TestFunctions.pullSomeData(stockName);
+            ProcessParams processParams = new ProcessParams();
+            processParams.cell = Application.ActiveCell;
+            string code = "ZFB/AAPL";
+            string indicator = "_TOT_REVNU_Q";
+            processParams.data = TestFunctions.pullRecentStockData(code + indicator, new string[] { "TOT_REVNU", "PER_END_DATE" }, 1);
+            processParams.code = code;
 
             Thread t = new Thread(DumpFromThread);
-            t.Start(p);
-            return stockName;
+            t.Start(processParams);
+
+            return "success";
         }
 
-        private static void DumpFromThread(Object p)
+        private static void DumpFromThread(Object processParams)
         {
-            ProcessParams pp = p as ProcessParams;
-            JObject o = pp.response;
-
-            pp.range[0,2].Value2 = o["dataset_data"]["column_names"][0];
-            pp.range[0, 3].Value2 = o["dataset_data"]["column_names"][1];
-
-            for (int i = 1; i < 10; i++)
-            {
-                pp.range[i, 2] = o["dataset_data"]["data"][i-1][0].ToString();
-                pp.range[i, 3] = o["dataset_data"]["data"][i-1][1].ToString();
-            }
-
+            ProcessParams p = processParams as ProcessParams;
+            TestFunctions.populateData(p.code, p.cell, p.data,1);
+     
         }
-
 
         public class ProcessParams
         {
-            public Excel.Range range { get; set; }
-            public JObject response { get; set; }
+            public Excel.Range cell { get; set; }
+            public ArrayList data { get; set; }
+
+            public string code { get; set; }
         }
 
     }
