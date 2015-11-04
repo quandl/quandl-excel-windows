@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Net;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -108,6 +109,13 @@ namespace Quandl.Shared
              
             }
 
+        }
+
+        public static string[] stringToArray(string input)
+        {
+            char[] delimiter = new char[] { '[', ',', ']','\'' };
+            string[] words = input.Split(delimiter);
+            return words.Where( x => !string.IsNullOrEmpty(x)).ToArray();
         }
 
         private static string[] convertToArray(JToken tokens)
