@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 namespace Quandl.Excel.Addin
 {
     using System.Linq;
+    using System.Text.RegularExpressions;
     using Excel = Microsoft.Office.Interop.Excel;
 
     public partial class DataTaskPane : UserControl
@@ -43,6 +44,30 @@ namespace Quandl.Excel.Addin
                 this.textBox3.Text = "";
                 this.button2.Enabled = true;
                 this.button1.Enabled = true;
+            }
+
+            this.webBrowser1.Navigated += WebBrowser1_Navigated;
+        }
+        
+        private void WebBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        {
+            if (Regex.IsMatch(e.Url.AbsoluteUri, "https://www.quandl.com/.*"))
+            {
+                this.textBox4.Text = e.Url.AbsoluteUri;
+            }
+
+            Regex r = new Regex("/data/([A-Za-z0-9_]+)(/.*)?", RegexOptions.IgnoreCase);
+            Match match = r.Match(e.Url.LocalPath);
+            if (match.Success) {
+                this.textBox2.Text = match.Groups[1].Value;
+            }
+
+            Regex r2 = new Regex("/data/[A-Za-z0-9_]+/([A-Za-z0-9_]+)", RegexOptions.IgnoreCase);
+            Match match2 = r2.Match(e.Url.LocalPath);
+            if (match2.Success)
+            {
+                this.textBox1.Text = match2.Groups[1].Value;
+                this.button2.PerformClick();
             }
         }
 
