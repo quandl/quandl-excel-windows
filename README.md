@@ -2,12 +2,10 @@
 
 ## Install
 
-reopen visual studio -> enter in activation key
-
 1. Download and install file:///C:/Program%20Files%20(x86)/Microsoft%20Visual%20Studio%2014.0/Common7/IDE/Extensions/InstallShield/InstallShieldProject/1033/InstallShield_ult.html
  * Open Solution -> right click solution -> add -> new project -> other project type -> InstallShield
  * Walk through the steps on the side to download and install InstallShield (Make note of your install key)
-3. Restart `Visual Studio`
+3. Restart `Visual Studio` and enter in your install key
 4. Right click solution file and select `Manage NuGet Packages for Solution`
 (If you don't have NuGet, please install it at [https://dist.nuget.org/index.html](https://dist.nuget.org/index.html))
 5. Select `Nowtonsoft.Json` packages and install the latest stable version
