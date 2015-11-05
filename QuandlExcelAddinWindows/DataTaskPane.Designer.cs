@@ -45,7 +45,6 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(227, 454);
-            this.button1.Margin = new System.Windows.Forms.Padding(15);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(114, 37);
             this.button1.TabIndex = 7;
@@ -56,16 +55,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 20);
+            this.label1.Location = new System.Drawing.Point(28, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 13);
+            this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Database Search";
+            this.label1.Text = "Database Code";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 56);
+            this.label2.Location = new System.Drawing.Point(28, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 13);
             this.label2.TabIndex = 6;
@@ -81,7 +80,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 209);
+            this.label3.Location = new System.Drawing.Point(15, 209);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 13);
             this.label3.TabIndex = 8;
@@ -144,10 +143,10 @@
             this.textBox3.BackColor = System.Drawing.SystemColors.Window;
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(11, 454);
+            this.textBox3.Location = new System.Drawing.Point(20, 454);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(208, 37);
+            this.textBox3.Size = new System.Drawing.Size(191, 37);
             this.textBox3.TabIndex = 15;
             this.textBox3.TabStop = false;
             // 
@@ -170,7 +169,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Name = "DataTaskPane";
-            this.Size = new System.Drawing.Size(356, 506);
+            this.Padding = new System.Windows.Forms.Padding(15);
+            this.Size = new System.Drawing.Size(359, 509);
             this.ResumeLayout(false);
             this.PerformLayout();
 
