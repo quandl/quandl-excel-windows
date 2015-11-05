@@ -13,6 +13,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Excel.UDF.Functions", "QuandlExcelUDFFunctions\Quandl.Excel.UDF.Functions.csproj", "{6AC4706D-5BC0-45DC-B517-683D19C57970}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Quandl.Excel.Addin.Setup", "QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup.isproj", "{165E8729-65D9-40B3-B8EE-404B5CAEE91D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6AC4706D-5BC0-45DC-B517-683D19C57970} = {6AC4706D-5BC0-45DC-B517-683D19C57970}
+		{46DC729E-5083-4F4B-BF2E-E20611D3C14E} = {46DC729E-5083-4F4B-BF2E-E20611D3C14E}
+		{C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C} = {C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Excel.Addin", "QuandlExcelAddinWindows\Quandl.Excel.Addin.csproj", "{46DC729E-5083-4F4B-BF2E-E20611D3C14E}"
 EndProject
