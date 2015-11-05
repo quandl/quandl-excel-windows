@@ -14,21 +14,20 @@ namespace Quandl.Excel.Addin
 
     public partial class ThisAddIn
     {
-        private DataTaskPane myUserControl1;
+        public Excel.Range activeCells;
         private Microsoft.Office.Tools.CustomTaskPane myCustomTaskPane;
 
         public void TaskPane_Show()
         {
+            DataTaskPane taskPane = new DataTaskPane(this.activeCells);
+            myCustomTaskPane = this.CustomTaskPanes.Add(taskPane, "My Task Pane");
+            myCustomTaskPane.Width = taskPane.PreferredSize.Width + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
             myCustomTaskPane.Visible = true;
         }
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             this.Application.WorkbookActivate += new Excel.AppEvents_WorkbookActivateEventHandler(this.Workbook_Activated);
-
-            myUserControl1 = new DataTaskPane();
-            myCustomTaskPane = this.CustomTaskPanes.Add(myUserControl1, "My Task Pane");
-            myCustomTaskPane.Width = myUserControl1.PreferredSize.Width + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
         }
 
 
@@ -60,19 +59,26 @@ namespace Quandl.Excel.Addin
 
         private void Workbook_Activated(Excel.Workbook workbook)
         {
+            this.activeCells = this.Application.ActiveCell;
             workbook.SheetChange += new Excel.WorkbookEvents_SheetChangeEventHandler(this.Sheet_Updated);
+            workbook.SheetSelectionChange += Workbook_SheetSelectionChange;
+        }
+
+        private void Workbook_SheetSelectionChange(object Sh, Excel.Range Target)
+        {
+            this.activeCells = Target;
         }
 
         private void Sheet_Updated(object sh, Excel.Range target)
         {
-            Array quandlCodes = target.Value2.Split(',');
-            List<JObject> data = new List<JObject>();
-            foreach (String code in quandlCodes)
-            {
-                data.Add(Quandl.Shared.TestFunctions.pullSomeData(code.Trim()));
-            }
-            
-            Excel.Range currentCell = target.Value2.Split(',');
+            //Array quandlCodes = target.Value2.Split(',');
+            //List<JObject> data = new List<JObject>();
+            //foreach (String code in quandlCodes)
+            //{
+            //    data.Add(Quandl.Shared.TestFunctions.pullSomeData(code.Trim()));
+            //}
+
+            //Excel.Range currentCell = target.Value2.Split(',');
         }
     }
 }

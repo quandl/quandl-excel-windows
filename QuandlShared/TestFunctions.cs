@@ -51,39 +51,54 @@ namespace Quandl.Shared
         //    return int.Parse(versionName, CultureInfo.GetCultureInfo("en-US"));
         //}
 
-
-        public static ArrayList pullRecentStockData(string code,string[] columnNames, int limit )
+        public static void populateLatestStockData(string[] quandlCodes, string[] columnNames, Excel.Range activeCells)
         {
-            string requestUri = "https://www.quandl.com/api/v3/datasets/" + code + "/data.json?limit=" + limit.ToString() + "&api_key=56LY1VVcCDFj1u3J48Kw";
+            // Header
+            Excel.Range firstActiveCell = activeCells.get_Offset(0, 0);
+
+            // Data
+            int i = 1;
+            foreach(string quandlCode in quandlCodes)
+            {
+                ArrayList convertedData = pullRecentStockData(quandlCode, columnNames, 1);
+                populateData(quandlCode.ToUpper(), firstActiveCell, convertedData, i);
+                i++;
+            }
+        }
+        
+        public static ArrayList pullRecentStockData(string code, string[] columnNames, int limit )
+        {
+            string requestUri = apiUri + "datasets/" + code + "/data.json?limit=" + limit.ToString() + "&api_key=56LY1VVcCDFj1u3J48Kw";
             JObject response =  getResponseJson(requestUri);
 
-            string[] columns = response["dataset_data"]["column_names"].ToObject<string[]>();
             ArrayList columnsList = response["dataset_data"]["column_names"].ToObject<ArrayList>();
-            Object[] data = response["dataset_data"]["data"][0].ToObject<Object[]>();
+            ArrayList columnsUppercase = new ArrayList(); 
+            foreach (string column in columnsList)
+            {
+                columnsUppercase.Add(column.ToUpper());
+            }
             ArrayList dataList = response["dataset_data"]["data"][0].ToObject<ArrayList>();
+            ArrayList data = new ArrayList();
 
             int i = 0;
-            foreach (string column in columns)
+            foreach (string columnName in columnNames)
             {
-                
-                int index = Array.IndexOf(columnNames, column);
-                if (index < 0)
+                int index = columnsUppercase.IndexOf(columnName);
+                if (index >= 0)
                 {
-                    columnsList.Remove(columns[i]);
-                    dataList.Remove(data[i]);
+                    data.Add(dataList[index]);
+                }
+                else
+                {
+                    data.Add("");
                 }
 
                 i++;
             }
 
             ArrayList result = new ArrayList();
-            result.Add(columnsList);
-            result.Add(dataList);
-
-            if (columnNames.Length != 0 && columnsList.Count != columnNames.Length)
-            {
-                throw new Exception("data not found!");
-            }
+            result.Add(new ArrayList(columnNames));
+            result.Add(data);
 
             return result;
         }
