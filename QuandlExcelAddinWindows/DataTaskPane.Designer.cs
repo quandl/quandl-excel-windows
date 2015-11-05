@@ -141,7 +141,6 @@
             // 
             // textBox3
             // 
-            this.textBox3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.textBox3.BackColor = System.Drawing.SystemColors.Window;
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox3.Enabled = false;
