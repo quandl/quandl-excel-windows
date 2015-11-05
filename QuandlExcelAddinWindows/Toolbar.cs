@@ -14,7 +14,7 @@ namespace Quandl.Excel.Addin
 
         private void GetDataButton_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.TaskPane.Visible = true;
+            Globals.ThisAddIn.TaskPane_Show();
         }
 
         private void AboutButton_Click(object sender, RibbonControlEventArgs e)
@@ -25,7 +25,9 @@ namespace Quandl.Excel.Addin
         private void button1_Click(object sender, RibbonControlEventArgs e)
         {
             Form dataSelection = new Form();
-            dataSelection.Controls.Add(new DataTaskPane());
+            DataTaskPane taskPane = new DataTaskPane(Globals.ThisAddIn.activeCells);
+            dataSelection.Controls.Clear();
+            dataSelection.Controls.Add(taskPane);
             dataSelection.AutoSize = true;
             dataSelection.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             dataSelection.Show();
