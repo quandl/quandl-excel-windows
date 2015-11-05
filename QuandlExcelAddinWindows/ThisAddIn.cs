@@ -27,6 +27,8 @@ namespace Quandl.Excel.Addin
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            this.activeCells = this.Application.ActiveCell;
+            this.Application.WorkbookOpen += new Excel.AppEvents_WorkbookOpenEventHandler(this.Workbook_Activated);
             this.Application.WorkbookActivate += new Excel.AppEvents_WorkbookActivateEventHandler(this.Workbook_Activated);
         }
 
