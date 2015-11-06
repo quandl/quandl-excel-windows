@@ -1,6 +1,14 @@
- # Quandl Excel Add-in for Windows
+# Quandl Excel Add-in for Windows
+
+The Quandl Excel Add-In allows you to search through, find and download any of Quandl's millions of datasets directly from within Microsoft Excel. It's completely free; usage is unlimited and unrestricted. Currently this Add-in is limited to windows only as it uses features and functions which are only available on the windows version of excel.
 
 ## Install
+
+### End User
+
+http://www.quandl.com/help/excel
+
+### Development
 
 1. Download and install file:///C:/Program%20Files%20(x86)/Microsoft%20Visual%20Studio%2014.0/Common7/IDE/Extensions/InstallShield/InstallShieldProject/1033/InstallShield_ult.html
  * Open Solution -> right click solution -> add -> new project -> other project type -> InstallShield
@@ -15,3 +23,8 @@
 9. Click on signing tab
 10. Click `Create Test Certificate` without a password
 11. You should now be able to build the project.
+
+## License
+
+MIT License
+ 
