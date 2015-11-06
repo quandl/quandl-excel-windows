@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Net;
 using System.Linq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -9,34 +10,66 @@ namespace Quandl.Shared
 {
     public class TestFunctions
     {
-        public static String apiUri = "https://www.quandl.com/api/v3/";
-
         public static JObject SearchDatabases(string query)
         {
-            string requestUri = apiUri + "databases.json?per_page=10&query=" + query;
-            return getResponseJson(requestUri);
+            string requestUri = Properties.Settings.Default.BaseUrl + "databases?per_page=10&query=" + query;
+            return GetResponseJson(requestUri);
         }
         public static JObject SearchDatasets(string databaseCode, string query)
         {
-            string requestUri = apiUri + "datasets.json?database_code=" + databaseCode + "&per_page=10&query=" + query;
-            return getResponseJson(requestUri);
+            string requestUri = Properties.Settings.Default.BaseUrl + "datasets?database_code=" + databaseCode + "&per_page=10&query=" + query;
+            return GetResponseJson(requestUri);
         }
 
         public static JObject pullSomeData(string stockName)
         {
             string code = stockName;
-            string requestUri = apiUri + "datasets/" + code + "/data.json?limit=10&api_key=56LY1VVcCDFj1u3J48Kw";
-            return getResponseJson(requestUri);
+            string requestUri = Properties.Settings.Default.BaseUrl + "datasets/" + code + "/data.json?limit=10&api_key=56LY1VVcCDFj1u3J48Kw";
+            return GetResponseJson(requestUri);
         }
 
-        private static JObject getResponseJson(String requestUri)
+        public static string AuthToken(string accountName, string pass)
         {
-            WebClient client = new WebClient();
-            client.Headers["User-Agent"] = "excel quandl new add-in";
-            client.Headers["Request-Source"] = "excel";
+            var obj = new { user = new { account = accountName, password = pass } };
+            var payload = JsonConvert.SerializeObject(obj);
+            var requestUri = Properties.Settings.Default.BaseUrl + "users/token_auth";
+            var res = Post(requestUri, payload);
+            return res["user"]["api_key"].ToObject<string>();
+        }
+
+        private static JObject Post(string requestUri, string body)
+        {
+            var client = QuandlApiWebClient();
+            var response = client.UploadString(requestUri, body);
+            return JObject.Parse(response);
+        }
+
+        private static JObject GetResponseJson(String requestUri)
+        {
+            var client = QuandlApiWebClient();
+            return JObject.Parse(client.DownloadString(requestUri));
+        }
+
+        private static WebClient QuandlApiWebClient()
+        {
+            var client = new WebClient
+            {
+                Headers =
+                {
+                    ["User-Agent"] = "excel quandl new add-in",
+                    ["Request-Source"] = "excel",
+                    [HttpRequestHeader.ContentType] = "application/json",
+                    [HttpRequestHeader.Accept] = "application/json"
+            }
+            };
+            if (!string.IsNullOrEmpty(QuandlConfig.ApiKey))
+            {
+                client.Headers["X-API-Token"] = QuandlConfig.ApiKey;
+            }
             //  client.Headers["Request-Platform"] = GetExcelVersionNumber().ToString();
             client.Headers["Request-Version"] = "3.0alpha";
-            return JObject.Parse(client.DownloadString(requestUri));
+
+            return client;
         }
 
         //public static int GetExcelVersionNumber()
@@ -68,8 +101,8 @@ namespace Quandl.Shared
         
         public static ArrayList pullRecentStockData(string code, ArrayList columnNames, int limit )
         {
-            string requestUri = apiUri + "datasets/" + code + "/data.json?limit=" + limit.ToString() + "&api_key=56LY1VVcCDFj1u3J48Kw";
-            JObject response =  getResponseJson(requestUri);
+            string requestUri = Properties.Settings.Default.BaseUrl + "datasets/" + code + "/data.json?limit=" + limit.ToString() + "&api_key=56LY1VVcCDFj1u3J48Kw";
+            JObject response =  GetResponseJson(requestUri);
 
             ArrayList columnsList = response["dataset_data"]["column_names"].ToObject<ArrayList>();
             ArrayList columnsUppercase = new ArrayList(); 
