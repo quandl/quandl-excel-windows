@@ -151,6 +151,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -192,6 +193,18 @@
     <Compile Include="Controls\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\QuandlSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\QuandlSettings.Designer.cs">
+      <DependentUpon>QuandlSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataTaskPane.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -203,6 +216,12 @@
     </Compile>
     <EmbeddedResource Include="Controls\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\QuandlSettings.resx">
+      <DependentUpon>QuandlSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataTaskPane.resx">
       <DependentUpon>DataTaskPane.cs</DependentUpon>
