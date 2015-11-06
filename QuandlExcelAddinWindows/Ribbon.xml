@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI onLoad="Ribbon_Load" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+    <ribbon>
+        <tabs>
+            <tab idMso="TabAddIns">
+                <group id="group1" label="group1">
+                    <button id="GetDataButton" onAction="GetDataButton_Click" label="GetData" />
+                </group>
+                <group id="group2" label="group2">
+                    <button id="AboutButton" onAction="AboutButton_Click" label="About" showImage="false" />
+                </group>
+            </tab>
+        </tabs>
+    </ribbon>
+</customUI>
