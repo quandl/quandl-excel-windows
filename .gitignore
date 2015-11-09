@@ -169,7 +169,7 @@ ClientBin/
 *~
 *.dbmdl
 *.dbproj.schemaview
-# *.pfx
+*.pfx
 *.publishsettings
 node_modules/
 orleans.codegen.cs
@@ -210,4 +210,4 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-*.pfx
+*.zip

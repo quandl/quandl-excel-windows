@@ -51,7 +51,7 @@ namespace Quandl.Shared
         //    return int.Parse(versionName, CultureInfo.GetCultureInfo("en-US"));
         //}
 
-        public static void populateLatestStockData(string[] quandlCodes, string[] columnNames, Excel.Range activeCells)
+        public static void populateLatestStockData(string[] quandlCodes, ArrayList columnNames, Excel.Range activeCells)
         {
             // Header
             Excel.Range firstActiveCell = activeCells.get_Offset(0, 0);
@@ -66,7 +66,7 @@ namespace Quandl.Shared
             }
         }
         
-        public static ArrayList pullRecentStockData(string code, string[] columnNames, int limit )
+        public static ArrayList pullRecentStockData(string code, ArrayList columnNames, int limit )
         {
             string requestUri = apiUri + "datasets/" + code + "/data.json?limit=" + limit.ToString() + "&api_key=56LY1VVcCDFj1u3J48Kw";
             JObject response =  getResponseJson(requestUri);
