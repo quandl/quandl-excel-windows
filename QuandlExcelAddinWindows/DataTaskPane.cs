@@ -47,8 +47,14 @@ namespace Quandl.Excel.Addin
             }
 
             this.webBrowser1.Navigated += WebBrowser1_Navigated;
+            this.listBox3.SelectedIndexChanged += ListBox3_SelectedIndexChanged;
         }
-        
+
+        private void ListBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox5_UpdateUDF();
+        }
+
         private void WebBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             if (Regex.IsMatch(e.Url.AbsoluteUri, "https://www.quandl.com/.*"))
@@ -164,7 +170,7 @@ namespace Quandl.Excel.Addin
                 i++;
             }
 
-            TestFunctions.populateLatestStockData(quandlCodes, columnNames, this.activeCells);
+            TestFunctions.populateLatestStockData(quandlCodes, new ArrayList(columnNames), this.activeCells);
         }
 
         private string[] ConvertObjectCollectionToStringArray(ListBox.ObjectCollection array)
@@ -176,6 +182,31 @@ namespace Quandl.Excel.Addin
                 i++;
             }
             return strArray;
+        }
+
+        private void textBox5_UpdateUDF()
+        {
+            string udf = "=QDATA({";
+
+            string[] codes = new string[this.listBox2.Items.Count];
+            int i = 0;
+            foreach (dynamic item in this.listBox2.Items) {
+                codes[i] = "\"" + item.Value.ToString().ToUpper() + "\"";
+                i++;
+            }
+
+            udf += String.Join(",", codes) + "}, {";
+
+            string[] columns = new string[this.listBox3.SelectedItems.Count];
+            i = 0;
+            foreach (dynamic item in this.listBox3.SelectedItems)
+            {
+                columns[i] = "\"" + item.Value.ToString().ToUpper() + "\"";
+                i++;
+            }
+
+            udf += String.Join(",", columns) + "})";
+            this.textBox5.Text = udf;
         }
     }
 }
