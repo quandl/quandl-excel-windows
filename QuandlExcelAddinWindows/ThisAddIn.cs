@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
 using Newtonsoft.Json.Linq;
+using Quandl.Excel.Addin.Controls;
 
 namespace Quandl.Excel.Addin
 {
@@ -14,20 +16,43 @@ namespace Quandl.Excel.Addin
 
     public partial class ThisAddIn
     {
-        public Excel.Range activeCells;
+        public Excel.Range ActiveCells;
         private Microsoft.Office.Tools.CustomTaskPane myCustomTaskPane;
+
+
+        public delegate void AuthTokenChanged();
+        public delegate void LoginChanged();
+
+        public event AuthTokenChanged AuthTokenChangedEvent;
+        public event LoginChanged LoginChangedEvent;
 
         public void TaskPane_Show()
         {
-            DataTaskPane taskPane = new DataTaskPane(this.activeCells);
-            myCustomTaskPane = this.CustomTaskPanes.Add(taskPane, "My Task Pane");
-            myCustomTaskPane.Width = taskPane.PreferredSize.Width + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+            CreateCustomPane(new DataTaskPane(ActiveCells), "My Task Pane");
+        }
+
+        public void SettingsPane_Show(Toolbar toolbar)
+        {
+            var quandlSettings = new QuandlSettings();
+            // allows toolbar to handle auth token changed events
+            quandlSettings.SettingsAuthTokenChanged += OnAuthTokenChangedEvent;
+
+            // allows quandl settings pane to handle login changed events
+            LoginChangedEvent += quandlSettings.UpdateApiKeyTextBox;
+
+            CreateCustomPane(quandlSettings, "Quandl Settings");
+        }
+
+        public void CreateCustomPane(UserControl userControl, string name)
+        {
+            myCustomTaskPane = this.CustomTaskPanes.Add(userControl, name);
+            myCustomTaskPane.Width = userControl.PreferredSize.Width + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
             myCustomTaskPane.Visible = true;
         }
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            this.activeCells = this.Application.ActiveCell;
+            this.ActiveCells = this.Application.ActiveCell;
             this.Application.WorkbookOpen += new Excel.AppEvents_WorkbookOpenEventHandler(this.Workbook_Activated);
             this.Application.WorkbookActivate += new Excel.AppEvents_WorkbookActivateEventHandler(this.Workbook_Activated);
         }
@@ -61,14 +86,14 @@ namespace Quandl.Excel.Addin
 
         private void Workbook_Activated(Excel.Workbook workbook)
         {
-            this.activeCells = this.Application.ActiveCell;
+            this.ActiveCells = this.Application.ActiveCell;
             workbook.SheetChange += new Excel.WorkbookEvents_SheetChangeEventHandler(this.Sheet_Updated);
             workbook.SheetSelectionChange += Workbook_SheetSelectionChange;
         }
 
         private void Workbook_SheetSelectionChange(object Sh, Excel.Range Target)
         {
-            this.activeCells = Target;
+            this.ActiveCells = Target;
         }
 
         private void Sheet_Updated(object sh, Excel.Range target)
@@ -81,6 +106,16 @@ namespace Quandl.Excel.Addin
             //}
 
             //Excel.Range currentCell = target.Value2.Split(',');
+        }
+
+        public void OnAuthTokenChangedEvent()
+        {
+            AuthTokenChangedEvent?.Invoke();
+        }
+
+        public void OnLoginChangedEvent()
+        {
+            LoginChangedEvent?.Invoke();
         }
     }
 }
