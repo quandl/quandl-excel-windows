@@ -21,6 +21,8 @@ Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Quandl.Excel.Addin.Setup", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Excel.Addin", "QuandlExcelAddinWindows\Quandl.Excel.Addin.csproj", "{46DC729E-5083-4F4B-BF2E-E20611D3C14E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Shared.ModulesTests", "UnitTestProject1\Quandl.Shared.ModulesTests.csproj", "{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -70,6 +72,16 @@ Global
 		{46DC729E-5083-4F4B-BF2E-E20611D3C14E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46DC729E-5083-4F4B-BF2E-E20611D3C14E}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{46DC729E-5083-4F4B-BF2E-E20611D3C14E}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{7B5AC1A6-41A0-455C-9C75-9934CAA3D7CF}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
