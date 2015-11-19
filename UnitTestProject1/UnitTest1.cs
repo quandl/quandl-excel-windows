@@ -9,7 +9,7 @@ namespace UnitTestSharedModules
         [TestCase]
         public void TestAuthToken()
         {
-            var data = TestFunctions.AuthToken("foobar@test.com", "12345678");
+            var data = Utilities.AuthToken("foobar@test.com", "12345678");
             Assert.IsNotNull(data);
         }
     }

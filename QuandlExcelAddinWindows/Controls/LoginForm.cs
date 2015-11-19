@@ -36,7 +36,7 @@ namespace Quandl.Excel.Addin.Controls
                 // save this to config
                 // dismiss login box?
                 errorLabel.Hide();
-                var apiKey = TestFunctions.AuthToken(userName, pass);
+                var apiKey = Shared.Utilities.AuthToken(userName, pass);
                 QuandlConfig.ApiKey = apiKey;
                 OnLoginChanged();
                 Close();
