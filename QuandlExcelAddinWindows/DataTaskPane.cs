@@ -110,7 +110,7 @@ namespace Quandl.Excel.Addin
             this.button2.Enabled = false;
 
             String query = this.textBox1.Text;
-            JObject data = TestFunctions.SearchDatasets(this.databaseCode, (string)query);
+            JObject data = Shared.Web.SearchDatasets(this.databaseCode, (string)query);
             foreach (JObject dataset in data["datasets"])
             {
                 var columnNames = dataset["column_names"].ToObject<ArrayList>().ToArray().Select(x => ((string)x).ToUpper()).ToArray();
@@ -170,7 +170,7 @@ namespace Quandl.Excel.Addin
                 i++;
             }
 
-            TestFunctions.populateLatestStockData(quandlCodes, new ArrayList(columnNames), this.activeCells);
+            ExcelHelp.PopulateLatestStockData(quandlCodes, new ArrayList(columnNames), this.activeCells);
         }
 
         private string[] ConvertObjectCollectionToStringArray(ListBox.ObjectCollection array)
@@ -186,7 +186,7 @@ namespace Quandl.Excel.Addin
 
         private void textBox5_UpdateUDF()
         {
-            string udf = "=QDATA({";
+            string udf = "=mQDATA({";
 
             string[] codes = new string[this.listBox2.Items.Count];
             int i = 0;
@@ -208,5 +208,6 @@ namespace Quandl.Excel.Addin
             udf += String.Join(",", columns) + "})";
             this.textBox5.Text = udf;
         }
+
     }
 }
