@@ -24,6 +24,17 @@ http://www.quandl.com/help/excel
 10. Click `Create Test Certificate` without a password
 11. You should now be able to build the project.
 
+### Build installation package
+
+1. Using git tool and check out this project in folder C:\Users\Developer\code\quandl-excel-windows
+2. Follow the instructions list in `Development` section above, setup the project
+3. Right click solution file and select `Rebuild Solution`
+4. C:\Users\Developer\code\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
+
+### Sign installation package
+1. `cd  C:\Users\Developer\code\quandl-excel-windows\QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1`
+2. run command `SignTool sign /n "Quandl Inc.` setup.exe
+
 ## License
 
 MIT License
