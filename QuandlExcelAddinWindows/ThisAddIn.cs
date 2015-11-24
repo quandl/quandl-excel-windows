@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Timers;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -9,6 +10,7 @@ using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
 using Newtonsoft.Json.Linq;
 using Quandl.Excel.Addin.Controls;
+using Quandl.Shared;
 
 namespace Quandl.Excel.Addin
 {
@@ -36,6 +38,7 @@ namespace Quandl.Excel.Addin
             var quandlSettings = new QuandlSettings();
             // allows toolbar to handle auth token changed events
             quandlSettings.SettingsAuthTokenChanged += OnAuthTokenChangedEvent;
+            quandlSettings.SettingsAutoUpdateChanged += OnAutoUpdateChangedEvent;
 
             // allows quandl settings pane to handle login changed events
             LoginChangedEvent += quandlSettings.UpdateApiKeyTextBox;
@@ -54,12 +57,29 @@ namespace Quandl.Excel.Addin
         {
             this.ActiveCells = this.Application.ActiveCell;
             this.Application.WorkbookOpen += new Excel.AppEvents_WorkbookOpenEventHandler(this.Workbook_Activated);
+            this.Application.WorkbookOpen += new Excel.AppEvents_WorkbookOpenEventHandler(Application_WorkbookOpen);
             this.Application.WorkbookActivate += new Excel.AppEvents_WorkbookActivateEventHandler(this.Workbook_Activated);
+
+            SetupAutoUpdateTimer();
         }
 
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+        }
+
+        private void Application_WorkbookOpen(Excel.Workbook wb)
+        {
+            if (!FunctionUpdater.HasQuandlFormulaInWorkbook(wb) || !QuandlConfig.AutoUpdate) return;
+            const string message = @"Your workbook(s) contain Quandl formulas. Would you like to update your data?";
+            const string caption = @"Update Data";
+            var a = Application.Calculation;
+            var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                FunctionUpdater.RecalculateQuandlFunctions(wb);
+            }
         }
 
         #region VSTO generated code
@@ -116,6 +136,63 @@ namespace Quandl.Excel.Addin
         public void OnLoginChangedEvent()
         {
             LoginChangedEvent?.Invoke();
+        }
+
+        public void OnAutoUpdateChangedEvent()
+        {
+            SetupAutoUpdateTimer();
+        }
+
+        private void SetupAutoUpdateTimer()
+        {
+            if (!QuandlConfig.AutoUpdate)
+            {
+                QuandlTimer.Instance.DisableUpdateTimer();
+                return;
+            }
+
+            QuandlTimer.Instance.SetupAutoRefreshTimer(TimeoutEventHandler);
+        }
+
+        public void TimeoutEventHandler(object sender, System.Timers.ElapsedEventArgs eventArg)
+        {
+            // don't try to update if user is editing the sheet(s)
+            // try again in later by enabling retry interval timeout if user is editing
+            var isEditing = IsEditing();
+            QuandlTimer.Instance.SetTimeoutInterval(isEditing);
+
+            if (isEditing)
+            {
+                return;
+            }
+
+            var workbooks = Application.Workbooks;
+
+            Application.Interactive = false;
+            foreach (Excel.Workbook workbook in workbooks)
+            {
+                FunctionUpdater.RecalculateQuandlFunctions(workbook);
+            }
+            Application.Interactive = true;
+        }
+
+        // Excel Interop will throw an exception if the user is editing
+        // at the same time the addin is trying to update a workbook
+        // Detect if a user is editing in excel through trying to toggle
+        // Application.Interactive
+        // for more detail see: http://stackoverflow.com/questions/22482935/how-can-i-force-a-cell-to-stop-editing-in-excel-interop
+        public bool IsEditing()
+        {
+            try
+            {
+                Application.Interactive = false;
+                Application.Interactive = true;
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
