@@ -28,10 +28,18 @@ http://www.quandl.com/help/excel
 
 1. Follow the instructions list in `Development` section above, setup the project
 2. Install the key `QuandlDigitCertCodeSign.pfx` from lastpass to the projects missing it
-3. Download the dependencies under `2 Specify Application Data => Redistributables`. You will need to do this as an admin.
-4. Restart into non-admin mode
-5. Right click solution file and select `Rebuild Solution`
-6. $PROJECT_ROOT_FOLDER\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
+3. Download the dependencies under `Quandl.Excel.Addin.Setup -> 2 Specify Application Data => Redistributables`. You will need to do this as an admin.
+4. Ensure your project QuandlDigitCertCodeSign.pfx files have the protected password. See [Password Protect Digital Certificate](#password-protect-digital-certificate)
+5. Restart into non-admin mode
+6. Right click solution file and select `Rebuild Solution`
+7. $PROJECT_ROOT_FOLDER\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
+
+### Password Protect Digital Certificate
+
+1. Right click on each project with a digital certificate
+2. Select Properties -> Signing -> Select From File
+3. Select the Digital Certificate
+4. Enter password (found in lastpass) and Save
 
 ### Sign installation package
 1. Download  `QuandlDigitCertCodeSign.pfx` from lastpass to your local windows folder 

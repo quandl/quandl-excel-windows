@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Tools.Ribbon;
+﻿using Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Tools.Ribbon;
 using Quandl.Excel.Addin.Controls;
 using Quandl.Shared;
 
@@ -62,6 +63,12 @@ namespace Quandl.Excel.Addin
         private void openQuandlSettings_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.SettingsPane_Show(this);
+        }
+
+        private void refresh_Click(object sender, RibbonControlEventArgs e)
+        {
+            var activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
+            FunctionUpdater.RecalculateQuandlFunctions(activeWorkBook);
         }
     }
 }
