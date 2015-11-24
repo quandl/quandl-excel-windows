@@ -1,25 +1,9 @@
 ﻿using System.Collections;
-using Quandl.Shared;
-using System;
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Win32;
 
 namespace Quandl.Shared
 {
     public class ExcelHelp
     {
-        private static string[] AddinRegisterKey = new string[] { @"SOFTWARE\Microsoft\Office\14.0\Excel\Options", @"SOFTWARE\Microsoft\Office\15.0\Excel\Options", @"SOFTWARE\Microsoft\Office\16.0\Excel\Options" };
-        private const string OpenValue = @"/R ""C:\Program Files (x86)\Quandl Inc\Quandl-Excel-Addin\Quandl.Excel.UDF.Functions-AddIn.xll""";
-        private const string AddinPackageString = "Quandl.Excel.UDF.Functions-AddIn.xll";
-
-        public static void RegisterExcelAddin()
-        {
-            foreach(string subKey in AddinRegisterKey)
-            {
-                SetAvailableOpenOption(subKey);
-            }
-        }
-
         public static string PopulateData(Microsoft.Office.Interop.Excel.Range activeCell, ArrayList dataList)
         {
             string result = "";
@@ -96,73 +80,6 @@ namespace Quandl.Shared
 
         }
 
-
-        private static void SetAvailableOpenOption(string subKey)
-        {
-            string option = "OPEN";
-            string result = CheckQuandlAddinRegistry(subKey, option);
-            if (result == null)
-            {
-                SetRegistryKeyValue(subKey, option, OpenValue);
-            }
-            else if (result != "")
-            {
-                for(int i = 1; i <= 1000; i++)
-                {
-                    option = option + i;
-                    result = CheckQuandlAddinRegistry(subKey, option.ToString());
-                    if (result == null)
-                    {
-                        SetRegistryKeyValue(subKey, option, OpenValue);
-                        break;
-                    }
-                    else if ( result == "")
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
-        }
-
-        private static void SetRegistryKeyValue(string subKey, string key, object value, RegistryValueKind regValueKing = RegistryValueKind.String)
-        {
-            Microsoft.Win32.RegistryKey keyPath = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(subKey);
-            keyPath.SetValue(key, value, regValueKing);
-            keyPath.Close();
-        }
-
-        private static string CheckQuandlAddinRegistry(string subKey, string keyName)
-        {
-            RegistryKey keyPath = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(subKey);
-            if (keyPath == null)
-            {
-                return null;
-            }
-            else
-            {
-                object value = keyPath.GetValue(keyName);
-                if (value != null)
-                {
-                    if (value.ToString().Contains(AddinPackageString))
-                    {
-                        return "";
-                    }
-                    else
-                    {
-                        return value.ToString();
-                    }
-                }
-                else
-                {
-                    return null;
-                }
-
-            }
-        }
     }
 
 }

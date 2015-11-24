@@ -68,7 +68,7 @@ namespace Quandl.Shared
             string requestUri = Quandl.Shared.Properties.Settings.Default.BaseUrl + "datasets/" + code + "/data.json?limit=1" + "&api_key=" + api_key;
             if (date != null)
             {
-                requestUri += "&start_date=" + date;
+                requestUri += "&start_date=" + date + "&end_date=" + date;
             }
             JObject response = GetResponseJson(requestUri);
 
