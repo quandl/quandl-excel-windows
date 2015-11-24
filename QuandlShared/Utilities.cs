@@ -10,10 +10,11 @@ namespace Quandl.Shared
     {
         public static ArrayList GetMatchedListByOrder(ArrayList columnNames, ArrayList columnNamesList, ArrayList dataList)
         {
-            if (columnNames == null)
+            if (columnNames == null || columnNames.Count == 0)
             {
-                return dataList;
+                columnNames = columnNamesList;
             }
+           
 
             ArrayList result = new ArrayList();
             ArrayList indexList = new ArrayList();

@@ -67,6 +67,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetupHelp.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Web.cs" />
   </ItemGroup>
