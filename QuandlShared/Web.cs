@@ -65,10 +65,10 @@ namespace Quandl.Shared
         public static string PullSingleValue(string code, string columnName = null, string date = null)
         {
             string api_key = QuandlConfig.ApiKey;
-            string requestUri = Properties.Settings.Default.BaseUrl + "datasets/" + code + "/data.json?limit=1" + "&api_key=" + api_key; ;
+            string requestUri = Quandl.Shared.Properties.Settings.Default.BaseUrl + "datasets/" + code + "/data.json?limit=1" + "&api_key=" + api_key;
             if (date != null)
             {
-                requestUri += "&start_date=" + date;
+                requestUri += "&start_date=" + date + "&end_date=" + date;
             }
             JObject response = GetResponseJson(requestUri);
 
@@ -113,7 +113,7 @@ namespace Quandl.Shared
         private static JObject QuandlAPICall(string quandlCode, string extraUri)
         {
             string api_key = QuandlConfig.ApiKey;
-            string requestUri = Properties.Settings.Default.BaseUrl + "datasets/" + quandlCode + "/data.json?" + extraUri;
+            string requestUri = Quandl.Shared.Properties.Settings.Default.BaseUrl + "datasets/" + quandlCode + "/data.json?" + extraUri;
             var client = QuandlApiWebClient();
             return JObject.Parse(client.DownloadString(requestUri));
         }

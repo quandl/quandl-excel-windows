@@ -265,6 +265,8 @@
     <Content Include="Quandl.Excel.Addin_TemporaryKey.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Quandl.Excel.Addin.pfx" />
+    <None Include="QuandlDigitCertCodeSign.pfx" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.cs</DependentUpon>
     </None>
@@ -290,17 +292,16 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Quandl.Excel.Addin_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>QuandlDigitCertCodeSign.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>A418FBF1F29F4A4C6FA72AFE1D437C3A7246D603</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>578FCBD879AE8DCC7F5C4FA0A6231250C9F21D2A</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Quandl.Excel.Addin.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
