@@ -1,12 +1,8 @@
 ﻿using System.Collections;
-using Quandl.Shared;
-using System;
-using Excel = Microsoft.Office.Interop.Excel;
-
 
 namespace Quandl.Shared
 {
-    public static class ExcelHelp
+    public class ExcelHelp
     {
         public static string PopulateData(Microsoft.Office.Interop.Excel.Range activeCell, ArrayList dataList)
         {
@@ -83,6 +79,7 @@ namespace Quandl.Shared
             }
 
         }
+
     }
 
 }

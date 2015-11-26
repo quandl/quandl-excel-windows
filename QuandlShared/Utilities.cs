@@ -10,10 +10,11 @@ namespace Quandl.Shared
     {
         public static ArrayList GetMatchedListByOrder(ArrayList columnNames, ArrayList columnNamesList, ArrayList dataList)
         {
-            if (columnNames == null)
+            if (columnNames == null || columnNames.Count == 0)
             {
-                return dataList;
+                columnNames = columnNamesList;
             }
+           
 
             ArrayList result = new ArrayList();
             ArrayList indexList = new ArrayList();
@@ -35,13 +36,11 @@ namespace Quandl.Shared
             return result;
         }
 
-
-
         public static string AuthToken(string accountName, string pass)
         {
             var obj = new { user = new { account = accountName, password = pass } };
             var payload = JsonConvert.SerializeObject(obj);
-            var requestUri = Properties.Settings.Default.BaseUrl + "users/token_auth";
+            var requestUri = Quandl.Shared.Properties.Settings.Default.BaseUrl + "users/token_auth";
             var res = Web.Post(requestUri, payload);
             return res["user"]["api_key"].ToObject<string>();
         }
