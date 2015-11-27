@@ -97,6 +97,5 @@ namespace QuandlFunctions
             return date.ToString("yyyyMMdd");
         }
 
-
     }
 }
