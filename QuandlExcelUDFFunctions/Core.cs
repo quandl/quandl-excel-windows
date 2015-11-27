@@ -40,7 +40,7 @@ namespace QuandlFunctions
             string endDate = Tools.GetDateValue(excelEndDate);
             ArrayList columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
 
-   
+
             ArrayList list = Web.PullHistoryData(quandlCode, startDate, endDate, columnNames);
             return ExcelHelp.PopulateData(currentFormulaCell, list);
         }
