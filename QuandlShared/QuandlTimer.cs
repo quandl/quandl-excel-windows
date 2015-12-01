@@ -26,7 +26,7 @@ namespace Quandl.Shared
         }
 
         private Timer qTimer;
-        private const int RetryIntervalMinutes = 5;
+        private const int RetryIntervalSeconds = 20;
 
         public void SetupAutoRefreshTimer(ElapsedEventHandler eventHandler)
         {
@@ -78,7 +78,7 @@ namespace Quandl.Shared
 
         private double RetryTimeoutInterval()
         {
-            return TimeSpan.FromMinutes(RetryIntervalMinutes).TotalMilliseconds;
+            return TimeSpan.FromSeconds(RetryIntervalSeconds).TotalMilliseconds;
         }
     }
 }
