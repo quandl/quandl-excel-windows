@@ -20,7 +20,7 @@ namespace QuandlFunctions
             string columnName = Tools.GetStringValue(excelColumnName);
             string date = Tools.GetDateValue(excelDate);
 
-            return Web.PullSingleValue(quandlCode, columnName, date);
+            return Utilities.validate_empty_data(Web.PullSingleValue(quandlCode, columnName, date));
         }
 
         [ExcelFunction(Description = "Quandl hQDATA function pull single value", IsMacroType = true)]
@@ -42,7 +42,7 @@ namespace QuandlFunctions
 
 
             ArrayList list = Web.PullHistoryData(quandlCode, startDate, endDate, columnNames);
-            return ExcelHelp.PopulateData(currentFormulaCell, list);
+            return Utilities.validate_empty_data(ExcelHelp.PopulateData(currentFormulaCell, list));
         }
 
 
@@ -76,7 +76,7 @@ namespace QuandlFunctions
                 i++;
             }
 
-            return value;
+            return Utilities.validate_empty_data(value);
         }
 
     }
