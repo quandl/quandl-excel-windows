@@ -62,7 +62,7 @@ namespace Quandl.Shared
             return result;
         }
 
-        private static ArrayList SubList(ArrayList indexList, ArrayList list)
+        public static ArrayList SubList(ArrayList indexList, ArrayList list)
         {
             ArrayList result = new ArrayList();
             foreach(int i in indexList)
