@@ -9,7 +9,7 @@ namespace Quandl.Shared
             string result = "";
             for (int i = 0; i < dataList.Count; i++)
             {
-                int j = 0;
+                int j = 1;
                 foreach(var data in (ArrayList)dataList[i])
                 {
                     if (i == 0 && j == 1)
@@ -69,7 +69,7 @@ namespace Quandl.Shared
             Microsoft.Office.Interop.Excel.Range firstCell = currentFormulaCell.get_Offset(rowCount, -1 );
             ArrayList list = (ArrayList)dataList[0];
             
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 1; i < list.Count; i++)
             {
                 if (rowCount != 0 || i != 1)
                 {

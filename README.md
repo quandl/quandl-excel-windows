@@ -26,14 +26,18 @@ http://www.quandl.com/help/excel
 
 ### Build installation package
 
-1. Using git tool and check out this project in folder C:\Users\Developer\code\quandl-excel-windows
-2. Follow the instructions list in `Development` section above, setup the project
-3. Right click solution file and select `Rebuild Solution`
-4. C:\Users\Developer\code\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
+1. Follow the instructions list in `Development` section above, setup the project
+2. Install the key `QuandlDigitCertCodeSign.pfx` from lastpass to the projects missing it
+3. Download the dependencies under `2 Specify Application Data => Redistributables`. You will need to do this as an admin.
+4. Restart into non-admin mode
+5. Right click solution file and select `Rebuild Solution`
+6. $PROJECT_ROOT_FOLDER\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
 
 ### Sign installation package
-1. `cd  C:\Users\Developer\code\quandl-excel-windows\QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1`
-2. run command `SignTool sign /n "Quandl Inc.` setup.exe
+1. Download  `QuandlDigitCertCodeSign.pfx` from lastpass to your local windows folder 
+2. Use windows application `certmgr.msc` to to import QuandlDigitCertCodeSign.pfx to your local certification store
+3. `cd  $PROJECT_ROOT_FOLDER\quandl-excel-windows\QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1`
+4. run this command to sign your setup package `SignTool sign /n "Quandl Inc." setup.exe`
 
 ## License
 
