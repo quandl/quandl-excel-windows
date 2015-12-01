@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
-using System.Linq;
+using Quandl.Shared.QuandlException;
 
 namespace Quandl.Shared
 {
@@ -23,7 +22,7 @@ namespace Quandl.Shared
             foreach(string column in columnNames)
             {
                int index = columnNamesList.IndexOf(column.ToUpper());
-               if (index > 0)
+               if (index >= 0)
                {
                     indexList.Add(index);
                }
@@ -33,6 +32,7 @@ namespace Quandl.Shared
             {
                 result.Add(SubList(indexList, list));
             }
+            
             return result;
         }
 
@@ -70,6 +70,16 @@ namespace Quandl.Shared
                 result.Add(list[i]);
             }
             return result;
+        }
+
+        public static string validate_empty_data(string quandl_data)
+        {
+            if (quandl_data == null || quandl_data.Equals(""))
+            {
+                throw new QuandlDataNotFoundException();
+            }
+
+            return quandl_data;  
         }
     }
 }
