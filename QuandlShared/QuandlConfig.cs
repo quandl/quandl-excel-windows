@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,13 @@ namespace Quandl.Shared
         {
             get { return Convert.ToBoolean(GetRegistry<int>("AutoUpdate")); }
             set { SetRegistryKeyValue("AutoUpdate", Convert.ToInt32(value), RegistryValueKind.DWord); }
+        }
+
+        // In days: 1 day or 7 days or never (0 days)
+        public static int AutoUpdateFrequency
+        {
+            get { return GetRegistry<int>("AutoUpdateFrequency"); }
+            set { SetRegistryKeyValue("AutoUpdateFrequency", value, RegistryValueKind.DWord); }
         }
 
         public static void Reset()
