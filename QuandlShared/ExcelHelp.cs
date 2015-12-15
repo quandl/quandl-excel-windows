@@ -7,26 +7,32 @@ namespace Quandl.Shared
     {
         public static string PopulateData(Microsoft.Office.Interop.Excel.Range activeCell, ArrayList dataList)
         {
+  
+            // populate column names for hqdata
+            ArrayList columnsList = (ArrayList)dataList[0];
             string result = "";
-            for (int i = 0; i < dataList.Count; i++)
+            for (int i = 0; i < columnsList.Count; i++)
+            {
+                if (i == 0)
+                {
+                    result = columnsList[i].ToString();
+                }
+                else
+                {
+                  activeCell[1, i+1].Value2 = columnsList[i].ToString();
+                }
+                
+            }
+
+            // populate data
+            for (int i = 1; i < dataList.Count; i++)
             {
                 int j = 1;
                 foreach(var data in (ArrayList)dataList[i])
                 {
-                    if (i == 0 && j == 1)
-                    {
-                        result = data.ToString();
-                    }
-                    else
-                    {
-                       activeCell[i + 1, j].Value2 = data.ToString();
-                    }
+                    activeCell[i + 1, j].Value2 = data.ToString();
                     j++; 
                 }
-            }
-            if (result.Equals(""))
-            {
-                throw new QuandlDataNotFoundException();
             }
             return result;
         }

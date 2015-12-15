@@ -9,16 +9,21 @@ namespace Quandl.Shared
     {
         public static ArrayList GetMatchedListByOrder(ArrayList columnNames, ArrayList columnNamesList, ArrayList dataList)
         {
+            ArrayList result = new ArrayList();
+            ArrayList indexList = new ArrayList();
+
             if (columnNames == null || columnNames.Count == 0)
             {
                 columnNames = columnNamesList;
             }
-           
+            else
+            {
+                // add date column first
+                columnNames = PrependToList(columnNames, "DATE");
+            }
 
-            ArrayList result = new ArrayList();
-            ArrayList indexList = new ArrayList();
-            // addd date column first
-            indexList.Add(0);
+            result.Add(columnNames);
+           
             foreach(string column in columnNames)
             {
                int index = columnNamesList.IndexOf(column.ToUpper());
@@ -72,7 +77,7 @@ namespace Quandl.Shared
             return result;
         }
 
-        public static string validate_empty_data(string quandl_data)
+        public static string ValidateEmptyData(string quandl_data)
         {
             if (quandl_data == null || quandl_data.Equals(""))
             {
@@ -80,6 +85,14 @@ namespace Quandl.Shared
             }
 
             return quandl_data;  
+        }
+
+        private static ArrayList PrependToList(ArrayList list, string item)
+        {
+            ArrayList result = new ArrayList();
+            result.Add(item);
+            result.AddRange(list);
+            return result;
         }
     }
 }
