@@ -20,7 +20,7 @@ namespace QuandlFunctions
             string columnName = Tools.GetStringValue(excelColumnName);
             string date = Tools.GetDateValue(excelDate);
 
-            return Utilities.validate_empty_data(Web.PullSingleValue(quandlCode, columnName, date));
+            return Utilities.ValidateEmptyData(Web.PullSingleValue(quandlCode, columnName, date));
         }
 
         [ExcelFunction(Description = "Quandl hQDATA function pull single value", IsMacroType = true)]
@@ -42,7 +42,7 @@ namespace QuandlFunctions
 
 
             ArrayList list = Web.PullHistoryData(quandlCode, startDate, endDate, columnNames);
-            return Utilities.validate_empty_data(ExcelHelp.PopulateData(currentFormulaCell, list));
+            return Utilities.ValidateEmptyData(ExcelHelp.PopulateData(currentFormulaCell, list));
         }
 
 
@@ -65,7 +65,8 @@ namespace QuandlFunctions
             foreach (string quandlCode in quandlCodes)
             {
                 ArrayList list = Web.PullRecentStockData(quandlCode, columnNames, 1);
-
+                // Remove column name list which is not required by this function.
+                list.RemoveAt(0);
                 // keep data of active cell which have mQDATA formula  
                 if (i == 0)
                 {
@@ -76,7 +77,7 @@ namespace QuandlFunctions
                 i++;
             }
 
-            return Utilities.validate_empty_data(value);
+            return Utilities.ValidateEmptyData(value);
         }
 
     }
