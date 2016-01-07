@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
-using System.Linq;
+using Quandl.Shared.QuandlException;
 
 namespace Quandl.Shared
 {
@@ -10,20 +9,25 @@ namespace Quandl.Shared
     {
         public static ArrayList GetMatchedListByOrder(ArrayList columnNames, ArrayList columnNamesList, ArrayList dataList)
         {
+            ArrayList result = new ArrayList();
+            ArrayList indexList = new ArrayList();
+
             if (columnNames == null || columnNames.Count == 0)
             {
                 columnNames = columnNamesList;
             }
-           
+            else
+            {
+                // add date column first
+                columnNames = PrependToList(columnNames, "DATE");
+            }
 
-            ArrayList result = new ArrayList();
-            ArrayList indexList = new ArrayList();
-            // addd date column first
-            indexList.Add(0);
+            result.Add(columnNames);
+           
             foreach(string column in columnNames)
             {
                int index = columnNamesList.IndexOf(column.ToUpper());
-               if (index > 0)
+               if (index >= 0)
                {
                     indexList.Add(index);
                }
@@ -33,6 +37,7 @@ namespace Quandl.Shared
             {
                 result.Add(SubList(indexList, list));
             }
+            
             return result;
         }
 
@@ -69,6 +74,24 @@ namespace Quandl.Shared
             {
                 result.Add(list[i]);
             }
+            return result;
+        }
+
+        public static string ValidateEmptyData(string quandl_data)
+        {
+            if (quandl_data == null || quandl_data.Equals(""))
+            {
+                throw new QuandlDataNotFoundException();
+            }
+
+            return quandl_data;  
+        }
+
+        private static ArrayList PrependToList(ArrayList list, string item)
+        {
+            ArrayList result = new ArrayList();
+            result.Add(item);
+            result.AddRange(list);
             return result;
         }
     }
