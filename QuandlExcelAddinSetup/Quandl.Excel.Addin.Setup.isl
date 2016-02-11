@@ -2689,7 +2689,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-173855283</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>1495576044</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-576475283</td></row>
@@ -3795,9 +3795,9 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.QuandlInc.com</td><td>0</td><td/><td>-173855283</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-173855283</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>connect@quandl.com</td><td>0</td><td/><td>-173855283</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.QuandlInc.com</td><td>0</td><td/><td>1495576044</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>1495576044</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>connect@quandl.com</td><td>0</td><td/><td>1495576044</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>https://www.quandl.com</td><td>0</td><td/><td>1705204843</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>UNINST|Uninstall Quandl-Excell-Addin</td><td>1033</td><td>UNINST~1|Uninstall Quandl Excel Addin</td><td>0</td><td/><td>1705190923</td></row>
@@ -3917,7 +3917,7 @@
 		<row><td>Quandl.Excel.Conso_4CCCE07A50554807846C2EEB1115026B.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>Quandl.Excel.Conso_5EFD97536D4B43DEB9AB07B3B334DC24.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>Quandl.Excel.Conso_7469EC02DC8943C69407A7FDFC8DF348.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
-		<row><td>UNINST_Uninstall_Q_F0C83BBC894F40F483C1D5DC6148BC0A.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2015LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
+		<row><td>UNINST_Uninstall_Q_40DFB2B6BCC94C65AB943A788A428887.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2015LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4050,7 +4050,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{15CC3FC0-CF85-4B9B-A8AB-E868FF8512BA}</td></row>
 		<row><td>ISUSSignature</td><td>{C0CBACE2-B2D0-41DF-8524-7355C527F746}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewUpdateService,viewAppFiles,viewSystemSearch,viewObjects,viewRegistry,viewFileExtensions,viewUI,viewShortcuts,viewIniFiles,viewEnvironmentVariables,viewVRoots,viewServices,viewTextMessages,viewCustomActions,viewRelease,viewLearnMore,viewISToday</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewUpdateService,viewAppFiles,viewSystemSearch,viewObjects,viewRegistry,viewFileExtensions,viewUI,viewShortcuts,viewIniFiles,viewEnvironmentVariables,viewVRoots,viewServices,viewTextMessages,viewCustomActions,viewRelease,viewLearnMore,viewISToday,viewUpgradePaths</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4428,9 +4428,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{366BECA4-FE22-4893-84AC-D31FA37DB299}</td><td/></row>
+		<row><td>ProductCode</td><td>{D6EDE9E5-F250-4A87-9A10-74C7C69CFAC8}</td><td/></row>
 		<row><td>ProductName</td><td>Quandl Excel Addin</td><td/></row>
-		<row><td>ProductVersion</td><td>3.00.0001</td><td/></row>
+		<row><td>ProductVersion</td><td>3.00.0002</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4445,7 +4445,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
-		<row><td>UpgradeCode</td><td>{73648969-F47B-4456-B6D2-13B66E9E6CF5}</td><td/></row>
+		<row><td>UpgradeCode</td><td>{5E31829B-2176-41EB-88FC-FE5BEA8538E0}</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Change</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>
@@ -4597,7 +4597,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>UNINST_Uninstall_Quandl_Excel_Addin</td><td>quandl_1_quandl_excel_addin</td><td>UNINST|Uninstall Quandl Excel Addin</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {366BECA4-FE22-4893-84AC-D31FA37DB299}</td><td/><td/><td>UNINST_Uninstall_Q_F0C83BBC894F40F483C1D5DC6148BC0A.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>UNINST_Uninstall_Quandl_Excel_Addin</td><td>quandl_1_quandl_excel_addin</td><td>UNINST|Uninstall Quandl Excel Addin</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {D6EDE9E5-F250-4A87-9A10-74C7C69CFAC8}</td><td/><td/><td>UNINST_Uninstall_Q_40DFB2B6BCC94C65AB943A788A428887.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
