@@ -2,8 +2,9 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-bin/*
-obj/*
+bin\*
+obj\*
+Express\*
+publish\*
 
 /packages
-/QuandlExcelAddinSetup/Quandl.Excel.Addin.Setup/Express/DVD-5

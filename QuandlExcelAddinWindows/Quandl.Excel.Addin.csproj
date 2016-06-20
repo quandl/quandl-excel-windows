@@ -246,6 +246,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\UDF Builder\ColumnSelection.xaml.cs">
+      <DependentUpon>ColumnSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\TimeSeriesFilters.xaml.cs">
+      <DependentUpon>TimeSeriesFilters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\DatatableFilters.xaml.cs">
+      <DependentUpon>DatatableFilters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\FormulaInserter.xaml.cs">
+      <DependentUpon>FormulaInserter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UDF Builder\WizardUIBase.cs" />
     <Compile Include="UI\UDF Builder\DatasetDatatableSelection.xaml.cs">
       <DependentUpon>DatasetDatatableSelection.xaml</DependentUpon>
@@ -318,6 +330,22 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\UDF Builder\DatasetDatatableSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\ColumnSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\TimeSeriesFilters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\DatatableFilters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\FormulaInserter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

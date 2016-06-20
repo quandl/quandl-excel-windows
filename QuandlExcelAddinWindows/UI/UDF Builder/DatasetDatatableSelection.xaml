@@ -7,12 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Button x:Name="button" Content="two" HorizontalAlignment="Left" Margin="116,100,0,0" VerticalAlignment="Top" Width="75"/>
-        <DatePicker HorizontalAlignment="Left" Margin="123,147,0,0" VerticalAlignment="Top">
-            <DatePicker.BlackoutDates>
-                <CalendarDateRange/>
-            </DatePicker.BlackoutDates>
-        </DatePicker>
-
+        <Label x:Name="label" Content="Dataset/Datatable Selection" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>
