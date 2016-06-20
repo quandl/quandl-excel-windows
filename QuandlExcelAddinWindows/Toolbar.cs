@@ -9,7 +9,7 @@ namespace Quandl.Excel.Addin
     using System.Windows.Forms.Integration;
     public partial class Toolbar
     {
-        public static Form frm = new Form();
+        public static Form frm;
 
         private void Ribbon2_Load(object sender, RibbonUIEventArgs e)
         {
@@ -66,16 +66,30 @@ namespace Quandl.Excel.Addin
             Globals.ThisAddIn.SettingsPane_Show(this);
         }
 
-        private void refresh_Click(object sender, RibbonControlEventArgs e)
-        {
-            var activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
-            FunctionUpdater.RecalculateQuandlFunctions(activeWorkBook);
-        }
-
         private void udfBuilder_Click(object sender, RibbonControlEventArgs e)
         {
+            if (frm == null || !frm.Visible)
+            {
+                frm = new Form();
+                frm.Dock = DockStyle.Fill;
+                frm.AutoSize = true;
+                frm.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                frm.MaximizeBox = false;
+                frm.Icon = global::Quandl.Excel.Addin.Properties.Resources.Quandl_Icon;
+                frm.TopMost = true;
+                frm.StartPosition = FormStartPosition.CenterScreen;
+            }
+            else
+            {
+                return;
+            }
+
+            UI.UDF_Builder.WizardGuide child = new UI.UDF_Builder.WizardGuide();
+            child.stepFrame.Height = 480;
+            child.stepFrame.Width = 640;
+
             ElementHost host = new ElementHost();
-            host.Child = new UI.UDF_Builder.WizardGuide();
+            host.Child = child;
             host.Dock = DockStyle.Fill;
             host.AutoSize = true;
 
@@ -87,17 +101,24 @@ namespace Quandl.Excel.Addin
 
             frm.Controls.Clear();
             frm.Controls.Add(uc);
-            frm.Dock = DockStyle.Fill;
-            frm.AutoSize = true;
-            frm.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            frm.MaximizeBox = false;
-            frm.Icon = global::Quandl.Excel.Addin.Properties.Resources.Quandl_Icon;
-            frm.TopMost = true;
             frm.Show();
+        }
 
-            UI.UDF_Builder.WizardGuide child = ((UI.UDF_Builder.WizardGuide)host.Child);
-            child.stepFrame.Height = 480;
-            child.stepFrame.Width = 640;
+        private void refreshWorkbook_Click(object sender, RibbonControlEventArgs e)
+        {
+            var activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
+            FunctionUpdater.RecalculateQuandlFunctions(activeWorkBook);
+        }
+
+        private void refreshWorksheet_Click(object sender, RibbonControlEventArgs e)
+        {
+            var activeSheet = Globals.ThisAddIn.Application.ActiveSheet;
+            FunctionUpdater.RecalculateQuandlFunctions(activeSheet);
+        }
+
+        private void refreshMulti_Click(object sender, RibbonControlEventArgs e)
+        {
+            refreshWorkbook_Click(sender, e);
         }
     }
 }
