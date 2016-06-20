@@ -3,3 +3,11 @@
 ################################################################################
 
 /UnitTestProject1/obj/Debug
+/QuandlShared/bin
+/QuandlShared/obj
+/QuandlExcelUDFFunctions/obj
+/QuandlExcelAddinWindows/bin/Debug
+/QuandlExcelAddinWindows/obj
+/QuandlExcelAddinWindows/publish
+/QuandlExcelAddinSetup/Quandl.Excel.Addin.Setup/Express/DVD-5
+/Quandl.Excel.Console/obj/Debug
