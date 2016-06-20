@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -10,13 +11,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     /// </summary>
     public partial class WizardGuide : UserControl
     {
-        private string[] steps = new string[] {
-            "DatabaseSelection",
-            "DatasetDatatableSelection",
-            "ColumnSelection",
-            "TimeSeriesFilters",
-            "FormulaInserter"
-        };
+        private string[] steps { get
+            {
+               return StateControl.Instance.getStepList();
+            }
+        }
         private int currentStep = 0;
         private int shownStep = 0;
 
@@ -24,6 +23,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             this.Initialized += delegate { this.changeToStep(); };
             InitializeComponent();
+
+            // Initialize the new control
+            StateControl.Instance.reset();
+            this.DataContext = StateControl.Instance;
         }
 
         private void nextButton_click(object sender, RoutedEventArgs e)
@@ -51,6 +54,34 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             // Show the current step form in the wizard
             this.showStep(this.currentStep);
+        }
+
+        private void showForm()
+        {
+            Uri stepXaml = new Uri(steps[this.shownStep] + ".xaml", UriKind.Relative);
+            this.stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            this.stepFrame.Source = stepXaml;
+        }
+
+        private void showStep(int stepNumber)
+        {
+            // Update the shown step
+            this.shownStep = stepNumber;
+
+            // Show the correct user form in the wizard
+            this.showForm();
+
+            // Enable the appropriate navigation buttons
+            this.nextButton.IsEnabled = true;
+            this.prevButton.IsEnabled = true;
+            if (stepNumber == 0)
+            {
+                this.prevButton.IsEnabled = false;
+            }
+            else if (stepNumber == steps.Length - 1)
+            {
+                this.nextButton.IsEnabled = false;
+            }
 
             // Build up the breadcrumb bar
             this.stepBreadcrumb.Children.Clear();
@@ -64,7 +95,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 // Step button
                 Button stepLink = new Button();
                 stepLink.Content = "Step " + (i + 1).ToString();
-                stepLink.IsEnabled = (i != this.currentStep);
+                //stepLink.IsEnabled = (i != this.currentStep);
                 stepLink.Padding = new Thickness(10);
                 int step = i; // Need to duplicate the value to avoid issues with referencing a changing 'i'
                 stepLink.Click += delegate
@@ -73,12 +104,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 };
                 this.stepBreadcrumb.Children.Add(stepLink);
 
-                // Seperator between step buttons
+                // Separator between step buttons
                 if (i != this.currentStep)
                 {
-                    TextBox sep = new TextBox();
-                    sep.Text = ">";
-                    sep.IsEnabled = false;
+                    Label sep = new Label();
+                    sep.Content = "\\";
+                    //sep.IsEnabled = false;
                     sep.Padding = new Thickness(0, 10, 0, 10);
                     this.stepBreadcrumb.Children.Add(sep);
                 }
@@ -93,29 +124,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 child.BorderThickness = new Thickness(0);
                 child.Background = System.Windows.Media.Brushes.Transparent;
             }
-        }
 
-        private void showStep(int stepNumber)
-        {
-            // Update the shown step
-            this.shownStep = stepNumber;
-
-            // Show the correct user form in the wizard
-            Uri stepXaml = new Uri(steps[stepNumber] + ".xaml", UriKind.Relative);
-            this.stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            this.stepFrame.Source = stepXaml;
-
-            // Enable the appropriate navigation buttons
-            this.nextButton.IsEnabled = true;
-            this.prevButton.IsEnabled = true;
-            if (stepNumber == 0)
-            {
-                this.prevButton.IsEnabled = false;
-            }
-            else if (stepNumber == steps.Length - 1)
-            {
-                this.nextButton.IsEnabled = false;
-            }
+            // Highlight the current step
+            Control stepElement = (Control)this.stepBreadcrumb.Children[((stepNumber+1)*2)-2];
+            stepElement.Background = System.Windows.Media.Brushes.AliceBlue;
         }
     }
 }

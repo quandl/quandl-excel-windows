@@ -246,6 +246,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\UDF Builder\DataSetTableFilter.cs" />
+    <Compile Include="UI\UDF Builder\StateControl.cs" />
     <Compile Include="UI\UDF Builder\ColumnSelection.xaml.cs">
       <DependentUpon>ColumnSelection.xaml</DependentUpon>
     </Compile>
