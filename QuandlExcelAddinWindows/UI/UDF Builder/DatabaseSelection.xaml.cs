@@ -30,6 +30,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public DatabaseSelection()
         {
             InitializeComponent();
+            this.DataContext = StateControl.Instance;
         }
     }
 }
