@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -67,15 +57,17 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             this.stepBreadcrumb.Children.Clear();
             for (int i = 0; i <= this.currentStep; i++)
             {
+                // Set the title of the form
                 var type = Type.GetType("Quandl.Excel.Addin.UI.UDF_Builder." + steps[i]);
-                var myObject = (UserControl)Activator.CreateInstance(type);
-                string name = myObject.GetType().Name;
+                WizardUIBase stepObject = (WizardUIBase)Activator.CreateInstance(type);
+                Toolbar.frm.Text = stepObject.getTitle();
 
+                // Step button
                 Button stepLink = new Button();
-                stepLink.Content = name;
-                stepLink.FontSize = 15;
+                stepLink.Content = "Step " + (i+1).ToString();
                 stepLink.IsEnabled = (i != this.currentStep);
-                int step = i;
+                stepLink.Padding = new Thickness(10);
+                int step = i; // Need to duplicate the value to avoid issues with referencing a changing 'i'
                 stepLink.Click += delegate
                 {
                     this.currentStep = step;
@@ -83,14 +75,25 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 };
                 this.stepBreadcrumb.Children.Add(stepLink);
 
+                // Seperator between step buttons
                 if (i != this.currentStep)
                 {
                     TextBox sep = new TextBox();
                     sep.Text = ">";
-                    sep.FontSize = 15;
                     sep.IsEnabled = false;
+                    sep.Padding = new Thickness(0,10,0,10);
                     this.stepBreadcrumb.Children.Add(sep);
                 }
+            }
+
+            // Set some common styling elements
+            foreach (Control child in this.stepBreadcrumb.Children)
+            {
+                child.HorizontalAlignment = HorizontalAlignment.Left;
+                child.FontSize = 15;
+                child.Margin = new Thickness(0);
+                child.BorderThickness = new Thickness(0);
+                child.Background = System.Windows.Media.Brushes.Transparent;
             }
         }
     }

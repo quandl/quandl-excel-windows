@@ -34,85 +34,63 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Toolbar));
-            this.tab1 = this.Factory.CreateRibbonTab();
-            this.Data = this.Factory.CreateRibbonGroup();
-            this.group2 = this.Factory.CreateRibbonGroup();
-            this.group1 = this.Factory.CreateRibbonGroup();
+            this.QuandlTab = this.Factory.CreateRibbonTab();
+            this.DataGroup = this.Factory.CreateRibbonGroup();
             this.SettingsGroup = this.Factory.CreateRibbonGroup();
-            this.GetDataButton = this.Factory.CreateRibbonButton();
-            this.button1 = this.Factory.CreateRibbonButton();
-            this.AboutButton = this.Factory.CreateRibbonButton();
+            this.prototypeGroup = this.Factory.CreateRibbonGroup();
+            this.udf_builder = this.Factory.CreateRibbonButton();
             this.login = this.Factory.CreateRibbonButton();
             this.openQuandlSettings = this.Factory.CreateRibbonButton();
             this.refresh = this.Factory.CreateRibbonButton();
-            this.button2 = this.Factory.CreateRibbonButton();
-            this.tab1.SuspendLayout();
-            this.Data.SuspendLayout();
-            this.group2.SuspendLayout();
-            this.group1.SuspendLayout();
+            this.AboutButton = this.Factory.CreateRibbonButton();
+            this.GetDataButton = this.Factory.CreateRibbonButton();
+            this.button1 = this.Factory.CreateRibbonButton();
+            this.QuandlTab.SuspendLayout();
+            this.DataGroup.SuspendLayout();
             this.SettingsGroup.SuspendLayout();
+            this.prototypeGroup.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tab1
+            // QuandlTab
             // 
-            this.tab1.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
-            this.tab1.Groups.Add(this.Data);
-            this.tab1.Groups.Add(this.group2);
-            this.tab1.Groups.Add(this.group1);
-            this.tab1.Groups.Add(this.SettingsGroup);
-            this.tab1.Label = "Quandl";
-            this.tab1.Name = "tab1";
+            this.QuandlTab.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
+            this.QuandlTab.Groups.Add(this.DataGroup);
+            this.QuandlTab.Groups.Add(this.SettingsGroup);
+            this.QuandlTab.Groups.Add(this.prototypeGroup);
+            this.QuandlTab.Label = "Quandl";
+            this.QuandlTab.Name = "QuandlTab";
             // 
-            // Data
+            // DataGroup
             // 
-            this.Data.Items.Add(this.GetDataButton);
-            this.Data.Items.Add(this.button1);
-            this.Data.Items.Add(this.button2);
-            this.Data.Label = "Data";
-            this.Data.Name = "Data";
-            // 
-            // group2
-            // 
-            this.group2.Items.Add(this.AboutButton);
-            this.group2.Name = "group2";
-            // 
-            // group1
-            // 
-            this.group1.Items.Add(this.login);
-            this.group1.Label = "Login";
-            this.group1.Name = "group1";
+            this.DataGroup.Items.Add(this.udf_builder);
+            this.DataGroup.Label = "Data";
+            this.DataGroup.Name = "DataGroup";
             // 
             // SettingsGroup
             // 
+            this.SettingsGroup.Items.Add(this.login);
             this.SettingsGroup.Items.Add(this.openQuandlSettings);
             this.SettingsGroup.Items.Add(this.refresh);
+            this.SettingsGroup.Items.Add(this.AboutButton);
             this.SettingsGroup.Label = "Settings";
             this.SettingsGroup.Name = "SettingsGroup";
             // 
-            // GetDataButton
+            // prototypeGroup
             // 
-            this.GetDataButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.GetDataButton.Image = ((System.Drawing.Image)(resources.GetObject("GetDataButton.Image")));
-            this.GetDataButton.Label = "Task Pane";
-            this.GetDataButton.Name = "GetDataButton";
-            this.GetDataButton.ShowImage = true;
-            this.GetDataButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.GetDataButton_Click);
+            this.prototypeGroup.Items.Add(this.GetDataButton);
+            this.prototypeGroup.Items.Add(this.button1);
+            this.prototypeGroup.Label = "Prototype";
+            this.prototypeGroup.Name = "prototypeGroup";
+            this.prototypeGroup.Visible = false;
             // 
-            // button1
+            // udf_builder
             // 
-            this.button1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Label = "Popup";
-            this.button1.Name = "button1";
-            this.button1.ShowImage = true;
-            this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
-            // 
-            // AboutButton
-            // 
-            this.AboutButton.Label = "About";
-            this.AboutButton.Name = "AboutButton";
-            this.AboutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AboutButton_Click);
+            this.udf_builder.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.udf_builder.Image = global::Quandl.Excel.Addin.Properties.Resources.Quandl_Icon_Image;
+            this.udf_builder.Label = "UDF Creator";
+            this.udf_builder.Name = "udf_builder";
+            this.udf_builder.ShowImage = true;
+            this.udf_builder.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.udfBuilder_Click);
             // 
             // login
             // 
@@ -132,46 +110,61 @@
             this.refresh.Name = "refresh";
             this.refresh.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.refresh_Click);
             // 
-            // button2
+            // AboutButton
             // 
-            this.button2.Label = "New Form";
-            this.button2.Name = "button2";
-            this.button2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button2_Click);
+            this.AboutButton.Label = "About";
+            this.AboutButton.Name = "AboutButton";
+            this.AboutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AboutButton_Click);
+            // 
+            // GetDataButton
+            // 
+            this.GetDataButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.GetDataButton.Image = global::Quandl.Excel.Addin.Properties.Resources.Quandl_Icon_Image;
+            this.GetDataButton.Label = "Task Pane";
+            this.GetDataButton.Name = "GetDataButton";
+            this.GetDataButton.ShowImage = true;
+            this.GetDataButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.GetDataButton_Click);
+            // 
+            // button1
+            // 
+            this.button1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button1.Image = global::Quandl.Excel.Addin.Properties.Resources.Quandl_Icon_Image;
+            this.button1.Label = "Popup";
+            this.button1.Name = "button1";
+            this.button1.ShowImage = true;
+            this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
             // 
             // Toolbar
             // 
             this.Name = "Toolbar";
             this.RibbonType = "Microsoft.Excel.Workbook";
-            this.Tabs.Add(this.tab1);
+            this.Tabs.Add(this.QuandlTab);
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.Ribbon2_Load);
-            this.tab1.ResumeLayout(false);
-            this.tab1.PerformLayout();
-            this.Data.ResumeLayout(false);
-            this.Data.PerformLayout();
-            this.group2.ResumeLayout(false);
-            this.group2.PerformLayout();
-            this.group1.ResumeLayout(false);
-            this.group1.PerformLayout();
+            this.QuandlTab.ResumeLayout(false);
+            this.QuandlTab.PerformLayout();
+            this.DataGroup.ResumeLayout(false);
+            this.DataGroup.PerformLayout();
             this.SettingsGroup.ResumeLayout(false);
             this.SettingsGroup.PerformLayout();
+            this.prototypeGroup.ResumeLayout(false);
+            this.prototypeGroup.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup Data;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonTab QuandlTab;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup DataGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton GetDataButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton AboutButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton login;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup SettingsGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton openQuandlSettings;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton refresh;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton udf_builder;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup prototypeGroup;
     }
 
     partial class ThisRibbonCollection

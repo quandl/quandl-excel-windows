@@ -18,9 +18,9 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <StackPanel x:Name="stepBreadcrumb" Grid.Row="0" Orientation="Horizontal" >
-                    
-                </StackPanel>
+                <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black" HorizontalAlignment="Stretch">
+                    <DockPanel x:Name="stepBreadcrumb" LastChildFill="True" />
+                </Border>
                 <Frame x:Name="stepFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="10" Grid.Row="1" NavigationUIVisibility="Hidden" />
                 <DockPanel LastChildFill="True" Grid.Row="2">
                     <Button x:Name="nextButton" DockPanel.Dock="Right" Content="next" VerticalAlignment="Top" Width="42" Margin="10" Click="nextButton_click" Height="23" />

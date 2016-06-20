@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,17 @@ using System.Windows.Shapes;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
+
     /// <summary>
     /// Interaction logic for DatabaseSelection.xaml
     /// </summary>
-    public partial class DatabaseSelection : UserControl
+    public partial class DatabaseSelection : UserControl, WizardUIBase
     {
+        public string getTitle()
+        {
+            return "Browse Databases or Enter a Database Code";
+        }
+
         public DatabaseSelection()
         {
             InitializeComponent();
