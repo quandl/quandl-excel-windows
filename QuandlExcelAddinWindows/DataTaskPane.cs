@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 
 using Quandl.Shared;
 using Newtonsoft.Json.Linq;
@@ -208,6 +209,5 @@ namespace Quandl.Excel.Addin
             udf += String.Join(",", columns) + "})";
             this.textBox5.Text = udf;
         }
-
     }
 }

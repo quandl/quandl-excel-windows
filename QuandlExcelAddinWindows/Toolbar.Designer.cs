@@ -37,15 +37,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Toolbar));
             this.tab1 = this.Factory.CreateRibbonTab();
             this.Data = this.Factory.CreateRibbonGroup();
+            this.group2 = this.Factory.CreateRibbonGroup();
+            this.group1 = this.Factory.CreateRibbonGroup();
+            this.SettingsGroup = this.Factory.CreateRibbonGroup();
             this.GetDataButton = this.Factory.CreateRibbonButton();
             this.button1 = this.Factory.CreateRibbonButton();
-            this.group2 = this.Factory.CreateRibbonGroup();
             this.AboutButton = this.Factory.CreateRibbonButton();
-            this.group1 = this.Factory.CreateRibbonGroup();
             this.login = this.Factory.CreateRibbonButton();
-            this.SettingsGroup = this.Factory.CreateRibbonGroup();
             this.openQuandlSettings = this.Factory.CreateRibbonButton();
             this.refresh = this.Factory.CreateRibbonButton();
+            this.button2 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.Data.SuspendLayout();
             this.group2.SuspendLayout();
@@ -67,8 +68,27 @@
             // 
             this.Data.Items.Add(this.GetDataButton);
             this.Data.Items.Add(this.button1);
+            this.Data.Items.Add(this.button2);
             this.Data.Label = "Data";
             this.Data.Name = "Data";
+            // 
+            // group2
+            // 
+            this.group2.Items.Add(this.AboutButton);
+            this.group2.Name = "group2";
+            // 
+            // group1
+            // 
+            this.group1.Items.Add(this.login);
+            this.group1.Label = "Login";
+            this.group1.Name = "group1";
+            // 
+            // SettingsGroup
+            // 
+            this.SettingsGroup.Items.Add(this.openQuandlSettings);
+            this.SettingsGroup.Items.Add(this.refresh);
+            this.SettingsGroup.Label = "Settings";
+            this.SettingsGroup.Name = "SettingsGroup";
             // 
             // GetDataButton
             // 
@@ -88,35 +108,17 @@
             this.button1.ShowImage = true;
             this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
             // 
-            // group2
-            // 
-            this.group2.Items.Add(this.AboutButton);
-            this.group2.Name = "group2";
-            // 
             // AboutButton
             // 
             this.AboutButton.Label = "About";
             this.AboutButton.Name = "AboutButton";
             this.AboutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AboutButton_Click);
             // 
-            // group1
-            // 
-            this.group1.Items.Add(this.login);
-            this.group1.Label = "Login";
-            this.group1.Name = "group1";
-            // 
             // login
             // 
             this.login.Label = "Login";
             this.login.Name = "login";
             this.login.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.login_Click);
-            // 
-            // SettingsGroup
-            // 
-            this.SettingsGroup.Items.Add(this.openQuandlSettings);
-            this.SettingsGroup.Items.Add(this.refresh);
-            this.SettingsGroup.Label = "Settings";
-            this.SettingsGroup.Name = "SettingsGroup";
             // 
             // openQuandlSettings
             // 
@@ -129,6 +131,12 @@
             this.refresh.Label = "Refresh";
             this.refresh.Name = "refresh";
             this.refresh.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.refresh_Click);
+            // 
+            // button2
+            // 
+            this.button2.Label = "New Form";
+            this.button2.Name = "button2";
+            this.button2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button2_Click);
             // 
             // Toolbar
             // 
@@ -163,6 +171,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup SettingsGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton openQuandlSettings;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton refresh;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button2;
     }
 
     partial class ThisRibbonCollection
