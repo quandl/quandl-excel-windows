@@ -103,7 +103,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 // Set the title of the form
                 var type = Type.GetType("Quandl.Excel.Addin.UI.UDF_Builder." + steps[i]);
                 WizardUIBase stepObject = (WizardUIBase)Activator.CreateInstance(type);
-                Toolbar.frm.Text = stepObject.getTitle();
+                Toolbar.frm.Title = stepObject.getTitle();
 
                 // Step button
                 Button stepLink = new Button();
