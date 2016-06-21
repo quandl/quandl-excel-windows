@@ -32,5 +32,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             InitializeComponent();
             this.DataContext = StateControl.Instance;
         }
+
+        private void dataCode_LostFocus(object sender, System.EventArgs e)
+        {
+            StateControl.Instance.changeCode(((TextBox)sender).Text, StateControl.ChainTypes.TimeSeries);
+        }
     }
 }

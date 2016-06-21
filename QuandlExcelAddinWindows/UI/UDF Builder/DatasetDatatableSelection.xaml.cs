@@ -28,6 +28,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public DatasetDatatableSelection()
         {
             InitializeComponent();
+            this.DataContext = StateControl.Instance;
         }
     }
 }
