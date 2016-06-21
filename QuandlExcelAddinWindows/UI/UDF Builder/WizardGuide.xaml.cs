@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -16,17 +17,29 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                return StateControl.Instance.getStepList();
             }
         }
-        private int currentStep = 0;
+        private int currentStep
+        {
+            get {
+                return StateControl.Instance.currentStep;
+            }
+        }
         private int shownStep = 0;
 
         public WizardGuide()
         {
-            this.Initialized += delegate { this.changeToStep(); };
+            Initialized += delegate { changeToStep(); };
             InitializeComponent();
 
             // Initialize the new control
             StateControl.Instance.reset();
-            this.DataContext = StateControl.Instance;
+            DataContext = StateControl.Instance;
+            StateControl.Instance.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName == "DataCode")
+                {
+                    changeToStep();
+                }
+            };
         }
 
         private void nextButton_click(object sender, RoutedEventArgs e)
@@ -35,57 +48,57 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             if (currentStep > shownStep)
             {
                 shownStep++;
-                this.showStep(this.shownStep);
+                showStep(shownStep);
             }
             else
             {
-                currentStep++;
-                this.changeToStep();
+                StateControl.Instance.currentStep++;
+                changeToStep();
             }
         }
 
         private void prevButton_click(object sender, RoutedEventArgs e)
         {
             shownStep--;
-            this.showStep(this.shownStep);
+            showStep(shownStep);
         }
 
         private void changeToStep()
         {
             // Show the current step form in the wizard
-            this.showStep(this.currentStep);
+            showStep(currentStep);
         }
 
         private void showForm()
         {
-            Uri stepXaml = new Uri(steps[this.shownStep] + ".xaml", UriKind.Relative);
-            this.stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            this.stepFrame.Source = stepXaml;
+            Uri stepXaml = new Uri(steps[shownStep] + ".xaml", UriKind.Relative);
+            stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            stepFrame.Source = stepXaml;
         }
 
         private void showStep(int stepNumber)
         {
             // Update the shown step
-            this.shownStep = stepNumber;
+            shownStep = stepNumber;
 
             // Show the correct user form in the wizard
-            this.showForm();
+            showForm();
 
             // Enable the appropriate navigation buttons
-            this.nextButton.IsEnabled = true;
-            this.prevButton.IsEnabled = true;
+            nextButton.IsEnabled = true;
+            prevButton.IsEnabled = true;
             if (stepNumber == 0)
             {
-                this.prevButton.IsEnabled = false;
+                prevButton.IsEnabled = false;
             }
             else if (stepNumber == steps.Length - 1)
             {
-                this.nextButton.IsEnabled = false;
+                nextButton.IsEnabled = false;
             }
 
             // Build up the breadcrumb bar
-            this.stepBreadcrumb.Children.Clear();
-            for (int i = 0; i <= this.currentStep; i++)
+            stepBreadcrumb.Children.Clear();
+            for (int i = 0; i <= currentStep; i++)
             {
                 // Set the title of the form
                 var type = Type.GetType("Quandl.Excel.Addin.UI.UDF_Builder." + steps[i]);
@@ -100,23 +113,23 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 int step = i; // Need to duplicate the value to avoid issues with referencing a changing 'i'
                 stepLink.Click += delegate
                 {
-                    this.showStep(step);
+                    showStep(step);
                 };
-                this.stepBreadcrumb.Children.Add(stepLink);
+                stepBreadcrumb.Children.Add(stepLink);
 
                 // Separator between step buttons
-                if (i != this.currentStep)
+                if (i != currentStep)
                 {
                     Label sep = new Label();
                     sep.Content = "\\";
                     //sep.IsEnabled = false;
                     sep.Padding = new Thickness(0, 10, 0, 10);
-                    this.stepBreadcrumb.Children.Add(sep);
+                    stepBreadcrumb.Children.Add(sep);
                 }
             }
 
             // Set some common styling elements
-            foreach (Control child in this.stepBreadcrumb.Children)
+            foreach (Control child in stepBreadcrumb.Children)
             {
                 child.HorizontalAlignment = HorizontalAlignment.Left;
                 child.FontSize = 15;
@@ -126,7 +139,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
 
             // Highlight the current step
-            Control stepElement = (Control)this.stepBreadcrumb.Children[((stepNumber+1)*2)-2];
+            Control stepElement = (Control)stepBreadcrumb.Children[((stepNumber+1)*2)-2];
             stepElement.Background = System.Windows.Media.Brushes.AliceBlue;
         }
     }

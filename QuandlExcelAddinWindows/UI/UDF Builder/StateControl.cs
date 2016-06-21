@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
-    class StateControl
+    class StateControl : INotifyPropertyChanged
     {
         // Singleton state to be shared between different forms
         private static StateControl instance;
@@ -42,6 +43,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             "FormulaInserter"
         };
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public int currentStep = 0;
 
         public string DataCode { get; internal set; }
@@ -49,11 +52,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public List<List<string>> Columns { get; internal set; } = new List<List<string>>();
         public List<DataSetTableFilter> Filters { get; internal set; } = new List<DataSetTableFilter>();
 
-        private ChainTypes chainType = ChainTypes.Datatables;
+        public ChainTypes chainType { get; internal set; } = ChainTypes.Datatables;
 
         public StateControl()
         {
-            this.reset();
+            reset();
         }
 
         public void reset()
@@ -66,9 +69,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             Filters = new List<DataSetTableFilter>();
         }
 
-        public void changeCode(string dataCode, bool timeSeries)
+        public void changeCode(string dataCode, ChainTypes ct)
         {
-
+            reset(); // Reset the chain because the code has been chained.
+            chainType = ct;
+            DataCode = dataCode;
+            OnPropertyChanged("DataCode");
         }
 
         public string[] getStepList()
@@ -81,6 +87,16 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 return datatableChain;
             }
+        }
+
+        protected void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, e);
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
     }
 }
