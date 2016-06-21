@@ -5,11 +5,17 @@ using Quandl.Shared;
 
 namespace Quandl.Excel.Addin
 {
+    using System;
+    using System.Drawing;
+    using System.IO;
+    using System.Windows;
     using System.Windows.Forms;
     using System.Windows.Forms.Integration;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
     public partial class Toolbar
     {
-        public static Form frm;
+        public static Window frm;
 
         private void Ribbon2_Load(object sender, RibbonUIEventArgs e)
         {
@@ -66,42 +72,41 @@ namespace Quandl.Excel.Addin
             Globals.ThisAddIn.SettingsPane_Show(this);
         }
 
+        BitmapImage BitmapToImageSource(Bitmap bitmap)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
+            }
+        }
+
         private void udfBuilder_Click(object sender, RibbonControlEventArgs e)
         {
-            if (frm == null || !frm.Visible)
+            if (frm == null)
             {
-                frm = new Form();
-                frm.Dock = DockStyle.Fill;
-                frm.AutoSize = true;
-                frm.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                frm.MaximizeBox = false;
-                frm.Icon = global::Quandl.Excel.Addin.Properties.Resources.Quandl_Icon;
-                frm.TopMost = true;
-                frm.StartPosition = FormStartPosition.CenterScreen;
-            }
-            else
-            {
-                return;
+                frm = new Window()
+                {
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    ResizeMode = ResizeMode.CanResizeWithGrip,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                    MinHeight = 480,
+                    MinWidth = 640
+                };
             }
 
             UI.UDF_Builder.WizardGuide child = new UI.UDF_Builder.WizardGuide();
-            child.stepFrame.Height = 480;
-            child.stepFrame.Width = 640;
+            frm.Content = child;
 
-            ElementHost host = new ElementHost();
-            host.Child = child;
-            host.Dock = DockStyle.Fill;
-            host.AutoSize = true;
-
-            UserControl uc = new UserControl();
-            uc.Controls.Add(host);
-            uc.Dock = DockStyle.Fill;
-            uc.AutoSize = true;
-            uc.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-
-            frm.Controls.Clear();
-            frm.Controls.Add(uc);
-            frm.Show();
+            frm.Icon = BitmapToImageSource(Properties.Resources.Quandl_Icon.ToBitmap());
+            frm.ShowDialog();
         }
 
         private void refreshWorkbook_Click(object sender, RibbonControlEventArgs e)

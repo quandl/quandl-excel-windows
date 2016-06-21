@@ -43,6 +43,7 @@
             // 
             // password
             // 
+            this.password.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.password.Location = new System.Drawing.Point(55, 98);
             this.password.Name = "password";
             this.password.PasswordChar = '*';
