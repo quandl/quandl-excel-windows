@@ -8,5 +8,6 @@ bin\*
 obj\*
 Express\*
 publish\*
+TestResults\*
 
 /packages
