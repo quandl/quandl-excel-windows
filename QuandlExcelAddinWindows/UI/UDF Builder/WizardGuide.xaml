@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.UDF_Builder"
              xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit" x:Class="Quandl.Excel.Addin.UI.UDF_Builder.WizardGuide"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="300" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+             d:DesignHeight="250" d:DesignWidth="300" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
     <Grid x:Name="currentStepGrid">
         <Grid.ColumnDefinitions >
