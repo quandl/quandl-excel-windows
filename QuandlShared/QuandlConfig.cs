@@ -12,10 +12,35 @@ namespace Quandl.Shared
     {
         private const string RegistrySubKey = @"SOFTWARE\Quandl\ExcelAddin";
 
+        private static QuandlConfig instance;
+        public static QuandlConfig Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new QuandlConfig();
+                }
+                return instance;
+            }
+        }
+
+        public delegate void LoginChangedHandler();
+        public event LoginChangedHandler LoginChanged;
+
+        private string apiKey {
+            get { return GetRegistry<string>("ApiKey"); }
+            set { SetRegistryKeyValue("ApiKey", value); OnLoginChanged(); }
+        }
+
         public static string ApiKey
         {
-            get { return GetRegistry<string>("ApiKey"); }
-            set { SetRegistryKeyValue("ApiKey", value); }
+            get { return Instance.apiKey; }
+            set { Instance.apiKey = value; }
+        }
+
+        public static bool ApiKeyValid() {
+            return !String.IsNullOrEmpty(ApiKey);
         }
 
         public static bool AutoUpdate
@@ -57,6 +82,11 @@ namespace Quandl.Shared
             }
 
             return default(T);
+        }
+
+        protected virtual void OnLoginChanged()
+        {
+            LoginChanged?.Invoke();
         }
     }
 }

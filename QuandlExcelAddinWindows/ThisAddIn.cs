@@ -14,24 +14,23 @@ using Quandl.Shared;
 
 namespace Quandl.Excel.Addin
 {
+    using System.Drawing;
+    using System.IO;
+    using System.Windows;
+    using System.Windows.Media.Imaging;
+    using UI.UDF_Builder;
     using Excel = Microsoft.Office.Interop.Excel;
 
     public partial class ThisAddIn
     {
         public Excel.Range ActiveCells;
-        private Microsoft.Office.Tools.CustomTaskPane myCustomTaskPane;
-
+        public Microsoft.Office.Tools.CustomTaskPane TaskPane { get; internal set; } = null;
 
         public delegate void AuthTokenChanged();
         public delegate void LoginChanged();
 
         public event AuthTokenChanged AuthTokenChangedEvent;
         public event LoginChanged LoginChangedEvent;
-
-        public void TaskPane_Show()
-        {
-            CreateCustomPane(new DataTaskPane(ActiveCells), "My Task Pane");
-        }
 
         public void SettingsPane_Show(Toolbar toolbar)
         {
@@ -43,14 +42,60 @@ namespace Quandl.Excel.Addin
             // allows quandl settings pane to handle login changed events
             LoginChangedEvent += quandlSettings.UpdateApiKeyTextBox;
 
-            CreateCustomPane(quandlSettings, "Quandl Settings");
+            ShowCustomPane(quandlSettings, "Quandl Settings");
         }
 
-        public void CreateCustomPane(UserControl userControl, string name)
+        public void ShowWindow(System.Windows.Controls.UserControl userControl)
         {
-            myCustomTaskPane = this.CustomTaskPanes.Add(userControl, name);
-            myCustomTaskPane.Width = userControl.PreferredSize.Width + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
-            myCustomTaskPane.Visible = true;
+
+            Window window = new Window()
+            {
+                SizeToContent = SizeToContent.WidthAndHeight,
+                ResizeMode = ResizeMode.CanResizeWithGrip,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                MinHeight = 480,
+                MinWidth = 640
+            };
+
+            window.Content = userControl;
+            window.Icon = BitmapToImageSource(Quandl.Excel.Addin.Properties.Resources.Quandl_Icon.ToBitmap());
+            window.ShowDialog();
+        }
+
+        public void ShowCustomPane(UserControl userControl, string name)
+        { 
+            TaskPane = CustomTaskPanes.Add(userControl, name);
+            if (!TaskPane.Visible)
+            {
+                TaskPane.Visible = true;
+                TaskPane.DockPosition = Office.MsoCTPDockPosition.msoCTPDockPositionFloating;
+                TaskPane.Width = 640;
+                TaskPane.Height = 480;
+                TaskPane.DockPositionRestrict = Microsoft.Office.Core.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoHorizontal;
+            }
+        }
+
+        public void ShowCustomPane(System.Windows.Controls.UserControl userControl, string name)
+        {
+            var host = new TaskPaneWpfControlHost();
+            host.WpfElementHost.HostContainer.Children.Add(userControl);
+            ShowCustomPane(host, name);
+        }
+
+        BitmapImage BitmapToImageSource(Bitmap bitmap)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
+            }
         }
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
@@ -74,7 +119,7 @@ namespace Quandl.Excel.Addin
             const string message = @"Your workbook(s) contain Quandl formulas. Would you like to update your data?";
             const string caption = @"Update Data";
             var a = Application.Calculation;
-            var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo);
+            var result = System.Windows.Forms.MessageBox.Show(message, caption, MessageBoxButtons.YesNo);
 
             if (result == DialogResult.Yes)
             {
@@ -95,14 +140,6 @@ namespace Quandl.Excel.Addin
         }
 
         #endregion
-
-        public Microsoft.Office.Tools.CustomTaskPane TaskPane
-        {
-            get
-            {
-                return myCustomTaskPane;
-            }
-        }
 
         private void Workbook_Activated(Excel.Workbook workbook)
         {
