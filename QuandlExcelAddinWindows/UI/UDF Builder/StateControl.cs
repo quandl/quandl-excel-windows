@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -87,6 +87,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
             };
             Columns.CollectionChanged += delegate { UpdateFormula(); };
+            DatasetOrDatatable.CollectionChanged += delegate { OnPropertyChanged("DatasetOrDatatable"); };
         }
 
         public static StateControl Instance => _instance ?? (_instance = new StateControl());
@@ -96,6 +97,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public string UdfFormula { get; set; }
 
         public string DataCode { get; internal set; }
+        public ObservableCollection<IDataDefinition> DatasetOrDatatable { get; internal set; } = new ObservableCollection<IDataDefinition>();
         public List<string> DataSetTableSelection { get; internal set; } = new List<string>();
 
         public Provider Provider { get; internal set; }
@@ -170,7 +172,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public bool CanMoveForward()
         {
             return (CurrentStep == 0 &&  IsValidateDataCode()) ||
-                   (CurrentStep == 1 && DataSetTableSelection.Count > 0) ||
+                   (CurrentStep == 1 && DatasetOrDatatable.Count > 0) ||
                    (CurrentStep >= 2);
         }
 
@@ -195,7 +197,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private void UpdateFormula()
         {
             // If the DataCode has been nullified or blanked out simply erase the formula
-            if (string.IsNullOrEmpty(DataCode))
+            if (string.IsNullOrEmpty(DataCode) || DatasetOrDatatable.Count == 0)
             {
                 UdfFormula = "";
                 return;
