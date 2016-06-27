@@ -7,6 +7,7 @@ namespace Quandl.Excel.Addin
 {
     using Microsoft.Office.Core;
     using System;
+    using System.Collections;
     using System.Drawing;
     using System.IO;
     using System.Windows;
@@ -22,8 +23,15 @@ namespace Quandl.Excel.Addin
         {
         }
 
-        private void AboutButton_Click(object sender, RibbonControlEventArgs e)
+        private async void AboutButton_Click(object sender, RibbonControlEventArgs e)
         {
+            var columns = new ArrayList()
+            {
+                "Date", "Open", "High"
+            };
+            //ArrayList list = Web.PullRecentStockData("NSE/OIL", columns, 1);
+            //var datasets = await Web.SearchDatasetsAsync("NSE", "oil");
+            var databases = await Web.SearchDatabasesAsync("NSE");
             new Quandl.Excel.Addin.Controls.AboutForm().Show();
         }
 
