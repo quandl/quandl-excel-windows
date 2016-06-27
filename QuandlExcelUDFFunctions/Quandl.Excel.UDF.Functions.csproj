@@ -75,10 +75,10 @@
     <Compile Include="Tools.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <Content Include="Quandl.Excel.UDF.Functions-AddIn.dna">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
