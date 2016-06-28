@@ -1,44 +1,38 @@
-﻿using Quandl.Shared;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Navigation;
+using Quandl.Shared;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
     /// <summary>
-    /// Interaction logic for WizardGuide.xaml
+    ///     Interaction logic for WizardGuide.xaml
     /// </summary>
     public partial class WizardGuide : UserControl
     {
-        private string[] steps { get
-            {
-               return StateControl.Instance.getStepList();
-            }
-        }
-        private int currentStep
-        {
-            get {
-                return StateControl.Instance.currentStep;
-            }
-        }
-        private int shownStep = 0;
+        private int shownStep;
 
         public WizardGuide()
         {
-            Initialized += delegate { loginOrSearch(); };
             InitializeComponent();
+
+            // Initialize the new control
+            Loaded += delegate
+            {
+                StateControl.Instance.reset();
+                DataContext = StateControl.Instance;
+                loginOrSearch();
+                stepFrame.Focus();
+            };
 
             QuandlConfig.Instance.LoginChanged += delegate
             {
                 loginOrSearch();
             };
 
-            // Initialize the new control
-            StateControl.Instance.reset();
-            DataContext = StateControl.Instance;
             StateControl.Instance.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
             {
                 if (e.PropertyName == "DataCode")
@@ -46,6 +40,16 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     changeToStep();
                 }
             };
+        }
+
+        private string[] steps
+        {
+            get { return StateControl.Instance.getStepList(); }
+        }
+
+        private int currentStep
+        {
+            get { return StateControl.Instance.currentStep; }
         }
 
         private void nextButton_click(object sender, RoutedEventArgs e)
@@ -73,7 +77,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             if (!QuandlConfig.ApiKeyValid())
             {
-                Uri loginXaml = new Uri("../Settings/Login.xaml", UriKind.Relative);
+                var loginXaml = new Uri("../Settings/Login.xaml", UriKind.Relative);
                 stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
                 stepFrame.Source = loginXaml;
                 currentStepGrid.Children[0].Visibility = Visibility.Hidden;
@@ -97,7 +101,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void showForm()
         {
-            Uri stepXaml = new Uri(steps[shownStep] + ".xaml", UriKind.Relative);
+            var stepXaml = new Uri(steps[shownStep] + ".xaml", UriKind.Relative);
             stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             stepFrame.Source = stepXaml;
         }
@@ -123,34 +127,32 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
 
             // Build up the breadcrumb bar
-            string title = "";
+            var title = "";
             stepBreadcrumb.Children.Clear();
-            for (int i = 0; i <= currentStep; i++)
+            for (var i = 0; i <= currentStep; i++)
             {
                 // Set the title of the form
                 var type = Type.GetType("Quandl.Excel.Addin.UI.UDF_Builder." + steps[i]);
-                WizardUIBase stepObject = (WizardUIBase)Activator.CreateInstance(type);
+                var stepObject = (WizardUIBase) Activator.CreateInstance(type);
 
                 // Should this be the title shown
-                if (i == stepNumber) {
+                if (i == stepNumber)
+                {
                     title = stepObject.getTitle();
                 }
 
                 // Step button
-                Button stepLink = new Button();
-                stepLink.Content = "Step " + (i + 1).ToString();
+                var stepLink = new Button();
+                stepLink.Content = "Step " + (i + 1);
                 stepLink.Padding = new Thickness(10);
-                int step = i; // Need to duplicate the value to avoid issues with referencing a changing 'i'
-                stepLink.Click += delegate
-                {
-                    showStep(step);
-                };
+                var step = i; // Need to duplicate the value to avoid issues with referencing a changing 'i'
+                stepLink.Click += delegate { showStep(step); };
                 stepBreadcrumb.Children.Add(stepLink);
 
                 // Separator between step buttons
                 if (i != currentStep)
                 {
-                    Label sep = new Label();
+                    var sep = new Label();
                     sep.Content = "\\";
                     sep.Padding = new Thickness(0, 10, 0, 10);
                     stepBreadcrumb.Children.Add(sep);
@@ -164,22 +166,22 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 child.FontSize = 15;
                 child.Margin = new Thickness(0);
                 child.BorderThickness = new Thickness(0);
-                child.Background = System.Windows.Media.Brushes.Transparent;
+                child.Background = Brushes.Transparent;
             }
 
             // Add in the title
-            TextBox titleBox = new TextBox();
+            var titleBox = new TextBox();
             titleBox.Text = title;
             titleBox.BorderThickness = new Thickness(0);
-            titleBox.Background = System.Windows.Media.Brushes.Transparent;
+            titleBox.Background = Brushes.Transparent;
             titleBox.HorizontalContentAlignment = HorizontalAlignment.Right;
             titleBox.VerticalContentAlignment = VerticalAlignment.Center;
 
             stepBreadcrumb.Children.Add(titleBox);
 
             // Highlight the current step
-            Control stepElement = (Control)stepBreadcrumb.Children[((stepNumber+1)*2)-2];
-            stepElement.Background = System.Windows.Media.Brushes.AliceBlue;
+            var stepElement = (Control) stepBreadcrumb.Children[(stepNumber + 1)*2 - 2];
+            stepElement.Background = Brushes.AliceBlue;
         }
     }
 }

@@ -26,6 +26,12 @@ namespace Quandl.Excel.Addin.UI.Settings
         {
             InitializeComponent();
             errorLabel.Visibility = Visibility.Hidden;
+            apiKey.Text = QuandlConfig.ApiKey;
+
+            if (!string.IsNullOrWhiteSpace(apiKey.Text))
+            {
+                displayErrorMessage(@"Invalid api key specified.");
+            }
         }
 
         private void loginButton_click(object sender, RoutedEventArgs e)
@@ -36,16 +42,22 @@ namespace Quandl.Excel.Addin.UI.Settings
                 errorLabel.Visibility = Visibility.Hidden;
                 if (!string.IsNullOrWhiteSpace(apiKey.Text))
                 {
-                    QuandlConfig.ApiKey = apiKey.Text;
+                    if (QuandlConfig.ApiKeyValid(apiKey.Text))
+                    {
+                        QuandlConfig.ApiKey = apiKey.Text;
+                    }
+                    else
+                    {
+                        displayErrorMessage(@"Invalid api key specified.");
+                    }
                 }
                 else if (!string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(password.Text)) 
                 {
-                    QuandlConfig.ApiKey = Shared.Utilities.AuthToken(email.Text, password.Text);
+                    QuandlConfig.AuthenticateWithCredentials(email.Text, password.Text);
                 }
                 else
                 {
-                    errorLabel.Content = @"Please input your login credentials.";
-                    errorLabel.Visibility = Visibility.Visible;
+                    displayErrorMessage(@"Please input your login credentials.");
                 }
             }
             catch (WebException exp)
@@ -53,15 +65,19 @@ namespace Quandl.Excel.Addin.UI.Settings
                 var response = exp.Response as HttpWebResponse;
                 if (response != null && response.StatusCode == (HttpStatusCode)422)
                 {
-                    errorLabel.Content = @"Incorrect credentials inputted.";
+                    displayErrorMessage(@"Incorrect credentials inputted.");
                 }
                 else
                 {
-                    errorLabel.Content = @"Something went wrong. Please try again later.";
+                    displayErrorMessage(@"Something went wrong. Please try again later.");
                 }
-
-                errorLabel.Visibility = Visibility.Visible;
             }
+        }
+
+        private void displayErrorMessage(string message)
+        {
+            errorLabel.Content = message;
+            errorLabel.Visibility = Visibility.Visible;
         }
 
         private void registerButton_click(object sender, RoutedEventArgs e)

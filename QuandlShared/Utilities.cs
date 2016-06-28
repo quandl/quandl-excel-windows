@@ -7,6 +7,25 @@ namespace Quandl.Shared
 {
     public class Utilities
     {
+        private static string excelVersion = null;
+
+        public static string GetExcelVersionNumber
+        {
+            get
+            {
+                if (excelVersion != null)
+                {
+                    return excelVersion;
+                }
+
+                // This is expensive so only call it once.
+                Microsoft.Office.Interop.Excel.Application appVersion = new Microsoft.Office.Interop.Excel.Application();
+                appVersion.Visible = false;
+                excelVersion = appVersion.Version.ToString();
+                return excelVersion;
+            }
+        }
+
         public static ArrayList GetMatchedListByOrder(ArrayList columnNames, ArrayList columnNamesList, ArrayList dataList)
         {
             ArrayList result = new ArrayList();
@@ -23,31 +42,22 @@ namespace Quandl.Shared
             }
 
             result.Add(columnNames);
-           
-            foreach(string column in columnNames)
+
+            foreach (string column in columnNames)
             {
-               int index = columnNamesList.IndexOf(column.ToUpper());
-               if (index >= 0)
-               {
+                int index = columnNamesList.IndexOf(column.ToUpper());
+                if (index >= 0)
+                {
                     indexList.Add(index);
-               }
+                }
             }
 
-            foreach(ArrayList list in dataList)
+            foreach (ArrayList list in dataList)
             {
                 result.Add(SubList(indexList, list));
             }
-            
-            return result;
-        }
 
-        public static string AuthToken(string accountName, string pass)
-        {
-            var obj = new { user = new { account = accountName, password = pass } };
-            var payload = JsonConvert.SerializeObject(obj);
-            var requestUri = Quandl.Shared.Properties.Settings.Default.BaseUrl + "users/token_auth";
-            var res = Web.Post(requestUri, payload);
-            return res["user"]["api_key"].ToObject<string>();
+            return result;
         }
 
         public static ArrayList GetValuesFromString(String excelFormulaArray)
@@ -70,7 +80,7 @@ namespace Quandl.Shared
         public static ArrayList SubList(ArrayList indexList, ArrayList list)
         {
             ArrayList result = new ArrayList();
-            foreach(int i in indexList)
+            foreach (int i in indexList)
             {
                 result.Add(list[i]);
             }
@@ -84,7 +94,7 @@ namespace Quandl.Shared
                 throw new QuandlDataNotFoundException();
             }
 
-            return quandl_data;  
+            return quandl_data;
         }
 
         private static ArrayList PrependToList(ArrayList list, string item)

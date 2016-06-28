@@ -1,4 +1,4 @@
-﻿namespace Quandl.Excel.Addin.UI.UDF_Builder
+﻿namespace Quandl.Excel.Addin.UI
 {
     partial class TaskPaneWpfControlHost
     {

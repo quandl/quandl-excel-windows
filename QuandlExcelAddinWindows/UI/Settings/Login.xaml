@@ -91,9 +91,9 @@
                 </TextBox.Style>
             </TextBox>
         </StackPanel>
-        <DockPanel Grid.Row="1" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button x:Name="loginButton" DockPanel.Dock="Left" Content="Login" VerticalAlignment="Top" Padding="5" Margin="10" Click="loginButton_click" />
             <Button x:Name="registerButton" DockPanel.Dock="Left" Content="Register" VerticalAlignment="Top" Padding="5" Margin="0,10,10,10" Click="registerButton_click" />
-        </DockPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

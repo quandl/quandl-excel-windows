@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 
-namespace Quandl.Excel.Addin.UI.UDF_Builder
+namespace Quandl.Excel.Addin.UI
 {
     public partial class TaskPaneWpfControlHost : UserControl
     {
