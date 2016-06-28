@@ -1,62 +1,66 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Quandl.Shared.models;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Quandl.Shared.errors;
+using Quandl.Shared.models;
+using Quandl.Shared.Properties;
 
 namespace Quandl.Shared
 {
     public class Web
     {
-        public static JObject WhoAmI(string api_key)
+        public static async Task<User> WhoAmI(string api_key)
         {
-            var requestUri = Properties.Settings.Default.BaseUrl + $"users/me";
-            var client = QuandlApiWebClient();
-            client.Headers["X-API-Token"] = api_key;
-            return JObject.Parse(client.DownloadString(requestUri));
+            var queryHeaders = new Dictionary<string, string>
+            {
+                {"X-API-Token", api_key}
+            };
+
+            var userResponse = await RequestAsync<UserResponse>("users/me", null, queryHeaders);
+            return userResponse.user;
         }
 
         public static async Task<DatabaseCollection> SearchDatabasesAsync(string query)
         {
             var queryParams = new Dictionary<string, string>
             {
-                { "per_page", "10" },
-                { "query", query }
+                {"per_page", "10"},
+                {"query", query}
             };
-            var resp = await RequestAsync<DatabaseCollection>("databases", queryParams);
-            return resp;
+            return await RequestAsync<DatabaseCollection>("databases", queryParams);
         }
+
         public static async Task<DatasetCollection> SearchDatasetsAsync(string databaseCode, string query)
         {
-            string requestUri = Properties.Settings.Default.BaseUrl + "datasets?database_code=" + databaseCode + "&per_page=10&query=" + query;
+            var requestUri = Settings.Default.BaseUrl + "datasets?database_code=" + databaseCode + "&per_page=10&query=" +
+                             query;
 
             var queryParams = new Dictionary<string, string>
             {
-                { "database_code", databaseCode },
-                { "per_page", "10" },
-                { "query", query }
+                {"database_code", databaseCode},
+                {"per_page", "10"},
+                {"query", query}
             };
-            var resp = await RequestAsync<DatasetCollection>("datasets", queryParams);
-            return resp;
+            return await RequestAsync<DatasetCollection>("datasets", queryParams);
         }
 
         public static ArrayList PullRecentStockData(string quandlCode, ArrayList columnNames, int limit)
         {
-            string extraUri = "&limit=" + limit;
+            var extraUri = "&limit=" + limit;
             return GetMatchedData(quandlCode, columnNames, extraUri);
         }
 
-        public static ArrayList PullHistoryData(string quandlCode, string startDate, string endDate, ArrayList columnNames)
+        public static ArrayList PullHistoryData(string quandlCode, string startDate, string endDate,
+            ArrayList columnNames)
         {
-
-            string extraUri = "";
+            var extraUri = "";
 
             if (startDate != null && endDate != null)
             {
@@ -67,22 +71,21 @@ namespace Quandl.Shared
                 extraUri = "start_date=" + startDate;
             }
             return GetMatchedData(quandlCode, columnNames, extraUri);
-
         }
 
         private static ArrayList GetMatchedData(string quandlCode, ArrayList columnNames, string extrUri)
         {
-            JObject response = QuandlAPICall(quandlCode, extrUri);
+            var response = QuandlAPICall(quandlCode, extrUri);
 
-            ArrayList columnsList = response["dataset_data"]["column_names"].ToObject<ArrayList>();
-            ArrayList columnsUppercase = new ArrayList();
+            var columnsList = response["dataset_data"]["column_names"].ToObject<ArrayList>();
+            var columnsUppercase = new ArrayList();
 
             foreach (string column in columnsList)
             {
                 columnsUppercase.Add(column.ToUpper());
             }
-            ArrayList list = response["dataset_data"]["data"].ToObject<ArrayList>();
-            ArrayList dataList = new ArrayList();
+            var list = response["dataset_data"]["data"].ToObject<ArrayList>();
+            var dataList = new ArrayList();
             foreach (JArray j in list)
             {
                 dataList.Add(j.ToObject<ArrayList>());
@@ -93,25 +96,26 @@ namespace Quandl.Shared
 
         public static string PullSingleValue(string code, string columnName = null, string date = null)
         {
-            string api_key = QuandlConfig.ApiKey;
-            string requestUri = Quandl.Shared.Properties.Settings.Default.BaseUrl + "datasets/" + code + "/data.json?limit=1" + "&api_key=" + api_key;
+            var api_key = QuandlConfig.ApiKey;
+            var requestUri = Settings.Default.BaseUrl + "datasets/" + code + "/data.json?limit=1" + "&api_key=" +
+                             api_key;
             if (date != null)
             {
                 requestUri += "&start_date=" + date + "&end_date=" + date;
             }
-            JObject response = GetResponseJson(requestUri);
+            var response = GetResponseJson(requestUri);
 
-            ArrayList columnsList = response["dataset_data"]["column_names"].ToObject<ArrayList>();
-            ArrayList columnsUppercase = new ArrayList();
+            var columnsList = response["dataset_data"]["column_names"].ToObject<ArrayList>();
+            var columnsUppercase = new ArrayList();
 
             foreach (string column in columnsList)
             {
                 columnsUppercase.Add(column.ToUpper());
             }
-            ArrayList dataList = response["dataset_data"]["data"][0].ToObject<ArrayList>();
-            string data = "";
+            var dataList = response["dataset_data"]["data"][0].ToObject<ArrayList>();
+            var data = "";
 
-            int index = 1;
+            var index = 1;
             if (columnName != null)
             {
                 index = columnsUppercase.IndexOf(columnName.ToUpper());
@@ -123,7 +127,6 @@ namespace Quandl.Shared
             }
 
             return data;
-
         }
 
         public static JObject Post(string requestUri, string body)
@@ -133,7 +136,7 @@ namespace Quandl.Shared
             return JObject.Parse(response);
         }
 
-        private static JObject GetResponseJson(String requestUri)
+        private static JObject GetResponseJson(string requestUri)
         {
             var client = QuandlApiWebClient();
             var resp = client.DownloadString(requestUri);
@@ -149,7 +152,7 @@ namespace Quandl.Shared
 
         private static JObject QuandlAPICall(string quandlCode, string extraUri)
         {
-            string requestUri = Quandl.Shared.Properties.Settings.Default.BaseUrl + "datasets/" + quandlCode + "/data.json?" + extraUri;
+            var requestUri = Settings.Default.BaseUrl + "datasets/" + quandlCode + "/data.json?" + extraUri;
             var client = QuandlApiWebClient();
             var resp = client.DownloadString(requestUri);
             var settings = new JsonSerializerSettings
@@ -170,9 +173,9 @@ namespace Quandl.Shared
                     [HttpRequestHeader.ContentType] = "application/json",
                     [HttpRequestHeader.UserAgent] = $"QuandlExcelAddIn/3.0 {type}",
                     ["Request-Source"] = "excel",
-                    ["Request-Platform"] = Quandl.Shared.Utilities.GetExcelVersionNumber,
+                    ["Request-Platform"] = Utilities.GetExcelVersionNumber,
                     ["Request-Version"] = "3.0beta"
-                 }
+                }
             };
             if (!string.IsNullOrEmpty(QuandlConfig.ApiKey))
             {
@@ -182,16 +185,22 @@ namespace Quandl.Shared
             return client;
         }
 
-        private static async Task<T> RequestAsync<T>(string relativeUrl, Dictionary<string, string> queryParams = null, Dictionary<string, string> headers = null)
+        private static async Task<T> RequestAsync<T>(string relativeUrl, Dictionary<string, string> queryParams = null,
+            Dictionary<string, string> headers = null)
         {
+            string type = "(Search/Guide)";
+
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Quandl.Shared.Properties.Settings.Default.BaseUrl);
+                client.BaseAddress = new Uri(Settings.Default.BaseUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.UserAgent.Clear();
+                client.DefaultRequestHeaders.Add("User-Agent", $"QuandlExcelAddIn/3.0 {type}");
+                client.DefaultRequestHeaders.Add("Request-Platform", Utilities.GetExcelVersionNumber);
                 client.DefaultRequestHeaders.Add("Request-Version", "3.0alpha");
                 client.DefaultRequestHeaders.Add("Request-Source", "excel");
-                if (!string.IsNullOrEmpty(QuandlConfig.ApiKey))
+                if (!string.IsNullOrEmpty(QuandlConfig.ApiKey) && (headers == null || !headers.ContainsKey("X-API-Token")))
                 {
                     client.DefaultRequestHeaders.Add("X-API-Token", QuandlConfig.ApiKey);
                 }
@@ -211,22 +220,17 @@ namespace Quandl.Shared
                     {
                         query[queryParam.Key] = queryParam.Value;
                     }
-                    relativeUrl = relativeUrl + "?" + query.ToString();
+                    relativeUrl = relativeUrl + "?" + query;
                 }
 
                 HttpResponseMessage resp = null;
-
-                try
+                resp = await client.GetAsync(relativeUrl);
+                if (resp.StatusCode != HttpStatusCode.OK)
                 {
-                    resp = await client.GetAsync(relativeUrl);
-                    resp.EnsureSuccessStatusCode();
-                }
-                catch(HttpRequestException e)
-                {
-                    Console.WriteLine("Hello world!");
-                }
+                    throw new QuandlErrorBase(resp.StatusCode);
+                } 
 
-                string data = await resp.Content.ReadAsStringAsync();
+                var data = await resp.Content.ReadAsStringAsync();
                 var settings = new JsonSerializerSettings
                 {
                     ContractResolver = new SnakeCaseMappingResolver()

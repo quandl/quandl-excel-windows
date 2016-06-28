@@ -37,7 +37,7 @@ namespace Quandl.Shared.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://52.204.26.240/api/v3/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://52.2.180.215/api/v3/")]
         public string BaseUrl {
             get {
                 return ((string)(this["BaseUrl"]));

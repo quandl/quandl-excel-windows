@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -19,18 +20,19 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             InitializeComponent();
 
-            // Initialize the new control
-            Loaded += delegate
+            StateControl.Instance.reset();
+
+            // Async check that the user is logged in our not
+            Loaded += async delegate
             {
-                StateControl.Instance.reset();
-                DataContext = StateControl.Instance;
-                loginOrSearch();
-                stepFrame.Focus();
+                var validKey = await QuandlConfig.ApiKeyValid();
+                LoginOrSearch(validKey);
             };
 
-            QuandlConfig.Instance.LoginChanged += delegate
+            QuandlConfig.Instance.LoginChanged += async delegate
             {
-                loginOrSearch();
+                var validKey = await QuandlConfig.ApiKeyValid();
+                LoginOrSearch(validKey);
             };
 
             StateControl.Instance.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
@@ -41,16 +43,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
             };
         }
+        private string[] steps => StateControl.Instance.getStepList();
 
-        private string[] steps
-        {
-            get { return StateControl.Instance.getStepList(); }
-        }
-
-        private int currentStep
-        {
-            get { return StateControl.Instance.currentStep; }
-        }
+        private int currentStep => StateControl.Instance.currentStep;
 
         private void nextButton_click(object sender, RoutedEventArgs e)
         {
@@ -73,9 +68,19 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             showStep(shownStep);
         }
 
-        private void loginOrSearch()
+        private void LoginOrSearch(bool loggedIn)
         {
-            if (!QuandlConfig.ApiKeyValid())
+            if (loggedIn)
+            {
+                foreach (UIElement child in currentStepGrid.Children)
+                {
+                    child.Visibility = Visibility.Visible;
+                }
+
+                DataContext = StateControl.Instance;
+                changeToStep();
+            }
+            else
             {
                 var loginXaml = new Uri("../Settings/Login.xaml", UriKind.Relative);
                 stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
@@ -83,14 +88,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 currentStepGrid.Children[0].Visibility = Visibility.Hidden;
                 currentStepGrid.Children[2].Visibility = Visibility.Hidden;
             }
-            else
-            {
-                foreach (UIElement child in currentStepGrid.Children)
-                {
-                    child.Visibility = Visibility.Visible;
-                }
-                changeToStep();
-            }
+            stepFrame.Focus();
         }
 
         private void changeToStep()

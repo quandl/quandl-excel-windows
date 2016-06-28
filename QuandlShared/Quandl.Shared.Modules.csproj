@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="errors\QuandlErrorBase.cs" />
     <Compile Include="ExcelHelp.cs" />
     <Compile Include="FunctionUpdater.cs" />
     <Compile Include="models\Database.cs" />
@@ -64,6 +65,8 @@
     <Compile Include="models\DatasetCollection.cs" />
     <Compile Include="models\DatasetData.cs" />
     <Compile Include="models\Meta.cs" />
+    <Compile Include="models\User.cs" />
+    <Compile Include="models\UserResponse.cs" />
     <Compile Include="QuandlException.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
