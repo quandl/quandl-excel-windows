@@ -1,20 +1,10 @@
-﻿using Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Tools.Ribbon;
-using Quandl.Excel.Addin.Controls;
+﻿using Microsoft.Office.Tools.Ribbon;
 using Quandl.Shared;
 
 namespace Quandl.Excel.Addin
 {
-    using Microsoft.Office.Core;
-    using System;
-    using System.Drawing;
-    using System.IO;
-    using System.Windows;
-    using System.Windows.Forms;
-    using System.Windows.Forms.Integration;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using UI.UDF_Builder;
+    using Controls;
+    using UI;
     public partial class Toolbar
     {
 
@@ -29,13 +19,23 @@ namespace Quandl.Excel.Addin
 
         private void openQuandlSettings_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.SettingsPane_Show(this);
+            var quandlSettings = new QuandlSettings();
+            // allows toolbar to handle auth token changed events
+            quandlSettings.SettingsAuthTokenChanged += Globals.ThisAddIn.OnAuthTokenChangedEvent;
+            quandlSettings.SettingsAutoUpdateChanged += Globals.ThisAddIn.OnAutoUpdateChangedEvent;
+
+            // allows quandl settings pane to handle login changed events
+            Globals.ThisAddIn.LoginChangedEvent += quandlSettings.UpdateApiKeyTextBox;
+
+            var taskPane = new TaskPaneControl(quandlSettings, "Quandl Settings");
+            taskPane.Show();
         }
 
         private void udfBuilder_Click(object sender, RibbonControlEventArgs e)
         {
             UI.UDF_Builder.WizardGuide child = new UI.UDF_Builder.WizardGuide();
-            Globals.ThisAddIn.ShowCustomPane(child, " ");
+            var taskPane = new TaskPaneControl(child, " ");
+            taskPane.Show();
         }
 
         private void refreshWorkbook_Click(object sender, RibbonControlEventArgs e)

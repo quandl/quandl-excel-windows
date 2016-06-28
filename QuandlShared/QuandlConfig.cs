@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using Newtonsoft.Json;
+using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace Quandl.Shared
 {
@@ -39,8 +42,40 @@ namespace Quandl.Shared
             set { Instance.apiKey = value; }
         }
 
-        public static bool ApiKeyValid() {
-            return !String.IsNullOrEmpty(ApiKey);
+        public static bool ApiKeyValid(string api_key = null) {
+            if (api_key == null)
+            {
+                api_key = ApiKey;
+            }
+
+            if (String.IsNullOrEmpty(ApiKey))
+            {
+                return false;
+            }
+
+            try
+            {
+                var res = Web.WhoAmI(api_key);
+                return res["user"] != null && res["user"].Value<string>("api_key") == api_key;
+            }
+            catch (WebException exp)
+            {
+                var response = exp.Response as HttpWebResponse;
+                if (response != null && response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    return false;
+                }
+                throw exp; // Not what we were expecting so throw an error.
+            }
+        }
+
+        public static void AuthenticateWithCredentials(string accountName, string pass)
+        {
+            var obj = new { user = new { account = accountName, password = pass } };
+            var payload = JsonConvert.SerializeObject(obj);
+            var requestUri = Quandl.Shared.Properties.Settings.Default.BaseUrl + "users/token_auth";
+            var res = Web.Post(requestUri, payload);
+            Instance.apiKey = res["user"]["api_key"].ToObject<string>();
         }
 
         public static bool AutoUpdate

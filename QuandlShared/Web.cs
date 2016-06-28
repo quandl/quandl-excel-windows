@@ -7,6 +7,14 @@ namespace Quandl.Shared
 {
     public class Web
     {
+        public static JObject WhoAmI(string api_key)
+        {
+            var requestUri = Properties.Settings.Default.BaseUrl + $"users/me";
+            var client = QuandlApiWebClient();
+            client.Headers["X-API-Token"] = api_key;
+            return JObject.Parse(client.DownloadString(requestUri));
+        }
+
         public static JObject SearchDatabases(string query)
         {
             string requestUri = Properties.Settings.Default.BaseUrl + "databases?per_page=10&query=" + query;
@@ -38,7 +46,7 @@ namespace Quandl.Shared
                 extraUri = "start_date=" + startDate;
             }
             return GetMatchedData(quandlCode, columnNames, extraUri);
-           
+
         }
 
         private static ArrayList GetMatchedData(string quandlCode, ArrayList columnNames, string extrUri)
@@ -114,31 +122,29 @@ namespace Quandl.Shared
         {
             string api_key = QuandlConfig.ApiKey;
             string requestUri = Quandl.Shared.Properties.Settings.Default.BaseUrl + "datasets/" + quandlCode + "/data.json?" + extraUri;
-            var client = QuandlApiWebClient();
-            return JObject.Parse(client.DownloadString(requestUri));
+            return GetResponseJson(requestUri);
         }
 
-        private static WebClient QuandlApiWebClient()
+        private static WebClient QuandlApiWebClient(string type = "(Search/Guide)")
         {
             var client = new WebClient
             {
                 Headers =
                 {
-                    ["User-Agent"] = "excel quandl new add-in",
-                    ["Request-Source"] = "excel",
+                    [HttpRequestHeader.Accept] = "application/json",
                     [HttpRequestHeader.ContentType] = "application/json",
-                    [HttpRequestHeader.Accept] = "application/json"
-            }
+                    [HttpRequestHeader.UserAgent] = $"QuandlExcelAddIn/3.0 {type}",
+                    ["Request-Source"] = "excel",
+                    ["Request-Platform"] = Quandl.Shared.Utilities.GetExcelVersionNumber,
+                    ["Request-Version"] = "3.0beta"
+                 }
             };
             if (!string.IsNullOrEmpty(QuandlConfig.ApiKey))
             {
                 client.Headers["X-API-Token"] = QuandlConfig.ApiKey;
             }
-            //  client.Headers["Request-Platform"] = GetExcelVersionNumber().ToString();
-            client.Headers["Request-Version"] = "3.0alpha";
 
             return client;
         }
-
     }
 }
