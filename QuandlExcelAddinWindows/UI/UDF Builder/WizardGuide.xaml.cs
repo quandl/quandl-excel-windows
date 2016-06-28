@@ -88,7 +88,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 currentStepGrid.Children[0].Visibility = Visibility.Hidden;
                 currentStepGrid.Children[2].Visibility = Visibility.Hidden;
             }
-            stepFrame.Focus();
+            this.Focus();
         }
 
         private void changeToStep()

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Quandl.Shared.errors;
 
 namespace Quandl.Excel.Addin.UI.Settings
 {
@@ -60,10 +61,9 @@ namespace Quandl.Excel.Addin.UI.Settings
                     displayErrorMessage(@"Please input your login credentials.");
                 }
             }
-            catch (WebException exp)
+            catch (QuandlErrorBase exp)
             {
-                var response = exp.Response as HttpWebResponse;
-                if (response != null && response.StatusCode == (HttpStatusCode)422)
+                if (exp.StatusCode == HttpStatusCode.BadRequest)
                 {
                     displayErrorMessage(@"Incorrect credentials inputted.");
                 }
