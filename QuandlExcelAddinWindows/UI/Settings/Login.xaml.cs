@@ -34,7 +34,7 @@ namespace Quandl.Excel.Addin.UI.Settings
             }
         }
 
-        private void loginButton_click(object sender, RoutedEventArgs e)
+        private async void loginButton_click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Quandl.Excel.Addin.UI.Settings
                 errorLabel.Visibility = Visibility.Hidden;
                 if (!string.IsNullOrWhiteSpace(apiKey.Text))
                 {
-                    if (QuandlConfig.ApiKeyValid(apiKey.Text))
+                    if (await QuandlConfig.ApiKeyValid(apiKey.Text))
                     {
                         QuandlConfig.ApiKey = apiKey.Text;
                     }

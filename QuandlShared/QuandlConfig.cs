@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using Quandl.Shared.errors;
 
 namespace Quandl.Shared
 {
@@ -42,7 +43,7 @@ namespace Quandl.Shared
             set { Instance.apiKey = value; }
         }
 
-        public static bool ApiKeyValid(string api_key = null) {
+        public static async Task<bool> ApiKeyValid(string api_key = null) {
             if (api_key == null)
             {
                 api_key = ApiKey;
@@ -55,13 +56,12 @@ namespace Quandl.Shared
 
             try
             {
-                var res = Web.WhoAmI(api_key);
-                return res["user"] != null && res["user"].Value<string>("api_key") == api_key;
+                var user = await Web.WhoAmI(api_key);
+                return user != null && user.ApiKey == api_key;
             }
-            catch (WebException exp)
+            catch (QuandlErrorBase exp)
             {
-                var response = exp.Response as HttpWebResponse;
-                if (response != null && response.StatusCode == HttpStatusCode.BadRequest)
+                if (exp.StatusCode == HttpStatusCode.BadRequest)
                 {
                     return false;
                 }
