@@ -1,7 +1,15 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Quandl.Shared.models;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Web;
 
 namespace Quandl.Shared
 {
@@ -15,15 +23,28 @@ namespace Quandl.Shared
             return JObject.Parse(client.DownloadString(requestUri));
         }
 
-        public static JObject SearchDatabases(string query)
+        public static async Task<DatabaseCollection> SearchDatabasesAsync(string query)
         {
-            string requestUri = Properties.Settings.Default.BaseUrl + "databases?per_page=10&query=" + query;
-            return GetResponseJson(requestUri);
+            var queryParams = new Dictionary<string, string>
+            {
+                { "per_page", "10" },
+                { "query", query }
+            };
+            var resp = await RequestAsync<DatabaseCollection>("databases", queryParams);
+            return resp;
         }
-        public static JObject SearchDatasets(string databaseCode, string query)
+        public static async Task<DatasetCollection> SearchDatasetsAsync(string databaseCode, string query)
         {
             string requestUri = Properties.Settings.Default.BaseUrl + "datasets?database_code=" + databaseCode + "&per_page=10&query=" + query;
-            return GetResponseJson(requestUri);
+
+            var queryParams = new Dictionary<string, string>
+            {
+                { "database_code", databaseCode },
+                { "per_page", "10" },
+                { "query", query }
+            };
+            var resp = await RequestAsync<DatasetCollection>("datasets", queryParams);
+            return resp;
         }
 
         public static ArrayList PullRecentStockData(string quandlCode, ArrayList columnNames, int limit)
@@ -115,14 +136,28 @@ namespace Quandl.Shared
         private static JObject GetResponseJson(String requestUri)
         {
             var client = QuandlApiWebClient();
-            return JObject.Parse(client.DownloadString(requestUri));
+            var resp = client.DownloadString(requestUri);
+            return JObject.Parse(resp);
+        }
+
+        private static T GetResponseJson<T>(string requestUri)
+        {
+            var client = QuandlApiWebClient();
+            var resp = client.DownloadString(requestUri);
+            return JsonConvert.DeserializeObject<T>(resp);
         }
 
         private static JObject QuandlAPICall(string quandlCode, string extraUri)
         {
-            string api_key = QuandlConfig.ApiKey;
             string requestUri = Quandl.Shared.Properties.Settings.Default.BaseUrl + "datasets/" + quandlCode + "/data.json?" + extraUri;
-            return GetResponseJson(requestUri);
+            var client = QuandlApiWebClient();
+            var resp = client.DownloadString(requestUri);
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new SnakeCaseMappingResolver()
+            };
+            var foo = JsonConvert.DeserializeObject<DatasetDataResponse>(resp, settings);
+            return JObject.Parse(resp);
         }
 
         private static WebClient QuandlApiWebClient(string type = "(Search/Guide)")
@@ -145,6 +180,59 @@ namespace Quandl.Shared
             }
 
             return client;
+        }
+
+        private static async Task<T> RequestAsync<T>(string relativeUrl, Dictionary<string, string> queryParams = null, Dictionary<string, string> headers = null)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Quandl.Shared.Properties.Settings.Default.BaseUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Request-Version", "3.0alpha");
+                client.DefaultRequestHeaders.Add("Request-Source", "excel");
+                if (!string.IsNullOrEmpty(QuandlConfig.ApiKey))
+                {
+                    client.DefaultRequestHeaders.Add("X-API-Token", QuandlConfig.ApiKey);
+                }
+
+                if (headers != null)
+                {
+                    foreach (var h in headers)
+                    {
+                        client.DefaultRequestHeaders.Add(h.Key, h.Value);
+                    }
+                }
+
+                if (queryParams != null)
+                {
+                    var query = HttpUtility.ParseQueryString(string.Empty);
+                    foreach (var queryParam in queryParams)
+                    {
+                        query[queryParam.Key] = queryParam.Value;
+                    }
+                    relativeUrl = relativeUrl + "?" + query.ToString();
+                }
+
+                HttpResponseMessage resp = null;
+
+                try
+                {
+                    resp = await client.GetAsync(relativeUrl);
+                    resp.EnsureSuccessStatusCode();
+                }
+                catch(HttpRequestException e)
+                {
+                    Console.WriteLine("Hello world!");
+                }
+
+                string data = await resp.Content.ReadAsStringAsync();
+                var settings = new JsonSerializerSettings
+                {
+                    ContractResolver = new SnakeCaseMappingResolver()
+                };
+                return JsonConvert.DeserializeObject<T>(data, settings);
+            }
         }
     }
 }
