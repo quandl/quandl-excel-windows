@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Quandl.Shared.errors
 {
-    class QuandlErrorBase : Exception
+    public class QuandlErrorBase : Exception
     {
         public string ErrorCode { get; internal set; }
         public HttpStatusCode StatusCode { get; internal set; }

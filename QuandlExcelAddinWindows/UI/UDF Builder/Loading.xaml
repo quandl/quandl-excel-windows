@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ProgressBar HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="23" IsIndeterminate="True"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Image Source="/Quandl.Excel.Addin;component/Resources/Quandl_Icon_Image.png" Width="64" Margin="0,0,0,10" />
+            <ProgressBar Width="200" Height="23" IsIndeterminate="True"/>
+        </StackPanel>
     </Grid>
 </UserControl>

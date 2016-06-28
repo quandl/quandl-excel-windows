@@ -43,21 +43,21 @@ namespace Quandl.Shared
             set { Instance.apiKey = value; }
         }
 
-        public static async Task<bool> ApiKeyValid(string api_key = null) {
-            if (api_key == null)
+        public static async Task<bool> ApiKeyValid(string apiKey = null) {
+            if (apiKey == null)
             {
-                api_key = ApiKey;
+                apiKey = ApiKey;
             }
 
-            if (String.IsNullOrEmpty(ApiKey))
+            if (String.IsNullOrEmpty(apiKey))
             {
                 return false;
             }
 
             try
             {
-                var user = await Web.WhoAmI(api_key);
-                return user != null && user.ApiKey == api_key;
+                var user = await Web.WhoAmI(apiKey);
+                return user != null && user.ApiKey == apiKey;
             }
             catch (QuandlErrorBase exp)
             {
