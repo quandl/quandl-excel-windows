@@ -59,12 +59,14 @@
     <Compile Include="errors\QuandlErrorBase.cs" />
     <Compile Include="ExcelHelp.cs" />
     <Compile Include="FunctionUpdater.cs" />
+    <Compile Include="models\BrowseCollection.cs" />
     <Compile Include="models\Database.cs" />
     <Compile Include="models\DatabaseCollection.cs" />
     <Compile Include="models\Dataset.cs" />
     <Compile Include="models\DatasetCollection.cs" />
     <Compile Include="models\DatasetData.cs" />
     <Compile Include="models\Meta.cs" />
+    <Compile Include="models\NamedContentCollection.cs" />
     <Compile Include="models\User.cs" />
     <Compile Include="models\UserResponse.cs" />
     <Compile Include="QuandlException.cs" />
