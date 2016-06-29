@@ -25,17 +25,21 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             // Async check that the user is logged in our not
             Loaded += async delegate
             {
+                PrepareFormEvents();
                 var validKey = await QuandlConfig.ApiKeyValid();
                 LoginOrSearch(validKey);
             };
+        }
 
+        private void PrepareFormEvents()
+        {
             QuandlConfig.Instance.LoginChanged += async delegate
             {
                 var validKey = await QuandlConfig.ApiKeyValid();
                 LoginOrSearch(validKey);
             };
 
-            StateControl.Instance.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
+            StateControl.Instance.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
                 if (e.PropertyName == "DataCode")
                 {
@@ -43,6 +47,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
             };
         }
+
         private string[] steps => StateControl.Instance.getStepList();
 
         private int currentStep => StateControl.Instance.currentStep;

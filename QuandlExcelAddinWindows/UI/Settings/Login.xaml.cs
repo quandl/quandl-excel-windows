@@ -26,21 +26,28 @@ namespace Quandl.Excel.Addin.UI.Settings
         public Login()
         {
             InitializeComponent();
-            errorLabel.Visibility = Visibility.Hidden;
-            apiKey.Text = QuandlConfig.ApiKey;
 
-            if (!string.IsNullOrWhiteSpace(apiKey.Text))
+            Loaded += delegate
             {
-                displayErrorMessage(@"Invalid api key specified.");
-            }
+                errorLabel.Visibility = Visibility.Hidden;
+                apiKey.Text = QuandlConfig.ApiKey;
+
+                // If we are loading the login form we assume whatever api key was entered is invalid
+                if (!string.IsNullOrWhiteSpace(apiKey.Text))
+                {
+                    DisplayErrorMessage(@"Invalid api key specified.");
+                }
+            };
         }
 
         private async void loginButton_click(object sender, RoutedEventArgs e)
         {
+            loginForm.IsEnabled = false;
+            errorLabel.Visibility = Visibility.Hidden;
+
             try
             {
                 // save this to config
-                errorLabel.Visibility = Visibility.Hidden;
                 if (!string.IsNullOrWhiteSpace(apiKey.Text))
                 {
                     if (await QuandlConfig.ApiKeyValid(apiKey.Text))
@@ -49,35 +56,45 @@ namespace Quandl.Excel.Addin.UI.Settings
                     }
                     else
                     {
-                        displayErrorMessage(@"Invalid api key specified.");
+                        DisplayErrorMessage(@"Invalid api key specified.");
                     }
                 }
-                else if (!string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(password.Text)) 
+                else if (!string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(password.Text))
                 {
                     QuandlConfig.AuthenticateWithCredentials(email.Text, password.Text);
                 }
                 else
                 {
-                    displayErrorMessage(@"Please input your login credentials.");
+                    DisplayErrorMessage(@"Please input your login credentials.");
                 }
             }
             catch (QuandlErrorBase exp)
             {
                 if (exp.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    displayErrorMessage(@"Incorrect credentials inputted.");
+                    DisplayErrorMessage(@"Incorrect credentials inputted.");
                 }
                 else
                 {
-                    displayErrorMessage(@"Something went wrong. Please try again later.");
+                    DisplayErrorMessage(@"Something went wrong. Please try again later.");
                 }
+            }
+            catch (Exception exp)
+            {
+                DisplayErrorMessage(@"Something went wrong. Please try again later.");
+                Globals.ThisAddIn.UpdateStatusBar(exp); // For debug purposes only. This should not make it to production.
             }
         }
 
-        private void displayErrorMessage(string message)
+        private void DisplayErrorMessage(string message)
         {
-            errorLabel.Content = message;
-            errorLabel.Visibility = Visibility.Visible;
+            this.Dispatcher.Invoke(() =>
+            {
+                loginForm.IsEnabled = true;
+                errorLabel.Content = message;
+                errorLabel.Visibility = Visibility.Visible;
+                Globals.ThisAddIn.UpdateStatusBar(new Exception(message));
+            });
         }
 
         private void registerButton_click(object sender, RoutedEventArgs e)

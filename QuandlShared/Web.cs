@@ -16,6 +16,8 @@ namespace Quandl.Shared
 {
     public class Web
     {
+        private enum CallTypes { Search, Data };
+
         public static async Task<User> WhoAmI(string api_key)
         {
             var queryHeaders = new Dictionary<string, string>
@@ -23,7 +25,7 @@ namespace Quandl.Shared
                 {"X-API-Token", api_key}
             };
 
-            var userResponse = await RequestAsync<UserResponse>("users/me", null, queryHeaders);
+            var userResponse = await RequestAsync<UserResponse>("users/me", CallTypes.Search, null, queryHeaders);
             return userResponse.user;
         }
 
@@ -34,7 +36,7 @@ namespace Quandl.Shared
                 {"per_page", "10"},
                 {"query", query}
             };
-            return await RequestAsync<DatabaseCollection>("databases", queryParams);
+            return await RequestAsync<DatabaseCollection>("databases", CallTypes.Search, queryParams);
         }
 
         public static async Task<DatasetCollection> SearchDatasetsAsync(string databaseCode, string query)
@@ -48,7 +50,7 @@ namespace Quandl.Shared
                 {"per_page", "10"},
                 {"query", query}
             };
-            return await RequestAsync<DatasetCollection>("datasets", queryParams);
+            return await RequestAsync<DatasetCollection>("datasets", CallTypes.Search, queryParams);
         }
 
         public static ArrayList PullRecentStockData(string quandlCode, ArrayList columnNames, int limit)
@@ -163,7 +165,7 @@ namespace Quandl.Shared
             return JObject.Parse(resp);
         }
 
-        private static WebClient QuandlApiWebClient(string type = "(Search/Guide)")
+        private static WebClient QuandlApiWebClient(CallTypes callType = CallTypes.Data)
         {
             var client = new WebClient
             {
@@ -171,7 +173,7 @@ namespace Quandl.Shared
                 {
                     [HttpRequestHeader.Accept] = "application/json",
                     [HttpRequestHeader.ContentType] = "application/json",
-                    [HttpRequestHeader.UserAgent] = $"QuandlExcelAddIn/3.0 {type}",
+                    [HttpRequestHeader.UserAgent] = $"QuandlExcelAddIn/3.0 {CallTypeMapper(callType)}",
                     ["Request-Source"] = "excel",
                     ["Request-Platform"] = Utilities.GetExcelVersionNumber,
                     ["Request-Version"] = "3.0beta"
@@ -185,18 +187,16 @@ namespace Quandl.Shared
             return client;
         }
 
-        private static async Task<T> RequestAsync<T>(string relativeUrl, Dictionary<string, string> queryParams = null,
+        private static async Task<T> RequestAsync<T>(string relativeUrl, CallTypes callType = CallTypes.Data, Dictionary<string, string> queryParams = null,
             Dictionary<string, string> headers = null)
         {
-            string type = "(Search/Guide)";
-
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Settings.Default.BaseUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.UserAgent.Clear();
-                client.DefaultRequestHeaders.Add("User-Agent", $"QuandlExcelAddIn/3.0 {type}");
+                client.DefaultRequestHeaders.UserAgent.ParseAdd($"QuandlExcelAddIn/3.0 {CallTypeMapper(callType)}");
                 client.DefaultRequestHeaders.Add("Request-Platform", Utilities.GetExcelVersionNumber);
                 client.DefaultRequestHeaders.Add("Request-Version", "3.0alpha");
                 client.DefaultRequestHeaders.Add("Request-Source", "excel");
@@ -237,6 +237,10 @@ namespace Quandl.Shared
                 };
                 return JsonConvert.DeserializeObject<T>(data, settings);
             }
+        }
+        private static string CallTypeMapper(CallTypes callType)
+        {
+            return (callType == CallTypes.Data ? "(Data)" : "(Search/Guide)");
         }
     }
 }
