@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Quandl.Shared.errors
+namespace Quandl.Shared.Errors
 {
     public class QuandlErrorBase : Exception
     {

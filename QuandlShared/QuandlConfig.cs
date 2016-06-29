@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System.Net;
-using Quandl.Shared.errors;
+using Quandl.Shared.Errors;
 
 namespace Quandl.Shared
 {
