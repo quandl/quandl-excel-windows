@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -26,8 +25,15 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             Loaded += async delegate
             {
                 PrepareFormEvents();
-                var validKey = await QuandlConfig.ApiKeyValid();
-                LoginOrSearch(validKey);
+                try
+                {
+                    var validKey = await QuandlConfig.ApiKeyValid();
+                    LoginOrSearch();
+                }
+                catch (Exception exp)
+                {
+                    Globals.ThisAddIn.UpdateStatusBar(exp);
+                }
             };
         }
 
@@ -36,7 +42,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             QuandlConfig.Instance.LoginChanged += async delegate
             {
                 var validKey = await QuandlConfig.ApiKeyValid();
-                LoginOrSearch(validKey);
+                LoginOrSearch();
             };
 
             StateControl.Instance.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
@@ -73,27 +79,35 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             showStep(shownStep);
         }
 
-        private void LoginOrSearch(bool loggedIn)
+        private async void LoginOrSearch()
         {
-            if (loggedIn)
+            try
             {
-                foreach (UIElement child in currentStepGrid.Children)
+                var loggedIn = await QuandlConfig.ApiKeyValid();
+                if (loggedIn)
                 {
-                    child.Visibility = Visibility.Visible;
-                }
+                    foreach (UIElement child in currentStepGrid.Children)
+                    {
+                        child.Visibility = Visibility.Visible;
+                    }
 
-                DataContext = StateControl.Instance;
-                changeToStep();
+                    DataContext = StateControl.Instance;
+                    changeToStep();
+                }
+                else
+                {
+                    var loginXaml = new Uri("../Settings/Login.xaml", UriKind.Relative);
+                    stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+                    stepFrame.Source = loginXaml;
+                    currentStepGrid.Children[0].Visibility = Visibility.Hidden;
+                    currentStepGrid.Children[2].Visibility = Visibility.Hidden;
+                }
+                this.Focus();
             }
-            else
+            catch (Exception exp)
             {
-                var loginXaml = new Uri("../Settings/Login.xaml", UriKind.Relative);
-                stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-                stepFrame.Source = loginXaml;
-                currentStepGrid.Children[0].Visibility = Visibility.Hidden;
-                currentStepGrid.Children[2].Visibility = Visibility.Hidden;
+                Globals.ThisAddIn.UpdateStatusBar(exp);
             }
-            this.Focus();
         }
 
         private void changeToStep()
