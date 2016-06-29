@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="errors\QuandlErrorBase.cs" />
+    <Compile Include="Errors\QuandlErrorBase.cs" />
     <Compile Include="ExcelHelp.cs" />
     <Compile Include="FunctionUpdater.cs" />
     <Compile Include="models\BrowseCollection.cs" />

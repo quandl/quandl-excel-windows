@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using Quandl.Shared.errors;
+using Quandl.Shared.Errors;
 
 namespace Quandl.Excel.Addin.UI.Settings
 {

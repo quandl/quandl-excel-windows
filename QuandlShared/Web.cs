@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Quandl.Shared.errors;
+using Quandl.Shared.Errors;
 using Quandl.Shared.models;
 using Quandl.Shared.Properties;
 
