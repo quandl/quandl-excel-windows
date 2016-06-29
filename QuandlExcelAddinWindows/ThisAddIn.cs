@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Excel;
@@ -19,9 +20,34 @@ namespace Quandl.Excel.Addin
         public event AuthTokenChanged AuthTokenChangedEvent;
         public event LoginChanged LoginChangedEvent;
 
+        private System.Timers.Timer statusTimer;
+
         public CustomTaskPane AddCustomTaskPane(UserControl userControl, string name)
         {
             return CustomTaskPanes.Add(userControl, name);
+        }
+
+        public void UpdateStatusBar(Exception error)
+        {
+            var oldStatusBarVisibility = Application.DisplayStatusBar;
+            Application.DisplayStatusBar = true;
+            Application.StatusBar = "⚠ Quandl plugin error: " + error.Message;
+
+            // Clean up an old timers;
+            if (statusTimer != null)
+            {
+                statusTimer.Stop();
+                statusTimer.Close();
+            }
+
+            // Create a new timer to show the error temporarily
+            statusTimer = new System.Timers.Timer(20000);
+            statusTimer.Elapsed += async (sender, e) => await Task.Run(() =>
+            {
+                Application.StatusBar = false;
+                Application.DisplayStatusBar = oldStatusBarVisibility;
+            });
+            statusTimer.Start();
         }
 
         private void ThisAddIn_Startup(object sender, EventArgs e)

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.Settings"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid VerticalAlignment="Center">
+    <Grid VerticalAlignment="Center" x:Name="loginForm">
         <Grid.ColumnDefinitions >
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
@@ -92,7 +92,7 @@
             </TextBox>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button x:Name="loginButton" DockPanel.Dock="Left" Content="Login" VerticalAlignment="Top" Padding="5" Margin="10" Click="loginButton_click" />
+            <Button x:Name="loginButton" DockPanel.Dock="Left" Content="Login" VerticalAlignment="Top" Padding="5" Margin="10" Click="loginButton_click" IsDefault="True" />
             <Button x:Name="registerButton" DockPanel.Dock="Left" Content="Register" VerticalAlignment="Top" Padding="5" Margin="0,10,10,10" Click="registerButton_click" />
         </StackPanel>
     </Grid>
