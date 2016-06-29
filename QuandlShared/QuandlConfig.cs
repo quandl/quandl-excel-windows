@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System.Net;
-using Newtonsoft.Json.Linq;
 using Quandl.Shared.errors;
 
 namespace Quandl.Shared

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Quandl.Shared.QuandlException;
 
 namespace Quandl.Shared
 {

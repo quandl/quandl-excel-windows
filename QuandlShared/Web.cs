@@ -198,7 +198,7 @@ namespace Quandl.Shared
                 client.DefaultRequestHeaders.UserAgent.Clear();
                 client.DefaultRequestHeaders.UserAgent.ParseAdd($"QuandlExcelAddIn/3.0 {CallTypeMapper(callType)}");
                 client.DefaultRequestHeaders.Add("Request-Platform", Utilities.GetExcelVersionNumber);
-                client.DefaultRequestHeaders.Add("Request-Version", "3.0alpha");
+                client.DefaultRequestHeaders.Add("Request-Version", "3.0beta");
                 client.DefaultRequestHeaders.Add("Request-Source", "excel");
                 if (!string.IsNullOrEmpty(QuandlConfig.ApiKey) && (headers == null || !headers.ContainsKey("X-API-Token")))
                 {
