@@ -2,6 +2,7 @@
 using ExcelDna.Integration;
 using Quandl.Shared;
 using System.Collections;
+using System.Collections.Generic;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace QuandlFunctions
@@ -40,9 +41,12 @@ namespace QuandlFunctions
             string endDate = Tools.GetDateValue(excelEndDate);
             ArrayList columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
 
-
-            ArrayList list = Web.PullHistoryData(quandlCode, startDate, endDate, columnNames);
-            return Utilities.ValidateEmptyData(ExcelHelp.PopulateData(currentFormulaCell, list));
+            // TODO: convert columnNames to List<string>
+            var task = Web.PullHistoryData(quandlCode, startDate, endDate, new List<string>());
+            task.Wait();
+            var list = task.Result;
+            // TODO: support List<List<object>>
+            return Utilities.ValidateEmptyData(ExcelHelp.PopulateData(currentFormulaCell, new ArrayList()));
         }
 
 
