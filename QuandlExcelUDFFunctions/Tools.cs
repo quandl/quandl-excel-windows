@@ -1,9 +1,9 @@
-﻿using ExcelDna.Integration;
-using System;
+﻿using System;
 using System.Collections;
+using ExcelDna.Integration;
 using Quandl.Shared;
 
-namespace QuandlFunctions
+namespace Quandl.Excel.UDF.Functions
 {
     public static class Tools
     {

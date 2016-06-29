@@ -1,11 +1,10 @@
 ﻿using System;
-using ExcelDna.Integration;
-using Quandl.Shared;
 using System.Collections;
 using System.Collections.Generic;
-using Excel = Microsoft.Office.Interop.Excel;
+using ExcelDna.Integration;
+using Quandl.Shared;
 
-namespace QuandlFunctions
+namespace Quandl.Excel.UDF.Functions
 {
     public static class Core
     {
@@ -33,7 +32,7 @@ namespace QuandlFunctions
             )
         {
             ExcelReference reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
-            Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
+            Microsoft.Office.Interop.Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
             // tranlaste input parameters from string value or excel references
             string quandlCode = Tools.GetStringValue(excelQuandlCode);
@@ -57,7 +56,7 @@ namespace QuandlFunctions
             )
         {
             ExcelReference reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
-            Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
+            Microsoft.Office.Interop.Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
             // tranlaste input parameters from string value or excel references
             ArrayList quandlCodes = Tools.GetArrayOfValues(excelQuandlCodes);

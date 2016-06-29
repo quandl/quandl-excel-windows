@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Quandl.Shared.QuandlException
+namespace Quandl.Shared
 {
     public class QuandlDataNotFoundException: Exception
     {
