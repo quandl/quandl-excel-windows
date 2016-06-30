@@ -15,7 +15,7 @@ namespace Quandl.Excel.UDF.Functions
             [ExcelArgument("is the date", AllowReference = true)] Object excelDate = null
             )
         {
-            // tranlaste input parameters from string value or excel references
+            // translate input parameters from string value or excel references
             string quandlCode = Tools.GetStringValue(excelQuandlCode);
             string columnName = Tools.GetStringValue(excelColumnName);
             string date = Tools.GetDateValue(excelDate);
@@ -34,7 +34,7 @@ namespace Quandl.Excel.UDF.Functions
             ExcelReference reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
             Microsoft.Office.Interop.Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
-            // tranlaste input parameters from string value or excel references
+            // translate input parameters from string value or excel references
             string quandlCode = Tools.GetStringValue(excelQuandlCode);
             string startDate = Tools.GetDateValue(excelStartDate);
             string endDate = Tools.GetDateValue(excelEndDate);
@@ -58,7 +58,7 @@ namespace Quandl.Excel.UDF.Functions
             ExcelReference reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
             Microsoft.Office.Interop.Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
-            // tranlaste input parameters from string value or excel references
+            // translate input parameters from string value or excel references
             ArrayList quandlCodes = Tools.GetArrayOfValues(excelQuandlCodes);
             ArrayList columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
         
