@@ -19,7 +19,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             InitializeComponent();
 
-            StateControl.Instance.reset();
+            StateControl.Instance.Reset();
 
             // Async check that the user is logged in our not
             Loaded += async delegate
@@ -54,7 +54,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             };
         }
 
-        private string[] steps => StateControl.Instance.getStepList();
+        private string[] steps => StateControl.Instance.GetStepList();
 
         private int currentStep => StateControl.Instance.currentStep;
 

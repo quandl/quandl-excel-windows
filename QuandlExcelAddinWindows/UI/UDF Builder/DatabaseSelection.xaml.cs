@@ -21,7 +21,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void dataCode_LostFocus(object sender, System.EventArgs e)
         {
-            StateControl.Instance.changeCode(((TextBox)sender).Text, StateControl.ChainTypes.TimeSeries);
+            StateControl.Instance.ChangeCode(((TextBox)sender).Text, StateControl.ChainTypes.TimeSeries);
         }
     }
 }
