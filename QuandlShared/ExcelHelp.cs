@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Quandl.Shared.QuandlException;
+using System.Collections.Generic;
 
 namespace Quandl.Shared
 {
@@ -36,7 +36,7 @@ namespace Quandl.Shared
             }
             return result;
         }
-        public static void PopulateLatestStockData(string[] quandlCodes, ArrayList columnNames, Microsoft.Office.Interop.Excel.Range activeCells)
+        public async static void PopulateLatestStockData(string[] quandlCodes, List<string> columnNames, Microsoft.Office.Interop.Excel.Range activeCells)
         {
             // Header
             Microsoft.Office.Interop.Excel.Range firstActiveCell = activeCells.get_Offset(0, 0);
@@ -45,17 +45,17 @@ namespace Quandl.Shared
             int i = 1;
             foreach (string quandlCode in quandlCodes)
             {
-                ArrayList convertedData = Web.PullRecentStockData(quandlCode, columnNames, 1);
+                List<List<object>> convertedData = await Web.PullRecentStockData(quandlCode, columnNames, 1);
                 PopulateData(quandlCode.ToUpper(), firstActiveCell, convertedData, i);
                 i++;
             }
         }
 
 
-        public static void PopulateData(string code, Microsoft.Office.Interop.Excel.Range activeCell, ArrayList data, int rowCount)
+        public static void PopulateData(string code, Microsoft.Office.Interop.Excel.Range activeCell, List<List<object>> data, int rowCount)
         {
-            ArrayList columns = (ArrayList)data[0] as ArrayList;
-            ArrayList dataList = (ArrayList)data[1] as ArrayList;
+            List<object> columns = data[0];
+            List<object> dataList = data[1];
 
             if (rowCount == 1)
             {

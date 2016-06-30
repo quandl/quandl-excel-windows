@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Quandl.Shared;
 
-namespace UnitTestSharedModules
+namespace Quandl.Test.Shared.Modules
 {
     [TestFixture]
     public class QuandlConfigTests

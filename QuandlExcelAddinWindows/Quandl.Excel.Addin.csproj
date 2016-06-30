@@ -132,13 +132,8 @@
     This section specifies references for the project.
   -->
   <ItemGroup>
-    <Reference Include="Accessibility" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -146,21 +141,24 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Data" />
-    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.ServiceModel.Channels" />
     <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Office.Tools.v4.0.Framework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Tools.Applications.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Office.Tools, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Office.Tools.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -169,11 +167,6 @@
   <ItemGroup>
     <Reference Include="Microsoft.Office.Tools.Common.v4.0.Utilities, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <!--
@@ -193,54 +186,74 @@
     <Compile Include="Controls\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\LoginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\QuandlSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\QuandlSettings.Designer.cs">
       <DependentUpon>QuandlSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataTaskPane.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DataTaskPane.Designer.cs">
-      <DependentUpon>DataTaskPane.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Settings\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TaskPaneControl.cs" />
+    <Compile Include="UI\UDF Builder\DataSetTableFilter.cs" />
+    <Compile Include="UI\UDF Builder\Loading.xaml.cs">
+      <DependentUpon>Loading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\StateControl.cs" />
+    <Compile Include="UI\UDF Builder\ColumnSelection.xaml.cs">
+      <DependentUpon>ColumnSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TaskPaneWpfControlHost.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TaskPaneWpfControlHost.Designer.cs">
+      <DependentUpon>TaskPaneWpfControlHost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\TimeSeriesFilters.xaml.cs">
+      <DependentUpon>TimeSeriesFilters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\DatatableFilters.xaml.cs">
+      <DependentUpon>DatatableFilters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\FormulaInserter.xaml.cs">
+      <DependentUpon>FormulaInserter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\WizardUIBase.cs" />
+    <Compile Include="UI\UDF Builder\DatasetDatatableSelection.xaml.cs">
+      <DependentUpon>DatasetDatatableSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\WizardGuide.xaml.cs">
+      <DependentUpon>WizardGuide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\DatabaseSelection.xaml.cs">
+      <DependentUpon>DatabaseSelection.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Controls\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\QuandlSettings.resx">
       <DependentUpon>QuandlSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataTaskPane.resx">
-      <DependentUpon>DataTaskPane.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Toolbar.resx">
       <DependentUpon>Toolbar.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="packages.config" />
+    <EmbeddedResource Include="UI\TaskPaneWpfControlHost.resx">
+      <DependentUpon>TaskPaneWpfControlHost.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -280,6 +293,55 @@
   <ItemGroup>
     <EmbeddedResource Include="Ribbon.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="UI\Settings\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\DatasetDatatableSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\ColumnSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\Loading.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\TimeSeriesFilters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\DatatableFilters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\FormulaInserter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\WizardGuide.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UDF Builder\DatabaseSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Quandl_Icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Quandl_Icon_Image.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
