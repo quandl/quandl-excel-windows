@@ -4,9 +4,9 @@ namespace Quandl.Shared.models
 {
     public class DatasetData
     {
-        public int Limit { get; set; }
-        public object Transform { get; set; }
-        public object ColumnIndex { get; set; }
+        public int? Limit { get; set; }
+        public string Transform { get; set; }
+        public int? ColumnIndex { get; set; }
         public List<string> ColumnNames { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }

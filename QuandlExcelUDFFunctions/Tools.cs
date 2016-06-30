@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using ExcelDna.Integration;
 using Quandl.Shared;
 
@@ -46,15 +47,15 @@ namespace Quandl.Excel.UDF.Functions
     true)];
         }
 
-        public static ArrayList GetArrayOfValues(Object referenceOrString)
+        public static List<string> GetArrayOfValues(Object referenceOrString)
         {
             if (referenceOrString is Object[,])
             {
                 return GetValuesFromObjectArray((Object[,])referenceOrString);
             }
-            else if (referenceOrString is String)
+            else if (referenceOrString is string)
             {
-                return Utilities.GetValuesFromString((String)referenceOrString);
+                return Utilities.GetValuesFromString((string)referenceOrString);
             }
             else if (referenceOrString is ExcelReference)
             {
@@ -62,12 +63,12 @@ namespace Quandl.Excel.UDF.Functions
             }
             else
             {
-                return new ArrayList();
+                return new List<string>();
             }
         }
-        public static ArrayList GetValuesFromObjectArray(Object[,] arr)
+        public static List<string> GetValuesFromObjectArray(Object[,] arr)
         {
-            ArrayList return_values = new ArrayList();
+            var return_values = new List<string>();
             for (int i = 0; i < arr.GetLength(0); i++)
             {
                 for (int j = 0; j < arr.GetLength(1); j++)
@@ -81,11 +82,11 @@ namespace Quandl.Excel.UDF.Functions
             return return_values;
         }
 
-        public static ArrayList GetValuesFromCellRange(ExcelReference excelReference)
+        public static List<string> GetValuesFromCellRange(ExcelReference excelReference)
         {
             if (IsSingleCell(excelReference))
             {
-                ArrayList return_value = new ArrayList();
+                List<string> return_value = new List<string>();
                 return_value.Add(excelReference.GetValue().ToString());
                 return return_value;
             }

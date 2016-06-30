@@ -101,7 +101,7 @@ namespace Quandl.Excel.Addin
 
         private void Workbook_SheetSelectionChange(object Sh, Range Target)
         {
-            ActiveCells = Target;
+           ActiveCells = Target;
         }
 
         private void Sheet_Updated(object sh, Range target)
