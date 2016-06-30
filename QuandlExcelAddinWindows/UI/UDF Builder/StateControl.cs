@@ -52,10 +52,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public StateControl()
         {
-            reset();
+            Reset();
         }
 
-        public void reset()
+        public void Reset()
         {
             currentStep = 0;
             chainType = ChainTypes.Datatables;
@@ -65,24 +65,17 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             Filters = new List<DataSetTableFilter>();
         }
 
-        public void changeCode(string dataCode, ChainTypes ct)
+        public void ChangeCode(string dataCode, ChainTypes ct)
         {
-            reset(); // Reset the chain because the code has been chained.
+            Reset(); // Reset the chain because the code has been chained.
             chainType = ct;
             DataCode = dataCode;
             OnPropertyChanged("DataCode");
         }
 
-        public string[] getStepList()
+        public string[] GetStepList()
         {
-            if (this.chainType == ChainTypes.TimeSeries)
-            {
-                return timeSeriesChain;
-            }
-            else
-            {
-                return datatableChain;
-            }
+            return (this.chainType == ChainTypes.TimeSeries) ? timeSeriesChain : datatableChain;
         }
 
         protected void OnPropertyChanged(PropertyChangedEventArgs e)

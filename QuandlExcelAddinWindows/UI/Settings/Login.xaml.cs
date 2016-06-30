@@ -24,7 +24,7 @@ namespace Quandl.Excel.Addin.UI.Settings
                 // If we are loading the login form we assume whatever api key was entered is invalid
                 if (!string.IsNullOrWhiteSpace(apiKey.Text))
                 {
-                    DisplayErrorMessage(@"Invalid api key specified.");
+                    DisplayErrorMessage("Invalid api key specified.");
                 }
             };
         }
@@ -45,7 +45,7 @@ namespace Quandl.Excel.Addin.UI.Settings
                     }
                     else
                     {
-                        DisplayErrorMessage(@"Invalid api key specified.");
+                        DisplayErrorMessage("Invalid api key specified.");
                     }
                 }
                 else if (!string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(password.Text))
@@ -54,23 +54,23 @@ namespace Quandl.Excel.Addin.UI.Settings
                 }
                 else
                 {
-                    DisplayErrorMessage(@"Please input your login credentials.");
+                    DisplayErrorMessage("Please input your login credentials.");
                 }
             }
             catch (QuandlErrorBase exp)
             {
                 if (exp.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    DisplayErrorMessage(@"Incorrect credentials inputted.");
+                    DisplayErrorMessage("Incorrect credentials inputted.");
                 }
                 else
                 {
-                    DisplayErrorMessage(@"Something went wrong. Please try again later.");
+                    DisplayErrorMessage("Something went wrong. Please try again later.");
                 }
             }
             catch (Exception exp)
             {
-                DisplayErrorMessage(@"Something went wrong. Please try again later.");
+                DisplayErrorMessage("Something went wrong. Please try again later.");
                 Globals.ThisAddIn.UpdateStatusBar(exp); // For debug purposes only. This should not make it to production.
             }
         }
