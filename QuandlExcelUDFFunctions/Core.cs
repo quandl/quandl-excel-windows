@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using ExcelDna.Integration;
 using Quandl.Shared;
-using System.Collections;
-using Excel = Microsoft.Office.Interop.Excel;
 
-namespace QuandlFunctions
+namespace Quandl.Excel.UDF.Functions
 {
     public static class Core
     {
@@ -15,7 +15,7 @@ namespace QuandlFunctions
             [ExcelArgument("is the date", AllowReference = true)] Object excelDate = null
             )
         {
-            // tranlaste input parameters from string value or excel references
+            // translate input parameters from string value or excel references
             string quandlCode = Tools.GetStringValue(excelQuandlCode);
             string columnName = Tools.GetStringValue(excelColumnName);
             string date = Tools.GetDateValue(excelDate);
@@ -32,17 +32,20 @@ namespace QuandlFunctions
             )
         {
             ExcelReference reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
-            Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
+            Microsoft.Office.Interop.Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
-            // tranlaste input parameters from string value or excel references
+            // translate input parameters from string value or excel references
             string quandlCode = Tools.GetStringValue(excelQuandlCode);
             string startDate = Tools.GetDateValue(excelStartDate);
             string endDate = Tools.GetDateValue(excelEndDate);
             ArrayList columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
 
-
-            ArrayList list = Web.PullHistoryData(quandlCode, startDate, endDate, columnNames);
-            return Utilities.ValidateEmptyData(ExcelHelp.PopulateData(currentFormulaCell, list));
+            // TODO: convert columnNames to List<string>
+            var task = Web.PullHistoryData(quandlCode, startDate, endDate, new List<string>());
+            task.Wait();
+            var list = task.Result;
+            // TODO: support List<List<object>>
+            return Utilities.ValidateEmptyData(ExcelHelp.PopulateData(currentFormulaCell, new ArrayList()));
         }
 
 
@@ -53,9 +56,9 @@ namespace QuandlFunctions
             )
         {
             ExcelReference reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
-            Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
+            Microsoft.Office.Interop.Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
-            // tranlaste input parameters from string value or excel references
+            // translate input parameters from string value or excel references
             ArrayList quandlCodes = Tools.GetArrayOfValues(excelQuandlCodes);
             ArrayList columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
         

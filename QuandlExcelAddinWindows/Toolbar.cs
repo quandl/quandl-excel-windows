@@ -1,25 +1,15 @@
-﻿using Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Tools.Ribbon;
-using Quandl.Excel.Addin.Controls;
+﻿using Microsoft.Office.Tools.Ribbon;
 using Quandl.Shared;
 
 namespace Quandl.Excel.Addin
 {
-    using System.Windows;
-    using System.Windows.Forms;
-
+    using Controls;
+    using UI;
     public partial class Toolbar
     {
+
         private void Ribbon2_Load(object sender, RibbonUIEventArgs e)
         {
-            UpdateLoginLabel();
-            Globals.ThisAddIn.AuthTokenChangedEvent += UpdateLoginLabel;
-            Globals.ThisAddIn.LoginChangedEvent += UpdateLoginLabel;
-        }
-
-        private void GetDataButton_Click(object sender, RibbonControlEventArgs e)
-        {
-            Globals.ThisAddIn.TaskPane_Show();
         }
 
         private void AboutButton_Click(object sender, RibbonControlEventArgs e)
@@ -27,48 +17,42 @@ namespace Quandl.Excel.Addin
             new Quandl.Excel.Addin.Controls.AboutForm().Show();
         }
 
-        private void button1_Click(object sender, RibbonControlEventArgs e)
-        {
-            Form dataSelection = new Form();
-            DataTaskPane taskPane = new DataTaskPane(Globals.ThisAddIn.ActiveCells);
-            dataSelection.Controls.Clear();
-            dataSelection.Controls.Add(taskPane);
-            dataSelection.AutoSize = true;
-            dataSelection.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            dataSelection.Show();
-        }
-
-        private void login_Click(object sender, RibbonControlEventArgs e)
-        {
-            var loggedIn = string.IsNullOrEmpty(QuandlConfig.ApiKey);
-            if (loggedIn)
-            {
-                var loginForm = new LoginForm();
-                loginForm.LoginChanged += Globals.ThisAddIn.OnLoginChangedEvent;
-                loginForm.Show();
-            }
-            else
-            {
-                QuandlConfig.ApiKey = "";
-                Globals.ThisAddIn.OnLoginChangedEvent();
-
-            }
-        }
-
-        public void UpdateLoginLabel()
-        {
-            login.Label = string.IsNullOrEmpty(QuandlConfig.ApiKey) ? "Login" : "Logout";
-        }
-
         private void openQuandlSettings_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.SettingsPane_Show(this);
+            var quandlSettings = new QuandlSettings();
+            // allows toolbar to handle auth token changed events
+            quandlSettings.SettingsAuthTokenChanged += Globals.ThisAddIn.OnAuthTokenChangedEvent;
+            quandlSettings.SettingsAutoUpdateChanged += Globals.ThisAddIn.OnAutoUpdateChangedEvent;
+
+            // allows quandl settings pane to handle login changed events
+            Globals.ThisAddIn.LoginChangedEvent += quandlSettings.UpdateApiKeyTextBox;
+
+            var taskPane = new TaskPaneControl(quandlSettings, "Quandl Settings");
+            taskPane.Show();
         }
 
-        private void refresh_Click(object sender, RibbonControlEventArgs e)
+        private void udfBuilder_Click(object sender, RibbonControlEventArgs e)
+        {
+            UI.UDF_Builder.WizardGuide child = new UI.UDF_Builder.WizardGuide();
+            var taskPane = new TaskPaneControl(child, " ");
+            taskPane.Show();
+        }
+
+        private void refreshWorkbook_Click(object sender, RibbonControlEventArgs e)
         {
             var activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
             FunctionUpdater.RecalculateQuandlFunctions(activeWorkBook);
+        }
+
+        private void refreshWorksheet_Click(object sender, RibbonControlEventArgs e)
+        {
+            var activeSheet = Globals.ThisAddIn.Application.ActiveSheet;
+            FunctionUpdater.RecalculateQuandlFunctions(activeSheet);
+        }
+
+        private void refreshMulti_Click(object sender, RibbonControlEventArgs e)
+        {
+            refreshWorkbook_Click(sender, e);
         }
     }
 }

@@ -34,116 +34,100 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Toolbar));
-            this.tab1 = this.Factory.CreateRibbonTab();
-            this.Data = this.Factory.CreateRibbonGroup();
-            this.GetDataButton = this.Factory.CreateRibbonButton();
-            this.button1 = this.Factory.CreateRibbonButton();
-            this.group2 = this.Factory.CreateRibbonGroup();
-            this.AboutButton = this.Factory.CreateRibbonButton();
-            this.group1 = this.Factory.CreateRibbonGroup();
-            this.login = this.Factory.CreateRibbonButton();
+            this.QuandlTab = this.Factory.CreateRibbonTab();
+            this.DataGroup = this.Factory.CreateRibbonGroup();
+            this.udf_builder = this.Factory.CreateRibbonButton();
+            this.refreshMulti = this.Factory.CreateRibbonSplitButton();
+            this.refreshWorkbook = this.Factory.CreateRibbonButton();
+            this.refreshWorksheet = this.Factory.CreateRibbonButton();
             this.SettingsGroup = this.Factory.CreateRibbonGroup();
             this.openQuandlSettings = this.Factory.CreateRibbonButton();
-            this.refresh = this.Factory.CreateRibbonButton();
-            this.tab1.SuspendLayout();
-            this.Data.SuspendLayout();
-            this.group2.SuspendLayout();
-            this.group1.SuspendLayout();
+            this.AboutButton = this.Factory.CreateRibbonButton();
+            this.QuandlTab.SuspendLayout();
+            this.DataGroup.SuspendLayout();
             this.SettingsGroup.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tab1
+            // QuandlTab
             // 
-            this.tab1.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
-            this.tab1.Groups.Add(this.Data);
-            this.tab1.Groups.Add(this.group2);
-            this.tab1.Groups.Add(this.group1);
-            this.tab1.Groups.Add(this.SettingsGroup);
-            this.tab1.Label = "Quandl";
-            this.tab1.Name = "tab1";
+            this.QuandlTab.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
+            this.QuandlTab.Groups.Add(this.DataGroup);
+            this.QuandlTab.Groups.Add(this.SettingsGroup);
+            this.QuandlTab.Label = "Quandl";
+            this.QuandlTab.Name = "QuandlTab";
             // 
-            // Data
+            // DataGroup
             // 
-            this.Data.Items.Add(this.GetDataButton);
-            this.Data.Items.Add(this.button1);
-            this.Data.Label = "Data";
-            this.Data.Name = "Data";
+            this.DataGroup.Items.Add(this.udf_builder);
+            this.DataGroup.Items.Add(this.refreshMulti);
+            this.DataGroup.Label = "Data";
+            this.DataGroup.Name = "DataGroup";
             // 
-            // GetDataButton
+            // udf_builder
             // 
-            this.GetDataButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.GetDataButton.Image = ((System.Drawing.Image)(resources.GetObject("GetDataButton.Image")));
-            this.GetDataButton.Label = "Task Pane";
-            this.GetDataButton.Name = "GetDataButton";
-            this.GetDataButton.ShowImage = true;
-            this.GetDataButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.GetDataButton_Click);
+            this.udf_builder.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.udf_builder.Label = "Get Data";
+            this.udf_builder.Name = "udf_builder";
+            this.udf_builder.OfficeImageId = "ChartShowData";
+            this.udf_builder.ShowImage = true;
+            this.udf_builder.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.udfBuilder_Click);
             // 
-            // button1
+            // refreshMulti
             // 
-            this.button1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Label = "Popup";
-            this.button1.Name = "button1";
-            this.button1.ShowImage = true;
-            this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
+            this.refreshMulti.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.refreshMulti.Items.Add(this.refreshWorkbook);
+            this.refreshMulti.Items.Add(this.refreshWorksheet);
+            this.refreshMulti.Label = "Refresh Data";
+            this.refreshMulti.Name = "refreshMulti";
+            this.refreshMulti.OfficeImageId = "Refresh";
+            this.refreshMulti.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.refreshMulti_Click);
             // 
-            // group2
+            // refreshWorkbook
             // 
-            this.group2.Items.Add(this.AboutButton);
-            this.group2.Name = "group2";
+            this.refreshWorkbook.Label = "Workbook";
+            this.refreshWorkbook.Name = "refreshWorkbook";
+            this.refreshWorkbook.ShowImage = true;
             // 
-            // AboutButton
+            // refreshWorksheet
             // 
-            this.AboutButton.Label = "About";
-            this.AboutButton.Name = "AboutButton";
-            this.AboutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AboutButton_Click);
-            // 
-            // group1
-            // 
-            this.group1.Items.Add(this.login);
-            this.group1.Label = "Login";
-            this.group1.Name = "group1";
-            // 
-            // login
-            // 
-            this.login.Label = "Login";
-            this.login.Name = "login";
-            this.login.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.login_Click);
+            this.refreshWorksheet.Label = "Worksheet";
+            this.refreshWorksheet.Name = "refreshWorksheet";
+            this.refreshWorksheet.ShowImage = true;
             // 
             // SettingsGroup
             // 
             this.SettingsGroup.Items.Add(this.openQuandlSettings);
-            this.SettingsGroup.Items.Add(this.refresh);
-            this.SettingsGroup.Label = "Settings";
+            this.SettingsGroup.Items.Add(this.AboutButton);
             this.SettingsGroup.Name = "SettingsGroup";
             // 
             // openQuandlSettings
             // 
+            this.openQuandlSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.openQuandlSettings.Label = "Settings";
             this.openQuandlSettings.Name = "openQuandlSettings";
+            this.openQuandlSettings.OfficeImageId = "TableSharePointListsModifyColumnsAndSettings";
+            this.openQuandlSettings.ShowImage = true;
             this.openQuandlSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.openQuandlSettings_Click);
             // 
-            // refresh
+            // AboutButton
             // 
-            this.refresh.Label = "Refresh";
-            this.refresh.Name = "refresh";
-            this.refresh.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.refresh_Click);
+            this.AboutButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.AboutButton.Image = global::Quandl.Excel.Addin.Properties.Resources.Quandl_Icon_Image;
+            this.AboutButton.Label = "About";
+            this.AboutButton.Name = "AboutButton";
+            this.AboutButton.ShowImage = true;
+            this.AboutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AboutButton_Click);
             // 
             // Toolbar
             // 
             this.Name = "Toolbar";
             this.RibbonType = "Microsoft.Excel.Workbook";
-            this.Tabs.Add(this.tab1);
+            this.Tabs.Add(this.QuandlTab);
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.Ribbon2_Load);
-            this.tab1.ResumeLayout(false);
-            this.tab1.PerformLayout();
-            this.Data.ResumeLayout(false);
-            this.Data.PerformLayout();
-            this.group2.ResumeLayout(false);
-            this.group2.PerformLayout();
-            this.group1.ResumeLayout(false);
-            this.group1.PerformLayout();
+            this.QuandlTab.ResumeLayout(false);
+            this.QuandlTab.PerformLayout();
+            this.DataGroup.ResumeLayout(false);
+            this.DataGroup.PerformLayout();
             this.SettingsGroup.ResumeLayout(false);
             this.SettingsGroup.PerformLayout();
             this.ResumeLayout(false);
@@ -152,17 +136,15 @@
 
         #endregion
 
-        internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup Data;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group2;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton GetDataButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonTab QuandlTab;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup DataGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton AboutButton;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton login;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup SettingsGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton openQuandlSettings;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton refresh;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton udf_builder;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSplitButton refreshMulti;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton refreshWorkbook;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton refreshWorksheet;
     }
 
     partial class ThisRibbonCollection

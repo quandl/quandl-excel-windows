@@ -40,13 +40,14 @@
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,8 +56,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Errors\QuandlErrorBase.cs" />
     <Compile Include="ExcelHelp.cs" />
     <Compile Include="FunctionUpdater.cs" />
+    <Compile Include="models\BrowseCollection.cs" />
+    <Compile Include="models\Database.cs" />
+    <Compile Include="models\DatabaseCollection.cs" />
+    <Compile Include="models\Dataset.cs" />
+    <Compile Include="models\DatasetCollection.cs" />
+    <Compile Include="models\DatasetData.cs" />
+    <Compile Include="models\Meta.cs" />
+    <Compile Include="models\NamedContentCollection.cs" />
+    <Compile Include="models\User.cs" />
+    <Compile Include="models\UserResponse.cs" />
     <Compile Include="QuandlException.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -72,6 +84,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupHelp.cs" />
     <Compile Include="QuandlTimer.cs" />
+    <Compile Include="SnakeCaseMappingResolver.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Web.cs" />
   </ItemGroup>
