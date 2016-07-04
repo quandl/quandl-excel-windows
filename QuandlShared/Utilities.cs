@@ -60,16 +60,16 @@ namespace Quandl.Shared
             return result;
         }
 
-        public static ArrayList GetValuesFromString(String excelFormulaArray)
+        public static List<string> GetValuesFromString(string excelFormulaArray)
         {
-            ArrayList values = new ArrayList();
+            var values = new List<string>();
             values.Add(excelFormulaArray.ToUpper());
             return values;
         }
 
-        public static ArrayList ListToUpper(ArrayList list)
+        public static List<string> ListToUpper(List<string> list)
         {
-            ArrayList result = new ArrayList();
+            var result = new List<string>();
             foreach (string s in list)
             {
                 result.Add(s.ToUpper());

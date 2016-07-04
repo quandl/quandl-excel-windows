@@ -20,7 +20,10 @@ namespace Quandl.Excel.UDF.Functions
             string columnName = Tools.GetStringValue(excelColumnName);
             string date = Tools.GetDateValue(excelDate);
 
-            return Utilities.ValidateEmptyData(Web.PullSingleValue(quandlCode, columnName, date));
+            var task = Web.PullSingleValue(quandlCode, columnName, date);
+            task.Wait();
+            var data = task.Result;
+            return Utilities.ValidateEmptyData(data);
         }
 
         [ExcelFunction(Description = "Quandl hQDATA function pull single value", IsMacroType = true)]
@@ -38,7 +41,7 @@ namespace Quandl.Excel.UDF.Functions
             string quandlCode = Tools.GetStringValue(excelQuandlCode);
             string startDate = Tools.GetDateValue(excelStartDate);
             string endDate = Tools.GetDateValue(excelEndDate);
-            ArrayList columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
+            var columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
 
             // TODO: convert columnNames to List<string>
             var task = Web.PullHistoryData(quandlCode, startDate, endDate, new List<string>());
@@ -59,24 +62,25 @@ namespace Quandl.Excel.UDF.Functions
             Microsoft.Office.Interop.Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
             // translate input parameters from string value or excel references
-            ArrayList quandlCodes = Tools.GetArrayOfValues(excelQuandlCodes);
-            ArrayList columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
-        
+            var quandlCodes = Tools.GetArrayOfValues(excelQuandlCodes);
+            var columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
             
             string value = "Failed"; // default return value
             int i = 0;
             foreach (string quandlCode in quandlCodes)
             {
-                ArrayList list = Web.PullRecentStockData(quandlCode, columnNames, 1);
+                var dataTask = Web.PullRecentStockData(quandlCode, columnNames, 1);
+                dataTask.Wait();
+                var data = dataTask.Result;
                 // Remove column name list which is not required by this function.
-                list.RemoveAt(0);
+                data.RemoveAt(0);
                 // keep data of active cell which have mQDATA formula  
                 if (i == 0)
                 {
-                    value = ((ArrayList)list[0])[1].ToString();
+                    value = data[0][1].ToString();
                 }
                 // populate data for each quandl code
-                ExcelHelp.PopulateData(currentFormulaCell, quandlCode, list, i);
+                ExcelHelp.PopulateData(currentFormulaCell, quandlCode, data, i);
                 i++;
             }
 
