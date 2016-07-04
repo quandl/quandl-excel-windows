@@ -100,38 +100,28 @@ namespace Quandl.Shared
             return resp.DatasetData.Data;
         }
 
-        public static string PullSingleValue(string code, string columnName = null, string date = null)
+        public async static Task<string> PullSingleValue(string code, string columnName, string date)
         {
-            var api_key = QuandlConfig.ApiKey;
-            var requestUri = Settings.Default.BaseUrl + "datasets/" + code + "/data.json?limit=1" + "&api_key=" +
-                             api_key;
+            var data = "";
+            var queryParams = new Dictionary<string, object>
+            {
+                { "limit", "1" }
+            };
+
             if (date != null)
             {
-                requestUri += "&start_date=" + date + "&end_date=" + date;
+                queryParams["start_date"] = date;
+                queryParams["end_date"] = date;
             }
-            var response = GetResponseJson(requestUri);
+            queryParams["column_index"] = columnName;
 
-            var columnsList = response["dataset_data"]["column_names"].ToObject<ArrayList>();
-            var columnsUppercase = new ArrayList();
-
-            foreach (string column in columnsList)
+            var relativeUrl = "datasets/" + code + "/data";
+            var resp = await RequestAsync<DatasetDataResponse>(relativeUrl, CallTypes.Data, queryParams);
+            var dataRow = resp.DatasetData.Data.FirstOrDefault();
+            if (dataRow.Count > 1)
             {
-                columnsUppercase.Add(column.ToUpper());
+                data = dataRow[1].ToString();
             }
-            var dataList = response["dataset_data"]["data"][0].ToObject<ArrayList>();
-            var data = "";
-
-            var index = 1;
-            if (columnName != null)
-            {
-                index = columnsUppercase.IndexOf(columnName.ToUpper());
-            }
-
-            if (index >= 0)
-            {
-                data = dataList[index].ToString();
-            }
-
             return data;
         }
 
@@ -229,6 +219,10 @@ namespace Quandl.Shared
                     var queryString = "?";
                     foreach (var queryParam in queryParams)
                     {
+                        if (queryParam.Value == null)
+                        {
+                            continue;
+                        }
                         if (queryParam.Value is IList && queryParam.Value.GetType().IsGenericType)
                         {
                             queryString += ConvertListToQueryString(queryParam.Key, (List<string>)queryParam.Value) + "&";

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Tools.Ribbon;
 using Quandl.Shared;
+using System.Collections.Generic;
 
 namespace Quandl.Excel.Addin
 {

@@ -72,13 +72,12 @@ namespace Quandl.Shared
                 activeCell[rowCount + 1, i + 2].Value2 = dataList[i];
 
             }
-
         }
 
-        public static void PopulateData(Microsoft.Office.Interop.Excel.Range currentFormulaCell, string quandlCode, ArrayList dataList, int rowCount)
+        public static void PopulateData(Microsoft.Office.Interop.Excel.Range currentFormulaCell, string quandlCode, List<List<object>> dataList, int rowCount)
         {
             Microsoft.Office.Interop.Excel.Range firstCell = currentFormulaCell.get_Offset(rowCount, -1 );
-            ArrayList list = (ArrayList)dataList[0];
+            var list = dataList[0];
             
             for (int i = 1; i < list.Count; i++)
             {
