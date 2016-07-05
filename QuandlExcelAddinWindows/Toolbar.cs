@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Tools.Ribbon;
+﻿using System.Windows;
+using Microsoft.Office.Tools.Ribbon;
 using Quandl.Shared;
 using System.Collections.Generic;
 

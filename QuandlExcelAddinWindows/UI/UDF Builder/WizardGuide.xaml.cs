@@ -22,7 +22,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             StateControl.Instance.Reset();
 
             // Async check that the user is logged in our not
-            Loaded += async delegate
+            this.Loaded += async delegate
             {
                 PrepareFormEvents();
                 try
@@ -49,7 +49,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 if (e.PropertyName == "DataCode")
                 {
-                    changeToStep();
+                    ChangeToStep();
                 }
             };
         }
@@ -64,19 +64,19 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             if (currentStep > shownStep)
             {
                 shownStep++;
-                showStep(shownStep);
+                ShowStep(shownStep);
             }
             else
             {
                 StateControl.Instance.currentStep++;
-                changeToStep();
+                ChangeToStep();
             }
         }
 
         private void prevButton_click(object sender, RoutedEventArgs e)
         {
             shownStep--;
-            showStep(shownStep);
+            ShowStep(shownStep);
         }
 
         private async void LoginOrSearch()
@@ -84,25 +84,27 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             try
             {
                 var loggedIn = await QuandlConfig.ApiKeyValid();
-                if (loggedIn)
+                this.Dispatcher.Invoke(() =>
                 {
-                    foreach (UIElement child in currentStepGrid.Children)
+                    if (loggedIn)
                     {
-                        child.Visibility = Visibility.Visible;
-                    }
+                        foreach (UIElement child in currentStepGrid.Children)
+                        {
+                            child.Visibility = Visibility.Visible;
+                        }
 
-                    DataContext = StateControl.Instance;
-                    changeToStep();
-                }
-                else
-                {
-                    var loginXaml = new Uri("../Settings/Login.xaml", UriKind.Relative);
-                    stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-                    stepFrame.Source = loginXaml;
-                    currentStepGrid.Children[0].Visibility = Visibility.Hidden;
-                    currentStepGrid.Children[2].Visibility = Visibility.Hidden;
-                }
-                this.Focus();
+                        ChangeToStep();
+                    }
+                    else
+                    {
+                        var loginXaml = new Uri("../Settings/Login.xaml", UriKind.Relative);
+                        stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+                        stepFrame.Source = loginXaml;
+                        currentStepGrid.Children[0].Visibility = Visibility.Hidden;
+                        currentStepGrid.Children[2].Visibility = Visibility.Hidden;
+                    }
+                    this.Focus();
+                });
             }
             catch (Exception exp)
             {
@@ -110,26 +112,26 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
         }
 
-        private void changeToStep()
+        private void ChangeToStep()
         {
             // Show the current step form in the wizard
-            showStep(currentStep);
+            ShowStep(currentStep);
         }
 
-        private void showForm()
+        private void ShowForm()
         {
             var stepXaml = new Uri(steps[shownStep] + ".xaml", UriKind.Relative);
             stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             stepFrame.Source = stepXaml;
         }
 
-        private void showStep(int stepNumber)
+        private void ShowStep(int stepNumber)
         {
             // Update the shown step
             shownStep = stepNumber;
 
             // Show the correct user form in the wizard
-            showForm();
+            ShowForm();
 
             // Enable the appropriate navigation buttons
             nextButton.IsEnabled = true;
@@ -150,7 +152,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 // Set the title of the form
                 var type = Type.GetType("Quandl.Excel.Addin.UI.UDF_Builder." + steps[i]);
-                var stepObject = (WizardUIBase) Activator.CreateInstance(type);
+                var stepObject = (WizardUIBase)Activator.CreateInstance(type);
 
                 // Should this be the title shown
                 if (i == stepNumber)
@@ -163,7 +165,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 stepLink.Content = "Step " + (i + 1);
                 stepLink.Padding = new Thickness(10);
                 var step = i; // Need to duplicate the value to avoid issues with referencing a changing 'i'
-                stepLink.Click += delegate { showStep(step); };
+                stepLink.Click += delegate { ShowStep(step); };
                 stepBreadcrumb.Children.Add(stepLink);
 
                 // Separator between step buttons
@@ -197,7 +199,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             stepBreadcrumb.Children.Add(titleBox);
 
             // Highlight the current step
-            var stepElement = (Control) stepBreadcrumb.Children[(stepNumber + 1)*2 - 2];
+            var stepElement = (Control)stepBreadcrumb.Children[(stepNumber + 1) * 2 - 2];
             stepElement.Background = Brushes.AliceBlue;
         }
     }

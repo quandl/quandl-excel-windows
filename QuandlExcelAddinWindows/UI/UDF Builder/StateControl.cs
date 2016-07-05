@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -43,6 +45,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public int currentStep = 0;
 
+        public string UdfFormula { get; internal set; }
+
         public string DataCode { get; internal set; }
         public List<string> DataSetTableSelection { get; internal set; } = new List<string>();
         public List<List<string>> Columns { get; internal set; } = new List<List<string>>();
@@ -53,10 +57,17 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public StateControl()
         {
             Reset();
+            PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName != "UdfFormula")
+                {
+                    UpdateFormula();
+                }
+            };
         }
-
         public void Reset()
         {
+            UdfFormula = "";
             currentStep = 0;
             chainType = ChainTypes.Datatables;
             DataCode = null;
@@ -70,7 +81,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             Reset(); // Reset the chain because the code has been chained.
             chainType = ct;
             DataCode = dataCode;
-            OnPropertyChanged("DataCode");
+            NotifyPropertyChanged("DataCode");
         }
 
         public string[] GetStepList()
@@ -78,14 +89,29 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             return (this.chainType == ChainTypes.TimeSeries) ? timeSeriesChain : datatableChain;
         }
 
-        protected void OnPropertyChanged(PropertyChangedEventArgs e)
+        protected void NotifyPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, e);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected void OnPropertyChanged(string propertyName)
+        private void UpdateFormula()
         {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+            // If the DataCode has been nullified or blanked out simply erase the formula
+            if (string.IsNullOrEmpty(DataCode))
+            {
+                UdfFormula = "";
+                NotifyPropertyChanged("UdfFormula");
+                return;
+            }
+
+            // At least the DataCode has been given
+            UdfFormula = $"=QDATA({DataCode}";
+
+            // Close off the formula
+            UdfFormula += ")";
+
+            // Updated Property
+            NotifyPropertyChanged("UdfFormula");
         }
     }
 }
