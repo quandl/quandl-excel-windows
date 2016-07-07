@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Quandl.Excel.Addin.ViewData;
@@ -21,21 +22,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     public partial class DatabaseSelection : UserControl, WizardUIBase
     {
         private List<Data> allItems;
-        private List<Data> premiumItems;
-
-        /// <summary>
-        /// The _free items.
-        /// </summary>
-        private List<Data> freeItems;
 
         public string getTitle()
         {
             return "Browse Databases or Enter a Database Code";
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         public DatabaseSelection()
         {
             InitializeComponent();
@@ -47,14 +39,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             BrowseCollection items = await Web.BrowseAsync();
             Categories categories = new Categories();
-          
+
             foreach (var item in items.Items)
             {
                 {
                     Category category = new Category() { Header = item.Name };
                     foreach (var subItem in item.Items)
                     {
-         
+
                         SubCategory subCategory = new SubCategory() { Header = subItem.Name };
                         category.SubCategories.Add(subCategory);
                         foreach (var detailItem in subItem.Items)
@@ -74,9 +66,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private async void PopulateList(Object current)
         {
             allItems = new List<Data>();
-            premiumItems = new List<Data>();
-            freeItems = new List<Data>();
-
             Detail cur = (Detail)current;
             DatabaseCollection dtc = await GetAllDatabase(cur);
             DatatableCollectionsResponse dt = await GetAllDatatable((Detail)cur);
@@ -89,7 +78,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 DatatableCollection dbc = null;
                 Data data = null;
                 var type = listItem.Type;
-                if (type.Equals("database"))
+                if (type.Equals("database") && dtc.Databases != null)
                 {
                     db = dtc.Databases[dtcCount];
                     dtcCount++;
@@ -99,29 +88,26 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
                 else
                 {
+                    if (dt.DatatableCollections != null)
+                    {
+                        dbc = dt.DatatableCollections[dtCount];
+                        data = new Data(dbc.Id, dbc.Code, dbc.Premium, type);
+                        data.Name = dbc.Name;
+                        data.Description = dbc.Description;
+                        dtCount++;
+                    }
 
-                    dbc = dt.DatatableCollections[dtCount];
-                    data = new Data(dbc.Id, dbc.Code, dbc.Premium, type);
-                    data.Name = dbc.Name;
-                    data.Description = dbc.Description;
-                    dtCount++;
                 }
 
-                allItems.Add(data);
-
-                if (data.Premium == true)
+                if (data != null)
                 {
-                    premiumItems.Add(data);
-                }
-                else
-                {
-                    freeItems.Add(data);
-                }
+                    allItems.Add(data);
+                }  
             }
 
             AllDatabaseList.ItemsSource = allItems;
-            PremiumDatabaseList.ItemsSource = premiumItems;
-            FreeDatabaseList.ItemsSource = freeItems;
+            PremiumDatabaseList.ItemsSource = PremiumItems();
+            FreeDatabaseList.ItemsSource = FreeItems();
         }
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -134,14 +120,19 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
             else
             {
-                AllDatabaseList.ItemsSource = null;
-                PremiumDatabaseList.ItemsSource = null;
-                FreeDatabaseList.ItemsSource = null;
-                TabControl.SelectedIndex = 0;
-                DatabaseCodeBox.Text = "";
-                allItems = null;
+                ResetSelections();
             }
 
+        }
+
+        private void ResetSelections()
+        {
+            AllDatabaseList.ItemsSource = null;
+            PremiumDatabaseList.ItemsSource = null;
+            FreeDatabaseList.ItemsSource = null;
+            TabControl.SelectedIndex = 0;
+            DatabaseCodeBox.Text = string.Empty;
+            allItems = null;
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -156,15 +147,25 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
                 else if (i == 1)
                 {
-                    PremiumDatabaseList.ItemsSource = premiumItems;
+                    PremiumDatabaseList.ItemsSource = PremiumItems();
                     PremiumDatabaseList.SelectedValue = null;
                 }
                 else if (i == 2)
                 {
-                    FreeDatabaseList.ItemsSource = freeItems;
+                    FreeDatabaseList.ItemsSource = FreeItems();
                     FreeDatabaseList.SelectedValue = null;
                 }
             }
+        }
+
+        private List<Data> PremiumItems()
+        {
+            return allItems.Where(x => x.Premium).ToList();
+        }
+
+        private List<Data> FreeItems()
+        {
+            return allItems.Where(x => !x.Premium).ToList();
         }
 
         private void DatabaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -173,19 +174,19 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
             if (AllDatabaseList.SelectedValue != null)
             {
-                Data selectedItem = (Data) AllDatabaseList.SelectedValue;
+                Data selectedItem = (Data)AllDatabaseList.SelectedValue;
                 DatabaseCodeBox.Text = selectedItem.Code;
                 SetChainType(selectedItem);
             }
             else if (PremiumDatabaseList.SelectedValue != null)
             {
-                Data selectedItem = (Data) PremiumDatabaseList.SelectedValue;
+                Data selectedItem = (Data)PremiumDatabaseList.SelectedValue;
                 DatabaseCodeBox.Text = selectedItem.Code;
                 SetChainType(selectedItem);
             }
             else if (FreeDatabaseList.SelectedValue != null)
             {
-                Data selectedItem = (Data) FreeDatabaseList.SelectedValue;
+                Data selectedItem = (Data)FreeDatabaseList.SelectedValue;
                 DatabaseCodeBox.Text = selectedItem.Code;
                 SetChainType(selectedItem);
             }
@@ -207,35 +208,50 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private async void DatabaseCodeBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            string code = ((TextBox) sender).Text;
+            string code = ((TextBox)sender).Text;
+            DatatableCollection dc = null;
             bool hasError = false;
-            if (StateControl.Instance.SelectionType.Equals(StateControl.SelectionTypes.Manual))
+
+            try
             {
-                var result = await Utilities.ValidateDataCode(StateControl.Instance.DataCode);
-                if (result != true)
+                await Web.GetDatabase(code);
+                StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.TimeSeries);
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    dc = await Web.GetDatatableCollection(code);
+                    StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.Datatables);
+                    StateControl.Instance.datatableCollection = dc;
+                }
+                catch (Exception)
                 {
                     hasError = true;
-                    ShowValidationError(code);
                 }
             }
+
 
             if (hasError.Equals(false))
             {
                 CleanValidationError();
-                StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.TimeSeries);
+                
             }
-            
+            else
+            {
+                ShowValidationError(code);
+            }
+
         }
 
         private void ShowValidationError(string code)
         {
-            Label2.Content = String.Format(Properties.Settings.Default.DataCodeValidationMessage, code);
+            ErrorMessage.Content = String.Format(Properties.Settings.Default.DataCodeValidationMessage, code);
         }
 
         private void CleanValidationError()
         {
-            Label2.Content = "";
-
+            ErrorMessage.Content = "";
         }
 
         private void DatabaseCodeBox_OnMouseEnter(object sender, MouseEventArgs e)
@@ -245,7 +261,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private async Task<DatabaseCollection> GetAllDatabase(Detail detail)
         {
-            string type = "database";  
+            string type = "database";
             return await Web.GetModelByIds<DatabaseCollection>(type + "s", GetListIds(detail, type));
         }
 

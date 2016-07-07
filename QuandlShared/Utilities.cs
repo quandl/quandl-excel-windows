@@ -89,47 +89,6 @@ namespace Quandl.Shared
             return result;
         }
 
-        public static string ValidateEmptyData(string quandl_data)
-        {
-            if (quandl_data == null || quandl_data.Equals(""))
-            {
-                throw new QuandlDataNotFoundException();
-            }
-
-            return quandl_data;
-        }
-
-        public static async Task<bool> ValidateDataCode(string code)
-        {
-            try
-            {
-                Database db = await Web.GetDatabase(code);
-           
-                if (db == null)
-                {
-                    DatatableCollection dc = await Web.GetDatatableCollection(code);
-                    if (dc == null)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-        }
-
         private static ArrayList PrependToList(ArrayList list, string item)
         {
             ArrayList result = new ArrayList();
