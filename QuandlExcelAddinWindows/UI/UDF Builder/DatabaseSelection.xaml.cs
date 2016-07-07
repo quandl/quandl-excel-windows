@@ -46,7 +46,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     Category category = new Category() { Header = item.Name };
                     foreach (var subItem in item.Items)
                     {
-
                         SubCategory subCategory = new SubCategory() { Header = subItem.Name };
                         category.SubCategories.Add(subCategory);
                         foreach (var detailItem in subItem.Items)
@@ -67,8 +66,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             allItems = new List<Data>();
             Detail cur = (Detail)current;
-            DatabaseCollection dtc = await GetAllDatabase(cur);
-            DatatableCollectionsResponse dt = await GetAllDatatable((Detail)cur);
+            DatabaseCollection databaseCollection = await GetAllDatabase(cur);
+            DatatableCollectionsResponse datatableCollectionsResponse = await GetAllDatatable((Detail)cur);
 
             int dtcCount = 0;
             int dtCount = 0;
@@ -78,9 +77,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 DatatableCollection dbc = null;
                 Data data = null;
                 var type = listItem.Type;
-                if (type.Equals("database") && dtc.Databases != null)
+                if (type.Equals("database") && databaseCollection.Databases != null)
                 {
-                    db = dtc.Databases[dtcCount];
+                    db = databaseCollection.Databases[dtcCount];
                     dtcCount++;
                     data = new Data(db.Id, db.DatabaseCode, db.Premium, type);
                     data.Name = db.Name;
@@ -88,15 +87,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
                 else
                 {
-                    if (dt.DatatableCollections != null)
+                    if (datatableCollectionsResponse.DatatableCollections != null)
                     {
-                        dbc = dt.DatatableCollections[dtCount];
+                        dbc = datatableCollectionsResponse.DatatableCollections[dtCount];
                         data = new Data(dbc.Id, dbc.Code, dbc.Premium, type);
                         data.Name = dbc.Name;
                         data.Description = dbc.Description;
                         dtCount++;
                     }
-
                 }
 
                 if (data != null)
