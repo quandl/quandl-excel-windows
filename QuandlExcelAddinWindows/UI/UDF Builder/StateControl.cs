@@ -23,6 +23,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         // The different types of chains
         public enum ChainTypes { TimeSeries, Datatables };
 
+        public enum SelectionTypes
+        {
+            Manual,
+            Automatic
+        };
+
         // The chain of forms for time series
         private static readonly string[] timeSeriesChain = {
             "DatabaseSelection",
@@ -53,6 +59,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public List<DataSetTableFilter> Filters { get; internal set; } = new List<DataSetTableFilter>();
 
         public ChainTypes chainType { get; internal set; } = ChainTypes.Datatables;
+
+        public SelectionTypes SelectionType { get; set; } = SelectionTypes.Manual;
 
         public StateControl()
         {
@@ -98,7 +106,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             // If the DataCode has been nullified or blanked out simply erase the formula
             if (string.IsNullOrEmpty(DataCode))
-            {
+        {
                 UdfFormula = "";
                 NotifyPropertyChanged("UdfFormula");
                 return;

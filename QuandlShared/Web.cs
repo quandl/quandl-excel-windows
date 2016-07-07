@@ -40,6 +40,7 @@ namespace Quandl.Shared
             return await RequestAsync<DatabaseCollection>("databases", CallTypes.Search, queryParams);
         }
 
+
         public static async Task<DatasetCollection> SearchDatasetsAsync(string databaseCode, string query)
         {
             var queryParams = new Dictionary<string, object>
@@ -55,13 +56,13 @@ namespace Quandl.Shared
         {
             var headers = new Dictionary<string, string>
             {
-                {"Request-Source", "next"},
+                //{"Request-Source", "next"},
                 {"X-Requested-With", "XMLHttpRequest"}
             };
 
             var queryParams = new Dictionary<string, object>
             {
-                {"keys[]", "browse-json"}
+                {"keys[]", "browse"}
             };
 
             var resp = await RequestAsync<NamedContentCollection>("named_contents", CallTypes.Search, queryParams, headers);
@@ -139,11 +140,39 @@ namespace Quandl.Shared
             return JObject.Parse(resp);
         }
 
-        private static T GetResponseJson<T>(string requestUri)
+        public static async Task<T> GetResponseJson<T>(string requestParams)
         {
-            var client = QuandlApiWebClient();
-            var resp = client.DownloadString(requestUri);
-            return JsonConvert.DeserializeObject<T>(resp);
+            var client = new WebClient
+            {
+                Headers =
+                {
+                    [HttpRequestHeader.Accept] = "application/json",
+                    [HttpRequestHeader.ContentType] = "application/json",
+                    ["Request-Source"] = "next",
+                    ["X-Requested-With"] = "XMLHttpRequest",
+                }
+            };
+            string requestUri = Settings.Default.BaseUrl + requestParams;
+            var resp = await client.DownloadStringTaskAsync(requestUri);
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new SnakeCaseMappingResolver()
+                
+            };
+            settings.NullValueHandling = NullValueHandling.Ignore;
+            return JsonConvert.DeserializeObject<T>(resp, settings);
+        }
+
+        public static async Task<Database> GetDatabase(string code)
+        {
+            string requestParams = "databases/" + code;
+            return await Web.GetResponseJson<Database>(requestParams);
+        }
+
+        public static async Task<DatatableCollection> GetDatatableCollection(string code)
+        {
+            string requestParams = "datatable_collections/" + code;
+            return await Web.GetResponseJson<DatatableCollection>(requestParams);
         }
 
         private static JObject QuandlAPICall(string quandlCode, string extraUri)

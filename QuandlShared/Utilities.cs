@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Quandl.Shared.models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quandl.Shared
 {
@@ -95,6 +97,37 @@ namespace Quandl.Shared
             }
 
             return quandl_data;
+        }
+
+        public static async Task<bool> ValidateDataCode(string code)
+        {
+            try
+            {
+                Database db = await Web.GetDatabase(code);
+           
+                if (db == null)
+                {
+                    DatatableCollection dc = await Web.GetDatatableCollection(code);
+                    if (dc == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
 
         private static ArrayList PrependToList(ArrayList list, string item)
