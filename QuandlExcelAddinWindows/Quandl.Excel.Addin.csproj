@@ -186,6 +186,7 @@
     <Compile Include="Controls\QuandlSettings.Designer.cs">
       <DependentUpon>QuandlSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\ViewData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
