@@ -14,7 +14,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.Resources>
             <local:Categories x:Key="CatData" />
@@ -51,7 +52,9 @@
                 <ListView Name="FreeDatabaseList" Margin="0" SelectionChanged="DatabaseList_SelectionChanged" ItemTemplate="{DynamicResource QuandlDataItem}"/>
             </TabItem>
         </TabControl>
-        <Label x:Name="Label" Content="Database Code" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0"   Margin="10" FontWeight="Bold"/>
-        <TextBox x:Name="DatabaseCodeBox" HorizontalAlignment="Left" Margin="15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Width="100" LostFocus="DatabaseCodeBox_OnLostFocus" MouseEnter="DatabaseCodeBox_OnMouseEnter" />
+        <Label x:Name="Label1" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"   Margin="10" />
+        <Label x:Name="Label2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Content="hello"   Margin="15"/>
+        <Label x:Name="Label3" Content="Database Code" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Grid.Column="0"   Margin="10,15,10,10" FontWeight="Bold"/>
+        <TextBox x:Name="DatabaseCodeBox" HorizontalAlignment="Left" Margin="15,20,15,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="100" LostFocus="DatabaseCodeBox_OnLostFocus" MouseEnter="DatabaseCodeBox_OnMouseEnter" />
     </Grid>
 </UserControl>

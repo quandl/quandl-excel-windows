@@ -53,19 +53,13 @@ namespace Quandl.Shared
         }
 
         public static async Task<BrowseCollection> BrowseAsync()
-        {
-            var headers = new Dictionary<string, string>
-            {
-                //{"Request-Source", "next"},
-                {"X-Requested-With", "XMLHttpRequest"}
-            };
-
+        { 
             var queryParams = new Dictionary<string, object>
             {
                 {"keys[]", "browse"}
             };
 
-            var resp = await RequestAsync<NamedContentCollection>("named_contents", CallTypes.Search, queryParams, headers);
+            var resp = await RequestAsync<NamedContentCollection>("named_contents", CallTypes.Search, queryParams, null);
             var namedContent = resp.NamedContents.FirstOrDefault();
             var browseJson = namedContent.HtmlContent;
             var browse = JsonConvert.DeserializeObject<BrowseCollection>(browseJson, JsonSettings());
@@ -142,16 +136,7 @@ namespace Quandl.Shared
 
         public static async Task<T> GetResponseJson<T>(string requestParams)
         {
-            var client = new WebClient
-            {
-                Headers =
-                {
-                    [HttpRequestHeader.Accept] = "application/json",
-                    [HttpRequestHeader.ContentType] = "application/json",
-                    ["Request-Source"] = "next",
-                    ["X-Requested-With"] = "XMLHttpRequest",
-                }
-            };
+            var client = new WebClient();
             string requestUri = Settings.Default.BaseUrl + requestParams;
             var resp = await client.DownloadStringTaskAsync(requestUri);
             var settings = new JsonSerializerSettings
@@ -163,16 +148,30 @@ namespace Quandl.Shared
             return JsonConvert.DeserializeObject<T>(resp, settings);
         }
 
+        public static async Task<T> GetModelByIds<T>(string type, List<string> ids) where T: class, new()
+        {
+            if (ids.Count.Equals(0))
+            {
+                return new T();
+            }
+            var queryParams = new Dictionary<string, object>
+            {
+                { "ids", ids }
+            };
+            return await RequestAsync<T>(type, CallTypes.Data, queryParams);
+        }
+
         public static async Task<Database> GetDatabase(string code)
         {
-            string requestParams = "databases/" + code;
-            return await Web.GetResponseJson<Database>(requestParams);
+            string relativeUrl = "databases/" + code;
+            return await RequestAsync<Database>(relativeUrl, CallTypes.Search, null);
+
         }
 
         public static async Task<DatatableCollection> GetDatatableCollection(string code)
         {
-            string requestParams = "datatable_collections/" + code;
-            return await Web.GetResponseJson<DatatableCollection>(requestParams);
+            string relativeUrl = "datatable_collections/" + code;
+            return await RequestAsync<DatatableCollection>(relativeUrl, CallTypes.Search, null);
         }
 
         private static JObject QuandlAPICall(string quandlCode, string extraUri)
@@ -280,8 +279,9 @@ namespace Quandl.Shared
         {
             return new JsonSerializerSettings
             {
-                ContractResolver = new SnakeCaseMappingResolver()
-            };
+                ContractResolver = new SnakeCaseMappingResolver(),
+                NullValueHandling = NullValueHandling.Ignore
+            }; 
         }
         private static string CallTypeMapper(CallTypes callType)
         {
