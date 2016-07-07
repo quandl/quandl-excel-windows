@@ -169,6 +169,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void DatabaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            CleanValidationError();
+
             if (AllDatabaseList.SelectedValue != null)
             {
                 Data selectedItem = (Data) AllDatabaseList.SelectedValue;
@@ -206,16 +208,34 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private async void DatabaseCodeBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
             string code = ((TextBox) sender).Text;
+            bool hasError = false;
             if (StateControl.Instance.SelectionType.Equals(StateControl.SelectionTypes.Manual))
             {
                 var result = await Utilities.ValidateDataCode(StateControl.Instance.DataCode);
                 if (result != true)
                 {
-                    //TODO
+                    hasError = true;
+                    ShowValidationError(code);
                 }
             }
 
-            StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.TimeSeries);
+            if (hasError.Equals(false))
+            {
+                CleanValidationError();
+                StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.TimeSeries);
+            }
+            
+        }
+
+        private void ShowValidationError(string code)
+        {
+            Label2.Content = String.Format(Properties.Settings.Default.DataCodeValidationMessage, code);
+        }
+
+        private void CleanValidationError()
+        {
+            Label2.Content = "";
+
         }
 
         private void DatabaseCodeBox_OnMouseEnter(object sender, MouseEventArgs e)
@@ -225,30 +245,27 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private async Task<DatabaseCollection> GetAllDatabase(Detail detail)
         {
-            string requestParams = "databases?";
-            foreach (var ol in detail.OrderList)
-            {
-                if (ol.Type.Equals("database"))
-                {
-                    requestParams = requestParams + "ids[]=" + ol.Id.ToString() + "&";
-                }
-            }
-
-            return await Web.GetResponseJson<DatabaseCollection>(requestParams);
+            string type = "database";  
+            return await Web.GetModelByIds<DatabaseCollection>(type + "s", GetListIds(detail, type));
         }
 
         private async Task<DatatableCollectionsResponse> GetAllDatatable(Detail detail)
         {
-            string requestParams = "datatable_collections?";
+            string type = "datatable_collection";
+            return await Web.GetModelByIds<DatatableCollectionsResponse>(type, GetListIds(detail, type));
+        }
+
+        private List<string> GetListIds(Detail detail, string type)
+        {
+            List<string> ids = new List<string>();
             foreach (var ol in detail.OrderList)
             {
-                if (ol.Type.Equals("datatable-collection"))
+                if (ol.Type.Equals(type))
                 {
-                    requestParams = requestParams + "ids[]=" + ol.Id.ToString() + "&";
+                    ids.Add(ol.Id.ToString());
                 }
             }
-
-            return await Web.GetResponseJson<DatatableCollectionsResponse>(requestParams);
+            return ids;
         }
     }
     public class Categories : ObservableCollection<Category>
