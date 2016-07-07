@@ -164,14 +164,14 @@ namespace Quandl.Shared
         public static async Task<Database> GetDatabase(string code)
         {
             string relativeUrl = "databases/" + code;
-            return await RequestAsync<Database>(relativeUrl, CallTypes.Search, null);
+            return await RequestAsync<Database>(relativeUrl, CallTypes.Data, null);
 
         }
 
         public static async Task<DatatableCollection> GetDatatableCollection(string code)
         {
             string relativeUrl = "datatable_collections/" + code;
-            return await RequestAsync<DatatableCollection>(relativeUrl, CallTypes.Search, null);
+            return await RequestAsync<DatatableCollection>(relativeUrl, CallTypes.Data, null);
         }
 
         private static JObject QuandlAPICall(string quandlCode, string extraUri)
