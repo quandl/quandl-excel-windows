@@ -71,6 +71,7 @@
     <Compile Include="models\NamedContentCollection.cs" />
     <Compile Include="models\User.cs" />
     <Compile Include="models\UserResponse.cs" />
+    <Compile Include="models\ViewData.cs" />
     <Compile Include="QuandlException.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Quandl.Shared.models;
 
-namespace Quandl.Excel.Addin.ViewData
+namespace Quandl.Shared.models.ViewData
 {
     public class Category
     {

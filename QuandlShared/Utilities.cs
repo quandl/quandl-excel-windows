@@ -89,6 +89,16 @@ namespace Quandl.Shared
             return result;
         }
 
+        public static string ValidateEmptyData(string quandl_data)
+        {
+            if (quandl_data == null || quandl_data.Equals(""))
+            {
+                throw new QuandlDataNotFoundException();
+            }
+
+            return quandl_data;
+        }
+
         private static ArrayList PrependToList(ArrayList list, string item)
         {
             ArrayList result = new ArrayList();

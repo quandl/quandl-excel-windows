@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quandl.Shared.models.ViewData;
 
 namespace Quandl.Shared.models
 {
@@ -23,5 +19,14 @@ namespace Quandl.Shared.models
         public int[] PlanIds { get; set; }
         public int[] PlanCategoryIds { get; set; }
         public object[] CurrentUserSubscriptionIds { get; set; }
+
+        public Data ToData(string type)
+        {
+            Data data = new Data(this.Id, this.Code, this.Premium, type);
+            data.Name = this.Name;
+            data.Description = this.Description;
+            return data;
+        }
+
     }
 }
