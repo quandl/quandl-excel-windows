@@ -61,7 +61,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public SelectionTypes SelectionType { get; set; } = SelectionTypes.Manual;
 
-        public DatatableCollection datatableCollection { get; internal set; }
+        public DatatableCollectionResponse datatableCollection { get; internal set; }
 
         public StateControl()
         {
