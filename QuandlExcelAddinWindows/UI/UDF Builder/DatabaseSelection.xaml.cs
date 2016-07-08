@@ -6,12 +6,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Quandl.Excel.Addin.ViewData;
 using Quandl.Shared;
 using Quandl.Shared.models;
-
-using Category = Quandl.Excel.Addin.ViewData.Category;
-using SubCategory = Quandl.Excel.Addin.ViewData.SubCategory;
+using Quandl.Shared.models.ViewData;
+using Category = Quandl.Shared.models.ViewData.Category;
+using SubCategory = Quandl.Shared.models.ViewData.SubCategory;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -80,19 +79,15 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 if (type.Equals("database") && databaseCollection.Databases != null)
                 {
                     db = databaseCollection.Databases[dtcCount];
-                    dtcCount++;
-                    data = new Data(db.Id, db.DatabaseCode, db.Premium, type);
-                    data.Name = db.Name;
-                    data.Description = db.Description;
+                    data = db.ToData(type);
+                    dtcCount++;  
                 }
                 else
                 {
                     if (datatableCollectionsResponse.DatatableCollections != null)
                     {
                         dbc = datatableCollectionsResponse.DatatableCollections[dtCount];
-                        data = new Data(dbc.Id, dbc.Code, dbc.Premium, type);
-                        data.Name = dbc.Name;
-                        data.Description = dbc.Description;
+                        data = dbc.ToData(type);
                         dtCount++;
                     }
                 }
@@ -191,7 +186,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             StateControl.Instance.SelectionType = StateControl.SelectionTypes.Automatic;
         }
 
-        private void SetChainType(ViewData.Data selectedItem)
+        private void SetChainType(Data selectedItem)
         {
             if (selectedItem.Type.Equals("database"))
             {

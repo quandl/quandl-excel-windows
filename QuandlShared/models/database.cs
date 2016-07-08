@@ -1,4 +1,6 @@
-﻿namespace Quandl.Shared.models
+﻿using Quandl.Shared.models.ViewData;
+
+namespace Quandl.Shared.models
 {
     public class Database
     {
@@ -10,5 +12,13 @@
         public long Downloads { get; set; }
         public bool Premium { get; set; }
         public string Image { get; set; }
+        public Data ToData(string type)
+        {
+            Data data = new Data(this.Id, this.DatabaseCode, this.Premium, type);
+            data.Name = this.Name;
+            data.Description = this.Description;
+            return data;
+        }
+
     }
 }
