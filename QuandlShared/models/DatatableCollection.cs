@@ -1,4 +1,5 @@
-﻿using Quandl.Shared.models.ViewData;
+﻿using System.Collections.Generic;
+using Quandl.Shared.models.ViewData;
 
 namespace Quandl.Shared.models
 {
@@ -15,10 +16,10 @@ namespace Quandl.Shared.models
         public bool Premium { get; set; }
         public bool Subscribed { get; set; }
         public string Image { get; set; }
-        public int[] RelatedDatatableCollectionIds { get; set; }
-        public int[] PlanIds { get; set; }
-        public int[] PlanCategoryIds { get; set; }
-        public object[] CurrentUserSubscriptionIds { get; set; }
+        public List<string> RelatedDatatableCollectionIds { get; set; }
+        public List<string> PlanIds { get; set; }
+        public List<string> PlanCategoryIds { get; set; }
+        public List<string> CurrentUserSubscriptionIds { get; set; }
 
         public Data ToData(string type)
         {

@@ -183,7 +183,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 SetChainType(selectedItem);
             }
             StateControl.Instance.DataCode = DatabaseCodeBox.Text.Trim();
-            StateControl.Instance.SelectionType = StateControl.SelectionTypes.Automatic;
         }
 
         private void SetChainType(Data selectedItem)
@@ -205,16 +204,16 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
             try
             {
-                await Web.GetDatabase(code);
-                StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.TimeSeries);
+                DatatableCollectionResponse dc = await Web.GetDatatableCollection(code);
+                StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.Datatables);
+                StateControl.Instance.datatableCollection = dc;
             }
             catch (Exception)
             {
                 try
                 {
-                    DatatableCollectionResponse dc = await Web.GetDatatableCollection(code);
-                    StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.Datatables);
-                    StateControl.Instance.datatableCollection = dc;
+                    await Web.GetDatabase(code);
+                    StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.TimeSeries);
                 }
                 catch (Exception)
                 {
@@ -243,11 +242,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private void CleanValidationError()
         {
             ErrorMessage.Content = String.Empty;
-        }
-
-        private void DatabaseCodeBox_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            StateControl.Instance.SelectionType = StateControl.SelectionTypes.Manual;
         }
 
         private async Task<DatabaseCollection> GetAllDatabase(Detail detail)
