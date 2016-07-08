@@ -168,10 +168,10 @@ namespace Quandl.Shared
 
         }
 
-        public static async Task<DatatableCollection> GetDatatableCollection(string code)
+        public static async Task<DatatableCollectionResponse> GetDatatableCollection(string code)
         {
             string relativeUrl = "datatable_collections/" + code;
-            return await RequestAsync<DatatableCollection>(relativeUrl, CallTypes.Data, null);
+            return await RequestAsync<DatatableCollectionResponse>(relativeUrl, CallTypes.Data, null);
         }
 
         private static JObject QuandlAPICall(string quandlCode, string extraUri)

@@ -66,6 +66,7 @@
     <Compile Include="models\DatasetCollection.cs" />
     <Compile Include="models\DatasetData.cs" />
     <Compile Include="models\DatatableCollection.cs" />
+    <Compile Include="models\DatatableCollectionResponse.cs" />
     <Compile Include="models\DatatableCollectionsResponse.cs" />
     <Compile Include="models\Meta.cs" />
     <Compile Include="models\NamedContentCollection.cs" />

@@ -201,7 +201,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private async void DatabaseCodeBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
             string code = ((TextBox)sender).Text;
-            DatatableCollection dc = null;
             bool hasError = false;
 
             try
@@ -213,7 +212,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 try
                 {
-                    dc = await Web.GetDatatableCollection(code);
+                    DatatableCollectionResponse dc = await Web.GetDatatableCollection(code);
                     StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.Datatables);
                     StateControl.Instance.datatableCollection = dc;
                 }
