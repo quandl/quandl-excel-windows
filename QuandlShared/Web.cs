@@ -144,7 +144,6 @@ namespace Quandl.Shared
                 ContractResolver = new SnakeCaseMappingResolver()
                 
             };
-            settings.NullValueHandling = NullValueHandling.Ignore;
             return JsonConvert.DeserializeObject<T>(resp, settings);
         }
 
@@ -280,8 +279,7 @@ namespace Quandl.Shared
         {
             return new JsonSerializerSettings
             {
-                ContractResolver = new SnakeCaseMappingResolver(),
-                NullValueHandling = NullValueHandling.Ignore
+                ContractResolver = new SnakeCaseMappingResolver()
             }; 
         }
         private static string CallTypeMapper(CallTypes callType)

@@ -55,6 +55,6 @@
         <Label HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"   Margin="10" />
         <Label x:Name="ErrorMessage" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="15"/>
         <Label Content="Database Code" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Grid.Column="0"   Margin="10,15,10,10" FontWeight="Bold"/>
-        <TextBox x:Name="DatabaseCodeBox" HorizontalAlignment="Left" Margin="15,20,15,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="100" LostFocus="DatabaseCodeBox_OnLostFocus" MouseEnter="DatabaseCodeBox_OnMouseEnter" />
+        <TextBox x:Name="DatabaseCodeBox" HorizontalAlignment="Left" Margin="15,20,15,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="100" LostFocus="DatabaseCodeBox_OnLostFocus"/>
     </Grid>
 </UserControl>
