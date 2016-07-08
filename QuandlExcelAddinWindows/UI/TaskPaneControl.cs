@@ -1,45 +1,27 @@
-﻿using Microsoft.Office.Tools;
+﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using Microsoft.Office.Core;
+using Quandl.Excel.Addin.Properties;
+using CustomTaskPane = Microsoft.Office.Tools.CustomTaskPane;
 
 namespace Quandl.Excel.Addin.UI
 {
-    class TaskPaneControl
+    internal class TaskPaneControl
     {
-        [DllImport("user32.dll", EntryPoint = "FindWindowW")]
-        public static extern System.IntPtr FindWindowW([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lpClassName, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lpWindowName);
-
-        [DllImport("user32.dll", EntryPoint = "MoveWindow")]
-        [return: System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
-        public static extern bool MoveWindow([System.Runtime.InteropServices.InAttribute()] System.IntPtr hWnd, int X, int Y, int nWidth, int nHeight, [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)] bool bRepaint);
-
-        public static BitmapImage BitmapToImageSource(Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapimage = new BitmapImage();
-                bitmapimage.BeginInit();
-                bitmapimage.StreamSource = memory;
-                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapimage.EndInit();
-
-                return bitmapimage;
-            }
-        }
+        private readonly UserControl control;
+        private readonly string name;
 
         private CustomTaskPane taskPane;
-        private UserControl control;
-        private string name;
 
         public TaskPaneControl(UserControl userControl, string name)
         {
-            this.control = userControl;
+            control = userControl;
             this.name = name;
         }
 
@@ -47,8 +29,33 @@ namespace Quandl.Excel.Addin.UI
         {
             var controlHost = new TaskPaneWpfControlHost();
             controlHost.WpfElementHost.HostContainer.Children.Add(userControl);
-            this.control = controlHost;
+            control = controlHost;
             this.name = name;
+        }
+
+        [DllImport("user32.dll", EntryPoint = "FindWindowW")]
+        public static extern IntPtr FindWindowW([In] [MarshalAs(UnmanagedType.LPWStr)] string lpClassName,
+            [In] [MarshalAs(UnmanagedType.LPWStr)] string lpWindowName);
+
+        [DllImport("user32.dll", EntryPoint = "MoveWindow")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool MoveWindow([In] IntPtr hWnd, int X, int Y, int nWidth, int nHeight,
+            [MarshalAs(UnmanagedType.Bool)] bool bRepaint);
+
+        public static BitmapImage BitmapToImageSource(Bitmap bitmap)
+        {
+            using (var memory = new MemoryStream())
+            {
+                bitmap.Save(memory, ImageFormat.Bmp);
+                memory.Position = 0;
+                var bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
+            }
         }
 
         public void Show(bool asWindow = false)
@@ -65,7 +72,7 @@ namespace Quandl.Excel.Addin.UI
 
         private void ShowAsWindow()
         {
-            var window = new Window()
+            var window = new Window
             {
                 SizeToContent = SizeToContent.WidthAndHeight,
                 ResizeMode = ResizeMode.CanResizeWithGrip,
@@ -75,7 +82,7 @@ namespace Quandl.Excel.Addin.UI
             };
 
             window.Content = control;
-            window.Icon = TaskPaneControl.BitmapToImageSource(Quandl.Excel.Addin.Properties.Resources.Quandl_Icon.ToBitmap());
+            window.Icon = BitmapToImageSource(Resources.Quandl_Icon.ToBitmap());
             window.ShowDialog();
         }
 
@@ -88,8 +95,8 @@ namespace Quandl.Excel.Addin.UI
 
             if (!taskPane.Visible)
             {
-                taskPane.DockPosition = Microsoft.Office.Core.MsoCTPDockPosition.msoCTPDockPositionFloating;
-                taskPane.DockPositionRestrict = Microsoft.Office.Core.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoHorizontal;
+                taskPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionFloating;
+                taskPane.DockPositionRestrict = MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoHorizontal;
                 taskPane.Width = 640;
                 taskPane.Height = 480;
                 taskPane.Visible = true;
@@ -97,7 +104,8 @@ namespace Quandl.Excel.Addin.UI
 
             // Set it to the center of the screen
             var screen = Screen.FromControl(control);
-            SetCustomPanePositionWhenFloating(taskPane, screen.Bounds.Width / 2 - taskPane.Width / 2, screen.Bounds.Height / 2 - taskPane.Height / 2);
+            SetCustomPanePositionWhenFloating(taskPane, screen.Bounds.Width/2 - taskPane.Width/2,
+                screen.Bounds.Height/2 - taskPane.Height/2);
         }
 
         // http://stackoverflow.com/questions/6916402/c-excel-addin-cant-reposition-floating-custom-task-pane
@@ -106,7 +114,7 @@ namespace Quandl.Excel.Addin.UI
             var oldDockPosition = customTaskPane.DockPosition;
             var oldVisibleState = customTaskPane.Visible;
 
-            customTaskPane.DockPosition = Microsoft.Office.Core.MsoCTPDockPosition.msoCTPDockPositionFloating;
+            customTaskPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionFloating;
             customTaskPane.Visible = true; //The task pane must be visible to set its position
 
             var window = FindWindowW("MsoCommandBar", customTaskPane.Title); //MLHIDE

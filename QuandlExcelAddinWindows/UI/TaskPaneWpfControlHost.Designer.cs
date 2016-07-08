@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.wpfElementHost = new System.Windows.Forms.Integration.ElementHost();
+            this.WpfElementHost = new System.Windows.Forms.Integration.ElementHost();
             this.SuspendLayout();
             // 
             // wpfElementHost
             // 
-            this.wpfElementHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wpfElementHost.Location = new System.Drawing.Point(0, 0);
-            this.wpfElementHost.Name = "wpfElementHost";
-            this.wpfElementHost.Size = new System.Drawing.Size(284, 261);
-            this.wpfElementHost.TabIndex = 0;
-            this.wpfElementHost.Child = null;
+            this.WpfElementHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.WpfElementHost.Location = new System.Drawing.Point(0, 0);
+            this.WpfElementHost.Name = "WpfElementHost";
+            this.WpfElementHost.Size = new System.Drawing.Size(284, 261);
+            this.WpfElementHost.TabIndex = 0;
+            this.WpfElementHost.Child = null;
             // 
             // TaskPaneWpfControlHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.wpfElementHost);
+            this.Controls.Add(this.WpfElementHost);
             this.ForeColor = System.Drawing.Color.Transparent;
             this.Name = "TaskPaneWpfControlHost";
             this.Size = new System.Drawing.Size(284, 261);
@@ -53,7 +53,5 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Integration.ElementHost wpfElementHost;
     }
 }

@@ -3,18 +3,23 @@
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
     /// <summary>
-    /// Interaction logic for DatatableFilters.xaml
+    ///     Interaction logic for DatatableFilters.xaml
     /// </summary>
     public partial class DatatableFilters : UserControl, WizardUIBase
     {
-        public string getTitle()
+        public DatatableFilters()
+        {
+            InitializeComponent();
+        }
+
+        public string GetTitle()
         {
             return "Filter Data";
         }
 
-        public DatatableFilters()
+        public string GetShortTitle()
         {
-            InitializeComponent();
+            return "Filters";
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿<UserControl x:Class="Quandl.Excel.Addin.UI.Settings.Login"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.Settings"
-             mc:Ignorable="d" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid VerticalAlignment="Center" x:Name="loginForm">
-        <Grid.ColumnDefinitions >
+        <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -15,15 +16,19 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" HorizontalAlignment="Center">
-            <Image Source="/Quandl.Excel.Addin;component/Resources/Quandl_Icon_Image.png" Width="75" Height="75" Margin="0,0,0,10" Stretch="UniformToFill"/>
-            <Label x:Name="errorLabel" HorizontalContentAlignment="Center" Padding="0" Margin="10,0,10,0" Visibility="Hidden" Foreground="Red"/>
+            <Image Source="/Quandl.Excel.Addin;component/Resources/Quandl_Icon_Image.png" Width="75" Height="75"
+                   Margin="0,0,0,10" Stretch="UniformToFill" />
+            <Label x:Name="errorLabel" HorizontalContentAlignment="Center" Padding="0" Margin="10,0,10,0"
+                   Visibility="Hidden" Foreground="Red" />
             <TextBox x:Name="email" DockPanel.Dock="Left" Margin="10" Width="200" Padding="5">
                 <TextBox.Style>
-                    <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    <Style TargetType="TextBox">
                         <Style.Resources>
-                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None" TileMode="None">
+                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None"
+                                         TileMode="None">
                                 <VisualBrush.Visual>
-                                    <Label Content="Your email" Foreground="LightGray" Background="White" Width="200" Padding="5"/>
+                                    <Label Content="Your email" Foreground="LightGray" Background="White" Width="200"
+                                           Padding="5" />
                                 </VisualBrush.Visual>
                             </VisualBrush>
                         </Style.Resources>
@@ -43,11 +48,13 @@
             </TextBox>
             <TextBox x:Name="password" DockPanel.Dock="Left" Margin="10,0,10,10" Width="200" Padding="5">
                 <TextBox.Style>
-                    <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    <Style TargetType="TextBox">
                         <Style.Resources>
-                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None" TileMode="None">
+                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None"
+                                         TileMode="None">
                                 <VisualBrush.Visual>
-                                    <Label Content="Your password" Foreground="LightGray" Background="White" Padding="5" Width="200" />
+                                    <Label Content="Your password" Foreground="LightGray" Background="White"
+                                           Padding="5" Width="200" />
                                 </VisualBrush.Visual>
                             </VisualBrush>
                         </Style.Resources>
@@ -65,14 +72,16 @@
                     </Style>
                 </TextBox.Style>
             </TextBox>
-            <Label Content="or" HorizontalContentAlignment="Center" Padding="0" Margin="10,0,10,0" FontSize="14"/>
+            <Label Content="or" HorizontalContentAlignment="Center" Padding="0" Margin="10,0,10,0" FontSize="14" />
             <TextBox x:Name="apiKey" DockPanel.Dock="Left" Margin="10,10,10,10" Padding="5" Width="200">
                 <TextBox.Style>
-                    <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    <Style TargetType="TextBox">
                         <Style.Resources>
-                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None" TileMode="None">
+                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None"
+                                         TileMode="None">
                                 <VisualBrush.Visual>
-                                    <Label Content="Your api key" Foreground="LightGray" Background="White" Padding="5" Width="200" />
+                                    <Label Content="Your api key" Foreground="LightGray" Background="White" Padding="5"
+                                           Width="200" />
                                 </VisualBrush.Visual>
                             </VisualBrush>
                         </Style.Resources>
@@ -92,8 +101,10 @@
             </TextBox>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button x:Name="loginButton" DockPanel.Dock="Left" Content="Login" VerticalAlignment="Top" Padding="5" Margin="10" Click="loginButton_click" IsDefault="True" />
-            <Button x:Name="registerButton" DockPanel.Dock="Left" Content="Register" VerticalAlignment="Top" Padding="5" Margin="0,10,10,10" Click="registerButton_click" />
+            <Button x:Name="loginButton" DockPanel.Dock="Left" Content="Login" VerticalAlignment="Top" Padding="5"
+                    Margin="10" Click="loginButton_click" IsDefault="True" />
+            <Button x:Name="registerButton" DockPanel.Dock="Left" Content="Register" VerticalAlignment="Top"
+                    Padding="5" Margin="0,10,10,10" Click="registerButton_click" />
         </StackPanel>
     </Grid>
 </UserControl>

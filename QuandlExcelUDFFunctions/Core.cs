@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using ExcelDna.Integration;
+using Microsoft.Office.Interop.Excel;
 using Quandl.Shared;
 
 namespace Quandl.Excel.UDF.Functions
@@ -10,15 +10,15 @@ namespace Quandl.Excel.UDF.Functions
     {
         [ExcelFunction(Description = "Quandl QDATA function pull single value", IsMacroType = true)]
         public static string QDATA(
-            [ExcelArgument("is the quandl code", AllowReference = true)] Object excelQuandlCode,
-            [ExcelArgument("is the prefered column", AllowReference = true)] Object excelColumnName = null,
-            [ExcelArgument("is the date", AllowReference = true)] Object excelDate = null
+            [ExcelArgument("is the quandl code", AllowReference = true)] object excelQuandlCode,
+            [ExcelArgument("is the prefered column", AllowReference = true)] object excelColumnName = null,
+            [ExcelArgument("is the date", AllowReference = true)] object excelDate = null
             )
         {
             // translate input parameters from string value or excel references
-            string quandlCode = Tools.GetStringValue(excelQuandlCode);
-            string columnName = Tools.GetStringValue(excelColumnName);
-            string date = Tools.GetDateValue(excelDate);
+            var quandlCode = Tools.GetStringValue(excelQuandlCode);
+            var columnName = Tools.GetStringValue(excelColumnName);
+            var date = Tools.GetDateValue(excelDate);
 
             var task = Web.PullSingleValue(quandlCode, columnName, date);
             task.Wait();
@@ -28,19 +28,19 @@ namespace Quandl.Excel.UDF.Functions
 
         [ExcelFunction(Description = "Quandl hQDATA function pull single value", IsMacroType = true)]
         public static string hQDATA(
-            [ExcelArgument("is the quandl code", AllowReference = true)] Object excelQuandlCode,
-            [ExcelArgument("is the prefered column", AllowReference = true)] Object excelStartDate,
-            [ExcelArgument("is the start date", AllowReference = true)] Object excelEndDate,
-            [ExcelArgument("is the end date", AllowReference = true)] Object excelColumnNames
+            [ExcelArgument("is the quandl code", AllowReference = true)] object excelQuandlCode,
+            [ExcelArgument("is the prefered column", AllowReference = true)] object excelStartDate,
+            [ExcelArgument("is the start date", AllowReference = true)] object excelEndDate,
+            [ExcelArgument("is the end date", AllowReference = true)] object excelColumnNames
             )
         {
-            ExcelReference reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
-            Microsoft.Office.Interop.Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
+            var reference = (ExcelReference) XlCall.Excel(XlCall.xlfCaller);
+            Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
             // translate input parameters from string value or excel references
-            string quandlCode = Tools.GetStringValue(excelQuandlCode);
-            string startDate = Tools.GetDateValue(excelStartDate);
-            string endDate = Tools.GetDateValue(excelEndDate);
+            var quandlCode = Tools.GetStringValue(excelQuandlCode);
+            var startDate = Tools.GetDateValue(excelStartDate);
+            var endDate = Tools.GetDateValue(excelEndDate);
             var columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
 
             // TODO: convert columnNames to List<string>
@@ -54,20 +54,20 @@ namespace Quandl.Excel.UDF.Functions
 
         [ExcelFunction(Description = "Quandl mQDATA function", IsMacroType = true)]
         public static string mQDATA(
-            [ExcelArgument("is the quandl database code", AllowReference = true)] Object excelQuandlCodes,
-            [ExcelArgument("are the quandl column name list", AllowReference = true)] Object excelColumnNames
+            [ExcelArgument("is the quandl database code", AllowReference = true)] object excelQuandlCodes,
+            [ExcelArgument("are the quandl column name list", AllowReference = true)] object excelColumnNames
             )
         {
-            ExcelReference reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
-            Microsoft.Office.Interop.Excel.Range currentFormulaCell = Tools.ReferenceToRange(reference);
+            var reference = (ExcelReference) XlCall.Excel(XlCall.xlfCaller);
+            Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
             // translate input parameters from string value or excel references
             var quandlCodes = Tools.GetArrayOfValues(excelQuandlCodes);
             var columnNames = Utilities.ListToUpper(Tools.GetArrayOfValues(excelColumnNames));
-            
-            string value = "Failed"; // default return value
-            int i = 0;
-            foreach (string quandlCode in quandlCodes)
+
+            var value = "Failed"; // default return value
+            var i = 0;
+            foreach (var quandlCode in quandlCodes)
             {
                 var dataTask = Web.PullRecentStockData(quandlCode, columnNames, 1);
                 dataTask.Wait();
@@ -86,6 +86,5 @@ namespace Quandl.Excel.UDF.Functions
 
             return Utilities.ValidateEmptyData(value);
         }
-
     }
 }

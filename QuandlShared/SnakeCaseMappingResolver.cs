@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using System.Text.RegularExpressions;
+using Newtonsoft.Json.Serialization;
 
 namespace Quandl.Shared
 {
@@ -7,7 +8,7 @@ namespace Quandl.Shared
     {
         protected override string ResolvePropertyName(string propertyName)
         {
-            return System.Text.RegularExpressions.Regex.Replace(
+            return Regex.Replace(
                 propertyName, @"([A-Z])([A-Z][a-z])|([a-z0-9])([A-Z])", "$1$3_$2$4").ToLower();
         }
     }

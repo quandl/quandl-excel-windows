@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Quandl.Shared.models
 {
@@ -17,5 +13,4 @@ namespace Quandl.Shared.models
         public string Key { get; set; }
         public string HtmlContent { get; set; }
     }
-
 }

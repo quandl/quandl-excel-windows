@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools;
 using Quandl.Shared;
+using Timer = System.Timers.Timer;
 
 namespace Quandl.Excel.Addin
 {
@@ -17,10 +18,10 @@ namespace Quandl.Excel.Addin
 
         public Range ActiveCells;
 
+        private Timer statusTimer;
+
         public event AuthTokenChanged AuthTokenChangedEvent;
         public event LoginChanged LoginChangedEvent;
-
-        private System.Timers.Timer statusTimer;
 
         public CustomTaskPane AddCustomTaskPane(UserControl userControl, string name)
         {
@@ -41,7 +42,7 @@ namespace Quandl.Excel.Addin
             }
 
             // Create a new timer to show the error temporarily
-            statusTimer = new System.Timers.Timer(20000);
+            statusTimer = new Timer(20000);
             statusTimer.Elapsed += async (sender, e) => await Task.Run(() =>
             {
                 Application.StatusBar = false;
@@ -101,7 +102,7 @@ namespace Quandl.Excel.Addin
 
         private void Workbook_SheetSelectionChange(object Sh, Range Target)
         {
-           ActiveCells = Target;
+            ActiveCells = Target;
         }
 
         private void Sheet_Updated(object sh, Range target)

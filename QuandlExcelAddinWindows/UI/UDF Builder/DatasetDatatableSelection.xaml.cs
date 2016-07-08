@@ -3,19 +3,24 @@
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
     /// <summary>
-    /// Interaction logic for DatasetDatatableSelection.xaml
+    ///     Interaction logic for DatasetDatatableSelection.xaml
     /// </summary>
     public partial class DatasetDatatableSelection : UserControl, WizardUIBase
     {
-        public string getTitle()
+        public DatasetDatatableSelection()
+        {
+            InitializeComponent();
+            DataContext = StateControl.Instance;
+        }
+
+        public string GetTitle()
         {
             return "Choose your dataset or data table";
         }
 
-        public DatasetDatatableSelection()
+        public string GetShortTitle()
         {
-            InitializeComponent();
-            this.DataContext = StateControl.Instance;
+            return "Data";
         }
     }
 }
