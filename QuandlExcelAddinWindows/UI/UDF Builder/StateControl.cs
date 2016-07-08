@@ -4,11 +4,54 @@ using Quandl.Shared.models;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
-    class StateControl : INotifyPropertyChanged
+    internal class StateControl : INotifyPropertyChanged
     {
+        // The different types of chains
+        public enum ChainTypes
+        {
+            TimeSeries,
+            Datatables
+        }
+
         // Singleton state to be shared between different forms
         private static StateControl instance;
-        public static StateControl Instance {
+
+        // The chain of forms for time series
+        private static readonly string[] timeSeriesChain =
+        {
+            "DatabaseSelection",
+            "DatasetDatatableSelection",
+            "ColumnSelection",
+            "TimeSeriesFilters",
+            "FormulaInserter"
+        };
+
+        // The chain of forms for time series
+        private static readonly string[] datatableChain =
+        {
+            "DatabaseSelection",
+            "DatasetDatatableSelection",
+            "ColumnSelection",
+            "DatatableFilters",
+            "FormulaInserter"
+        };
+
+        public int currentStep;
+
+        public StateControl()
+        {
+            Reset();
+            PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName != "UdfFormula")
+                {
+                    UpdateFormula();
+                }
+            };
+        }
+
+        public static StateControl Instance
+        {
             get
             {
                 if (instance == null)
@@ -18,31 +61,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 return instance;
             }
         }
-
-        // The different types of chains
-        public enum ChainTypes { TimeSeries, Datatables };
-
-        // The chain of forms for time series
-        private static readonly string[] timeSeriesChain = {
-            "DatabaseSelection",
-            "DatasetDatatableSelection",
-            "ColumnSelection",
-            "TimeSeriesFilters",
-            "FormulaInserter"
-        };
-
-        // The chain of forms for time series
-        private static readonly string[] datatableChain = {
-            "DatabaseSelection",
-            "DatasetDatatableSelection",
-            "ColumnSelection",
-            "DatatableFilters",
-            "FormulaInserter"
-        };
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public int currentStep = 0;
 
         public string UdfFormula { get; internal set; }
 
@@ -55,17 +73,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public DatatableCollectionResponse datatableCollection { get; internal set; }
 
-        public StateControl()
-        {
-            Reset();
-            PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
-            {
-                if (e.PropertyName != "UdfFormula")
-                {
-                    UpdateFormula();
-                }
-            };
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public void Reset()
         {
             UdfFormula = "";
@@ -87,7 +96,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public string[] GetStepList()
         {
-            return (this.chainType == ChainTypes.TimeSeries) ? timeSeriesChain : datatableChain;
+            return chainType == ChainTypes.TimeSeries ? timeSeriesChain : datatableChain;
         }
 
         protected void NotifyPropertyChanged(string propertyName)
@@ -99,7 +108,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             // If the DataCode has been nullified or blanked out simply erase the formula
             if (string.IsNullOrEmpty(DataCode))
-        {
+            {
                 UdfFormula = "";
                 NotifyPropertyChanged("UdfFormula");
                 return;

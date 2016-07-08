@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Windows;
+using System.Windows.Controls;
 using Quandl.Shared;
 using Quandl.Shared.models;
 using Quandl.Shared.models.ViewData;
@@ -14,18 +13,12 @@ using SubCategory = Quandl.Shared.models.ViewData.SubCategory;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
-
     /// <summary>
-    /// Interaction logic for DatabaseSelection.xaml
+    ///     Interaction logic for DatabaseSelection.xaml
     /// </summary>
     public partial class DatabaseSelection : UserControl, WizardUIBase
     {
         private List<Data> allItems;
-
-        public string getTitle()
-        {
-            return "Browse Databases or Enter a Database Code";
-        }
 
         public DatabaseSelection()
         {
@@ -34,22 +27,32 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             PopulateTreeView();
         }
 
+        public string GetTitle()
+        {
+            return "Browse Databases or Enter a Database Code";
+        }
+
+        public string GetShortTitle()
+        {
+            return "Database";
+        }
+
         private async void PopulateTreeView()
         {
-            BrowseCollection items = await Web.BrowseAsync();
-            Categories categories = new Categories();
+            var items = await Web.BrowseAsync();
+            var categories = new Categories();
 
             foreach (var item in items.Items)
             {
                 {
-                    Category category = new Category() { Header = item.Name };
+                    var category = new Category {Header = item.Name};
                     foreach (var subItem in item.Items)
                     {
-                        SubCategory subCategory = new SubCategory() { Header = subItem.Name };
+                        var subCategory = new SubCategory {Header = subItem.Name};
                         category.SubCategories.Add(subCategory);
                         foreach (var detailItem in subItem.Items)
                         {
-                            Detail detail = new Detail(detailItem.Name, detailItem.OrderedResourceIds);
+                            var detail = new Detail(detailItem.Name, detailItem.OrderedResourceIds);
                             subCategory.Details.Add(detail);
                         }
                     }
@@ -61,15 +64,15 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         }
 
 
-        private async void PopulateList(Object current)
+        private async void PopulateList(object current)
         {
             allItems = new List<Data>();
-            Detail cur = (Detail)current;
-            DatabaseCollection databaseCollection = await GetAllDatabase(cur);
-            DatatableCollectionsResponse datatableCollectionsResponse = await GetAllDatatable((Detail)cur);
+            var cur = (Detail) current;
+            var databaseCollection = await GetAllDatabase(cur);
+            var datatableCollectionsResponse = await GetAllDatatable(cur);
 
-            int dtcCount = 0;
-            int dtCount = 0;
+            var dtcCount = 0;
+            var dtCount = 0;
             foreach (var listItem in cur.OrderList)
             {
                 Database db = null;
@@ -80,7 +83,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 {
                     db = databaseCollection.Databases[dtcCount];
                     data = db.ToData(type);
-                    dtcCount++;  
+                    dtcCount++;
                 }
                 else
                 {
@@ -95,7 +98,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 if (data != null)
                 {
                     allItems.Add(data);
-                }  
+                }
             }
 
             AllDatabaseList.ItemsSource = allItems;
@@ -105,8 +108,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
-            object current = BrowseData.SelectedItem;
+            var current = BrowseData.SelectedItem;
             if (current.GetType().Name.ToLower() == "detail")
             {
                 PopulateList(current);
@@ -115,7 +117,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 ResetSelections();
             }
-
         }
 
         private void ResetSelections()
@@ -166,19 +167,19 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
             if (AllDatabaseList.SelectedValue != null)
             {
-                Data selectedItem = (Data)AllDatabaseList.SelectedValue;
+                var selectedItem = (Data) AllDatabaseList.SelectedValue;
                 DatabaseCodeBox.Text = selectedItem.Code;
                 SetChainType(selectedItem);
             }
             else if (PremiumDatabaseList.SelectedValue != null)
             {
-                Data selectedItem = (Data)PremiumDatabaseList.SelectedValue;
+                var selectedItem = (Data) PremiumDatabaseList.SelectedValue;
                 DatabaseCodeBox.Text = selectedItem.Code;
                 SetChainType(selectedItem);
             }
             else if (FreeDatabaseList.SelectedValue != null)
             {
-                Data selectedItem = (Data)FreeDatabaseList.SelectedValue;
+                var selectedItem = (Data) FreeDatabaseList.SelectedValue;
                 DatabaseCodeBox.Text = selectedItem.Code;
                 SetChainType(selectedItem);
             }
@@ -199,12 +200,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private async void DatabaseCodeBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            string code = ((TextBox)sender).Text;
-            bool hasError = false;
+            var code = ((TextBox) sender).Text;
+            var hasError = false;
 
             try
             {
-                DatatableCollectionResponse dc = await Web.GetDatatableCollection(code);
+                var dc = await Web.GetDatatableCollection(code);
                 StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.Datatables);
                 StateControl.Instance.datatableCollection = dc;
             }
@@ -225,40 +226,38 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             if (hasError.Equals(false))
             {
                 CleanValidationError();
-                
             }
             else
             {
                 ShowValidationError(code);
             }
-
         }
 
         private void ShowValidationError(string code)
         {
-            ErrorMessage.Content = String.Format(Properties.Settings.Default.DataCodeValidationMessage, code);
+            ErrorMessage.Content = string.Format(Properties.Settings.Default.DataCodeValidationMessage, code);
         }
 
         private void CleanValidationError()
         {
-            ErrorMessage.Content = String.Empty;
+            ErrorMessage.Content = string.Empty;
         }
 
         private async Task<DatabaseCollection> GetAllDatabase(Detail detail)
         {
-            string type = "database";
+            var type = "database";
             return await Web.GetModelByIds<DatabaseCollection>(type + "s", GetListIds(detail, type));
         }
 
         private async Task<DatatableCollectionsResponse> GetAllDatatable(Detail detail)
         {
-            string type = "datatable_collection";
+            var type = "datatable_collection";
             return await Web.GetModelByIds<DatatableCollectionsResponse>(type, GetListIds(detail, type));
         }
 
         private List<string> GetListIds(Detail detail, string type)
         {
-            List<string> ids = new List<string>();
+            var ids = new List<string>();
             foreach (var ol in detail.OrderList)
             {
                 if (ol.Type.Equals(type))
@@ -269,8 +268,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             return ids;
         }
     }
+
     public class Categories : ObservableCollection<Category>
     {
     }
-
 }

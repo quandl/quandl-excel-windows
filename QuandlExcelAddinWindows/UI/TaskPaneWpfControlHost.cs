@@ -10,12 +10,6 @@ namespace Quandl.Excel.Addin.UI
             InitializeComponent();
         }
 
-        public ElementHost WpfElementHost
-        {
-            get
-            {
-                return this.wpfElementHost;
-            }
-        }
+        public ElementHost WpfElementHost { get; private set; }
     }
 }

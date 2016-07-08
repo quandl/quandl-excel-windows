@@ -1,17 +1,18 @@
-﻿using Excel = Microsoft.Office.Interop.Excel;
+﻿using System.Runtime.InteropServices;
+using Microsoft.Office.Interop.Excel;
 
 namespace Quandl.Shared
 {
     public class FunctionUpdater
     {
-        public static bool HasQuandlFormulaInWorkSheet(Excel.Worksheet worksheet)
+        public static bool HasQuandlFormulaInWorkSheet(Worksheet worksheet)
         {
-            Excel.Range range;
+            Range range;
             try
             {
-                range = worksheet.UsedRange.SpecialCells(Excel.XlCellType.xlCellTypeFormulas);
+                range = worksheet.UsedRange.SpecialCells(XlCellType.xlCellTypeFormulas);
             }
-            catch (System.Runtime.InteropServices.COMException ex)
+            catch (COMException ex)
             {
                 if (ex.Message == "No cells were found.")
                 {
@@ -21,7 +22,7 @@ namespace Quandl.Shared
             }
             var count = range.Count;
 
-            foreach (Excel.Range c in range.Cells)
+            foreach (Range c in range.Cells)
             {
                 if (!c.HasFormula) continue;
                 var quandlFormula = c.Formula.ToString().ToLower().Contains("qdata");
@@ -33,10 +34,10 @@ namespace Quandl.Shared
             return false;
         }
 
-        public static bool HasQuandlFormulaInWorkbook(Excel.Workbook wb)
+        public static bool HasQuandlFormulaInWorkbook(Workbook wb)
         {
             var worksheets = wb.Worksheets;
-            foreach (Excel.Worksheet worksheet in worksheets)
+            foreach (Worksheet worksheet in worksheets)
             {
                 if (HasQuandlFormulaInWorkSheet(worksheet))
                 {
@@ -44,23 +45,21 @@ namespace Quandl.Shared
                 }
             }
             return false;
-
-
         }
 
-        public static void RecalculateQuandlFunctionsInWorkSheet(Excel.Worksheet worksheet)
+        public static void RecalculateQuandlFunctionsInWorkSheet(Worksheet worksheet)
         {
             // force recalculation of workbook
             worksheet.EnableCalculation = false;
             worksheet.EnableCalculation = true;
         }
 
-        public static void RecalculateQuandlFunctions(Excel.Workbook wb)
+        public static void RecalculateQuandlFunctions(Workbook wb)
         {
             var worksheets = wb.Worksheets;
-            foreach (Excel.Worksheet worksheet in worksheets)
+            foreach (Worksheet worksheet in worksheets)
             {
-            if (HasQuandlFormulaInWorkSheet(worksheet))
+                if (HasQuandlFormulaInWorkSheet(worksheet))
                 {
                     RecalculateQuandlFunctionsInWorkSheet(worksheet);
                 }

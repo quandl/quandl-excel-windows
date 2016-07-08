@@ -1,14 +1,15 @@
-﻿using Quandl.Shared;
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using Quandl.Shared;
 using Quandl.Shared.Errors;
 
 namespace Quandl.Excel.Addin.UI.Settings
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    ///     Interaction logic for Login.xaml
     /// </summary>
     public partial class Login : UserControl
     {
@@ -71,14 +72,15 @@ namespace Quandl.Excel.Addin.UI.Settings
             catch (Exception exp)
             {
                 DisplayErrorMessage("Something went wrong. Please try again later.");
-                Globals.ThisAddIn.UpdateStatusBar(exp); // For debug purposes only. This should not make it to production.
+                Globals.ThisAddIn.UpdateStatusBar(exp);
+                // For debug purposes only. This should not make it to production.
             }
         }
 
         private void DisplayErrorMessage(string message)
         {
             // Necessary since the display message may be on a different thread
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 loginForm.IsEnabled = true;
                 errorLabel.Content = message;
@@ -89,7 +91,7 @@ namespace Quandl.Excel.Addin.UI.Settings
 
         private void registerButton_click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.quandl.com/?modal=register");
+            Process.Start("https://www.quandl.com/?modal=register");
         }
     }
 }

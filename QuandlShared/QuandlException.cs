@@ -2,10 +2,11 @@
 
 namespace Quandl.Shared
 {
-    public class QuandlDataNotFoundException: Exception
+    public class QuandlDataNotFoundException : Exception
     {
-        public QuandlDataNotFoundException() 
+        public QuandlDataNotFoundException()
             : base("Quandl data is not found!")
-        { }
+        {
+        }
     }
 }

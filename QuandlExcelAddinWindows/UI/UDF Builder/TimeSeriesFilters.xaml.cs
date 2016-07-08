@@ -3,18 +3,23 @@
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
     /// <summary>
-    /// Interaction logic for TimeSeriesFilters.xaml
+    ///     Interaction logic for TimeSeriesFilters.xaml
     /// </summary>
     public partial class TimeSeriesFilters : UserControl, WizardUIBase
     {
-        public string getTitle()
+        public TimeSeriesFilters()
+        {
+            InitializeComponent();
+        }
+
+        public string GetTitle()
         {
             return "Customize Time Series Data";
         }
 
-        public TimeSeriesFilters()
+        public string GetShortTitle()
         {
-            InitializeComponent();
+            return "Filters";
         }
     }
 }

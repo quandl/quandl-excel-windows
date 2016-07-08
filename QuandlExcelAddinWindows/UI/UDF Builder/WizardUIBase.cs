@@ -2,6 +2,7 @@
 {
     public interface WizardUIBase
     {
-        string getTitle();
+        string GetTitle();
+        string GetShortTitle();
     }
 }

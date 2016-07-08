@@ -6,6 +6,12 @@ namespace Quandl.Test.Shared.Modules
     [TestFixture]
     public class QuandlConfigTests
     {
+        [TearDown]
+        public void Cleanup()
+        {
+            QuandlConfig.Reset();
+        }
+
         [TestCase]
         public void TestApiKeySetGet()
         {
@@ -19,12 +25,6 @@ namespace Quandl.Test.Shared.Modules
             QuandlConfig.ApiKey = "foo";
             QuandlConfig.Reset();
             Assert.IsEmpty(QuandlConfig.ApiKey);
-        }
-
-        [TearDown]
-        public void Cleanup()
-        {
-            QuandlConfig.Reset();
         }
     }
 }

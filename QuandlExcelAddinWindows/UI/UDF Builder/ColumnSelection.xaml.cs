@@ -3,18 +3,23 @@
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
     /// <summary>
-    /// Interaction logic for ColumnSelection.xaml
+    ///     Interaction logic for ColumnSelection.xaml
     /// </summary>
     public partial class ColumnSelection : UserControl, WizardUIBase
     {
-        public string getTitle()
+        public ColumnSelection()
+        {
+            InitializeComponent();
+        }
+
+        public string GetTitle()
         {
             return "Choose Your Columns";
         }
 
-        public ColumnSelection()
+        public string GetShortTitle()
         {
-            InitializeComponent();
+            return "Columns";
         }
     }
 }

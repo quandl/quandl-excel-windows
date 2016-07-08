@@ -5,9 +5,14 @@ namespace Quandl.Shared
 {
     public class QuandlTimer
     {
+        private const int RetryIntervalSeconds = 20;
         private static QuandlTimer _instance;
 
-        private QuandlTimer() {}
+        private Timer qTimer;
+
+        private QuandlTimer()
+        {
+        }
 
         public static QuandlTimer Instance
         {
@@ -20,9 +25,6 @@ namespace Quandl.Shared
                 return _instance;
             }
         }
-
-        private Timer qTimer;
-        private const int RetryIntervalSeconds = 20;
 
         public void SetupAutoRefreshTimer(ElapsedEventHandler eventHandler)
         {
@@ -69,7 +71,7 @@ namespace Quandl.Shared
 
         private double TimeOutInterval()
         {
-            return TimeSpan.FromDays(QuandlConfig.AutoUpdateFrequency).TotalMilliseconds;
+            return TimeSpan.FromDays(QuandlConfig.AutoUpdateFrequencyDays).TotalMilliseconds;
         }
 
         private double RetryTimeoutInterval()

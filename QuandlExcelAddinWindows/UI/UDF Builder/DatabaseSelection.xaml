@@ -9,52 +9,64 @@
 
     <Grid RenderTransformOrigin="0.318,0.34">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.Resources>
             <local:Categories x:Key="CatData" />
             <DataTemplate x:Key="Details">
-                <TextBlock Text="{Binding Header}"/>
+                <TextBlock Text="{Binding Header}" />
             </DataTemplate>
-            <HierarchicalDataTemplate x:Key="SubCategories" ItemsSource="{Binding Details}" ItemTemplate="{StaticResource Details}">
-                <TextBlock Text="{Binding Header}"/>
+            <HierarchicalDataTemplate x:Key="SubCategories" ItemsSource="{Binding Details}"
+                                      ItemTemplate="{StaticResource Details}">
+                <TextBlock Text="{Binding Header}" />
             </HierarchicalDataTemplate>
-            <HierarchicalDataTemplate x:Key="Categories" ItemsSource="{Binding SubCategories}" ItemTemplate="{StaticResource SubCategories}" >
-                <TextBlock Text="{Binding Header}"/>
+            <HierarchicalDataTemplate x:Key="Categories" ItemsSource="{Binding SubCategories}"
+                                      ItemTemplate="{StaticResource SubCategories}">
+                <TextBlock Text="{Binding Header}" />
             </HierarchicalDataTemplate>
 
             <DataTemplate x:Key="QuandlDataItem">
                 <WrapPanel ToolTip="{Binding Description}">
-                    <TextBlock Text="{Binding DataType}" HorizontalAlignment="Right" Margin="0,0,5,0"/>
-                    <TextBlock Text="{Binding Code}" HorizontalAlignment="Left" Margin="0,0,5,0"/>
+                    <TextBlock Text="{Binding DataType}" HorizontalAlignment="Right" Margin="0,0,5,0" />
+                    <TextBlock Text="{Binding Code}" HorizontalAlignment="Left" Margin="0,0,5,0" />
                     <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" />
 
                 </WrapPanel>
             </DataTemplate>
         </Grid.Resources>
 
-        <TreeView Name="BrowseData" ItemsSource="{StaticResource CatData}" ItemTemplate="{StaticResource Categories}" SelectedItemChanged="TreeView_SelectedItemChanged" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <TreeView Name="BrowseData" ItemsSource="{StaticResource CatData}" ItemTemplate="{StaticResource Categories}"
+                  SelectedItemChanged="TreeView_SelectedItemChanged" Grid.Row="0" Grid.Column="0"
+                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,5,0" />
 
-        <TabControl x:Name="TabControl" SelectionChanged="tabControl_SelectionChanged" Grid.Row="0" Grid.Column="1" Margin="10,0"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1.5" >
+        <TabControl x:Name="TabControl" SelectionChanged="tabControl_SelectionChanged" Grid.Row="0" Grid.Column="1"
+                    Margin="5,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1.5">
             <TabItem Header="All" Margin="-3,0,-1,-2">
-                <ListView Name="AllDatabaseList" Margin="0" SelectionChanged="DatabaseList_SelectionChanged" ItemTemplate="{DynamicResource QuandlDataItem}"/>
+                <ListView Name="AllDatabaseList" Margin="0" SelectionChanged="DatabaseList_SelectionChanged"
+                          ItemTemplate="{DynamicResource QuandlDataItem}" />
             </TabItem>
             <TabItem Header="Premium" Margin="-3,0,-1,-2">
-                <ListView Name="PremiumDatabaseList" Margin="0" SelectionChanged="DatabaseList_SelectionChanged" ItemTemplate="{DynamicResource QuandlDataItem}"/>
+                <ListView Name="PremiumDatabaseList" Margin="0" SelectionChanged="DatabaseList_SelectionChanged"
+                          ItemTemplate="{DynamicResource QuandlDataItem}" />
             </TabItem>
             <TabItem Header="Free" Margin="-3,0,-1,-2">
-                <ListView Name="FreeDatabaseList" Margin="0" SelectionChanged="DatabaseList_SelectionChanged" ItemTemplate="{DynamicResource QuandlDataItem}"/>
+                <ListView Name="FreeDatabaseList" Margin="0" SelectionChanged="DatabaseList_SelectionChanged"
+                          ItemTemplate="{DynamicResource QuandlDataItem}" />
             </TabItem>
         </TabControl>
-        <Label HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"   Margin="10" />
-        <Label x:Name="ErrorMessage" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="15"/>
-        <Label Content="Database Code" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Grid.Column="0"   Margin="10,15,10,10" FontWeight="Bold"/>
-        <TextBox x:Name="DatabaseCodeBox" HorizontalAlignment="Left" Margin="15,20,15,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="100" LostFocus="DatabaseCodeBox_OnLostFocus"/>
+        <Label HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="10" />
+        <Label x:Name="ErrorMessage" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"
+               Margin="15" />
+        <Label Content="Database Code" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Grid.Column="0"
+               Margin="10,15,10,10" FontWeight="Bold" />
+        <TextBox x:Name="DatabaseCodeBox" HorizontalAlignment="Left" Margin="15,20,15,15" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="100"
+                 LostFocus="DatabaseCodeBox_OnLostFocus" />
     </Grid>
 </UserControl>

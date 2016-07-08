@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Quandl.Shared.models;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop.Excel;
 
 namespace Quandl.Shared
 {
     public class Utilities
     {
-        private static string excelVersion = null;
+        private static string excelVersion;
 
         public static string GetExcelVersionNumber
         {
@@ -21,17 +21,18 @@ namespace Quandl.Shared
                 }
 
                 // This is expensive so only call it once.
-                Microsoft.Office.Interop.Excel.Application appVersion = new Microsoft.Office.Interop.Excel.Application();
+                var appVersion = new Application();
                 appVersion.Visible = false;
-                excelVersion = appVersion.Version.ToString();
+                excelVersion = appVersion.Version;
                 return excelVersion;
             }
         }
 
-        public static ArrayList GetMatchedListByOrder(ArrayList columnNames, ArrayList columnNamesList, ArrayList dataList)
+        public static ArrayList GetMatchedListByOrder(ArrayList columnNames, ArrayList columnNamesList,
+            ArrayList dataList)
         {
-            ArrayList result = new ArrayList();
-            ArrayList indexList = new ArrayList();
+            var result = new ArrayList();
+            var indexList = new ArrayList();
 
             if (columnNames == null || columnNames.Count == 0)
             {
@@ -47,7 +48,7 @@ namespace Quandl.Shared
 
             foreach (string column in columnNames)
             {
-                int index = columnNamesList.IndexOf(column.ToUpper());
+                var index = columnNamesList.IndexOf(column.ToUpper());
                 if (index >= 0)
                 {
                     indexList.Add(index);
@@ -81,7 +82,7 @@ namespace Quandl.Shared
 
         public static ArrayList SubList(ArrayList indexList, ArrayList list)
         {
-            ArrayList result = new ArrayList();
+            var result = new ArrayList();
             foreach (int i in indexList)
             {
                 result.Add(list[i]);
@@ -101,7 +102,7 @@ namespace Quandl.Shared
 
         private static ArrayList PrependToList(ArrayList list, string item)
         {
-            ArrayList result = new ArrayList();
+            var result = new ArrayList();
             result.Add(item);
             result.AddRange(list);
             return result;

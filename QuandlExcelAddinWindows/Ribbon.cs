@@ -22,17 +22,12 @@ using Office = Microsoft.Office.Core;
 
 // For more information, see the Ribbon XML documentation in the Visual Studio Tools for Office Help.
 
-
 namespace Quandl.Excel.Addin
 {
     [ComVisible(true)]
     public class Ribbon : Office.IRibbonExtensibility
     {
         private Office.IRibbonUI ribbon;
-
-        public Ribbon()
-        {
-        }
 
         #region IRibbonExtensibility Members
 
@@ -44,11 +39,12 @@ namespace Quandl.Excel.Addin
         #endregion
 
         #region Ribbon Callbacks
+
         //Create callback methods here. For more information about adding callback methods, visit http://go.microsoft.com/fwlink/?LinkID=271226
 
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
-            this.ribbon = ribbonUI;
+            ribbon = ribbonUI;
         }
 
         #endregion
@@ -57,13 +53,13 @@ namespace Quandl.Excel.Addin
 
         private static string GetResourceText(string resourceName)
         {
-            Assembly asm = Assembly.GetExecutingAssembly();
-            string[] resourceNames = asm.GetManifestResourceNames();
-            for (int i = 0; i < resourceNames.Length; ++i)
+            var asm = Assembly.GetExecutingAssembly();
+            var resourceNames = asm.GetManifestResourceNames();
+            for (var i = 0; i < resourceNames.Length; ++i)
             {
                 if (string.Compare(resourceName, resourceNames[i], StringComparison.OrdinalIgnoreCase) == 0)
                 {
-                    using (StreamReader resourceReader = new StreamReader(asm.GetManifestResourceStream(resourceNames[i])))
+                    using (var resourceReader = new StreamReader(asm.GetManifestResourceStream(resourceNames[i])))
                     {
                         if (resourceReader != null)
                         {

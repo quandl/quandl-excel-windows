@@ -1,14 +1,16 @@
-﻿using System.Windows;
-using Microsoft.Office.Tools.Ribbon;
+﻿using Microsoft.Office.Tools.Ribbon;
+using Quandl.Excel.Addin.Controls;
+using Quandl.Excel.Addin.UI;
+using Quandl.Excel.Addin.UI.Settings;
+using Quandl.Excel.Addin.UI.UDF_Builder;
 using Quandl.Shared;
-using System.Collections.Generic;
 
 namespace Quandl.Excel.Addin
 {
-    using Controls;
-    using UI;
     public partial class Toolbar
     {
+        private TaskPaneControl builderPane;
+        private TaskPaneControl settingsPane;
 
         private void Ribbon2_Load(object sender, RibbonUIEventArgs e)
         {
@@ -16,28 +18,35 @@ namespace Quandl.Excel.Addin
 
         private void AboutButton_Click(object sender, RibbonControlEventArgs e)
         {
-            new Quandl.Excel.Addin.Controls.AboutForm().Show();
+            new AboutForm().Show();
         }
 
         private void openQuandlSettings_Click(object sender, RibbonControlEventArgs e)
         {
-            var quandlSettings = new QuandlSettings();
-            // allows toolbar to handle auth token changed events
-            quandlSettings.SettingsAuthTokenChanged += Globals.ThisAddIn.OnAuthTokenChangedEvent;
-            quandlSettings.SettingsAutoUpdateChanged += Globals.ThisAddIn.OnAutoUpdateChangedEvent;
-
-            // allows quandl settings pane to handle login changed events
-            Globals.ThisAddIn.LoginChangedEvent += quandlSettings.UpdateApiKeyTextBox;
-
-            var taskPane = new TaskPaneControl(quandlSettings, "Quandl Settings");
-            taskPane.Show();
+            if (settingsPane == null)
+            {
+                var child = new Settings();
+                settingsPane = new TaskPaneControl(child, "Settings");
+                settingsPane.Show();
+            }
+            else
+            {
+                settingsPane.Show();
+            }
         }
 
         private void udfBuilder_Click(object sender, RibbonControlEventArgs e)
         {
-            UI.UDF_Builder.WizardGuide child = new UI.UDF_Builder.WizardGuide();
-            var taskPane = new TaskPaneControl(child, " ");
-            taskPane.Show();
+            if (builderPane == null)
+            {
+                var child = new WizardGuide();
+                builderPane = new TaskPaneControl(child, "Quandl UDF Builder");
+                builderPane.Show();
+            }
+            else
+            {
+                builderPane.Show();
+            }
         }
 
         private void refreshWorkbook_Click(object sender, RibbonControlEventArgs e)

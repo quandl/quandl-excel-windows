@@ -22,7 +22,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             StateControl.Instance.Reset();
 
             // Async check that the user is logged in our not
-            this.Loaded += async delegate
+            Loaded += async delegate
             {
                 PrepareFormEvents();
                 try
@@ -37,6 +37,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             };
         }
 
+        private string[] steps => StateControl.Instance.GetStepList();
+
+        private int currentStep => StateControl.Instance.currentStep;
+
         private void PrepareFormEvents()
         {
             QuandlConfig.Instance.LoginChanged += async delegate
@@ -45,7 +49,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 LoginOrSearch();
             };
 
-            StateControl.Instance.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
+            StateControl.Instance.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
             {
                 if (e.PropertyName == "DataCode")
                 {
@@ -53,10 +57,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
             };
         }
-
-        private string[] steps => StateControl.Instance.GetStepList();
-
-        private int currentStep => StateControl.Instance.currentStep;
 
         private void nextButton_click(object sender, RoutedEventArgs e)
         {
@@ -84,7 +84,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             try
             {
                 var loggedIn = await QuandlConfig.ApiKeyValid();
-                this.Dispatcher.Invoke(() =>
+                Dispatcher.Invoke(() =>
                 {
                     if (loggedIn)
                     {
@@ -103,7 +103,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                         currentStepGrid.Children[0].Visibility = Visibility.Hidden;
                         currentStepGrid.Children[2].Visibility = Visibility.Hidden;
                     }
-                    this.Focus();
+                    Focus();
                 });
             }
             catch (Exception exp)
@@ -152,17 +152,17 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 // Set the title of the form
                 var type = Type.GetType("Quandl.Excel.Addin.UI.UDF_Builder." + steps[i]);
-                var stepObject = (WizardUIBase)Activator.CreateInstance(type);
+                var stepObject = (WizardUIBase) Activator.CreateInstance(type);
 
                 // Should this be the title shown
                 if (i == stepNumber)
                 {
-                    title = stepObject.getTitle();
+                    title = stepObject.GetTitle();
                 }
 
                 // Step button
                 var stepLink = new Button();
-                stepLink.Content = "Step " + (i + 1);
+                stepLink.Content = stepObject.GetShortTitle();
                 stepLink.Padding = new Thickness(10);
                 var step = i; // Need to duplicate the value to avoid issues with referencing a changing 'i'
                 stepLink.Click += delegate { ShowStep(step); };
@@ -199,7 +199,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             stepBreadcrumb.Children.Add(titleBox);
 
             // Highlight the current step
-            var stepElement = (Control)stepBreadcrumb.Children[(stepNumber + 1) * 2 - 2];
+            var stepElement = (Control) stepBreadcrumb.Children[(stepNumber + 1)*2 - 2];
             stepElement.Background = Brushes.AliceBlue;
         }
     }
