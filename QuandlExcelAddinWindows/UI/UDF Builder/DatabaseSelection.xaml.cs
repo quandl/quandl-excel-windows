@@ -135,23 +135,22 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int i = TabControl.SelectedIndex;
             if (allItems != null)
             {
-                if (i == 0)
+                switch (TabControl.SelectedIndex)
                 {
-                    AllDatabaseList.ItemsSource = allItems;
-                    AllDatabaseList.SelectedValue = null;
-                }
-                else if (i == 1)
-                {
-                    PremiumDatabaseList.ItemsSource = PremiumItems();
-                    PremiumDatabaseList.SelectedValue = null;
-                }
-                else if (i == 2)
-                {
-                    FreeDatabaseList.ItemsSource = FreeItems();
-                    FreeDatabaseList.SelectedValue = null;
+                    case 0:
+                        AllDatabaseList.ItemsSource = allItems;
+                        AllDatabaseList.SelectedValue = null;
+                        break;
+                    case 1:
+                        PremiumDatabaseList.ItemsSource = PremiumItems();
+                        PremiumDatabaseList.SelectedValue = null;
+                        break;
+                    case 2:
+                        FreeDatabaseList.ItemsSource = FreeItems();
+                        FreeDatabaseList.SelectedValue = null;
+                        break;
                 }
             }
         }
@@ -249,7 +248,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void CleanValidationError()
         {
-            ErrorMessage.Content = "";
+            ErrorMessage.Content = String.Empty;
         }
 
         private void DatabaseCodeBox_OnMouseEnter(object sender, MouseEventArgs e)
