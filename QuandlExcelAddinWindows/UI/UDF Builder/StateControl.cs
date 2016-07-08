@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows;
+using Quandl.Shared.models;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -54,6 +53,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public ChainTypes chainType { get; internal set; } = ChainTypes.Datatables;
 
+        public DatatableCollectionResponse datatableCollection { get; internal set; }
+
         public StateControl()
         {
             Reset();
@@ -98,7 +99,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             // If the DataCode has been nullified or blanked out simply erase the formula
             if (string.IsNullOrEmpty(DataCode))
-            {
+        {
                 UdfFormula = "";
                 NotifyPropertyChanged("UdfFormula");
                 return;

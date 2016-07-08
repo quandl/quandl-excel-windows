@@ -22,5 +22,14 @@ namespace Quandl.Excel.Addin.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Code {0} is invalid!")]
+        public string DataCodeValidationMessage {
+            get {
+                return ((string)(this["DataCodeValidationMessage"]));
+            }
+        }
     }
 }

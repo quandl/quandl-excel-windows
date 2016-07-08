@@ -248,6 +248,7 @@
     <EmbeddedResource Include="UI\TaskPaneWpfControlHost.resx">
       <DependentUpon>TaskPaneWpfControlHost.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
