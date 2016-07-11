@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Quandl.Shared.models.ViewData
+namespace Quandl.Shared.Models.ViewData
 {
     public class Category
     {

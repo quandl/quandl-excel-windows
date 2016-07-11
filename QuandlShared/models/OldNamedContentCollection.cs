@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Quandl.Shared.models
+namespace Quandl.Shared.Models
 {
-    public class NamedContentCollection
+    public class OldNamedContentCollection
     {
         public List<NamedContent> NamedContents { get; set; }
     }

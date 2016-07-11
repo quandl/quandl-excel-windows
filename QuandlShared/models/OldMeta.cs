@@ -1,6 +1,6 @@
-﻿namespace Quandl.Shared.models
+﻿namespace Quandl.Shared.Models
 {
-    public class Meta
+    public class OldMeta
     {
         public int? PerPage { get; set; }
         public string Query { get; set; }

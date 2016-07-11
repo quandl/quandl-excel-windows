@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Quandl.Shared.models
+namespace Quandl.Shared.Models
 {
-    public class DatasetData
+    public class OldDatasetData
     {
         public int? Limit { get; set; }
         public string Transform { get; set; }
@@ -18,6 +18,6 @@ namespace Quandl.Shared.models
 
     public class DatasetDataResponse
     {
-        public DatasetData DatasetData { get; set; }
+        public OldDatasetData DatasetData { get; set; }
     }
 }
