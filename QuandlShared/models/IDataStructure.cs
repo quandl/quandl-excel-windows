@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quandl.Shared.Models
 {
-    interface IDataStructure
+    public interface IDataStructure
     {
         List<DataColumn> Column { get; set; }
     }

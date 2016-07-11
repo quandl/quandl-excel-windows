@@ -2,7 +2,7 @@
 
 namespace Quandl.Shared.Models
 {
-    class Provider : IDataDefinition
+    public class Provider : IDataDefinition
     {
         public string Name { get; set; }
         public string Code { get; set; }

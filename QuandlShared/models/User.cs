@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quandl.Shared.Models
 {
-    class User
+    public class User
     {
         public int Id { get; set; }
         public string Email { get; set; }

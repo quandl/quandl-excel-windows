@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quandl.Shared.Models
 {
-    class DataArray
+    public class DataArray
     {
         public List<List<object>> DataPoints { get; set; }
         public List<DataColumn> Columns { get; set; }

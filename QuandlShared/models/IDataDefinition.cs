@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quandl.Shared.Models
 {
-    interface IDataDefinition
+    public interface IDataDefinition
     {
         string Name { get; set; }
         string Code { get; }

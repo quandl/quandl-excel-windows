@@ -25,6 +25,13 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             InitializeComponent();
             DataContext = StateControl.Instance;
             PopulateTreeView();
+            GetDatabase("WIKI");
+        }
+
+        public async void GetDatabase(string code)
+        {
+            var provider = await Web.GetDatabase(code);
+            return;
         }
 
         public string GetTitle()

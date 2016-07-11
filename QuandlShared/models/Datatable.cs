@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quandl.Shared.Models
 {
-    class Datatable : IDataDefinition, IDataStructure
+    public class Datatable : IDataDefinition, IDataStructure
     {
         public string Name { get; set; }
         public string Code

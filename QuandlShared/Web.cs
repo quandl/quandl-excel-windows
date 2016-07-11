@@ -159,10 +159,10 @@ namespace Quandl.Shared
             return await RequestAsync<T>(type, CallTypes.Data, queryParams);
         }
 
-        public static async Task<OldDatabase> GetDatabase(string code)
+        public static async Task<Provider> GetDatabase(string code)
         {
             string relativeUrl = "databases/" + code;
-            return await RequestAsync<OldDatabase>(relativeUrl, CallTypes.Data, null);
+            return await RequestAsync<Provider>(relativeUrl, CallTypes.Data, null);
 
         }
 
