@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Quandl.Shared.models.ViewData;
+using Quandl.Shared.Models.ViewData;
 
-namespace Quandl.Shared.models
+namespace Quandl.Shared.Models
 {
-    public class DatatableCollection
+    public class OldDatatableCollection
     {
         public int Id { get; set; }
         public string Code { get; set; }

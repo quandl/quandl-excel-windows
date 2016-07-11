@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Quandl.Shared;
-using Quandl.Shared.models;
-using Quandl.Shared.models.ViewData;
-using Category = Quandl.Shared.models.ViewData.Category;
-using SubCategory = Quandl.Shared.models.ViewData.SubCategory;
+using Quandl.Shared.Models;
+using Quandl.Shared.Models.ViewData;
+using Category = Quandl.Shared.Models.ViewData.Category;
+using SubCategory = Quandl.Shared.Models.ViewData.SubCategory;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -75,8 +75,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             var dtCount = 0;
             foreach (var listItem in cur.OrderList)
             {
-                Database db = null;
-                DatatableCollection dbc = null;
+                OldDatabase db = null;
+                OldDatatableCollection dbc = null;
                 Data data = null;
                 var type = listItem.Type;
                 if (type.Equals("database") && databaseCollection.Databases != null)
@@ -243,16 +243,16 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             ErrorMessage.Content = string.Empty;
         }
 
-        private async Task<DatabaseCollection> GetAllDatabase(Detail detail)
+        private async Task<OldDatabaseCollection> GetAllDatabase(Detail detail)
         {
             var type = "database";
-            return await Web.GetModelByIds<DatabaseCollection>(type + "s", GetListIds(detail, type));
+            return await Web.GetModelByIds<OldDatabaseCollection>(type + "s", GetListIds(detail, type));
         }
 
-        private async Task<DatatableCollectionsResponse> GetAllDatatable(Detail detail)
+        private async Task<OldDatatableCollectionsResponse> GetAllDatatable(Detail detail)
         {
             var type = "datatable_collection";
-            return await Web.GetModelByIds<DatatableCollectionsResponse>(type, GetListIds(detail, type));
+            return await Web.GetModelByIds<OldDatatableCollectionsResponse>(type, GetListIds(detail, type));
         }
 
         private List<string> GetListIds(Detail detail, string type)
