@@ -2,7 +2,7 @@
 
 namespace Quandl.Shared.Models
 {
-    class Dataset : IDataDefinition, IDataStructure
+    public class Dataset : IDataDefinition, IDataStructure
     {
         public string Name { get; set; }
         public string Code
