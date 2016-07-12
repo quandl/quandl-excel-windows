@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.Settings"
+             xmlns:shared="clr-namespace:Quandl.Shared;assembly=Quandl.Shared"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" Padding="10">
     <Grid>
@@ -19,7 +20,10 @@
         </Grid.RowDefinitions>
         <Label Content="Auto Update" Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Right"
                VerticalAlignment="Center" />
-        <ComboBox x:Name="AutoUpdateComboBox" Grid.Column="1" Grid.Row="0" Margin="10,10,0,10" SelectedIndex="0" />
+        <ComboBox x:Name="AutoUpdateComboBox" Grid.Column="1" Grid.Row="0" Margin="10,10,0,10" SelectedIndex="0"
+                  DisplayMemberPath="Description"
+                  SelectedValuePath="value"
+                  SelectedValue="shared:QuandlConfig.AutoUpdateFrequency" />
         <Label Content="Api Key" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Right"
                VerticalAlignment="Center" />
         <TextBox x:Name="ApiKeyTextBox" Grid.Column="1" Grid.Row="1" Margin="10,10,0,10" Height="25"

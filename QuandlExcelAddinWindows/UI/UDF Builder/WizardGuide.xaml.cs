@@ -1,10 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 using Quandl.Shared;
+using static Quandl.Excel.Addin.UI.UDF_Builder.StateControl;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -19,7 +20,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             InitializeComponent();
 
-            StateControl.Instance.Reset();
+            // Wait for the UI thread to become idle before rendering. Not this can have disastrous performance implications if used incorrectly.
+            Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.ContextIdle, null);
+
+            Instance.Reset();
 
             // Async check that the user is logged in our not
             Loaded += async delegate
@@ -37,25 +41,19 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             };
         }
 
-        private string[] steps => StateControl.Instance.GetStepList();
+        private string[] steps => Instance.GetStepList();
 
-        private int currentStep => StateControl.Instance.currentStep;
+        private int currentStep => Instance.CurrentStep;
 
         private void PrepareFormEvents()
         {
-            QuandlConfig.Instance.LoginChanged += async delegate
-            {
-                var validKey = await QuandlConfig.ApiKeyValid();
-                LoginOrSearch();
-            };
+            QuandlConfig.Instance.LoginChanged += LoginOrSearch;
+            Instance.PropertyChanged += delegate { AllowMovementToNextStep(); };
+        }
 
-            StateControl.Instance.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
-            {
-                if (e.PropertyName == "DataCode")
-                {
-                    ChangeToStep();
-                }
-            };
+        private void AllowMovementToNextStep()
+        {
+            nextButton.IsEnabled = currentStep > shownStep || Instance.CanMoveForward();
         }
 
         private void nextButton_click(object sender, RoutedEventArgs e)
@@ -68,8 +66,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
             else
             {
-                StateControl.Instance.currentStep++;
-                ChangeToStep();
+                Instance.NextStep();
+                ChangeToCurrentStep();
             }
         }
 
@@ -93,7 +91,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                             child.Visibility = Visibility.Visible;
                         }
 
-                        ChangeToStep();
+                        ChangeToCurrentStep();
                     }
                     else
                     {
@@ -112,7 +110,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
         }
 
-        private void ChangeToStep()
+        private void ChangeToCurrentStep()
         {
             // Show the current step form in the wizard
             ShowStep(currentStep);
@@ -172,7 +170,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 if (i != currentStep)
                 {
                     var sep = new Label();
-                    sep.Content = "\\";
+                    sep.Content = "-";
                     sep.Padding = new Thickness(0, 10, 0, 10);
                     stepBreadcrumb.Children.Add(sep);
                 }
@@ -201,6 +199,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             // Highlight the current step
             var stepElement = (Control) stepBreadcrumb.Children[(stepNumber + 1)*2 - 2];
             stepElement.Background = Brushes.AliceBlue;
+
+            AllowMovementToNextStep();
         }
     }
 }
