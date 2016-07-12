@@ -1,4 +1,4 @@
 ﻿namespace Quandl.Shared.Models
 {
-    public enum Type { TimeSeries, DataTable }
+    public enum ProviderType { TimeSeries, DataTable }
 }
