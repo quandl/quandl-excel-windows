@@ -197,11 +197,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             if (selectedItem.Type.Equals("database"))
             {
-                StateControl.Instance.chainType = StateControl.ChainTypes.TimeSeries;
+                StateControl.Instance.ChainType = StateControl.ChainTypes.TimeSeries;
             }
             else if (selectedItem.Type.Equals("datatable-collection"))
             {
-                StateControl.Instance.chainType = StateControl.ChainTypes.Datatables;
+                StateControl.Instance.ChainType = StateControl.ChainTypes.Datatables;
             }
         }
 
@@ -214,7 +214,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 var dc = await Web.GetDatatableCollection(code);
                 StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.Datatables);
-                StateControl.Instance.datatableCollection = dc;
+                StateControl.Instance.DatatableCollection = dc;
             }
             catch (Exception)
             {
@@ -242,7 +242,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void ShowValidationError(string code)
         {
-            ErrorMessage.Content = string.Format(Properties.Settings.Default.DataCodeValidationMessage, code);
+            Dispatcher.Invoke(() =>
+            {
+                ErrorMessage.Content = string.Format(Properties.Settings.Default.DataCodeValidationMessage, code);
+            });
         }
 
         private void CleanValidationError()
