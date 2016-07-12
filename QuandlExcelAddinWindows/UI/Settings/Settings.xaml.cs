@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using Quandl.Excel.Addin.UI.Helpers;
 using Quandl.Shared;
 
 namespace Quandl.Excel.Addin.UI.Settings
@@ -22,19 +23,7 @@ namespace Quandl.Excel.Addin.UI.Settings
             Loaded += delegate
             {
                 ApiKeyTextBox.Text = QuandlConfig.ApiKey;
-                AutoUpdateComboBox.ItemsSource = Enum.GetValues(typeof(QuandlConfig.AutoUpdateFrequencies))
-                    .Cast<Enum>()
-                    .Select(value => new
-                    {
-                        (Attribute.GetCustomAttribute(value.GetType().GetField(value.ToString()),
-                            typeof(DescriptionAttribute)) as DescriptionAttribute).Description,
-                        value
-                    })
-                    .OrderBy(item => item.value)
-                    .ToList();
-                AutoUpdateComboBox.DisplayMemberPath = "Description";
-                AutoUpdateComboBox.SelectedValuePath = "value";
-                AutoUpdateComboBox.SelectedValue = QuandlConfig.AutoUpdateFrequency;
+                BindingHelper.SetItemSourceViaEnum(AutoUpdateComboBox, typeof(QuandlConfig.AutoUpdateFrequencies));
             };
         }
 
