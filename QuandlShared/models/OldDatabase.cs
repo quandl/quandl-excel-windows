@@ -1,8 +1,8 @@
-﻿using Quandl.Shared.models.ViewData;
+﻿using Quandl.Shared.Models.ViewData;
 
-namespace Quandl.Shared.models
+namespace Quandl.Shared.Models
 {
-    public class Database
+    public class OldDatabase
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -2,21 +2,21 @@
 
 namespace Quandl.Shared.Models
 {
-    class Dataset : IDataDefinition, IDataStructure
+    public class Datatable : IDataDefinition, IDataStructure
     {
         public string Name { get; set; }
         public string Code
         {
             get
             {
-                return $"{DatabaseCode}/{DatasetCode}";
+                return $"{VendorCode}/{DatatableCode}";
             }
         }
         public List<DataColumn> Column { get; set; }
-        public int Id { get; set; }
-        public string DatasetCode { get; set; }
-        public string DatabaseCode { get; set; }
-        public string Description { get; set; }
+        public string VendorCode { get; set; }
+        public string DatatableCode { get; set; }
+        public object Description { get; set; }
+        public List<string> Filters { get; set; }
         public bool Premium { get; set; }
     }
 }
