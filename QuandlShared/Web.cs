@@ -9,36 +9,36 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Quandl.Shared.Errors;
-using Quandl.Shared.models;
+using Quandl.Shared.Models;
 using Quandl.Shared.Properties;
 
 namespace Quandl.Shared
 {
     public class Web
     {
-        public static async Task<User> WhoAmI(string api_key)
+        public static async Task<OldUser> WhoAmI(string api_key)
         {
             var queryHeaders = new Dictionary<string, string>
             {
                 {"X-API-Token", api_key}
             };
 
-            var userResponse = await RequestAsync<UserResponse>("users/me", CallTypes.Search, null, queryHeaders);
+            var userResponse = await RequestAsync<OldUserResponse>("users/me", CallTypes.Search, null, queryHeaders);
             return userResponse.user;
         }
 
-        public static async Task<DatabaseCollection> SearchDatabasesAsync(string query)
+        public static async Task<OldDatabaseCollection> SearchDatabasesAsync(string query)
         {
             var queryParams = new Dictionary<string, object>
             {
                 {"per_page", "10"},
                 {"query", query}
             };
-            return await RequestAsync<DatabaseCollection>("databases", CallTypes.Search, queryParams);
+            return await RequestAsync<OldDatabaseCollection>("databases", CallTypes.Search, queryParams);
         }
 
 
-        public static async Task<DatasetCollection> SearchDatasetsAsync(string databaseCode, string query)
+        public static async Task<OldDatasetCollection> SearchDatasetsAsync(string databaseCode, string query)
         {
             var queryParams = new Dictionary<string, object>
             {
@@ -46,20 +46,20 @@ namespace Quandl.Shared
                 {"per_page", "10"},
                 {"query", query}
             };
-            return await RequestAsync<DatasetCollection>("datasets", CallTypes.Search, queryParams);
+            return await RequestAsync<OldDatasetCollection>("datasets", CallTypes.Search, queryParams);
         }
 
-        public static async Task<BrowseCollection> BrowseAsync()
+        public static async Task<OldBrowseCollection> BrowseAsync()
         { 
             var queryParams = new Dictionary<string, object>
             {
                 {"keys[]", "browse"}
             };
 
-            var resp = await RequestAsync<NamedContentCollection>("named_contents", CallTypes.Search, queryParams, null);
+            var resp = await RequestAsync<OldNamedContentCollection>("named_contents", CallTypes.Search, queryParams, null);
             var namedContent = resp.NamedContents.FirstOrDefault();
             var browseJson = namedContent.HtmlContent;
-            var browse = JsonConvert.DeserializeObject<BrowseCollection>(browseJson, JsonSettings());
+            var browse = JsonConvert.DeserializeObject<OldBrowseCollection>(browseJson, JsonSettings());
             return browse;
         }
 
@@ -159,17 +159,17 @@ namespace Quandl.Shared
             return await RequestAsync<T>(type, CallTypes.Data, queryParams);
         }
 
-        public static async Task<Database> GetDatabase(string code)
+        public static async Task<Provider> GetDatabase(string code)
         {
             string relativeUrl = "databases/" + code;
-            return await RequestAsync<Database>(relativeUrl, CallTypes.Data, null);
+            return await RequestAsync<Provider>(relativeUrl, CallTypes.Data, null);
 
         }
 
-        public static async Task<DatatableCollectionResponse> GetDatatableCollection(string code)
+        public static async Task<OldDatatableCollectionResponse> GetDatatableCollection(string code)
         {
             string relativeUrl = "datatable_collections/" + code;
-            return await RequestAsync<DatatableCollectionResponse>(relativeUrl, CallTypes.Search, null);
+            return await RequestAsync<OldDatatableCollectionResponse>(relativeUrl, CallTypes.Search, null);
         }
 
         private static JObject QuandlAPICall(string quandlCode, string extraUri)

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using Quandl.Shared.models;
+using Quandl.Shared.Models;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -71,7 +71,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public ChainTypes chainType { get; internal set; } = ChainTypes.Datatables;
 
-        public DatatableCollectionResponse datatableCollection { get; internal set; }
+        public OldDatatableCollectionResponse datatableCollection { get; internal set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

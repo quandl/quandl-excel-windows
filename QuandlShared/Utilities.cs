@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Quandl.Shared.models;
+using Quandl.Shared.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Excel;

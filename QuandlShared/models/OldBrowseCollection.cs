@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Quandl.Shared.models
+namespace Quandl.Shared.Models
 {
-    public class BrowseCollection
+    public class OldBrowseCollection
     {
         public List<Category> Items { get; set; }
         public string Name { get; set; }
