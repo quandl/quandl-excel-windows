@@ -6,7 +6,7 @@ namespace Quandl.Shared.Models
     {
         public string Name { get; set; }
         public string Code { get; set; }
-        public Type Type { get; set; }
+        public ProviderType Type { get; set; }
         public List<IDataStructure> Collection { get; set; }
     }
 }
