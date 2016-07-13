@@ -98,7 +98,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public string DataCode { get; internal set; }
         public List<string> DataSetTableSelection { get; internal set; } = new List<string>();
 
-        public OldDatatableCollectionResponse DatatableCollection { get; internal set; }
+        public Provider Provider { get; internal set; }
+
+        public bool ValidateCode { get; internal set; } = false;
 
         public IList<DataCodeCollection> AvailableCodeColumns { get; set; } =
             new ObservableCollection<DataCodeCollection>();
@@ -167,10 +169,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         // Step 5: (Optional) Insert UDF formula
         public bool CanMoveForward()
         {
-            return true;
-            //return (CurrentStep == 0 && !string.IsNullOrEmpty(DataCode)) ||
-            //       (CurrentStep == 1 && DataSetTableSelection.Count > 0) ||
-            //       (CurrentStep >= 2);
+            return (CurrentStep == 0 &&  IsValidateDataCode()) ||
+                   (CurrentStep == 1 && DataSetTableSelection.Count > 0) ||
+                   (CurrentStep >= 2);
         }
 
         public void NextStep()
@@ -184,6 +185,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public string[] GetStepList()
         {
             return ChainType == ChainTypes.TimeSeries ? timeSeriesChain : datatableChain;
+        }
+
+        private bool IsValidateDataCode()
+        {
+            return ValidateCode && !string.IsNullOrEmpty(DataCode);
         }
 
         private void UpdateFormula()
