@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Quandl.Shared.Errors;
 using Quandl.Shared.Models;
+using Quandl.Shared.Models.Browse;
 using Quandl.Shared.Properties;
 
 namespace Quandl.Shared
@@ -49,7 +50,7 @@ namespace Quandl.Shared
             return await RequestAsync<OldDatasetCollection>("datasets", CallTypes.Search, queryParams);
         }
 
-        public static async Task<OldBrowseCollection> BrowseAsync()
+        public static async Task<BrowseCollection> BrowseAsync()
         { 
             var queryParams = new Dictionary<string, object>
             {
@@ -59,7 +60,7 @@ namespace Quandl.Shared
             var resp = await RequestAsync<OldNamedContentCollection>("named_contents", CallTypes.Search, queryParams, null);
             var namedContent = resp.NamedContents.FirstOrDefault();
             var browseJson = namedContent.HtmlContent;
-            var browse = JsonConvert.DeserializeObject<OldBrowseCollection>(browseJson, JsonSettings());
+            var browse = JsonConvert.DeserializeObject<BrowseCollection>(browseJson, JsonSettings());
             return browse;
         }
 
@@ -156,21 +157,38 @@ namespace Quandl.Shared
             {
                 { "ids", ids }
             };
-            return await RequestAsync<T>(type, CallTypes.Data, queryParams);
+            CallTypes callType;
+            if (type.Equals("databases"))
+            {
+                callType = CallTypes.Data;
+            }
+            else
+            {
+                callType = CallTypes.Search;
+            }
+            return await RequestAsync<T>(type, callType, queryParams);
         }
 
-        public static async Task<Provider> GetDatabase(string code)
+        public static async Task<T> GetDatabase<T>(string code)
         {
             string relativeUrl = "databases/" + code;
-            return await RequestAsync<Provider>(relativeUrl, CallTypes.Data, null);
+            return await RequestAsync<T>(relativeUrl, CallTypes.Data, null);
 
         }
 
-        public static async Task<OldDatatableCollectionResponse> GetDatatableCollection(string code)
+        public static async Task<T> GetDatatableCollection<T>(string code)
         {
             string relativeUrl = "datatable_collections/" + code;
-            return await RequestAsync<OldDatatableCollectionResponse>(relativeUrl, CallTypes.Search, null);
+            return await RequestAsync<T>(relativeUrl, CallTypes.Search, null);
         }
+
+        /*
+        public static async Task<DatatableMetadata> GetDatatableMetadata(string vendorCode, string datatableCode)
+        {
+            string relativeUrl = "datatables/" + vendorCode + "/" + datatableCode + "/metadata";
+            return await RequestAsync<DatatableMetadata>(relativeUrl, CallTypes.Data, null);
+        }
+        */
 
         private static JObject QuandlAPICall(string quandlCode, string extraUri)
         {
