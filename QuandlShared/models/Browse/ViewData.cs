@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Quandl.Shared.Models.ViewData
+namespace Quandl.Shared.Models.Browse
 {
     public class Category
     {
-        public string Header { get; set; }
+        public string Name { get; set; }
         public ObservableCollection<SubCategory> SubCategories { get; set; }
 
         public Category()
@@ -16,33 +17,33 @@ namespace Quandl.Shared.Models.ViewData
 
     public class SubCategory
     {
-        public string Header { get; set; }
-        public ObservableCollection<Detail> Details { get; set; }
+        public string Name { get; set; }
+        public ObservableCollection<LeafCategory> LeafCategories { get; set; }
 
         public SubCategory()
         {
-            Details = new ObservableCollection<Detail>();
+            LeafCategories = new ObservableCollection<LeafCategory>();
         }
     }
 
-    public class Detail
+    public class LeafCategory
     {
-        public string Header { get; set; }
+        public string Name { get; set; }
 
         public List<OrderedResourceIds> OrderList { get; set; }
 
-        public List<Data> DataList;
+        public List<ViewData> DataList;
 
-        public Detail(string header, List<OrderedResourceIds> orderList)
+        public LeafCategory(string name, List<OrderedResourceIds> orderList)
         {
-            Header = header;
+            Name = name;
             OrderList = orderList;
-            DataList = new List<Data>();
+            DataList = new List<ViewData>();
         }
     }
 
 
-    public class Data
+    public class ViewData
     {
         public int Id { get; set; }
 
@@ -58,7 +59,9 @@ namespace Quandl.Shared.Models.ViewData
 
         public string DataType { get; set; }
 
-        public Data(int id, string code, bool premium, string type)
+        public Object DataSource { get; set; }
+
+        public ViewData(int id, string code, bool premium, string type)
         {
             Id = id;
             Code = code;
