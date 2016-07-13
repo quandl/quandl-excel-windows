@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Quandl.Shared.Models.Browse;
 
 namespace Quandl.Shared.Models
@@ -35,14 +37,28 @@ namespace Quandl.Shared.Models
 
         public string Code { get; set; }
 
-        public string DatabaseCode { get; set; }
-
         public string Description { get; set; }
-        //public Type Type { get; set; }
-
+  
         public bool Premium { get; set; }
 
         public List<IDataStructure> Collection { get; set; }
+
+        [JsonExtensionData] private IDictionary<string, JToken> _additionalData;
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            if (_additionalData.Keys.Contains("database_code"))
+            {
+                string databaseCode = (string) _additionalData["database_code"];
+                Code = databaseCode;
+            }
+        }
+
+        public Provider()
+        {
+            _additionalData = new Dictionary<string, JToken>();
+        }
 
         public ViewData ToViewData(string type)
         {
@@ -50,10 +66,6 @@ namespace Quandl.Shared.Models
             data.Name = this.Name;
             data.Description = this.Description;
             data.DataSource = this;
-            if (this.Code == null)
-            {
-                data.Code = this.DatabaseCode;
-            }
             return data;
         }
     }

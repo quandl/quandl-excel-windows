@@ -82,8 +82,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             foreach (var item in current.OrderList)
             {
                 var type = item.Type;
-                Provider provider = null;
-                ViewData viewData = null;
+                Provider provider;
                 switch (type)
                 {
                     case "database":
@@ -100,7 +99,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
                 if (provider != null)
                 {
-                    viewData = provider.ToViewData(type);
+                    var viewData = provider.ToViewData(type);
                     if (viewData != null)
                     {
                         _allItems.Add(viewData);
@@ -283,7 +282,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             try
             {
-                DatabaseResponse db = await Web.GetDatabase<DatabaseResponse>(code);
+                await Web.GetDatabase<DatabaseResponse>(code);
                 StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.TimeSeries);
                 return true;
             }
