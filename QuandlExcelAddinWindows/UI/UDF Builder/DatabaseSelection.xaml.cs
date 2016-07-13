@@ -7,9 +7,10 @@ using System.Windows;
 using System.Windows.Controls;
 using Quandl.Shared;
 using Quandl.Shared.Models;
-using Quandl.Shared.Models.ViewData;
-using Category = Quandl.Shared.Models.ViewData.Category;
-using SubCategory = Quandl.Shared.Models.ViewData.SubCategory;
+using Quandl.Shared.Models.Browse;
+using Category = Quandl.Shared.Models.Browse.Category;
+using SubCategory = Quandl.Shared.Models.Browse.SubCategory;
+using Quandl.Shared.Errors;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -18,20 +19,15 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     /// </summary>
     public partial class DatabaseSelection : UserControl, WizardUIBase
     {
-        private List<Data> allItems;
+        private List<ViewData> _allItems;
+        static int VALIDATION_DELAY = 1200;
+        private System.Threading.Timer _timer = null;
 
         public DatabaseSelection()
         {
             InitializeComponent();
             DataContext = StateControl.Instance;
             PopulateTreeView();
-            GetDatabase("WIKI");
-        }
-
-        public async void GetDatabase(string code)
-        {
-            var provider = await Web.GetDatabase(code);
-            return;
         }
 
         public string GetTitle()
@@ -47,76 +43,75 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private async void PopulateTreeView()
         {
             var items = await Web.BrowseAsync();
-            var categories = new Categories();
+            Categories categories = new Categories();
 
             foreach (var item in items.Items)
             {
+                Category category = new Category { Name = item.Name };
+                categories.Add(category);
+                foreach (var subItem in item.Items)
                 {
-                    var category = new Category {Header = item.Name};
-                    foreach (var subItem in item.Items)
+                    SubCategory subCategory = new SubCategory { Name = subItem.Name };
+                    category.SubCategories.Add(subCategory);
+                    foreach (var detailItem in subItem.Items)
                     {
-                        var subCategory = new SubCategory {Header = subItem.Name};
-                        category.SubCategories.Add(subCategory);
-                        foreach (var detailItem in subItem.Items)
-                        {
-                            var detail = new Detail(detailItem.Name, detailItem.OrderedResourceIds);
-                            subCategory.Details.Add(detail);
-                        }
+                        LeafCategory detail = new LeafCategory(detailItem.Name, detailItem.OrderedResourceIds);
+                        subCategory.LeafCategories.Add(detail);
                     }
-                    categories.Add(category);
                 }
             }
-
             BrowseData.ItemsSource = categories;
         }
 
-
         private async void PopulateList(object current)
         {
-            allItems = new List<Data>();
-            var cur = (Detail) current;
-            var databaseCollection = await GetAllDatabase(cur);
-            var datatableCollectionsResponse = await GetAllDatatable(cur);
-
-            var dtcCount = 0;
-            var dtCount = 0;
-            foreach (var listItem in cur.OrderList)
-            {
-                OldDatabase db = null;
-                OldDatatableCollection dbc = null;
-                Data data = null;
-                var type = listItem.Type;
-                if (type.Equals("database") && databaseCollection.Databases != null)
-                {
-                    db = databaseCollection.Databases[dtcCount];
-                    data = db.ToData(type);
-                    dtcCount++;
-                }
-                else
-                {
-                    if (datatableCollectionsResponse.DatatableCollections != null)
-                    {
-                        dbc = datatableCollectionsResponse.DatatableCollections[dtCount];
-                        data = dbc.ToData(type);
-                        dtCount++;
-                    }
-                }
-
-                if (data != null)
-                {
-                    allItems.Add(data);
-                }
-            }
-
-            AllDatabaseList.ItemsSource = allItems;
+            _allItems = new List<ViewData>();
+            LeafCategory cur = (LeafCategory)current;
+            DatabaseCollectionResponse dbCollection = await GetAllDatabase(cur);
+            DatatableCollectionsResponse dtcCollection = await GetAllDatatable(cur);
+            SetDataList(cur, dbCollection.Providers, dtcCollection.Providers);
+            AllDatabaseList.ItemsSource = _allItems;
             PremiumDatabaseList.ItemsSource = PremiumItems();
             FreeDatabaseList.ItemsSource = FreeItems();
+        }
+
+        private void SetDataList(LeafCategory current, List<Provider> dbProviders, List<Provider> dtcProviders)
+        {
+            var i = 0;
+            var j = 0;
+            foreach (var item in current.OrderList)
+            {
+                string type = item.Type;
+                Provider provider;
+                switch (type)
+                {
+                    case "database":
+                        provider = dbProviders[i];
+                        i++;
+                        break;
+                    case "datatable-collection":
+                        provider = dtcProviders[j];
+                        j++;
+                        break;
+                    default:
+                        provider = null;
+                        break;
+                }
+                if (provider != null)
+                {
+                    var viewData = provider.ToViewData(type);
+                    if (viewData != null)
+                    {
+                        _allItems.Add(viewData);
+                    }
+                }
+            }
         }
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var current = BrowseData.SelectedItem;
-            if (current.GetType().Name.ToLower() == "detail")
+            if (current.GetType().Name.ToLower() == "leafcategory")
             {
                 PopulateList(current);
             }
@@ -133,17 +128,17 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             FreeDatabaseList.ItemsSource = null;
             TabControl.SelectedIndex = 0;
             DatabaseCodeBox.Text = string.Empty;
-            allItems = null;
+            _allItems = null;
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (allItems != null)
+            if (_allItems != null)
             {
                 switch (TabControl.SelectedIndex)
                 {
                     case 0:
-                        AllDatabaseList.ItemsSource = allItems;
+                        AllDatabaseList.ItemsSource = _allItems;
                         AllDatabaseList.SelectedValue = null;
                         break;
                     case 1:
@@ -158,14 +153,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
         }
 
-        private List<Data> PremiumItems()
+        private List<ViewData> PremiumItems()
         {
-            return allItems.Where(x => x.Premium).ToList();
+            return _allItems.Where(x => x.Premium).ToList();
         }
 
-        private List<Data> FreeItems()
+        private List<ViewData> FreeItems()
         {
-            return allItems.Where(x => !x.Premium).ToList();
+            return _allItems.Where(x => !x.Premium).ToList();
         }
 
         private void DatabaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -174,30 +169,35 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
             if (AllDatabaseList.SelectedValue != null)
             {
-                var selectedItem = (Data) AllDatabaseList.SelectedValue;
-                DatabaseCodeBox.Text = selectedItem.Code;
-                SetChainType(selectedItem);
+                var selectedItem = (ViewData)AllDatabaseList.SelectedValue;
+                SetSelection(selectedItem);
             }
             else if (PremiumDatabaseList.SelectedValue != null)
             {
-                var selectedItem = (Data) PremiumDatabaseList.SelectedValue;
-                DatabaseCodeBox.Text = selectedItem.Code;
-                SetChainType(selectedItem);
+                var selectedItem = (ViewData)PremiumDatabaseList.SelectedValue;
+                SetSelection(selectedItem);
             }
             else if (FreeDatabaseList.SelectedValue != null)
             {
-                var selectedItem = (Data) FreeDatabaseList.SelectedValue;
-                DatabaseCodeBox.Text = selectedItem.Code;
-                SetChainType(selectedItem);
+                var selectedItem = (ViewData)FreeDatabaseList.SelectedValue;
+                SetSelection(selectedItem);
             }
             StateControl.Instance.DataCode = DatabaseCodeBox.Text.Trim();
         }
 
-        private void SetChainType(Data selectedItem)
+        private void SetSelection(ViewData selectedItem)
+        {
+            DatabaseCodeBox.Text = selectedItem.Code;
+            StateControl.Instance.ValidateCode = true;
+            SetChainType(selectedItem);
+        }
+
+        private void SetChainType(ViewData selectedItem)
         {
             if (selectedItem.Type.Equals("database"))
             {
                 StateControl.Instance.ChainType = StateControl.ChainTypes.TimeSeries;
+                StateControl.Instance.Provider = (Provider)selectedItem.DataSource;
             }
             else if (selectedItem.Type.Equals("datatable-collection"))
             {
@@ -205,47 +205,57 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
         }
 
-        private async void DatabaseCodeBox_OnLostFocus(object sender, RoutedEventArgs e)
+        // stackoverflow.com/questions/8001450/c-sharp-wait-for-user-to-finish-typing-in-a-text-box
+        private void DatabaseCodeBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var code = ((TextBox) sender).Text;
-            var hasError = false;
+            TextBox origin = (TextBox)sender;
+            if (!origin.IsFocused)
+                return;
 
-            try
+            DisposeTimer();
+            _timer = new System.Threading.Timer(TimerElapsed, origin.Text, VALIDATION_DELAY, VALIDATION_DELAY);
+
+        }
+
+        private void TimerElapsed(Object text)
+        {
+            ValidateDataCode(text as string);
+            DisposeTimer();
+        }
+
+        private void ValidateDataCode(string code)
+        {
+            Dispatcher.Invoke(async () =>
             {
-                var dc = await Web.GetDatatableCollection(code);
-                StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.Datatables);
-                StateControl.Instance.DatatableCollection = dc;
-            }
-            catch (Exception)
-            {
-                try
+                var isDatatableExist = await ValidateDatatable(code);
+                var isDatabaseExist = await ValidateDatbase(code);
+
+                if (!isDatatableExist && !isDatabaseExist)
                 {
-                    await Web.GetDatabase(code);
-                    StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.TimeSeries);
+                    StateControl.Instance.ValidateCode = false;
+                    ShowValidationError(code);
                 }
-                catch (Exception)
+                else
                 {
-                    hasError = true;
+                    StateControl.Instance.ValidateCode = true;
+                    CleanValidationError();
                 }
-            }
+            });
+        }
 
-
-            if (hasError.Equals(false))
+        private void DisposeTimer()
+        {
+            if (_timer != null)
             {
-                CleanValidationError();
-            }
-            else
-            {
-                ShowValidationError(code);
+                _timer.Dispose();
+                _timer = null;
             }
         }
 
+
         private void ShowValidationError(string code)
         {
-            Dispatcher.Invoke(() =>
-            {
-                ErrorMessage.Content = string.Format(Properties.Settings.Default.DataCodeValidationMessage, code);
-            });
+            ErrorMessage.Content = string.Format(Properties.Settings.Default.DataCodeValidationMessage, code);
         }
 
         private void CleanValidationError()
@@ -253,22 +263,52 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             ErrorMessage.Content = string.Empty;
         }
 
-        private async Task<OldDatabaseCollection> GetAllDatabase(Detail detail)
+        private async Task<bool> ValidateDatatable(string code)
+        {
+            try
+            {
+                DatatableCollectionResponse dtc = await Web.GetDatatableCollection<DatatableCollectionResponse>(code);
+                StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.Datatables);
+                StateControl.Instance.Provider = dtc.Provider;
+                return true;
+            }
+            catch (QuandlErrorBase)
+            {
+                return false;
+            }
+        }
+
+        private async Task<bool> ValidateDatbase(string code)
+        {
+            try
+            {
+                await Web.GetDatabase<DatabaseResponse>(code);
+                StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.TimeSeries);
+                return true;
+            }
+            catch (QuandlErrorBase)
+            {
+                return false;
+            }
+
+        }
+
+        private async Task<DatabaseCollectionResponse> GetAllDatabase(LeafCategory leafCategory)
         {
             var type = "database";
-            return await Web.GetModelByIds<OldDatabaseCollection>(type + "s", GetListIds(detail, type));
+            return await Web.GetModelByIds<DatabaseCollectionResponse>(type + "s", GetListIds(leafCategory, type));
         }
 
-        private async Task<OldDatatableCollectionsResponse> GetAllDatatable(Detail detail)
+        private async Task<DatatableCollectionsResponse> GetAllDatatable(LeafCategory leafCategory)
         {
-            var type = "datatable_collection";
-            return await Web.GetModelByIds<OldDatatableCollectionsResponse>(type, GetListIds(detail, type));
+            var type = "datatable-collection";
+            return await Web.GetModelByIds<DatatableCollectionsResponse>(type.Replace("-", "_") + "s", GetListIds(leafCategory, type));
         }
 
-        private List<string> GetListIds(Detail detail, string type)
+        private List<string> GetListIds(LeafCategory leafCategory, string type)
         {
             var ids = new List<string>();
-            foreach (var ol in detail.OrderList)
+            foreach (var ol in leafCategory.OrderList)
             {
                 if (ol.Type.Equals(type))
                 {
