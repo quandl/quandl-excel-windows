@@ -51,11 +51,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 categories.Add(category);
                 foreach (var subItem in item.Items)
                 {
-                    var subCategory = new SubCategory { Name = subItem.Name };
+                    SubCategory subCategory = new SubCategory { Name = subItem.Name };
                     category.SubCategories.Add(subCategory);
                     foreach (var detailItem in subItem.Items)
                     {
-                        var detail = new LeafCategory(detailItem.Name, detailItem.OrderedResourceIds);
+                        LeafCategory detail = new LeafCategory(detailItem.Name, detailItem.OrderedResourceIds);
                         subCategory.LeafCategories.Add(detail);
                     }
                 }
@@ -66,7 +66,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private async void PopulateList(object current)
         {
             _allItems = new List<ViewData>();
-            var cur = (LeafCategory)current;
+            LeafCategory cur = (LeafCategory)current;
             DatabaseCollectionResponse dbCollection = await GetAllDatabase(cur);
             DatatableCollectionsResponse dtcCollection = await GetAllDatatable(cur);
             SetDataList(cur, dbCollection.Providers, dtcCollection.Providers);
@@ -81,7 +81,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             var j = 0;
             foreach (var item in current.OrderList)
             {
-                var type = item.Type;
+                string type = item.Type;
                 Provider provider;
                 switch (type)
                 {
