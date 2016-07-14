@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,7 +26,17 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             InitializeComponent();
             DataContext = StateControl.Instance;
+            SetDataCodeBox();
             PopulateTreeView();
+        }
+
+        private void SetDataCodeBox()
+        {
+            var provider = StateControl.Instance.Provider;
+            if ( provider != null)
+            {
+                DatabaseCodeBox.Text = provider.Code;
+            }
         }
 
         public string GetTitle()
@@ -141,15 +152,21 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 {
                     case 0:
                         AllDatabaseList.ItemsSource = _allItems;
-                        AllDatabaseList.SelectedValue = null;
+                        //Reset others
+                        PremiumDatabaseList.SelectedValue = null;
+                        FreeDatabaseList.SelectedValue = null;
                         break;
                     case 1:
                         PremiumDatabaseList.ItemsSource = PremiumItems();
-                        PremiumDatabaseList.SelectedValue = null;
+                        //Reset others;
+                        AllDatabaseList.SelectedValue = null;
+                        FreeDatabaseList.SelectedValue = null;
                         break;
                     case 2:
                         FreeDatabaseList.ItemsSource = FreeItems();
-                        FreeDatabaseList.SelectedValue = null;
+                        //Reset others
+                        AllDatabaseList.SelectedValue = null;
+                        PremiumDatabaseList.SelectedValue = null;
                         break;
                 }
             }
@@ -227,8 +244,13 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             Dispatcher.Invoke(async () =>
             {
-                var isDatatableExist = await ValidateDatatable(code);
-                var isDatabaseExist = await ValidateDatabase(code);
+                bool isDatatableExist = await ValidateDatatable(code);
+                bool isDatabaseExist = false;
+                if (!isDatatableExist)
+                {
+                    isDatabaseExist = await ValidateDatabase(code);
+                }
+                 
 
                 if (!isDatatableExist && !isDatabaseExist)
                 {
