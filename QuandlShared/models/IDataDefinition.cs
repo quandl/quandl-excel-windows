@@ -3,6 +3,6 @@
     public interface IDataDefinition
     {
         string Name { get; set; }
-        string Code { get; }
+        // string Code { get; }
     }
 }
