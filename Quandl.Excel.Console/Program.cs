@@ -4,7 +4,7 @@ namespace Quandl.Excel.Console
 {
     internal class Program
     {
-        // Installation package will handl the case which disable second re-install
+        // Installation package will handle the case which disable second re-install
         // RegisterExcelAddiin function will handle the case when the quandl excel add-in registry key created before install
         private static void Main(string[] args)
         {

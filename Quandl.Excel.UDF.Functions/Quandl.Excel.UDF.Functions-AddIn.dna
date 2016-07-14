@@ -1,6 +1,6 @@
 <DnaLibrary Name="Quandl Excel Add-In" RuntimeVersion="v4.0">
   <ExternalLibrary Path="Quandl.Excel.UDF.Functions.dll" LoadFromBytes="true" Pack="true" />
-  
+
   <!-- 
        The RuntimeVersion attribute above allows two settings:
        * RuntimeVersion="v2.0" - for .NET 2.0, 3.0 and 3.5
@@ -17,4 +17,7 @@
        See the main Excel-DNA site at http://excel-dna.net for downloads of the full distribution.
   -->
 
+  <Reference Path="ExcelDna.IntelliSense.dll" Pack="true" />
+  <Reference Path="UIAComWrapper.dll" Pack="true" />
+  <Reference Path="Interop.UIAutomationClient.dll" Pack="true" />
 </DnaLibrary>

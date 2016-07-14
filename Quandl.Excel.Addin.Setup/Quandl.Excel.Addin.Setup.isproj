@@ -34,13 +34,5 @@
 			<Name>Quandl.Excel.Addin</Name>
 			<Project>{46DC729E-5083-4F4B-BF2E-E20611D3C14E}</Project>
 		</ProjectReference>
-		<ProjectReference Include="..\QuandlExcelUDFFunctions\Quandl.Excel.UDF.Functions.csproj">
-			<Name>Quandl.Excel.UDF.Functions</Name>
-			<Project>{6AC4706D-5BC0-45DC-B517-683D19C57970}</Project>
-		</ProjectReference>
-		<ProjectReference Include="..\QuandlShared\Quandl.Shared.Modules.csproj">
-			<Name>Quandl.Shared.Modules</Name>
-			<Project>{C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C}</Project>
-		</ProjectReference>
 	</ItemGroup>
 </Project>
