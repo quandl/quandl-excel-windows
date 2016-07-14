@@ -5,9 +5,9 @@ using Quandl.Shared;
 
 namespace Quandl.Excel.UDF.Functions
 {
-    public static class Tools
+    public class Tools
     {
-        public static string GetStringValue(object referenceOrString)
+        public string GetStringValue(object referenceOrString)
         {
             if (referenceOrString is string)
             {
@@ -20,7 +20,7 @@ namespace Quandl.Excel.UDF.Functions
             return null;
         }
 
-        public static string GetDateValue(object referenceOrString)
+        public string GetDateValue(object referenceOrString)
         {
             if (referenceOrString is string)
             {
