@@ -39,15 +39,22 @@ namespace Quandl.Shared
         }
 
 
-        public static async Task<OldDatasetCollection> SearchDatasetsAsync(string databaseCode, string query)
+        public static async Task<DatasetsResponse> SearchDatasetsAsync(string databaseCode, string query, int page, int perPage)
         {
             var queryParams = new Dictionary<string, object>
             {
-                {"database_code", databaseCode},
-                {"per_page", "10"},
-                {"query", query}
+                { "database_code", databaseCode },
+                { "page", page.ToString() },
+                { "per_page", perPage.ToString() },
+                { "query", query }
             };
-            return await RequestAsync<OldDatasetCollection>("datasets", CallTypes.Search, queryParams);
+            return await RequestAsync<DatasetsResponse>("datasets", CallTypes.Data, queryParams);
+        }
+
+        public static async Task<DatasetResponse> SearchDatasetAsync(string datasetCode)
+        {
+            string relativeUrl = $"datasets/{datasetCode}";
+            return await RequestAsync<DatasetResponse>(relativeUrl, CallTypes.Data);
         }
 
         public static async Task<BrowseCollection> BrowseAsync()
@@ -111,7 +118,7 @@ namespace Quandl.Shared
             queryParams["column_index"] = columnName;
 
             var relativeUrl = "datasets/" + code + "/data";
-            var resp = await RequestAsync<DatasetDataResponse>(relativeUrl, CallTypes.Data, queryParams);
+            var resp = await RequestAsync<DatasetDataResponse>(relativeUrl, CallTypes.Search, queryParams);
             var dataRow = resp.DatasetData.Data.FirstOrDefault();
             if (dataRow.Count > 1)
             {
