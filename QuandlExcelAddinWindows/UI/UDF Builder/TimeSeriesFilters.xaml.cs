@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Quandl.Excel.Addin.UI.Helpers;
+using Quandl.Shared.Models;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -18,7 +19,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             InitializeComponent();
             Loaded += delegate
             {
-                SetDateSelection();
+                this.DatePickerStart.DisplayDateStart = ((Dataset) StateControl.Instance.AvailableDataHolders[0]).OldestAvailableDate;
+                this.DatePickerEnd.DisplayDateEnd = ((Dataset)StateControl.Instance.AvailableDataHolders[0]).NewestAvailableDate;
+
+                SetFilterSelections();
                 UpdateDateVisibility();
             };
         }
@@ -37,7 +41,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             UpdateDateVisibility();
         }
 
-        private void SetDateSelection()
+        private void SetFilterSelections()
         {
             BindingHelper.SetItemSourceViaEnum(ComboBoxDateSelection, typeof(StateControl.TimeSeriesFilterTypes));
             BindingHelper.SetItemSourceViaEnum(ComboBoxFrequency, typeof(StateControl.TimeSeriesFilterCollapse));

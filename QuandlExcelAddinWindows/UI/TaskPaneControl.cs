@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Microsoft.Office.Core;
 using Quandl.Excel.Addin.Properties;
 using CustomTaskPane = Microsoft.Office.Tools.CustomTaskPane;
@@ -91,6 +92,24 @@ namespace Quandl.Excel.Addin.UI
             if (taskPane == null)
             {
                 taskPane = Globals.ThisAddIn.AddCustomTaskPane(control, name);
+                // Code for re-sizing the task pane when switching dock types.
+                taskPane.DockPositionChanged += delegate
+                {
+                    var timer = new System.Timers.Timer(100);
+                    timer.AutoReset = false;
+                    timer.Elapsed += (sender, e) =>
+                    {
+                        if (taskPane.Width < 640)
+                        {
+                            taskPane.Width = 640;
+                        }
+                        if (taskPane.Height < 480)
+                        {
+                            taskPane.Width = 480;
+                        }
+                    };
+                    timer.Start();
+                };
             }
 
             if (!taskPane.Visible)

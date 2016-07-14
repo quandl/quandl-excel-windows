@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Quandl.Shared;
+using Quandl.Shared.Errors;
 using Quandl.Shared.Models;
 using Quandl.Shared.Models.Browse;
-using Category = Quandl.Shared.Models.Browse.Category;
-using SubCategory = Quandl.Shared.Models.Browse.SubCategory;
-using Quandl.Shared.Errors;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -19,9 +17,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     /// </summary>
     public partial class DatabaseSelection : UserControl, WizardUIBase
     {
+        private static readonly int VALIDATION_DELAY = 1200;
         private List<ViewData> _allItems;
-        static int VALIDATION_DELAY = 1200;
-        private System.Threading.Timer _timer = null;
+        private Timer _timer;
 
         public DatabaseSelection()
         {
@@ -43,36 +41,40 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private async void PopulateTreeView()
         {
             var items = await Web.BrowseAsync();
-            Categories categories = new Categories();
+            var categories = new Categories();
 
             foreach (var item in items.Items)
             {
-                Category category = new Category { Name = item.Name };
+                var category = new Category {Name = item.Name};
                 categories.Add(category);
                 foreach (var subItem in item.Items)
                 {
-                    SubCategory subCategory = new SubCategory { Name = subItem.Name };
+                    var subCategory = new SubCategory {Name = subItem.Name};
                     category.SubCategories.Add(subCategory);
                     foreach (var detailItem in subItem.Items)
                     {
-                        LeafCategory detail = new LeafCategory(detailItem.Name, detailItem.OrderedResourceIds);
+                        var detail = new LeafCategory(detailItem.Name, detailItem.OrderedResourceIds);
                         subCategory.LeafCategories.Add(detail);
                     }
                 }
             }
-            BrowseData.ItemsSource = categories;
+            Dispatcher.Invoke(() => { BrowseData.ItemsSource = categories; });
         }
 
         private async void PopulateList(object current)
         {
             _allItems = new List<ViewData>();
-            LeafCategory cur = (LeafCategory)current;
-            DatabaseCollectionResponse dbCollection = await GetAllDatabase(cur);
-            DatatableCollectionsResponse dtcCollection = await GetAllDatatable(cur);
+            var cur = (LeafCategory) current;
+            var dbCollection = await GetAllDatabase(cur);
+            var dtcCollection = await GetAllDatatable(cur);
             SetDataList(cur, dbCollection.Providers, dtcCollection.Providers);
-            AllDatabaseList.ItemsSource = _allItems;
-            PremiumDatabaseList.ItemsSource = PremiumItems();
-            FreeDatabaseList.ItemsSource = FreeItems();
+
+            Dispatcher.Invoke(() =>
+            {
+                AllDatabaseList.ItemsSource = _allItems;
+                PremiumDatabaseList.ItemsSource = PremiumItems();
+                FreeDatabaseList.ItemsSource = FreeItems();
+            });
         }
 
         private void SetDataList(LeafCategory current, List<Provider> dbProviders, List<Provider> dtcProviders)
@@ -81,7 +83,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             var j = 0;
             foreach (var item in current.OrderList)
             {
-                string type = item.Type;
+                var type = item.Type;
                 Provider provider;
                 switch (type)
                 {
@@ -165,30 +167,30 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void DatabaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            e.Handled = true;
+
             CleanValidationError();
 
             if (AllDatabaseList.SelectedValue != null)
             {
-                var selectedItem = (ViewData)AllDatabaseList.SelectedValue;
+                var selectedItem = (ViewData) AllDatabaseList.SelectedValue;
                 SetSelection(selectedItem);
             }
             else if (PremiumDatabaseList.SelectedValue != null)
             {
-                var selectedItem = (ViewData)PremiumDatabaseList.SelectedValue;
+                var selectedItem = (ViewData) PremiumDatabaseList.SelectedValue;
                 SetSelection(selectedItem);
             }
             else if (FreeDatabaseList.SelectedValue != null)
             {
-                var selectedItem = (ViewData)FreeDatabaseList.SelectedValue;
+                var selectedItem = (ViewData) FreeDatabaseList.SelectedValue;
                 SetSelection(selectedItem);
             }
-            StateControl.Instance.DataCode = DatabaseCodeBox.Text.Trim();
         }
 
         private void SetSelection(ViewData selectedItem)
         {
-            DatabaseCodeBox.Text = selectedItem.Code;
-            StateControl.Instance.ValidateCode = true;
+            Dispatcher.Invoke(() => { DatabaseCodeBox.Text = selectedItem.Code; });
             SetChainType(selectedItem);
         }
 
@@ -196,28 +198,26 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             if (selectedItem.Type.Equals("database"))
             {
-                StateControl.Instance.ChainType = StateControl.ChainTypes.TimeSeries;
-                StateControl.Instance.Provider = (Provider)selectedItem.DataSource;
+                StateControl.Instance.ChangeCode((Provider) selectedItem.DataSource, StateControl.ChainTypes.TimeSeries);
             }
             else if (selectedItem.Type.Equals("datatable-collection"))
             {
-                StateControl.Instance.ChainType = StateControl.ChainTypes.Datatables;
+                StateControl.Instance.ChangeCode((Provider) selectedItem.DataSource, StateControl.ChainTypes.Datatables);
             }
         }
 
         // stackoverflow.com/questions/8001450/c-sharp-wait-for-user-to-finish-typing-in-a-text-box
         private void DatabaseCodeBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox origin = (TextBox)sender;
+            var origin = (TextBox) sender;
             if (!origin.IsFocused)
                 return;
 
             DisposeTimer();
-            _timer = new System.Threading.Timer(TimerElapsed, origin.Text, VALIDATION_DELAY, VALIDATION_DELAY);
-
+            _timer = new Timer(TimerElapsed, origin.Text, VALIDATION_DELAY, VALIDATION_DELAY);
         }
 
-        private void TimerElapsed(Object text)
+        private void TimerElapsed(object text)
         {
             ValidateDataCode(text as string);
             DisposeTimer();
@@ -228,16 +228,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             Dispatcher.Invoke(async () =>
             {
                 var isDatatableExist = await ValidateDatatable(code);
-                var isDatabaseExist = await ValidateDatbase(code);
+                var isDatabaseExist = await ValidateDatabase(code);
 
                 if (!isDatatableExist && !isDatabaseExist)
                 {
-                    StateControl.Instance.ValidateCode = false;
                     ShowValidationError(code);
                 }
                 else
                 {
-                    StateControl.Instance.ValidateCode = true;
                     CleanValidationError();
                 }
             });
@@ -260,16 +258,15 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void CleanValidationError()
         {
-            ErrorMessage.Content = string.Empty;
+            Dispatcher.Invoke(() => { ErrorMessage.Content = string.Empty; });
         }
 
         private async Task<bool> ValidateDatatable(string code)
         {
             try
             {
-                DatatableCollectionResponse dtc = await Web.GetDatatableCollection<DatatableCollectionResponse>(code);
-                StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.Datatables);
-                StateControl.Instance.Provider = dtc.Provider;
+                var dtc = await Web.GetDatatableCollection<DatatableCollectionResponse>(code);
+                StateControl.Instance.ChangeCode(dtc.Provider, StateControl.ChainTypes.Datatables);
                 return true;
             }
             catch (QuandlErrorBase)
@@ -278,19 +275,18 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
         }
 
-        private async Task<bool> ValidateDatbase(string code)
+        private async Task<bool> ValidateDatabase(string code)
         {
             try
             {
-                await Web.GetDatabase<DatabaseResponse>(code);
-                StateControl.Instance.ChangeCode(code, StateControl.ChainTypes.TimeSeries);
+                var response = await Web.GetDatabase<DatabaseResponse>(code);
+                StateControl.Instance.ChangeCode(response.Provider, StateControl.ChainTypes.TimeSeries);
                 return true;
             }
             catch (QuandlErrorBase)
             {
                 return false;
             }
-
         }
 
         private async Task<DatabaseCollectionResponse> GetAllDatabase(LeafCategory leafCategory)
@@ -302,7 +298,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private async Task<DatatableCollectionsResponse> GetAllDatatable(LeafCategory leafCategory)
         {
             var type = "datatable-collection";
-            return await Web.GetModelByIds<DatatableCollectionsResponse>(type.Replace("-", "_") + "s", GetListIds(leafCategory, type));
+            return
+                await
+                    Web.GetModelByIds<DatatableCollectionsResponse>(type.Replace("-", "_") + "s",
+                        GetListIds(leafCategory, type));
         }
 
         private List<string> GetListIds(LeafCategory leafCategory, string type)

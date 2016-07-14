@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using Quandl.Shared.Models;
 
 namespace Quandl.Excel.Addin.UI.Helpers
 {
     // http://stackoverflow.com/questions/2251260/how-to-develop-treeview-with-checkboxes-in-wpf
-    internal class CheckedItemHelper : DependencyObject
+    public class CheckedItemHelper : DependencyObject
     {
         public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.RegisterAttached("IsChecked",
             typeof(bool?), typeof(CheckedItemHelper), new PropertyMetadata(false, OnIsCheckedPropertyChanged));
@@ -17,13 +18,13 @@ namespace Quandl.Excel.Addin.UI.Helpers
 
         private static void OnIsCheckedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is DataCodeCollection && ((bool?) e.NewValue).HasValue)
-                foreach (var p in (d as DataCodeCollection).Columns)
+            if (d is DataHolderDefinition && ((bool?) e.NewValue).HasValue)
+                foreach (var p in (d as DataHolderDefinition).Columns)
                     SetIsChecked(p, (bool?) e.NewValue);
 
-            if (d is DataCodeColumn)
+            if (d is DataColumn)
             {
-                var columns = (d.GetValue(ParentProperty) as DataCodeCollection).Columns;
+                var columns = (d.GetValue(ParentProperty) as DataHolderDefinition).Columns;
                 var checkedd = columns.Count(x => GetIsChecked(x) == true);
                 var uncheckedd = columns.Count(x => GetIsChecked(x) == false);
                 if (uncheckedd > 0 && checkedd > 0)

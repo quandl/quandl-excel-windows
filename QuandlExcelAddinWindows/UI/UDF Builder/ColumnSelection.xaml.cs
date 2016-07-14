@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Quandl.Excel.Addin.UI.Helpers;
+using Quandl.Shared.Models;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -15,9 +16,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             InitializeComponent();
 
             SelectedColumnOrderListBox.DataContext = StateControl.Instance.Columns;
-            AvailableColumnsTreeView.DataContext = StateControl.Instance.AvailableCodeColumns;
+            AvailableColumnsTreeView.DataContext = StateControl.Instance.AvailableDataHolders;
 
             CheckedItemHelper.CheckedChanged += delegate { AddRemoveCheckedItems(); };
+
+            // Set the parent of each column
+            foreach (var dh in StateControl.Instance.AvailableDataHolders)
+                foreach (var column in dh.Columns)
+                    column.SetValue(CheckedItemHelper.ParentProperty, dh);
         }
 
         public string GetTitle()
@@ -32,7 +38,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void ButtonAddAll_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var ddc in StateControl.Instance.AvailableCodeColumns)
+            foreach (var ddc in StateControl.Instance.AvailableDataHolders)
             {
                 CheckedItemHelper.SetIsChecked(ddc, true);
             }
@@ -40,7 +46,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void ButtonRemoveAll_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var ddc in StateControl.Instance.AvailableCodeColumns)
+            foreach (var ddc in StateControl.Instance.AvailableDataHolders)
             {
                 CheckedItemHelper.SetIsChecked(ddc, false);
             }
@@ -48,7 +54,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void AddRemoveCheckedItems()
         {
-            foreach (var ddc in StateControl.Instance.AvailableCodeColumns)
+            foreach (var ddc in StateControl.Instance.AvailableDataHolders)
             {
                 foreach (var column in ddc.Columns)
                 {
@@ -67,7 +73,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void ButtonRemoveSelected_Click(object sender, RoutedEventArgs e)
         {
-            var copy = SelectedColumnOrderListBox.SelectedItems.Cast<DataCodeColumn>().ToList();
+            var copy = SelectedColumnOrderListBox.SelectedItems.Cast<DataColumn>().ToList();
             foreach (var column in copy)
             {
                 CheckedItemHelper.SetIsChecked(column, false);

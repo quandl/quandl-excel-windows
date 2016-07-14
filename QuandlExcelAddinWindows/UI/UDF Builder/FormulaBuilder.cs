@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Quandl.Excel.Addin.UI.Helpers;
+using Quandl.Shared.Models;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -15,8 +16,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             _stateControl = stateControl;
         }
 
-        private ObservableCollection<DataCodeColumn> Columns => _stateControl.Columns;
-        private string DataCode => _stateControl.DataCode;
+        private ObservableCollection<DataColumn> Columns => _stateControl.Columns;
+        private IList<string> QuandlCodes => _stateControl.QuandlCodes;
 
         private StateControl.TimeSeriesFilterCollapse TimeSeriesCollapseFilter => _stateControl.TimeSeriesCollapseFilter
             ;
@@ -28,11 +29,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private int? TimeSeriesLimitFilter => _stateControl.TimeSeriesLimitFilter;
 
-        private ObservableCollection<DataCodeColumn> DataCodeColumns => _stateControl.Columns;
+        private DateTime? EndDate => _stateControl.EndDate;
 
-        private DateTime EndDate => _stateControl.EndDate;
-
-        private DateTime StartDate => _stateControl.StartDate;
+        private DateTime? StartDate => _stateControl.StartDate;
 
         private StateControl.TimeSeriesFilterTypes DateTypeFilter => _stateControl.DateTypeFilter;
 
@@ -52,23 +51,28 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             AddLimitFilters(formulaComponents);
 
             // Close off the formula
-            return $"=QDATA({string.Join(",", formulaComponents.Select(n => n.ToString()).ToArray())})";
+            return $"=QSERIES({string.Join(",", formulaComponents.Select(n => n.ToString()).ToArray())})";
         }
 
         private void AddQuandlCodeAndColumns(List<string> formulaComponents)
         {
-            if (DataCodeColumns.Count == 1)
+            if (Columns.Count == 0)
             {
-                formulaComponents.Add($"\"{DataCode}/{Columns[0].ColumnName}\"");
-            }
-            else if (Columns.Count > 1)
-            {
-                formulaComponents.Add(
-                    $"{{{string.Join(",", Columns.Select(n => $"\"{DataCode}/{n.ColumnName}\"".ToString()).ToArray())}}}");
+                formulaComponents.Add(QuandlCodes.Count() > 1
+                    ? $"{{{string.Join(",", QuandlCodes.Select(qc => $"\"{qc}\""))}}}"
+                    : $"\"{QuandlCodes[0]}\"");
             }
             else
             {
-                formulaComponents.Add($"\"{DataCode}\"");
+                if (Columns.Count == 1)
+                {
+                    formulaComponents.Add($"\"{QuandlCodes[0]}/{Columns[0].Code}\"");
+                }
+                else if (Columns.Count > 1)
+                {
+                    formulaComponents.Add(
+                        $"{{{string.Join(",", Columns.Select(n => $"\"{QuandlCodes[0]}/{n.Code}\"".ToString()).ToArray())}}}");
+                }
             }
         }
 
@@ -96,19 +100,34 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void AddDateFilters(List<string> formulaComponents)
         {
-            if (DateTypeFilter == StateControl.TimeSeriesFilterTypes.Single)
+            if (DateTypeFilter == StateControl.TimeSeriesFilterTypes.Single && StartDate != null)
             {
-                formulaComponents.Add($"\"{StartDate.ToString("yyyy-M-d")}\"");
+                formulaComponents.Add(StringFromDate(StartDate));
             }
-            else if (DateTypeFilter == StateControl.TimeSeriesFilterTypes.Range)
+            else if (DateTypeFilter == StateControl.TimeSeriesFilterTypes.Range && StartDate != null && EndDate != null)
             {
                 formulaComponents.Add(
-                    $"{{{string.Join(",", $"\"{StartDate.ToString("yyyy-M-d")}\"", $"\"{EndDate.ToString("yyyy-M-d")}\"")}}}");
+                    $"{{{string.Join(",", StringFromDate(StartDate), StringFromDate(EndDate))}}}");
+            }
+            else if (DateTypeFilter == StateControl.TimeSeriesFilterTypes.Range && StartDate != null)
+            {
+                formulaComponents.Add(
+                    $"{{{string.Join(",", StringFromDate(StartDate), "")}}}");
+            }
+            else if (DateTypeFilter == StateControl.TimeSeriesFilterTypes.Range && EndDate != null)
+            {
+                formulaComponents.Add(
+                    $"{{{string.Join(",", "", StringFromDate(EndDate))}}}");
             }
             else if (_stateControl.TimeseriesFilterAfter("date"))
             {
                 formulaComponents.Add("");
             }
+        }
+
+        private string StringFromDate(DateTime? date)
+        {
+            return $"\"{((DateTime) date).ToString("yyyy-M-d")}\"";
         }
 
         private void AddSortFilters(List<string> formulaComponents)
@@ -188,16 +207,16 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private string ProduceQtableFormula()
         {
             var formulaComponents = new List<string>();
-            formulaComponents.Add($"\"{DataCode}\"");
+            formulaComponents.Add($"{{{string.Join(",", QuandlCodes)}}}");
 
             if (Columns.Count == 1)
             {
-                formulaComponents.Add($"\"{Columns[0].ColumnName}\"");
+                formulaComponents.Add($"\"{Columns[0].Name}\"");
             }
             else if (Columns.Count > 1)
             {
                 formulaComponents.Add(
-                    $"{{{string.Join(",", Columns.Select(n => $"\"{n.ColumnName}\"".ToString()).ToArray())}}}");
+                    $"{{{string.Join(",", Columns.Select(n => $"\"{n.Name}\"".ToString()).ToArray())}}}");
             }
 
             // Close off the formula
