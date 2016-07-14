@@ -9,8 +9,9 @@ namespace Quandl.Excel.Addin
 {
     public partial class Toolbar
     {
-        private TaskPaneControl builderPane;
-        private TaskPaneControl settingsPane;
+        private readonly WizardGuide _guideChild = new WizardGuide();
+        private TaskPaneControl _builderPane;
+        private TaskPaneControl _settingsPane;
 
         private void Ribbon2_Load(object sender, RibbonUIEventArgs e)
         {
@@ -23,30 +24,21 @@ namespace Quandl.Excel.Addin
 
         private void openQuandlSettings_Click(object sender, RibbonControlEventArgs e)
         {
-            if (settingsPane == null)
+            if (_settingsPane == null)
             {
-                var child = new Settings();
-                settingsPane = new TaskPaneControl(child, "Settings");
-                settingsPane.Show();
+                _settingsPane = new TaskPaneControl(new Settings(), "Settings");
             }
-            else
-            {
-                settingsPane.Show();
-            }
+            _settingsPane.Show();
         }
 
         private void udfBuilder_Click(object sender, RibbonControlEventArgs e)
         {
-            if (builderPane == null)
+            if (_builderPane == null)
             {
-                var child = new WizardGuide();
-                builderPane = new TaskPaneControl(child, "Quandl UDF Builder");
-                builderPane.Show();
+                _builderPane = new TaskPaneControl(_guideChild, "Quandl Formula Builder");
             }
-            else
-            {
-                builderPane.Show();
-            }
+            _guideChild.Reset();
+            _builderPane.Show();
         }
 
         private void refreshWorkbook_Click(object sender, RibbonControlEventArgs e)

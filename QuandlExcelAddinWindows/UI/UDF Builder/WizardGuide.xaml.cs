@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,7 +15,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     /// </summary>
     public partial class WizardGuide : UserControl
     {
-        private int shownStep;
+        private int _shownStep;
 
         public WizardGuide()
         {
@@ -22,8 +23,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
             // Wait for the UI thread to become idle before rendering. Not this can have disastrous performance implications if used incorrectly.
             Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.ContextIdle, null);
-
-            Instance.Reset();
 
             // Async check that the user is logged in our not
             Loaded += async delegate
@@ -45,24 +44,59 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private int currentStep => Instance.CurrentStep;
 
+        public void Reset()
+        {
+            ShowLoadingState();
+            Instance.Reset();
+            LoginOrSearch();
+        }
+
         private void PrepareFormEvents()
         {
             QuandlConfig.Instance.LoginChanged += LoginOrSearch;
-            Instance.PropertyChanged += delegate { AllowMovementToNextStep(); };
+            Instance.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e) {
+                                                                      if (e.PropertyName != "UdfFormula")
+                                                                      {
+                                                                          AllowMovementToNextStep(currentStep);
+                                                                      }
+            };
         }
 
-        private void AllowMovementToNextStep()
+        private void AllowMovementToNextStep(int stepNumber)
         {
-            nextButton.IsEnabled = currentStep > shownStep || Instance.CanMoveForward();
+            Dispatcher.Invoke(() =>
+            {
+                // Reset everything to defaults
+                nextButton.IsEnabled = true;
+                prevButton.IsEnabled = true;
+                nextButton.Visibility = Visibility.Visible;
+                insertButton.Visibility = Visibility.Collapsed;
+
+                // Determine which buttons to show/hide and make visible
+                if (stepNumber == 0)
+                {
+                    prevButton.IsEnabled = false;
+                }
+
+                if (stepNumber == steps.Length - 1)
+                {
+                    nextButton.Visibility = Visibility.Collapsed;
+                    insertButton.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    nextButton.IsEnabled = currentStep > _shownStep || Instance.CanMoveForward();
+                }
+            });
         }
 
         private void nextButton_click(object sender, RoutedEventArgs e)
         {
             // Bail out if the user has reached a future step but is showing an older step
-            if (currentStep > shownStep)
+            if (currentStep > _shownStep)
             {
-                shownStep++;
-                ShowStep(shownStep);
+                _shownStep++;
+                ShowStep(_shownStep);
             }
             else
             {
@@ -73,8 +107,17 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void prevButton_click(object sender, RoutedEventArgs e)
         {
-            shownStep--;
-            ShowStep(shownStep);
+            _shownStep--;
+            ShowStep(_shownStep);
+        }
+
+        private void ShowLoadingState()
+        {
+            var loginXaml = new Uri("Loading.xaml", UriKind.Relative);
+            stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            stepFrame.Source = loginXaml;
+            currentStepGrid.Children[0].Visibility = Visibility.Collapsed;
+            currentStepGrid.Children[2].Visibility = Visibility.Collapsed;
         }
 
         private async void LoginOrSearch()
@@ -98,8 +141,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                         var loginXaml = new Uri("../Settings/Login.xaml", UriKind.Relative);
                         stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
                         stepFrame.Source = loginXaml;
-                        currentStepGrid.Children[0].Visibility = Visibility.Hidden;
-                        currentStepGrid.Children[2].Visibility = Visibility.Hidden;
+                        currentStepGrid.Children[0].Visibility = Visibility.Collapsed;
+                        currentStepGrid.Children[2].Visibility = Visibility.Collapsed;
                     }
                     Focus();
                 });
@@ -118,7 +161,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void ShowForm()
         {
-            var stepXaml = new Uri(steps[shownStep] + ".xaml", UriKind.Relative);
+            var stepXaml = new Uri(steps[_shownStep] + ".xaml", UriKind.Relative);
             stepFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             stepFrame.Source = stepXaml;
         }
@@ -126,22 +169,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private void ShowStep(int stepNumber)
         {
             // Update the shown step
-            shownStep = stepNumber;
+            _shownStep = stepNumber;
 
             // Show the correct user form in the wizard
             ShowForm();
-
-            // Enable the appropriate navigation buttons
-            nextButton.IsEnabled = true;
-            prevButton.IsEnabled = true;
-            if (stepNumber == 0)
-            {
-                prevButton.IsEnabled = false;
-            }
-            else if (stepNumber == steps.Length - 1)
-            {
-                nextButton.IsEnabled = false;
-            }
 
             // Build up the breadcrumb bar
             var title = "";
@@ -200,7 +231,15 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             var stepElement = (Control) stepBreadcrumb.Children[(stepNumber + 1)*2 - 2];
             stepElement.Background = Brushes.AliceBlue;
 
-            AllowMovementToNextStep();
+            AllowMovementToNextStep(stepNumber);
+        }
+
+        private void InsertButton_OnClickButton_click(object sender, RoutedEventArgs e)
+        {
+            if (Globals.ThisAddIn.ActiveCells != null)
+            {
+                Globals.ThisAddIn.ActiveCells.Cells[1, 1].Value2 = Instance.UdfFormula;
+            }
         }
     }
 }

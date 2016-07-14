@@ -12,16 +12,28 @@ namespace Quandl.Excel.Addin
 {
     public partial class ThisAddIn
     {
+        public delegate void ActiveCellChanged(Range target);
+
         public delegate void AuthTokenChanged();
 
         public delegate void LoginChanged();
 
-        public Range ActiveCells;
+        private Range _activeCells;
+        private Timer _statusTimer;
 
-        private Timer statusTimer;
+        public Range ActiveCells
+        {
+            get { return _activeCells; }
+            set
+            {
+                _activeCells = value;
+                OnActiveCellChangedEvent(value);
+            }
+        }
 
         public event AuthTokenChanged AuthTokenChangedEvent;
         public event LoginChanged LoginChangedEvent;
+        public event ActiveCellChanged ActiveCellChangedEvent;
 
         public CustomTaskPane AddCustomTaskPane(UserControl userControl, string name)
         {
@@ -35,28 +47,28 @@ namespace Quandl.Excel.Addin
             Application.StatusBar = "⚠ Quandl plugin error: " + error.Message;
 
             // Clean up an old timers;
-            if (statusTimer != null)
+            if (_statusTimer != null)
             {
-                statusTimer.Stop();
-                statusTimer.Close();
+                _statusTimer.Stop();
+                _statusTimer.Close();
             }
 
             // Create a new timer to show the error temporarily
-            statusTimer = new Timer(20000);
-            statusTimer.Elapsed += async (sender, e) => await Task.Run(() =>
+            _statusTimer = new Timer(20000);
+            _statusTimer.Elapsed += async (sender, e) => await Task.Run(() =>
             {
                 Application.StatusBar = false;
                 Application.DisplayStatusBar = oldStatusBarVisibility;
             });
-            statusTimer.Start();
+            _statusTimer.Start();
         }
 
         private void ThisAddIn_Startup(object sender, EventArgs e)
         {
             ActiveCells = Application.ActiveCell;
-            Application.WorkbookOpen += Workbook_Activated;
             Application.WorkbookOpen += Application_WorkbookOpen;
-            Application.WorkbookActivate += Workbook_Activated;
+            Application.WorkbookActivate += Workbook_Activate;
+            Application.SheetSelectionChange += Workbook_SheetSelectionChange;
 
             SetupAutoUpdateTimer();
         }
@@ -93,28 +105,14 @@ namespace Quandl.Excel.Addin
 
         #endregion
 
-        private void Workbook_Activated(Workbook workbook)
+        private void Workbook_Activate(Workbook workbook)
         {
             ActiveCells = Application.ActiveCell;
-            workbook.SheetChange += Sheet_Updated;
-            workbook.SheetSelectionChange += Workbook_SheetSelectionChange;
         }
 
-        private void Workbook_SheetSelectionChange(object Sh, Range Target)
+        private void Workbook_SheetSelectionChange(object sh, Range target)
         {
-            ActiveCells = Target;
-        }
-
-        private void Sheet_Updated(object sh, Range target)
-        {
-            //Array quandlCodes = target.Value2.Split(',');
-            //List<JObject> data = new List<JObject>();
-            //foreach (String code in quandlCodes)
-            //{
-            //    data.Add(Quandl.Shared.TestFunctions.pullSomeData(code.Trim()));
-            //}
-
-            //Excel.Range currentCell = target.Value2.Split(',');
+            ActiveCells = target;
         }
 
         public void OnAuthTokenChangedEvent()
@@ -125,6 +123,11 @@ namespace Quandl.Excel.Addin
         public void OnLoginChangedEvent()
         {
             LoginChangedEvent?.Invoke();
+        }
+
+        public void OnActiveCellChangedEvent(Range target)
+        {
+            ActiveCellChangedEvent?.Invoke(target);
         }
 
         public void OnAutoUpdateChangedEvent()

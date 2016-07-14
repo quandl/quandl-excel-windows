@@ -6,7 +6,26 @@
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.UDF_Builder"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Label x:Name="label" Content="Formula Inserter" HorizontalAlignment="Center" VerticalAlignment="Center" />
-    </Grid>
+    <StackPanel>
+        <TextBlock
+            Text="Choose how you would like to insert your formula. There are two main ways to insert your formula."
+            TextWrapping="Wrap" Margin="0,0,0,5" />
+        <BulletDecorator>
+            <BulletDecorator.Bullet>
+                <Ellipse Height="5" Width="5" Fill="Black" />
+            </BulletDecorator.Bullet>
+            <TextBlock Text="Select the formula from the formula wizard below and copy it into your document."
+                       TextWrapping="Wrap" Margin="5,0,0,0" />
+        </BulletDecorator>
+        <BulletDecorator>
+            <BulletDecorator.Bullet>
+                <Ellipse Height="5" Width="5" Fill="Black" />
+            </BulletDecorator.Bullet>
+            <TextBlock
+                Text="Select the cell you wish to insert your formula in and click the `Insert` button below."
+                TextWrapping="Wrap" Margin="5,0,0,0" />
+        </BulletDecorator>
+        <TextBlock Text="Currently Selected Cell:" Margin="0,10,0,0" />
+        <TextBox x:Name="SelectedCellTextbox" Height="23" TextWrapping="Wrap" Text="" Margin="0,5,0,0" IsEnabled="False" ToolTip="The currently selected cell the formula will be inserted into." MinWidth="200" HorizontalAlignment="Left" />
+    </StackPanel>
 </UserControl>

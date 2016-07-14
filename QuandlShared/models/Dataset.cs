@@ -1,5 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Quandl.Shared.Models
 {
@@ -7,6 +10,7 @@ namespace Quandl.Shared.Models
     {
         [JsonProperty("datasets")]
         public List<Dataset> Datasets { get; set; }
+
         [JsonProperty("meta")]
         public DatasetMetadata Meta { get; set; }
     }
@@ -29,22 +33,14 @@ namespace Quandl.Shared.Models
         public int CurrentLastItem { get; set; }
     }
 
-    public class Dataset : IDataDefinition //, IDataStructure
+    public class Dataset : DataHolderDefinition
     {
-        public string Name { get; set; }
-        public string Code
-        {
-            get
-            {
-                return $"{DatabaseCode}/{DatasetCode}";
-            }
-        }
-        [JsonProperty("column_names")]
-        public List<string> Column { get; set; }
-        public int Id { get; set; }
+        public new string Code => $"{DatabaseCode}/{DatasetCode}";
         public string DatasetCode { get; set; }
         public string DatabaseCode { get; set; }
         public string Description { get; set; }
-        public bool Premium { get; set; }
+
+        [JsonProperty("newest_available_date")] public DateTime NewestAvailableDate;
+        [JsonProperty("oldest_available_date")] public DateTime OldestAvailableDate;
     }
 }

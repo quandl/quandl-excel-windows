@@ -4,6 +4,6 @@ namespace Quandl.Shared.Models
 {
     public interface IDataStructure
     {
-        List<DataColumn> Column { get; set; }
+        IList<DataColumn> Columns { get; set; }
     }
 }

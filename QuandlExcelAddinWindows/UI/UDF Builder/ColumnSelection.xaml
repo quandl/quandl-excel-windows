@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.UDF_Builder"
              xmlns:dragDrop="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
-             xmlns:helpers="clr-namespace:Quandl.Excel.Addin.UI.Helpers"
+             xmlns:models="clr-namespace:Quandl.Shared.Models;assembly=Quandl.Shared"
+             xmlns:helpers="clr-namespace:Quandl.Excel.Addin.UI.Helpers;assembly=Quandl.Shared"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="400">
     <Grid>
@@ -21,7 +21,7 @@
         <TreeView x:Name="AvailableColumnsTreeView" Grid.Column="0" Grid.Row="0" Margin="0,0,5,0"
                   ItemsSource="{Binding}" ToolTip="Select the columns you wish to include">
             <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type helpers:DataCodeCollection}"
+                <HierarchicalDataTemplate DataType="{x:Type models:DataHolderDefinition}"
                                           ItemsSource="{Binding Columns}">
                     <CheckBox Content="{Binding Name}"
                               IsChecked="{Binding Path=(helpers:CheckedItemHelper.IsChecked), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -39,8 +39,8 @@
                         </CheckBox.Style>
                     </CheckBox>
                 </HierarchicalDataTemplate>
-                <DataTemplate DataType="{x:Type helpers:DataCodeColumn}">
-                    <CheckBox Content="{Binding ColumnName}"
+                <DataTemplate DataType="{x:Type models:DataColumn}">
+                    <CheckBox Content="{Binding Name}"
                               IsChecked="{Binding Path=(helpers:CheckedItemHelper.IsChecked), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <CheckBox.Style>
                             <Style TargetType="{x:Type CheckBox}">
@@ -70,7 +70,7 @@
                  SelectionChanged="SelectedColumnOrderListBox_SelectionChanged" SelectionMode="Multiple">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="{Binding LongName}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

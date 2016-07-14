@@ -1,10 +1,14 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
+using System.Linq;
 using PropertyChanged;
 using Quandl.Excel.Addin.UI.Helpers;
 using Quandl.Shared.Models;
+using DataColumn = Quandl.Shared.Models.DataColumn;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -87,7 +91,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
             };
             Columns.CollectionChanged += delegate { UpdateFormula(); };
-            DatasetOrDatatable.CollectionChanged += delegate { OnPropertyChanged("DatasetOrDatatable"); };
+            AvailableDataHolders.CollectionChanged += delegate { OnPropertyChanged("DatasetOrDatatable"); };
         }
 
         public static StateControl Instance => _instance ?? (_instance = new StateControl());
@@ -96,71 +100,63 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public string UdfFormula { get; set; }
 
-        public string DataCode { get; internal set; }
-        public ObservableCollection<IDataDefinition> DatasetOrDatatable { get; internal set; } = new ObservableCollection<IDataDefinition>();
-        public List<string> DataSetTableSelection { get; internal set; } = new List<string>();
+        public IList<string> QuandlCodes
+        {
+            get {
+                if (ChainType == ChainTypes.TimeSeries)
+                {
+                    return AvailableDataHolders.Select(dh => ((Quandl.Shared.Models.Dataset)dh).Code).ToList();
+                }
+                else
+                {
+                    return AvailableDataHolders.Select(dh => ((Quandl.Shared.Models.Datatable)dh).Code).ToList();
+                }
+            }
+        }
 
         public Provider Provider { get; internal set; }
+        public ChainTypes ChainType { get; internal set; } = ChainTypes.Datatables;
 
-        public bool ValidateCode { get; internal set; } = false;
+        public ObservableCollection<DataHolderDefinition> AvailableDataHolders { get; internal set; } =
+            new ObservableCollection<DataHolderDefinition>();
 
-        public IList<DataCodeCollection> AvailableCodeColumns { get; set; } =
-            new ObservableCollection<DataCodeCollection>();
-
-        public ObservableCollection<DataCodeColumn> Columns { get; } = new ObservableCollection<DataCodeColumn>();
+        public ObservableCollection<DataColumn> Columns { get; } = new ObservableCollection<DataColumn>();
 
         // Dataset Filters
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public TimeSeriesFilterTypes DateTypeFilter { get; set; }
         public TimeSeriesFilterCollapse TimeSeriesCollapseFilter { get; set; }
         public TimeSeriesFilterTransformations TimeSeriesTransformationFilter { get; set; }
         public TimeSeriesFilterSorts TimeSeriesSortFilter { get; set; }
         public int? TimeSeriesLimitFilter { get; set; }
 
-        public ChainTypes ChainType { get; internal set; } = ChainTypes.Datatables;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Reset()
         {
+            AvailableDataHolders.Clear();
+            Columns.Clear();
             UdfFormula = "";
             CurrentStep = 0;
             ChainType = ChainTypes.Datatables;
-            DataCode = null;
-            DataSetTableSelection = new List<string>();
-            Columns.Clear();
+            Provider = null;
 
             // Reset Dataset Filters
-            StartDate = DateTime.Today;
-            EndDate = DateTime.Today;
+            StartDate = null;
+            EndDate = null;
             DateTypeFilter = TimeSeriesFilterTypes.All;
             TimeSeriesCollapseFilter = TimeSeriesFilterCollapse.Default;
             TimeSeriesTransformationFilter = TimeSeriesFilterTransformations.Default;
             TimeSeriesSortFilter = TimeSeriesFilterSorts.Default;
             TimeSeriesLimitFilter = null;
-
-            // The following is only a sample while the real data is unavailable
-            var dataCodeCollection = new DataCodeCollection("NSE", "National Stock Exchange");
-            AvailableCodeColumns.Clear();
-            AvailableCodeColumns.Add(dataCodeCollection);
-            dataCodeCollection.Columns.Add(new DataCodeColumn(dataCodeCollection, dataCodeCollection.Name,
-                "Date"));
-            dataCodeCollection.Columns.Add(new DataCodeColumn(dataCodeCollection, dataCodeCollection.Name,
-                "High"));
-            dataCodeCollection.Columns.Add(new DataCodeColumn(dataCodeCollection, dataCodeCollection.Name,
-                "Low"));
-            dataCodeCollection.Columns.Add(new DataCodeColumn(dataCodeCollection, dataCodeCollection.Name,
-                "Open"));
-            dataCodeCollection.Columns.Add(new DataCodeColumn(dataCodeCollection, dataCodeCollection.Name,
-                "Close"));
         }
 
-        public void ChangeCode(string dataCode, ChainTypes ct)
+        public void ChangeCode(Provider provider, ChainTypes ct)
         {
             Reset(); // Reset the chain because the code has been chained.
             ChainType = ct;
-            DataCode = dataCode;
+            this.Provider = provider;
         }
 
         // Move forward rules
@@ -171,9 +167,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         // Step 5: (Optional) Insert UDF formula
         public bool CanMoveForward()
         {
-            return (CurrentStep == 0 &&  IsValidateDataCode()) ||
-                   (CurrentStep == 1 && DatasetOrDatatable.Count > 0) ||
-                   (CurrentStep >= 2);
+            return (CurrentStep == 0 && Provider != null) ||
+                   (CurrentStep == 1 && AvailableDataHolders.Count > 0) ||
+                   (CurrentStep >= 2 && CurrentStep + 1 < GetStepList().Length);
         }
 
         public void NextStep()
@@ -189,15 +185,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             return ChainType == ChainTypes.TimeSeries ? timeSeriesChain : datatableChain;
         }
 
-        private bool IsValidateDataCode()
-        {
-            return ValidateCode && !string.IsNullOrEmpty(DataCode);
-        }
-
         private void UpdateFormula()
         {
             // If the DataCode has been nullified or blanked out simply erase the formula
-            if (string.IsNullOrEmpty(DataCode) || DatasetOrDatatable.Count == 0)
+            if (Provider == null || AvailableDataHolders.Count == 0)
             {
                 UdfFormula = "";
                 return;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -13,13 +14,16 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     /// </summary>
     public partial class DatasetDatatableSelection : UserControl, WizardUIBase
     {
-        Dataset selectedDataset = null;
-        string lastFilterText = "";
-        int perPageCount = 50;
-        int currentPage = 1;
-        int totalNumberOfDisplayedItems= 0;
-        int totalPageCount = 1;
-        int pageSteps = 10;
+        Dataset _selectedDataset = null;
+        string _lastFilterText = "";
+        readonly int perPageCount = 50;
+        readonly int pageSteps = 10;
+        int _currentPage = 1;
+        int _totalNumberOfDisplayedItems= 0;
+        int _totalPageCount = 1;
+
+        private ObservableCollection<DataHolderDefinition> AvailableDataHolders
+            => StateControl.Instance.AvailableDataHolders;
 
         public DatasetDatatableSelection()
         {
@@ -47,10 +51,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void UpdatePaginationControls()
         {
-            btnFirstPage.IsEnabled = !(currentPage == 1);
-            btnPrevPage.IsEnabled = !(currentPage == 1);
-            btnNextPage.IsEnabled = !(currentPage == totalPageCount);
-            btnLastPage.IsEnabled = !(currentPage == totalPageCount);
+            btnFirstPage.IsEnabled = !(_currentPage == 1);
+            btnPrevPage.IsEnabled = !(_currentPage == 1);
+            btnNextPage.IsEnabled = !(_currentPage == _totalPageCount);
+            btnLastPage.IsEnabled = !(_currentPage == _totalPageCount);
         }
 
         private void DisablePaginationControls()
@@ -64,7 +68,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public async void GetDatasetsDatatablesFromAPI(string query = "")
         {
-            string code = StateControl.Instance.DataCode;
+            string code = StateControl.Instance.Provider.Code;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -75,7 +79,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             if (StateControl.Instance.ChainType == StateControl.ChainTypes.TimeSeries)
             {
                 txtFilterResults.IsEnabled = true;
-                var datasets = await Web.SearchDatasetsAsync(code, query, currentPage, perPageCount);
+                var datasets = await Web.SearchDatasetsAsync(code, query, _currentPage, perPageCount);
 
                 this.Dispatcher.Invoke(() =>
                 {
@@ -84,8 +88,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                         return;
                     }
                     lvDatasets.ItemsSource = datasets.Datasets;
-                    totalPageCount = (int)datasets.Meta.TotalPages;
-                    totalNumberOfDisplayedItems = lvDatasets.Items.Count;
+                    _totalPageCount = (int)datasets.Meta.TotalPages;
+                    _totalNumberOfDisplayedItems = lvDatasets.Items.Count;
                     UpdateResultsLabel();
                     UpdatePaginationControls();
                 });
@@ -100,26 +104,26 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void UpdateResultsLabel(bool loaded = true)
         {
-            lblDatasetsDatatablesResults.Content = loaded ? $"Showing {totalNumberOfDisplayedItems} results." : "Loading...";
+            lblDatasetsDatatablesResults.Content = loaded ? $"Showing {_totalNumberOfDisplayedItems} results." : "Loading...";
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
             string currentText = txtFilterResults.Text;
-            if (currentText == lastFilterText) return;
+            if (currentText == _lastFilterText) return;
             GetDatasetsDatatablesFromAPI(currentText);
-            lastFilterText = currentText;
+            _lastFilterText = currentText;
         }
 
         public async void GetDatasetFromAPI(string code)
         {
             DatasetResponse dataset = await Web.SearchDatasetAsync(code);
-            selectedDataset = dataset.Dataset;
+            _selectedDataset = dataset.Dataset;
         }
 
         private void lvDatasets_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            StateControl.Instance.DatasetOrDatatable.Clear();
+            AvailableDataHolders.Clear();
             if (lvDatasets.SelectedItem == null)
             {
                 return;
@@ -137,14 +141,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
                 this.Dispatcher.Invoke(() =>
                 {
-                    StateControl.Instance.DatasetOrDatatable.Add(selectedDataset);
+                    AvailableDataHolders.Add(selectedDataset);
                 });
             }
             else
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    StateControl.Instance.DatasetOrDatatable.Clear();
+                    AvailableDataHolders.Clear();
                     // TODO: implement Datatable selection
                     //       - make API query to get specific dataset
                     //       - save it to state control
@@ -154,17 +158,17 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void btnNextPage_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage < totalPageCount) {
-                currentPage++;
+            if (_currentPage < _totalPageCount) {
+                _currentPage++;
                 GetDatasetsDatatablesFromAPI();
             }
         }
 
         private void btnPrevPage_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage > 1)
+            if (_currentPage > 1)
             {
-                currentPage--;
+                _currentPage--;
                 GetDatasetsDatatablesFromAPI();
             }
         }
@@ -172,14 +176,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private void btnFirstPage_Click(object sender, RoutedEventArgs e)
         {
             // this button no longer goes to the first page.  instead, it will jump back 'x' number of pages.
-            currentPage = (currentPage <= pageSteps) ? 1 : currentPage - pageSteps;
+            _currentPage = (_currentPage <= pageSteps) ? 1 : _currentPage - pageSteps;
             GetDatasetsDatatablesFromAPI();
         }
 
         private void btnLastPage_Click(object sender, RoutedEventArgs e)
         {
             // this button no longer goes to the first page.  instead, it will jump forward 'x' number of pages.
-            currentPage = (currentPage >= totalPageCount - pageSteps) ? totalPageCount : currentPage + pageSteps;
+            _currentPage = (_currentPage >= _totalPageCount - pageSteps) ? _totalPageCount : _currentPage + pageSteps;
             GetDatasetsDatatablesFromAPI();
         }
 

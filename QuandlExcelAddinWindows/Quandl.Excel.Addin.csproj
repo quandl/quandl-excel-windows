@@ -31,6 +31,8 @@
     <DefineConstants>VSTO40</DefineConstants>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>False</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <PublishUrl>publish\</PublishUrl>
     <InstallUrl />
@@ -46,8 +48,6 @@
     <FriendlyName>Quandl.Excel.Addin</FriendlyName>
     <OfficeApplicationDescription />
     <LoadBehavior>3</LoadBehavior>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -104,6 +104,8 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Prefer32Bit>false</Prefer32Bit>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <!--
     This section defines properties that are set when the "Release" configuration is selected.
@@ -203,9 +205,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="UI\Helpers\BindingHelper.cs" />
-    <Compile Include="UI\Helpers\CheckedItemHelper.cs" />
-    <Compile Include="UI\Helpers\DataCodeCollection.cs" />
-    <Compile Include="UI\Helpers\DataCodeColumn.cs" />
     <Compile Include="UI\Settings\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>

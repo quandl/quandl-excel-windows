@@ -16,18 +16,19 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black" HorizontalAlignment="Stretch"
-                Visibility="Hidden">
+        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black" HorizontalAlignment="Stretch">
             <DockPanel x:Name="stepBreadcrumb" LastChildFill="True" />
         </Border>
         <Frame x:Name="stepFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="10" Grid.Row="1"
                NavigationUIVisibility="Hidden" Source="/Quandl.Excel.Addin;component/UI/UDF Builder/Loading.xaml" />
-        <DockPanel LastChildFill="True" Grid.Row="2" Visibility="Hidden">
+        <DockPanel LastChildFill="True" Grid.Row="2">
+            <Button x:Name="insertButton" DockPanel.Dock="Right" Content="insert" VerticalAlignment="Top" Width="42"
+                    Margin="10" Click="InsertButton_OnClickButton_click" Height="23" Visibility="Collapsed" />
             <Button x:Name="nextButton" DockPanel.Dock="Right" Content="next" VerticalAlignment="Top" Width="42"
                     Margin="10" Click="nextButton_click" Height="23" />
             <Button x:Name="prevButton" DockPanel.Dock="Right" Content="prev" VerticalAlignment="Top" Width="42"
-                    Margin="10,10,0,10" Click="prevButton_click" Height="23" IsEnabled="False" />
+                    Margin="10,10,0,10" Click="prevButton_click" Height="23" />
             <TextBox x:Name="udfOutput" DockPanel.Dock="Left" Height="23" Margin="10,10,0,10" TextWrapping="NoWrap"
                      IsReadOnly="True" Text="{Binding UdfFormula, Source={x:Static local:StateControl.Instance}}"
                      VerticalAlignment="Center" VerticalContentAlignment="Center" ToolTip="Your UDF formula" HorizontalAlignment="Stretch" />

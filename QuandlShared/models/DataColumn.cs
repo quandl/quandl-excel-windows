@@ -1,8 +1,20 @@
-﻿namespace Quandl.Shared.Models
+﻿using System.Windows;
+using Quandl.Excel.Addin.UI.Helpers;
+
+namespace Quandl.Shared.Models
 {
-    public class DataColumn
+    public class DataColumn : DependencyObject
     {
-        string Name { get; set; }
-        ProviderType Type { get; set; }
+        public string Name { get; set; }
+
+        public string Code => Name.ToUpper();
+
+        public DataHolderDefinition Parent { get; set; }
+
+        public ProviderType Type { get; set; }
+
+        public string LongName => ParentProperty != null ? $"{ParentProperty.Name} - {Name}" : Name;
+
+        private DataHolderDefinition ParentProperty => (DataHolderDefinition)GetValue(CheckedItemHelper.ParentProperty);
     }
 }

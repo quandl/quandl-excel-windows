@@ -1,18 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 
 namespace Quandl.Shared.Models
 {
-    public class Datatable : IDataDefinition, IDataStructure
+    public class Datatable : DataHolderDefinition
     {
-        public string Name { get; set; }
-        public string Code
-        {
-            get
-            {
-                return $"{VendorCode}/{DatatableCode}";
-            }
-        }
-        public List<DataColumn> Column { get; set; }
+        public new string Code => $"{VendorCode}/{DatatableCode}";
         public string VendorCode { get; set; }
         public string DatatableCode { get; set; }
         public object Description { get; set; }
