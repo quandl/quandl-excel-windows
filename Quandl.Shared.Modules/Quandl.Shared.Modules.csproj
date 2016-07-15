@@ -75,6 +75,7 @@
     <Compile Include="FunctionUpdater.cs" />
     <Compile Include="Helpers\CheckedItemHelper.cs" />
     <Compile Include="Models\DataHolderDefinition.cs" />
+    <Compile Include="Models\OldMeta.cs" />
     <Compile Include="Models\ResultsData.cs" />
     <Compile Include="Models\_Shared.cs" />
     <Compile Include="Models\DataArray.cs" />
@@ -84,15 +85,10 @@
     <Compile Include="Models\IDataDefinition.cs" />
     <Compile Include="Models\IDataStructure.cs" />
     <Compile Include="Models\Browse\BrowseCollection.cs" />
-    <Compile Include="Models\OldDatabase.cs" />
-    <Compile Include="Models\OldDatabaseCollection.cs" />
-    <Compile Include="Models\OldDatatableCollection.cs" />
-    <Compile Include="Models\OldDatatableCollectionResponse.cs" />
-    <Compile Include="Models\OldDatatableCollectionsResponse.cs" />
-    <Compile Include="Models\OldMeta.cs" />
-    <Compile Include="Models\OldNamedContentCollection.cs" />
-    <Compile Include="Models\OldUser.cs" />
-    <Compile Include="Models\OldUserResponse.cs" />
+    <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\DatabaseCollection.cs" />
+    <Compile Include="Models\NamedContentCollection.cs" />
+    <Compile Include="Models\UserResponse.cs" />
     <Compile Include="Models\Browse\ViewData.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\User.cs" />

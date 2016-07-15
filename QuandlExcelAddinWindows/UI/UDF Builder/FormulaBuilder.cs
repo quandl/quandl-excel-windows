@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Quandl.Shared;
 using Quandl.Shared.Models;
+using Quandl.Excel.Addin.UI.UDF_Builder.Filters;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -39,10 +41,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private StateControl.TimeSeriesFilterTypes DateTypeFilter => _stateControl.DateTypeFilter;
 
+        private Hashtable DatatableFilters => _stateControl.DatatableFilters;
+       
         public string ToUdf() => _stateControl.ChainType == StateControl.ChainTypes.TimeSeries
             ? ProduceQdataFormula()
             : ProduceQtableFormula();
-
+  
         private string ProduceQdataFormula()
         {
             var formulaComponents = new List<string>();
@@ -244,8 +248,21 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     $"{{{string.Join(",", Columns.Select(n => $"\"{n.Name}\"".ToString()).ToArray())}}}");
             }
 
+            AddDatatableFilters(formulaComponents);
             // Close off the formula
             return $"=QTABLE({string.Join(",", formulaComponents.Select(n => n.ToString()).ToArray())})";
+        }
+
+        private void AddDatatableFilters(List<string> formulaComments)
+        {
+            if (DatatableFilters != null && DatatableFilters.Count > 0)
+            {
+                foreach (DictionaryEntry item in DatatableFilters)
+                {
+                    Filter[] f = item.Value as Filter[];
+                    formulaComments.Add($"\"{f[0].Name}\",{f[0].Value}");
+                }
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Quandl.Shared.Models
                 Columns = jTokenColumns.Select(c => new DataColumn
                 {
                     Name = c,
-                    Type = ProviderType.TimeSeries
+                    ProviderType = ProviderType.TimeSeries
                 }).ToList();
                 DataPoints = _additionalData["dataset_data"].SelectToken("data").ToObject<List<List<object>>>();
             }

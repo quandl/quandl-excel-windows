@@ -1,11 +1,27 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
-              GeneratedClassNamespace="Quandl.Excel.Addin.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Quandl.Excel.Addin.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="DataCodeValidationMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Code {0} is invalid!</Value>
+    </Setting>
+    <Setting Name="DatatableFilterNoteOne" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Specify how you would like to filter data with any of the options below or none.</Value>
+    </Setting>
+    <Setting Name="DatatableFilterNoteTow" Type="System.String" Scope="User">
+      <Value Profile="(Default)">If you skip this step, then you will receive all of the data for the for the columns you have selected previously.</Value>
+    </Setting>
+    <Setting Name="DatatableFilterDateRange" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Select the {0} you want to see the data for.</Value>
+    </Setting>
+    <Setting Name="DatatableFilterTicker" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Type in the {0} that you would like to filter on. Separate each item with a comma.</Value>
+    </Setting>
+    <Setting Name="DatatableFilterFloatNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter in the {0} that you would like the data for.</Value>
+    </Setting>
+    <Setting Name="DatatableFilterIntegerNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter in the {0} that you would like the data for.</Value>
     </Setting>
   </Settings>
 </SettingsFile>
