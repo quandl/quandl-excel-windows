@@ -1,38 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Windows.Documents;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Quandl.Shared.Models.Browse;
 
 namespace Quandl.Shared.Models
 {
-    public class DatabaseResponse
-    {
-        [JsonProperty("database")]
-        public Provider Provider { set; get; }
-    }
-
-    public class DatatableCollectionResponse
-    {
-        [JsonProperty("datatable_collection")]
-        public Provider Provider { set; get; }
-    }
-
-    public class DatabaseCollectionResponse
-    {
-        [JsonProperty("databases")]
-        public List<Provider> Providers { set; get; }
-    }
-
-    public class DatatableCollectionsResponse
-    {
-        [JsonProperty("datatable_collections")]
-        public List<Provider> Providers { set; get; }
-    }
-
     public class Provider : IDataDefinition
     {
-        [JsonExtensionData] private readonly IDictionary<string, JToken> _additionalData;
+        [JsonExtensionData] public readonly IDictionary<string, JToken> _additionalData;
 
         public Provider()
         {
@@ -58,6 +36,20 @@ namespace Quandl.Shared.Models
                 var databaseCode = (string) _additionalData["database_code"];
                 Code = databaseCode;
             }
+        }
+
+        // Following is helper methods
+        public ArrayList ToDatatablesViewData()
+        {
+            ArrayList list = new ArrayList();
+            foreach (var dt in _additionalData["datatables"])
+            {
+                var code = ((Newtonsoft.Json.Linq.JContainer) dt.First).First.ToString();
+                var data = new ViewData(Id, code, Premium, null);
+                data.Name = ((Newtonsoft.Json.Linq.JContainer)dt.Last).First.ToString();
+                list.Add(data);
+            }
+            return list;
         }
 
         public ViewData ToViewData(string type)

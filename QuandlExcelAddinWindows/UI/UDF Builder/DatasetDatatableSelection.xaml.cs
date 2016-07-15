@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using Newtonsoft.Json.Linq;
 using Quandl.Shared;
 using Quandl.Shared.Models;
+using Quandl.Shared.Models.Browse;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -17,7 +21,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private readonly int perPageCount = 50;
         private int _currentPage = 1;
         private string _lastFilterText = "";
-        private Dataset _selectedDataset;
+        private Datatable _selectedDatatable;
         private int _totalNumberOfDisplayedItems;
         private int _totalPageCount = 1;
 
@@ -29,6 +33,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private ObservableCollection<DataHolderDefinition> AvailableDataHolders
             => StateControl.Instance.AvailableDataHolders;
+
+        public ObservableCollection<DataColumn> Columns
+            => StateControl.Instance.Columns;
 
         public string GetTitle()
         {
@@ -92,7 +99,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                         return;
                     }
                     lvDatasets.ItemsSource = datasets.Datasets;
-                    _totalPageCount = (int) datasets.Meta.TotalPages;
+                    _totalPageCount = (int)datasets.Meta.TotalPages;
                     _totalNumberOfDisplayedItems = lvDatasets.Items.Count;
                     UpdateResultsLabel();
                     UpdatePaginationControls();
@@ -101,7 +108,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             else
             {
                 txtFilterResults.IsEnabled = false;
-                // TODO: use statecontrol's datatableCollection to populate the list view with datatables
+                lvDatasets.ItemsSource = StateControl.Instance.Provider.ToDatatablesViewData(); ;
+                _totalNumberOfDisplayedItems = lvDatasets.Items.Count;
                 UpdateResultsLabel();
             }
         }
@@ -121,15 +129,18 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             _lastFilterText = currentText;
         }
 
-        public async void GetDatasetFromAPI(string code)
+        private async void SetDatatableFromAPI(string code)
         {
-            var dataset = await Web.SearchDatasetAsync(code);
-            _selectedDataset = dataset.Dataset;
+            DatatableMetadata dtm = await Web.GetDatatableMetadata(code);
+            AvailableDataHolders.Clear();
+            _selectedDatatable = dtm.datatable;
+            AvailableDataHolders.Add(_selectedDatatable);
         }
 
-        private void lvDatasets_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lvDatasetsDatatables_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             AvailableDataHolders.Clear();
+            Columns.Clear();
             if (lvDatasets.SelectedItem == null)
             {
                 return;
@@ -137,24 +148,41 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             var selectedDataset = new Dataset();
             if (StateControl.Instance.ChainType == StateControl.ChainTypes.TimeSeries)
             {
-                Dispatcher.Invoke(() => { selectedDataset = (Dataset) lvDatasets.SelectedItem; });
-
-                GetDatasetFromAPI(selectedDataset.Code);
-
-                Dispatcher.Invoke(() => { AvailableDataHolders.Add(selectedDataset); });
+                Dispatcher.Invoke(() =>
+                {
+                    selectedDataset = (Dataset)lvDatasets.SelectedItem;
+                    AvailableDataHolders.Add(selectedDataset);
+                });
             }
             else
             {
-                Dispatcher.Invoke(() =>
-                {
-                    AvailableDataHolders.Clear();
-                    // TODO: implement Datatable selection
-                    //       - make API query to get specific dataset
-                    //       - save it to state control
-                });
+                PopulateDatatableList();
             }
 
             Dispatcher.Invoke(DisplaySelectedCodes);
+        }
+
+        private void PopulateDatatableList()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                ViewData selectedDatatable = (ViewData)lvDatasets.SelectedItem;
+                var code = selectedDatatable.Code;
+                var codes = GetCodes(code);
+                _selectedDatatable = new Datatable {VendorCode = codes.Item1, DatatableCode = codes.Item2};
+                SetDatatableFromAPI(selectedDatatable.Code);
+                AvailableDataHolders.Add(_selectedDatatable);
+            });
+        }
+
+        private Tuple<string, string> GetCodes(string fullCode)
+        {
+            if (fullCode != null)
+            {
+                string[] r = fullCode.Split(Convert.ToChar("/"));
+                return Tuple.Create(r[0], r[1]);
+            }
+            return null;
         }
 
         private void btnNextPage_Click(object sender, RoutedEventArgs e)

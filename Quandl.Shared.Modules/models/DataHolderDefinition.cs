@@ -25,7 +25,17 @@ namespace Quandl.Shared.Models
                 {
                     var dc = new DataColumn();
                     dc.Name = c.Value<string>();
-                    dc.Type = ProviderType.TimeSeries;
+                    dc.ProviderType = ProviderType.TimeSeries;
+                    return dc;
+                }).ToList();
+            }
+            else if (_additionalData.ContainsKey("columns"))
+            {
+                Columns = _additionalData["names"].Select(c =>
+                {
+                    var dc = new DataColumn();
+                    dc.Name = c.Value<string>();
+                    dc.ProviderType = ProviderType.DataTable;
                     return dc;
                 }).ToList();
             }

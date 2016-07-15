@@ -52,7 +52,7 @@
                       VerticalContentAlignment="Stretch">
             <ListView x:Name="lvDatasets" Margin="0" Padding="0" BorderThickness="0" BorderBrush="{x:Null}"
                       HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0"
-                      SelectionChanged="lvDatasets_SelectionChanged">
+                      SelectionChanged="lvDatasetsDatatables_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
