@@ -21,6 +21,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private static readonly int VALIDATION_DELAY = 1200;
         private List<ViewData> _allItems;
         private Timer _timer;
+        private static Provider Provider => StateControl.Instance.Provider;
 
         public DatabaseSelection()
         {
@@ -32,10 +33,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void SetDataCodeBox()
         {
-            var provider = StateControl.Instance.Provider;
-            if ( provider != null)
+            if ( Provider != null)
             {
-                DatabaseCodeBox.Text = provider.Code;
+                DatabaseCodeBox.Text = Provider.Code;
             }
         }
 
