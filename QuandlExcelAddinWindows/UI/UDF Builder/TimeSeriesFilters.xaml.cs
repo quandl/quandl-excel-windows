@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Quandl.Excel.Addin.UI.Helpers;
 using Quandl.Shared.Models;
@@ -13,14 +10,15 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     /// </summary>
     public partial class TimeSeriesFilters : UserControl, WizardUIBase
     {
-
         public TimeSeriesFilters()
         {
             InitializeComponent();
             Loaded += delegate
             {
-                this.DatePickerStart.DisplayDateStart = ((Dataset) StateControl.Instance.AvailableDataHolders[0]).OldestAvailableDate;
-                this.DatePickerEnd.DisplayDateEnd = ((Dataset)StateControl.Instance.AvailableDataHolders[0]).NewestAvailableDate;
+                DatePickerStart.DisplayDateStart =
+                    ((Dataset) StateControl.Instance.AvailableDataHolders[0]).OldestAvailableDate;
+                DatePickerEnd.DisplayDateEnd =
+                    ((Dataset) StateControl.Instance.AvailableDataHolders[0]).NewestAvailableDate;
 
                 SetFilterSelections();
                 UpdateDateVisibility();
@@ -34,8 +32,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public string GetShortTitle()
         {
-        return "Filters";
+            return "Filters";
         }
+
         private void ComboBoxDateSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateDateVisibility();
@@ -45,7 +44,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             BindingHelper.SetItemSourceViaEnum(ComboBoxDateSelection, typeof(StateControl.TimeSeriesFilterTypes));
             BindingHelper.SetItemSourceViaEnum(ComboBoxFrequency, typeof(StateControl.TimeSeriesFilterCollapse));
-            BindingHelper.SetItemSourceViaEnum(ComboBoxTransformation, typeof(StateControl.TimeSeriesFilterTransformations));
+            BindingHelper.SetItemSourceViaEnum(ComboBoxTransformation,
+                typeof(StateControl.TimeSeriesFilterTransformations));
             BindingHelper.SetItemSourceViaEnum(ComboBoxSort, typeof(StateControl.TimeSeriesFilterSorts));
         }
 

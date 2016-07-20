@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.UDF_Builder"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
+             DataContext="{Binding Source={x:Static local:StateControl.Instance}}"
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="500" Loaded="UserControl_Loaded">
     <Grid x:Name="gridStepTwo">
-        <Grid.ColumnDefinitions >
+        <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -18,14 +19,16 @@
         </Grid.RowDefinitions>
 
         <TextBox x:Name="txtFilterResults" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Margin="0,10" Padding="0,5"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                 VerticalContentAlignment="Stretch">
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Style.Resources>
                         <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
                             <VisualBrush.Visual>
-                                <Label x:Name="lblSearchPlaceholder" Content="Filter datasets" Padding="5" Width="10000000"
-                                       Foreground="LightGray" Background="White"/>
+                                <Label x:Name="lblSearchPlaceholder" Content="Filter datasets" Padding="5"
+                                       Width="10000000"
+                                       Foreground="LightGray" Background="White" />
                             </VisualBrush.Visual>
                         </VisualBrush>
                     </Style.Resources>
@@ -43,24 +46,64 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <ScrollViewer Grid.Row="1" Grid.Column="0" Padding="0,0,0,26" Background="White" BorderBrush="#FFABADB3" BorderThickness="1"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <ListView x:Name="lvDatasets" Margin="0" Padding="0" BorderThickness="0" BorderBrush="{x:Null}" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" SelectionChanged="lvDatasets_SelectionChanged">
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Padding="0,0,0,26" Background="White" BorderBrush="#FFABADB3"
+                      BorderThickness="1"
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Stretch">
+            <ListView x:Name="lvDatasets" Margin="0" Padding="0" BorderThickness="0" BorderBrush="{x:Null}"
+                      HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0"
+                      SelectionChanged="lvDatasets_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
-                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Name}" />
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
-        <Label x:Name="lblDatasetsDatatablesResults" Content="Showing 0 results." VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="1" Margin="0,0,18,0" />
+        <Label x:Name="lblDatasetsDatatablesResults" Content="Showing 0 results." VerticalAlignment="Bottom"
+               Grid.Column="0" Grid.Row="1" Margin="0,0,18,0" />
         <DockPanel x:Name="PaginationButtonDock" Grid.Row="2" Grid.Column="0" Margin="0,10">
-            <Button x:Name="btnFirstPage" Content="&lt;&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30" Click="btnFirstPage_Click" Margin="0,0,10,0"/>
-            <Button x:Name="btnPrevPage" Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30" Click="btnPrevPage_Click" Margin="0,0,10,0"/>
-            <Button x:Name="btnNextPage" Content="&gt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30" Click="btnNextPage_Click" Margin="0,0,10,0"/>
-            <Button x:Name="btnLastPage" Content="&gt;&gt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="30" Click="btnLastPage_Click"/>
+            <Button x:Name="btnFirstPage" Content="&lt;&lt;" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Width="35" Height="30" Click="btnFirstPage_Click" Margin="0,0,10,0" />
+            <Button x:Name="btnPrevPage" Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35"
+                    Height="30" Click="btnPrevPage_Click" Margin="0,0,10,0" />
+            <Button x:Name="btnNextPage" Content="&gt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35"
+                    Height="30" Click="btnNextPage_Click" Margin="0,0,10,0" />
+            <Button x:Name="btnLastPage" Content="&gt;&gt;" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Width="35" Height="30" Click="btnLastPage_Click" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="Selected Quandl codes" VerticalContentAlignment="Center" />
+                <TextBox x:Name="SelectedDataHolderTextBox" Margin="5,0,0,0" MinWidth="150"
+                         VerticalContentAlignment="Center" IsEnabled="False" ToolTip="Your selected codes." Padding="5">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Resources>
+                                <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center"
+                                             Stretch="None">
+                                    <VisualBrush.Visual>
+                                        <Label Content="Select a source of data" Padding="5" Width="10000000"
+                                               Margin="10,0,0,0"
+                                               Foreground="LightGray" Background="White" />
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Style.Resources>
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                    <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                </Trigger>
+                                <Trigger Property="Text" Value="{x:Null}">
+                                    <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter Property="Background" Value="White" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </StackPanel>
         </DockPanel>
     </Grid>
 </UserControl>

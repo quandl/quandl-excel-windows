@@ -22,10 +22,13 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 AllowReference = true)] string transformation
                 = null,
             [ExcelArgument(Name = "limit", Description = "(optional) Limit the number of rows returned",
-                AllowReference = true)] object limit = null
+                AllowReference = true)] object limit = null,
+            [ExcelArgument(Name = "headers",
+                Description = "(optional) Default: true - Whether the resulting data will include a header row",
+                AllowReference = true)] bool header = true
             )
-        {
-            return "Not yet implemented";
+            {
+                return "Not yet implemented";
+            }
         }
     }
-}

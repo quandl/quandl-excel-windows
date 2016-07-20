@@ -79,6 +79,7 @@
                ToolTip="Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row." />
         <xctk:IntegerUpDown x:Name="Limit" Grid.Row="8" Grid.Column="1" VerticalAlignment="Top" Margin="0,5"
                             HorizontalAlignment="Left" MinWidth="75" Minimum="0" Maximum="100000"
-                            ToolTip="Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row." Value="{Binding TimeSeriesLimitFilter}"/>
+                            ToolTip="Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row."
+                            Value="{Binding TimeSeriesLimitFilter}" />
     </Grid>
 </UserControl>

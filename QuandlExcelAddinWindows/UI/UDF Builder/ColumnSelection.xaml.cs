@@ -23,7 +23,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             // Set the parent of each column
             foreach (var dh in StateControl.Instance.AvailableDataHolders)
                 foreach (var column in dh.Columns)
+                {
+                    column.Parent = dh;
                     column.SetValue(CheckedItemHelper.ParentProperty, dh);
+                }
         }
 
         public string GetTitle()

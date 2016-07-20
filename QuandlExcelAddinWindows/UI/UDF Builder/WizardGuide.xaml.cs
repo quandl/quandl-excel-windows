@@ -54,11 +54,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private void PrepareFormEvents()
         {
             QuandlConfig.Instance.LoginChanged += LoginOrSearch;
-            Instance.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e) {
-                                                                      if (e.PropertyName != "UdfFormula")
-                                                                      {
-                                                                          AllowMovementToNextStep(currentStep);
-                                                                      }
+            Instance.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName != "UdfFormula")
+                {
+                    AllowMovementToNextStep(currentStep);
+                }
             };
         }
 

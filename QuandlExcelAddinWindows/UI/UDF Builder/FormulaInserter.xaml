@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.UDF_Builder"
+             DataContext="{Binding Source={x:Static local:StateControl.Instance}}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
@@ -26,6 +27,11 @@
                 TextWrapping="Wrap" Margin="5,0,0,0" />
         </BulletDecorator>
         <TextBlock Text="Currently Selected Cell:" Margin="0,10,0,0" />
-        <TextBox x:Name="SelectedCellTextbox" Height="23" TextWrapping="Wrap" Text="" Margin="0,5,0,0" IsEnabled="False" ToolTip="The currently selected cell the formula will be inserted into." MinWidth="200" HorizontalAlignment="Left" />
+        <TextBox x:Name="SelectedCellTextbox" Height="23" TextWrapping="Wrap" Text="" Margin="0,5,0,0"
+                 IsEnabled="False" ToolTip="The currently selected cell the formula will be inserted into."
+                 MinWidth="200" HorizontalAlignment="Left" />
+        <CheckBox x:Name="IncludeHeaders" Content="Include headers"
+                  ToolTip="Whether the resulting formula will output data with headers." Margin="0,10,0,0"
+                  IsChecked="{Binding IncludeHeaders}" />
     </StackPanel>
 </UserControl>

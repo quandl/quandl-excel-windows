@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,24 +11,24 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     /// <summary>
     ///     Interaction logic for DatasetDatatableSelection.xaml
     /// </summary>
-    public partial class DatasetDatatableSelection : UserControl, WizardUIBase
+    public partial class DatasetDatatableSelection : WizardUIBase
     {
-        Dataset _selectedDataset = null;
-        string _lastFilterText = "";
-        readonly int perPageCount = 50;
-        readonly int pageSteps = 10;
-        int _currentPage = 1;
-        int _totalNumberOfDisplayedItems= 0;
-        int _totalPageCount = 1;
-
-        private ObservableCollection<DataHolderDefinition> AvailableDataHolders
-            => StateControl.Instance.AvailableDataHolders;
+        private readonly int pageSteps = 10;
+        private readonly int perPageCount = 50;
+        private int _currentPage = 1;
+        private string _lastFilterText = "";
+        private Dataset _selectedDataset;
+        private int _totalNumberOfDisplayedItems;
+        private int _totalPageCount = 1;
 
         public DatasetDatatableSelection()
         {
             InitializeComponent();
-            this.DataContext = StateControl.Instance;
+            SelectedDataHolderTextBox.DataContext = this;
         }
+
+        private ObservableCollection<DataHolderDefinition> AvailableDataHolders
+            => StateControl.Instance.AvailableDataHolders;
 
         public string GetTitle()
         {
@@ -43,7 +42,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void DebounceSearchFilter()
         {
-            DispatcherTimer timer = new DispatcherTimer();
+            var timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(400);
             timer.Tick += timer_Tick;
             timer.Start();
@@ -66,11 +65,16 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             UpdateResultsLabel(false);
         }
 
+        public void DisplaySelectedCodes()
+        {
+            SelectedDataHolderTextBox.Text = string.Join(",", StateControl.Instance.QuandlCodes);
+        }
+
         public async void GetDatasetsDatatablesFromAPI(string query = "")
         {
-            string code = StateControl.Instance.Provider.Code;
+            var code = StateControl.Instance.Provider.Code;
 
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 UpdateResultsLabel(false);
                 DisablePaginationControls();
@@ -81,14 +85,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 txtFilterResults.IsEnabled = true;
                 var datasets = await Web.SearchDatasetsAsync(code, query, _currentPage, perPageCount);
 
-                this.Dispatcher.Invoke(() =>
+                Dispatcher.Invoke(() =>
                 {
-                    if (!this.IsLoaded)
+                    if (!IsLoaded)
                     {
                         return;
                     }
                     lvDatasets.ItemsSource = datasets.Datasets;
-                    _totalPageCount = (int)datasets.Meta.TotalPages;
+                    _totalPageCount = (int) datasets.Meta.TotalPages;
                     _totalNumberOfDisplayedItems = lvDatasets.Items.Count;
                     UpdateResultsLabel();
                     UpdatePaginationControls();
@@ -104,12 +108,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void UpdateResultsLabel(bool loaded = true)
         {
-            lblDatasetsDatatablesResults.Content = loaded ? $"Showing {_totalNumberOfDisplayedItems} results." : "Loading...";
+            lblDatasetsDatatablesResults.Content = loaded
+                ? $"Showing {_totalNumberOfDisplayedItems} results."
+                : "Loading...";
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            string currentText = txtFilterResults.Text;
+            var currentText = txtFilterResults.Text;
             if (currentText == _lastFilterText) return;
             GetDatasetsDatatablesFromAPI(currentText);
             _lastFilterText = currentText;
@@ -117,7 +123,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public async void GetDatasetFromAPI(string code)
         {
-            DatasetResponse dataset = await Web.SearchDatasetAsync(code);
+            var dataset = await Web.SearchDatasetAsync(code);
             _selectedDataset = dataset.Dataset;
         }
 
@@ -128,25 +134,19 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 return;
             }
-            Dataset selectedDataset = new Dataset();
-            Datatable selectedDatatable = new Datatable();
+            var selectedDataset = new Dataset();
+            var selectedDatatable = new Datatable();
             if (StateControl.Instance.ChainType == StateControl.ChainTypes.TimeSeries)
             {
-                this.Dispatcher.Invoke(() =>
-                {
-                    selectedDataset = (Dataset)lvDatasets.SelectedItem;
-                });
+                Dispatcher.Invoke(() => { selectedDataset = (Dataset) lvDatasets.SelectedItem; });
 
                 GetDatasetFromAPI(selectedDataset.Code);
 
-                this.Dispatcher.Invoke(() =>
-                {
-                    AvailableDataHolders.Add(selectedDataset);
-                });
+                Dispatcher.Invoke(() => { AvailableDataHolders.Add(selectedDataset); });
             }
             else
             {
-                this.Dispatcher.Invoke(() =>
+                Dispatcher.Invoke(() =>
                 {
                     AvailableDataHolders.Clear();
                     // TODO: implement Datatable selection
@@ -154,11 +154,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     //       - save it to state control
                 });
             }
+
+            Dispatcher.Invoke(DisplaySelectedCodes);
         }
 
         private void btnNextPage_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentPage < _totalPageCount) {
+            if (_currentPage < _totalPageCount)
+            {
                 _currentPage++;
                 GetDatasetsDatatablesFromAPI();
             }
@@ -176,14 +179,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private void btnFirstPage_Click(object sender, RoutedEventArgs e)
         {
             // this button no longer goes to the first page.  instead, it will jump back 'x' number of pages.
-            _currentPage = (_currentPage <= pageSteps) ? 1 : _currentPage - pageSteps;
+            _currentPage = _currentPage <= pageSteps ? 1 : _currentPage - pageSteps;
             GetDatasetsDatatablesFromAPI();
         }
 
         private void btnLastPage_Click(object sender, RoutedEventArgs e)
         {
             // this button no longer goes to the first page.  instead, it will jump forward 'x' number of pages.
-            _currentPage = (_currentPage >= _totalPageCount - pageSteps) ? _totalPageCount : _currentPage + pageSteps;
+            _currentPage = _currentPage >= _totalPageCount - pageSteps ? _totalPageCount : _currentPage + pageSteps;
             GetDatasetsDatatablesFromAPI();
         }
 
@@ -191,6 +194,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             GetDatasetsDatatablesFromAPI();
             DebounceSearchFilter();
+            DisplaySelectedCodes();
         }
     }
 }
