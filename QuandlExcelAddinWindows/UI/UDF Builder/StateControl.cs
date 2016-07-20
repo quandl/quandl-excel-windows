@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using PropertyChanged;
-using Quandl.Excel.Addin.UI.Helpers;
 using Quandl.Shared.Models;
-using DataColumn = Quandl.Shared.Models.DataColumn;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -82,13 +79,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public StateControl()
         {
             Reset();
-            PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
-            {
-                if (e.PropertyName != "UdfFormula")
-                {
-                    UpdateFormula();
-                }
-            };
+            PropertyChanged += OnPropertyChanged;
             Columns.CollectionChanged += delegate { UpdateFormula(); };
             AvailableDataHolders.CollectionChanged += delegate { OnPropertyChanged("DatasetOrDatatable"); };
         }
@@ -99,19 +90,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public string UdfFormula { get; set; }
 
-        public IList<string> QuandlCodes
-        {
-            get {
-                if (ChainType == ChainTypes.TimeSeries)
-                {
-                    return AvailableDataHolders.Select(dh => ((Quandl.Shared.Models.Dataset)dh).Code).ToList();
-                }
-                else
-                {
-                    return AvailableDataHolders.Select(dh => ((Quandl.Shared.Models.Datatable)dh).Code).ToList();
-                }
-            }
-        }
+        public IList<string> QuandlCodes => AvailableDataHolders.Select(CodeFromDataHolder).ToList();
 
         public Provider Provider { get; internal set; }
         public ChainTypes ChainType { get; internal set; } = ChainTypes.Datatables;
@@ -130,7 +109,18 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public TimeSeriesFilterSorts TimeSeriesSortFilter { get; set; }
         public int? TimeSeriesLimitFilter { get; set; }
 
+        // Generic Options
+        public bool IncludeHeaders { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != "UdfFormula")
+            {
+                UpdateFormula();
+            }
+        }
 
         public void Reset()
         {
@@ -140,6 +130,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             CurrentStep = 0;
             ChainType = ChainTypes.Datatables;
             Provider = null;
+            IncludeHeaders = true;
 
             // Reset Dataset Filters
             StartDate = null;
@@ -155,7 +146,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             Reset(); // Reset the chain because the code has been chained.
             ChainType = ct;
-            this.Provider = provider;
+            Provider = provider;
         }
 
         // Move forward rules
@@ -178,6 +169,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 CurrentStep++;
             }
         }
+
 
         public string[] GetStepList()
         {
@@ -217,9 +209,19 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 case "transformation":
                     return !(TimeSeriesLimitFilter == null || TimeSeriesLimitFilter <= 0) ||
                            TimeseriesFilterAfter("limit");
+                case "limit":
+                    return !IncludeHeaders ||
+                           TimeseriesFilterAfter("headers");
                 default:
                     return false;
             }
+        }
+
+        public string CodeFromDataHolder(DataHolderDefinition dh)
+        {
+            return ChainType == ChainTypes.TimeSeries
+                ? ((Dataset) dh).Code
+                : ((Datatable) dh).Code;
         }
     }
 }
