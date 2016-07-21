@@ -1,5 +1,8 @@
 # Quandl Excel Add-in for Windows
 
+> I wanna be the very best
+> Like no one ever was
+
 The Quandl Excel Add-In allows you to search through, find and download any of Quandl's millions of datasets directly from within Microsoft Excel. It's completely free; usage is unlimited and unrestricted. Currently this Add-in is limited to windows only as it uses features and functions which are only available on the windows version of excel.
 
 ## Install
