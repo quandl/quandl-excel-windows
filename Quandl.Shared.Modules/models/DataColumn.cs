@@ -15,6 +15,7 @@ namespace Quandl.Shared.Models
 
         public string LongName => ParentProperty != null ? $"{ParentProperty.Name} - {Name}" : Name;
 
-        private DataHolderDefinition ParentProperty => (DataHolderDefinition)GetValue(CheckedItemHelper.ParentProperty);
+        private DataHolderDefinition ParentProperty => (DataHolderDefinition) GetValue(CheckedItemHelper.ParentProperty)
+            ;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Quandl.Shared;
 using Quandl.Shared.Models;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
@@ -129,7 +130,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private string StringFromDate(DateTime? date)
         {
-            return $"\"{((DateTime) date).ToString("yyyy-MM-dd")}\"";
+            return $"\"{((DateTime) date).ToString(Utilities.DateFormat)}\"";
         }
 
         private void AddSortFilters(List<string> formulaComponents)

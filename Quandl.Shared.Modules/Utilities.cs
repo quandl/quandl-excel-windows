@@ -6,6 +6,8 @@ namespace Quandl.Shared
 {
     public class Utilities
     {
+        public const string DateFormat = "yyyy-MM-dd";
+
         private static string excelVersion;
 
         public static string GetExcelVersionNumber
@@ -70,7 +72,7 @@ namespace Quandl.Shared
         public static List<string> ListToUpper(List<string> list)
         {
             var result = new List<string>();
-            foreach (string s in list)
+            foreach (var s in list)
             {
                 result.Add(s.ToUpper());
             }

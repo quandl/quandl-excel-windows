@@ -5,15 +5,16 @@ namespace Quandl.Shared
     public class SetupHelp
     {
         private const string OpenValue =
-            @"/R ""C:\Program Files (x86)\Quandl Inc\Quandl-Excel-Addin\Quandl.Excel.UDF.Functions-AddIn.xll""";
+            @"/R ""C:\Program Files (x86)\Quandl Inc\Quandl-Excel-Addin\Quandl.Excel.UDF.Functions-AddIn-packed.xll""";
 
-        private const string AddinPackageString = "Quandl.Excel.UDF.Functions-AddIn.xll";
+        private const string AddinPackageString = "Quandl.Excel.UDF.Functions-AddIn-packed.xll";
         private const int DEFAULT_NUMBER_OF_USER_SELECTED_ADDIN = 1000;
 
         private static readonly string[] AddinRegisterKey =
         {
             @"SOFTWARE\Microsoft\Office\14.0\Excel\Options",
-            @"SOFTWARE\Microsoft\Office\15.0\Excel\Options", @"SOFTWARE\Microsoft\Office\16.0\Excel\Options"
+            @"SOFTWARE\Microsoft\Office\15.0\Excel\Options",
+            @"SOFTWARE\Microsoft\Office\16.0\Excel\Options"
         };
 
         public static void RegisterExcelAddin()

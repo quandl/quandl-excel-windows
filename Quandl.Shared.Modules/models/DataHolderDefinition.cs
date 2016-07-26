@@ -9,12 +9,12 @@ namespace Quandl.Shared.Models
 {
     public abstract class DataHolderDefinition : DependencyObject, IDataDefinition, IDataStructure
     {
+        [JsonExtensionData] private IDictionary<string, JToken> _additionalData;
+
+        public DataArray Data { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public IList<DataColumn> Columns { get; set; }
-
-        [JsonExtensionData]
-        private IDictionary<string, JToken> _additionalData;
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)

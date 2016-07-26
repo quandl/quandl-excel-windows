@@ -1,6 +1,4 @@
-﻿
-
-namespace Quandl.Shared.Models
+﻿namespace Quandl.Shared.Models
 {
     public class OldDatabase
     {
@@ -12,7 +10,5 @@ namespace Quandl.Shared.Models
         public long Downloads { get; set; }
         public bool Premium { get; set; }
         public string Image { get; set; }
-       
-
     }
 }

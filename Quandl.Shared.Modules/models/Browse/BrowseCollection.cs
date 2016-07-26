@@ -4,7 +4,6 @@ namespace Quandl.Shared.Models.Browse
 {
     public class BrowseCollection
     {
-        
         public string Name { get; set; }
         public List<BrowseCollection> Items { get; set; }
 

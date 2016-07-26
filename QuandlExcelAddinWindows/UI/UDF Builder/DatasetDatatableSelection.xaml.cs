@@ -135,7 +135,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 return;
             }
             var selectedDataset = new Dataset();
-            var selectedDatatable = new Datatable();
             if (StateControl.Instance.ChainType == StateControl.ChainTypes.TimeSeries)
             {
                 Dispatcher.Invoke(() => { selectedDataset = (Dataset) lvDatasets.SelectedItem; });
