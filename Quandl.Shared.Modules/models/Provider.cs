@@ -32,39 +32,39 @@ namespace Quandl.Shared.Models
 
     public class Provider : IDataDefinition
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-        public string Code { get; set; }
-
-        public string Description { get; set; }
-  
-        public bool Premium { get; set; }
-
-        public List<IDataStructure> Collection { get; set; }
-
-        [JsonExtensionData] private IDictionary<string, JToken> _additionalData;
-
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
-        {
-            if (_additionalData.Keys.Contains("database_code"))
-            {
-                string databaseCode = (string) _additionalData["database_code"];
-                Code = databaseCode;
-            }
-        }
+        [JsonExtensionData] private readonly IDictionary<string, JToken> _additionalData;
 
         public Provider()
         {
             _additionalData = new Dictionary<string, JToken>();
         }
 
+        public int Id { get; set; }
+
+        public string Description { get; set; }
+
+        public bool Premium { get; set; }
+
+        public List<IDataStructure> Collection { get; set; }
+        public string Name { get; set; }
+
+        public string Code { get; set; }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            if (_additionalData.Keys.Contains("database_code"))
+            {
+                var databaseCode = (string) _additionalData["database_code"];
+                Code = databaseCode;
+            }
+        }
+
         public ViewData ToViewData(string type)
         {
-            ViewData data = new ViewData(this.Id, this.Code, this.Premium, type);
-            data.Name = this.Name;
-            data.Description = this.Description;
+            var data = new ViewData(Id, Code, Premium, type);
+            data.Name = Name;
+            data.Description = Description;
             data.DataSource = this;
             return data;
         }

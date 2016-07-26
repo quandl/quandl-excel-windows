@@ -19,6 +19,5 @@ namespace Quandl.Shared.Models
         public List<string> PlanIds { get; set; }
         public List<string> PlanCategoryIds { get; set; }
         public List<string> CurrentUserSubscriptionIds { get; set; }
-
     }
 }
