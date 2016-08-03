@@ -34,6 +34,10 @@ http://www.quandl.com/help/excel
 6. Right click solution file and select `Rebuild Solution`
 7. $PROJECT_ROOT_FOLDER\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
 
+Things to note:
+
+* UnRegisterAddin must have code `1501` in the `.isl` file.
+
 ### Password Protect Digital Certificate
 
 1. Right click on each project with a digital certificate
