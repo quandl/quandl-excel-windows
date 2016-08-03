@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Generic;
 
 namespace Quandl.Shared.Models.Browse
 {
     public class BrowseCollection
     {
-        
         public string Name { get; set; }
         public List<BrowseCollection> Items { get; set; }
 

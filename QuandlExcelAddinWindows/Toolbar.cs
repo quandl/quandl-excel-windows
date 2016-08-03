@@ -4,6 +4,7 @@ using Quandl.Excel.Addin.UI;
 using Quandl.Excel.Addin.UI.Settings;
 using Quandl.Excel.Addin.UI.UDF_Builder;
 using Quandl.Shared;
+using Quandl.Shared.Errors;
 
 namespace Quandl.Excel.Addin
 {
@@ -44,13 +45,28 @@ namespace Quandl.Excel.Addin
         private void refreshWorkbook_Click(object sender, RibbonControlEventArgs e)
         {
             var activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
-            FunctionUpdater.RecalculateQuandlFunctions(activeWorkBook);
+            try
+            {
+                FunctionUpdater.RecalculateQuandlFunctions(activeWorkBook);
+            }
+            catch (MissingFormulaException ex)
+            {
+                Globals.ThisAddIn.UpdateStatusBar(ex);
+            }
         }
 
         private void refreshWorksheet_Click(object sender, RibbonControlEventArgs e)
         {
             var activeSheet = Globals.ThisAddIn.Application.ActiveSheet;
-            FunctionUpdater.RecalculateQuandlFunctions(activeSheet);
+
+            try
+            {
+                FunctionUpdater.RecalculateQuandlFunctions(activeSheet);
+            }
+            catch (MissingFormulaException ex)
+            {
+                Globals.ThisAddIn.UpdateStatusBar(ex);
+            }
         }
 
         private void refreshMulti_Click(object sender, RibbonControlEventArgs e)

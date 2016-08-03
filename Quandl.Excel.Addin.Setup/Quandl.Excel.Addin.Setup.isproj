@@ -27,12 +27,20 @@
 			<TargetPath>My Test Exe.exe</TargetPath>
 		</TaggedOutputs> -->
 	</ItemGroup>
-	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2015Limited\InstallShield.targets"/>
+	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2015Express\InstallShield.targets"/>
 	<ItemGroup/>
 	<ItemGroup>
 		<ProjectReference Include="..\QuandlExcelAddinWindows\Quandl.Excel.Addin.csproj">
 			<Name>Quandl.Excel.Addin</Name>
 			<Project>{46DC729E-5083-4F4B-BF2E-E20611D3C14E}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Quandl.Excel.Console\Quandl.Excel.Console.csproj">
+			<Name>Quandl.Excel.Console</Name>
+			<Project>{45DEE8E4-7F86-4747-A6F4-D6E3671A2A42}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Quandl.Excel.UDF.Functions\Quandl.Excel.UDF.Functions.csproj">
+			<Name>Quandl.Excel.UDF.Functions</Name>
+			<Project>{6AC4706D-5BC0-45DC-B517-683D19C57970}</Project>
 		</ProjectReference>
 	</ItemGroup>
 </Project>

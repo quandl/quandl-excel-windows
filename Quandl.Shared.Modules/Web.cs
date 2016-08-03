@@ -39,92 +39,48 @@ namespace Quandl.Shared
         }
 
 
-        public static async Task<DatasetsResponse> SearchDatasetsAsync(string databaseCode, string query, int page, int perPage)
+        public static async Task<DatasetsResponse> SearchDatasetsAsync(string databaseCode, string query, int page,
+            int perPage)
         {
             var queryParams = new Dictionary<string, object>
             {
-                { "database_code", databaseCode },
-                { "page", page.ToString() },
-                { "per_page", perPage.ToString() },
-                { "query", query }
+                {"database_code", databaseCode},
+                {"page", page.ToString()},
+                {"per_page", perPage.ToString()},
+                {"query", query}
             };
             return await RequestAsync<DatasetsResponse>("datasets", CallTypes.Data, queryParams);
         }
 
         public static async Task<DatasetResponse> SearchDatasetAsync(string datasetCode)
         {
-            string relativeUrl = $"datasets/{datasetCode}";
+            string relativeUrl = $"datasets/{datasetCode}/metadata";
             return await RequestAsync<DatasetResponse>(relativeUrl, CallTypes.Data);
         }
 
         public static async Task<BrowseCollection> BrowseAsync()
-        { 
+        {
             var queryParams = new Dictionary<string, object>
             {
                 {"keys[]", "browse"}
             };
 
-            var resp = await RequestAsync<OldNamedContentCollection>("named_contents", CallTypes.Search, queryParams, null);
+            var resp =
+                await RequestAsync<OldNamedContentCollection>("named_contents", CallTypes.Search, queryParams, null);
             var namedContent = resp.NamedContents.FirstOrDefault();
             var browseJson = namedContent.HtmlContent;
             var browse = JsonConvert.DeserializeObject<BrowseCollection>(browseJson, JsonSettings());
             return browse;
         }
 
-        public static async Task<List<List<object>>> PullRecentStockData(string quandlCode, List<string> columnNames,
-            int limit)
-        {
-            var queryParams = new Dictionary<string, object>
-            {
-                {"limit", limit.ToString()},
-                {"column_index", columnNames}
-            };
-            return await GetMatchedData(quandlCode, queryParams);
-        }
-
-        public static async Task<List<List<object>>> PullHistoryData(string quandlCode, string startDate, string endDate,
-            List<string> columnNames)
-        {
-            var queryParams = new Dictionary<string, object>
-            {
-                {"start_date", startDate},
-                {"end_date", endDate},
-                {"column_index", columnNames}
-            };
-            return await GetMatchedData(quandlCode, queryParams);
-        }
-
-        private static async Task<List<List<object>>> GetMatchedData(string quandlCode,
-            Dictionary<string, object> queryParams)
+        public static async Task<Dataset> GetData(string quandlCode, Dictionary<string, object> queryParams)
         {
             var relativeUrl = "datasets/" + quandlCode + "/data";
-            var resp = await RequestAsync<DatasetDataResponse>(relativeUrl, CallTypes.Data, queryParams);
-            return resp.DatasetData.Data;
-        }
-
-        public static async Task<string> PullSingleValue(string code, string columnName, string date)
-        {
-            var data = "";
-            var queryParams = new Dictionary<string, object>
-            {
-                {"limit", "1"}
-            };
-
-            if (date != null)
-            {
-                queryParams["start_date"] = date;
-                queryParams["end_date"] = date;
-            }
-            queryParams["column_index"] = columnName;
-
-            var relativeUrl = "datasets/" + code + "/data";
-            var resp = await RequestAsync<DatasetDataResponse>(relativeUrl, CallTypes.Search, queryParams);
-            var dataRow = resp.DatasetData.Data.FirstOrDefault();
-            if (dataRow.Count > 1)
-            {
-                data = dataRow[1].ToString();
-            }
-            return data;
+            var resp = await RequestAsync<DataArray>(relativeUrl, CallTypes.Data, queryParams);
+            var dataset = new Dataset {Data = resp, Columns = resp.Columns};
+            dataset.DatabaseCode = quandlCode.Split('/')[0];
+            dataset.DatasetCode = quandlCode.Split('/')[1];
+            return dataset;
         }
 
         public static JObject Post(string requestUri, string body)
@@ -134,81 +90,48 @@ namespace Quandl.Shared
             return JObject.Parse(response);
         }
 
-        private static JObject GetResponseJson(string requestUri)
-        {
-            var client = QuandlApiWebClient();
-            var resp = client.DownloadString(requestUri);
-            return JObject.Parse(resp);
-        }
-
         public static async Task<T> GetResponseJson<T>(string requestParams)
         {
             var client = new WebClient();
-            string requestUri = Settings.Default.BaseUrl + requestParams;
+            var requestUri = Settings.Default.BaseUrl + requestParams;
             var resp = await client.DownloadStringTaskAsync(requestUri);
             var settings = new JsonSerializerSettings
             {
                 ContractResolver = new SnakeCaseMappingResolver()
-                
             };
             return JsonConvert.DeserializeObject<T>(resp, settings);
         }
 
-        public static async Task<T> GetModelByIds<T>(string type, List<string> ids) where T: class, new()
+        public static async Task<T> GetModelByIds<T>(string type, List<string> ids) where T : class, new()
         {
             if (ids.Count.Equals(0))
             {
                 return new T();
             }
-            var queryParams = new Dictionary<string, object>
-            {
-                { "ids", ids }
-            };
-            CallTypes callType;
-            if (type.Equals("databases"))
-            {
-                callType = CallTypes.Data;
-            }
-            else
-            {
-                callType = CallTypes.Search;
-            }
+            var queryParams = new Dictionary<string, object> {{"ids", ids}};
+            var callType = type.Equals("databases") ? CallTypes.Data : CallTypes.Search;
             return await RequestAsync<T>(type, callType, queryParams);
         }
 
         public static async Task<T> GetDatabase<T>(string code)
         {
-            string relativeUrl = "databases/" + code;
+            var relativeUrl = "databases/" + code;
             return await RequestAsync<T>(relativeUrl, CallTypes.Data, null);
-
         }
 
         public static async Task<T> GetDatatableCollection<T>(string code)
         {
-            string relativeUrl = "datatable_collections/" + code;
+            var relativeUrl = "datatable_collections/" + code;
             return await RequestAsync<T>(relativeUrl, CallTypes.Search, null);
         }
 
-        /*
-        public static async Task<DatatableMetadata> GetDatatableMetadata(string vendorCode, string datatableCode)
-        {
-            string relativeUrl = "datatables/" + vendorCode + "/" + datatableCode + "/metadata";
-            return await RequestAsync<DatatableMetadata>(relativeUrl, CallTypes.Data, null);
-        }
-        */
 
-        private static JObject QuandlAPICall(string quandlCode, string extraUri)
-        {
-            var requestUri = Settings.Default.BaseUrl + "datasets/" + quandlCode + "/data.json?" + extraUri;
-            var client = QuandlApiWebClient();
-            var resp = client.DownloadString(requestUri);
-            var settings = new JsonSerializerSettings
-            {
-                ContractResolver = new SnakeCaseMappingResolver()
-            };
-            var foo = JsonConvert.DeserializeObject<DatasetDataResponse>(resp, settings);
-            return JObject.Parse(resp);
-        }
+        //public static async Task<DatatableMetadata> GetDatatableMetadata(string vendorCode, string datatableCode)
+        //{
+        //    string relativeUrl = "datatables/" + vendorCode + "/" + datatableCode + "/metadata";
+        //    return await RequestAsync<DatatableMetadata>(relativeUrl, CallTypes.Data, null);
+        //}
+
 
         private static WebClient QuandlApiWebClient(CallTypes callType = CallTypes.Data)
         {
@@ -234,7 +157,7 @@ namespace Quandl.Shared
 
         private static string ConvertListToQueryString(string key, List<string> queryValues)
         {
-            var query = queryValues.Select(x => key + "[]=" + x);
+            var query = queryValues.Select(x => key + "[]=" + Uri.EscapeDataString(x));
             var queryString = string.Join("&", query);
             return queryString;
         }
@@ -254,7 +177,8 @@ namespace Quandl.Shared
                 client.DefaultRequestHeaders.Add("Request-Version", "3.0beta");
                 client.DefaultRequestHeaders.Add("Request-Source", "excel");
 
-                if (!string.IsNullOrEmpty(QuandlConfig.ApiKey) && (headers == null || !headers.ContainsKey("X-API-Token")))
+                if (!string.IsNullOrEmpty(QuandlConfig.ApiKey) &&
+                    (headers == null || !headers.ContainsKey("X-API-Token")))
                 {
                     client.DefaultRequestHeaders.Add("X-API-Token", QuandlConfig.ApiKey);
                 }
@@ -269,28 +193,10 @@ namespace Quandl.Shared
 
                 if (queryParams != null)
                 {
-                    var queryString = "?";
-                    foreach (var queryParam in queryParams)
-                    {
-                        if (queryParam.Value == null)
-                        {
-                            continue;
-                        }
-                        if (queryParam.Value is IList && queryParam.Value.GetType().IsGenericType)
-                        {
-                            queryString += ConvertListToQueryString(queryParam.Key, (List<string>) queryParam.Value) +
-                                           "&";
-                        }
-                        else
-                        {
-                            queryString += queryParam.Key + "=" + queryParam.Value + "&";
-                        }
-                    }
-                    relativeUrl = relativeUrl + queryString;
+                    relativeUrl = relativeUrl + "?" + StringifyQueryParams(queryParams);
                 }
 
-                HttpResponseMessage resp = null;
-                resp = await client.GetAsync(relativeUrl);
+                var resp = await client.GetAsync(relativeUrl);
                 if (resp.StatusCode != HttpStatusCode.OK)
                 {
                     throw new QuandlErrorBase(resp.StatusCode);
@@ -301,12 +207,35 @@ namespace Quandl.Shared
             }
         }
 
+        private static string StringifyQueryParams(Dictionary<string, object> queryParams)
+        {
+            var queryArr = new List<string>();
+
+            foreach (var queryParam in queryParams)
+            {
+                if (queryParam.Value == null)
+                {
+                    continue;
+                }
+                if (queryParam.Value is IList && queryParam.Value.GetType().IsGenericType)
+                {
+                    queryArr.Add(ConvertListToQueryString(queryParam.Key, (List<string>) queryParam.Value));
+                }
+                else
+                {
+                    queryArr.Add(queryParam.Key + "=" + Uri.EscapeDataString(queryParam.Value.ToString()));
+                }
+            }
+
+            return string.Join("&", queryArr);
+        }
+
         private static JsonSerializerSettings JsonSettings()
         {
             return new JsonSerializerSettings
             {
                 ContractResolver = new SnakeCaseMappingResolver()
-            }; 
+            };
         }
 
         private static string CallTypeMapper(CallTypes callType)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using ExcelDna.Integration;
 using Quandl.Shared;
 
@@ -7,7 +8,26 @@ namespace Quandl.Excel.UDF.Functions
 {
     public class Tools
     {
-        public string GetStringValue(object referenceOrString)
+        public static bool GetBoolValue(object referenceOrString)
+        {
+            return GetStringValue(referenceOrString).ToLower() == "true";
+        }
+
+        public static int? GetIntValue(object referenceOrString)
+        {
+            if (referenceOrString is double)
+                return (int) (double) referenceOrString;
+            if (referenceOrString is int)
+                return (int) referenceOrString;
+
+            var cellValue = GetStringValue(referenceOrString);
+            if (cellValue == null)
+                return null;
+            return int.Parse(GetStringValue(referenceOrString));
+        }
+
+
+        public static string GetStringValue(object referenceOrString)
         {
             if (referenceOrString is string)
             {
@@ -20,7 +40,7 @@ namespace Quandl.Excel.UDF.Functions
             return null;
         }
 
-        public string GetDateValue(object referenceOrString)
+        public static string GetDateValue(object referenceOrString)
         {
             if (referenceOrString is string)
             {
@@ -59,27 +79,27 @@ namespace Quandl.Excel.UDF.Functions
 
         public static List<string> GetValuesFromObjectArray(object[,] arr)
         {
-            var return_values = new List<string>();
+            var returnValues = new List<string>();
             for (var i = 0; i < arr.GetLength(0); i++)
             {
                 for (var j = 0; j < arr.GetLength(1); j++)
                 {
                     if (!(arr[i, j] is ExcelMissing))
                     {
-                        return_values.Add(arr[i, j].ToString());
+                        returnValues.Add(arr[i, j].ToString());
                     }
                 }
             }
-            return return_values;
+            return returnValues;
         }
 
         public static List<string> GetValuesFromCellRange(ExcelReference excelReference)
         {
             if (IsSingleCell(excelReference))
             {
-                var return_value = new List<string>();
-                return_value.Add(excelReference.GetValue().ToString());
-                return return_value;
+                var returnValue = new List<string>();
+                returnValue.Add(excelReference.GetValue().ToString());
+                return returnValue;
             }
             return GetValuesFromObjectArray((object[,]) excelReference.GetValue());
         }
@@ -93,6 +113,15 @@ namespace Quandl.Excel.UDF.Functions
         {
             var date = DateTime.FromOADate(Convert.ToDouble(excelReference.GetValue()));
             return date.ToString("yyyyMMdd");
+        }
+
+        public static DateTime? GetDateValueFromString(string date)
+        {
+            if (string.IsNullOrEmpty(date))
+            {
+                return null;
+            }
+            return DateTime.ParseExact(date, Utilities.DateFormat, CultureInfo.InvariantCulture);
         }
 
         public static bool IsSingleCell(ExcelReference er)
