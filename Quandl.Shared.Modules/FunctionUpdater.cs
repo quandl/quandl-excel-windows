@@ -1,10 +1,13 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Excel;
+using Quandl.Shared.Errors;
 
 namespace Quandl.Shared
 {
     public class FunctionUpdater
     {
+        public static readonly string[] UserDefinedFunctions = {"QSERIES", "QTABLE"};
+
         public static bool HasQuandlFormulaInWorkSheet(Worksheet worksheet)
         {
             Range range;
@@ -16,7 +19,7 @@ namespace Quandl.Shared
             {
                 if (ex.Message == "No cells were found.")
                 {
-                    return false;
+                    throw new MissingFormulaException("No formula's found to update.");
                 }
                 throw;
             }
@@ -25,10 +28,13 @@ namespace Quandl.Shared
             foreach (Range c in range.Cells)
             {
                 if (!c.HasFormula) continue;
-                var quandlFormula = c.Formula.ToString().ToLower().Contains("qdata");
-                if (quandlFormula)
+                string convertedString = c.Formula.ToString().ToUpper();
+                foreach (var formulaDefinition in UserDefinedFunctions)
                 {
-                    return true;
+                    if (convertedString.Contains(formulaDefinition))
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -50,8 +56,10 @@ namespace Quandl.Shared
         public static void RecalculateQuandlFunctionsInWorkSheet(Worksheet worksheet)
         {
             // force recalculation of workbook
+            var oldValue = worksheet.EnableCalculation;
             worksheet.EnableCalculation = false;
-            worksheet.EnableCalculation = true;
+            worksheet.Calculate();
+            worksheet.EnableCalculation = oldValue;
         }
 
         public static void RecalculateQuandlFunctions(Workbook wb)
@@ -59,10 +67,15 @@ namespace Quandl.Shared
             var worksheets = wb.Worksheets;
             foreach (Worksheet worksheet in worksheets)
             {
-                if (HasQuandlFormulaInWorkSheet(worksheet))
-                {
-                    RecalculateQuandlFunctionsInWorkSheet(worksheet);
-                }
+                RecalculateQuandlFunctions(worksheet);
+            }
+        }
+
+        public static void RecalculateQuandlFunctions(Worksheet ws)
+        {
+            if (HasQuandlFormulaInWorkSheet(ws))
+            {
+                RecalculateQuandlFunctionsInWorkSheet(ws);
             }
         }
     }

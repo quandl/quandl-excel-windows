@@ -38,8 +38,17 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LinqJoin, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqJoin.1.0.1\lib\portable-net4+sl4+wp7+win8\LinqJoin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Visual Studio Tools for Office\PIA\Office15\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="MoreLinq, Version=2.0.19309.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.2.0.0-beta03\lib\net35\MoreLinq.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -60,11 +69,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Errors\MissingFormulaException.cs" />
     <Compile Include="Errors\QuandlErrorBase.cs" />
     <Compile Include="ExcelHelp.cs" />
     <Compile Include="FunctionUpdater.cs" />
     <Compile Include="Helpers\CheckedItemHelper.cs" />
     <Compile Include="Models\DataHolderDefinition.cs" />
+    <Compile Include="Models\ResultsData.cs" />
     <Compile Include="Models\_Shared.cs" />
     <Compile Include="Models\DataArray.cs" />
     <Compile Include="Models\DataColumn.cs" />
@@ -75,9 +86,6 @@
     <Compile Include="Models\Browse\BrowseCollection.cs" />
     <Compile Include="Models\OldDatabase.cs" />
     <Compile Include="Models\OldDatabaseCollection.cs" />
-    <Compile Include="Models\OldDataset.cs" />
-    <Compile Include="Models\OldDatasetCollection.cs" />
-    <Compile Include="Models\OldDatasetData.cs" />
     <Compile Include="Models\OldDatatableCollection.cs" />
     <Compile Include="Models\OldDatatableCollectionResponse.cs" />
     <Compile Include="Models\OldDatatableCollectionsResponse.cs" />

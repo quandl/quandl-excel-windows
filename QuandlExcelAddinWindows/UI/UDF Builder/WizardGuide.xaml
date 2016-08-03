@@ -4,6 +4,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.UDF_Builder"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     x:Class="Quandl.Excel.Addin.UI.UDF_Builder.WizardGuide"
     mc:Ignorable="d"
     d:DesignHeight="480" d:DesignWidth="640" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -24,14 +25,41 @@
                NavigationUIVisibility="Hidden" Source="/Quandl.Excel.Addin;component/UI/UDF Builder/Loading.xaml" />
         <DockPanel LastChildFill="True" Grid.Row="2">
             <Button x:Name="insertButton" DockPanel.Dock="Right" Content="insert" VerticalAlignment="Top" Width="42"
-                    Margin="10" Click="InsertButton_OnClickButton_click" Height="23" Visibility="Collapsed" />
+                    Margin="10" Click="InsertButton_OnClickButton_click" Padding="5" Visibility="Collapsed" />
             <Button x:Name="nextButton" DockPanel.Dock="Right" Content="next" VerticalAlignment="Top" Width="42"
-                    Margin="10" Click="nextButton_click" Height="23" />
+                    Margin="10" Click="nextButton_click" Padding="5" />
             <Button x:Name="prevButton" DockPanel.Dock="Right" Content="prev" VerticalAlignment="Top" Width="42"
-                    Margin="10,10,0,10" Click="prevButton_click" Height="23" />
-            <TextBox x:Name="udfOutput" DockPanel.Dock="Left" Height="23" Margin="10,10,0,10" TextWrapping="NoWrap"
+                    Margin="10,10,0,10" Click="prevButton_click" Padding="5" />
+            <TextBox x:Name="udfOutput" DockPanel.Dock="Left" Margin="10,10,0,10" TextWrapping="NoWrap"
                      IsReadOnly="True" Text="{Binding UdfFormula, Source={x:Static local:StateControl.Instance}}"
-                     VerticalAlignment="Center" VerticalContentAlignment="Center" ToolTip="Your UDF formula" HorizontalAlignment="Stretch" />
+                     VerticalAlignment="Center" VerticalContentAlignment="Center" ToolTip="Your UDF formula"
+                     HorizontalAlignment="Stretch" Padding="5">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Style.Resources>
+                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                <VisualBrush.Visual>
+                                    <Label Content="Your Quandl formula will appear here when ready" Padding="5"
+                                           Width="10000000"
+                                           Foreground="LightGray" Background="White" />
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Style.Resources>
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                            </Trigger>
+                            <Trigger Property="Text" Value="{x:Null}">
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
         </DockPanel>
     </Grid>
 </UserControl>

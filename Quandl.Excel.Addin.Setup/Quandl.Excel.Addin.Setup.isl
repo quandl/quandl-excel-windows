@@ -62,7 +62,7 @@
 		<lastprinted/>
 		<createdtm>06/21/1999 06:00</createdtm>
 		<lastsavedtm>07/14/2000 09:50</lastsavedtm>
-		<pagecount>200</pagecount>
+		<pagecount>500</pagecount>
 		<wordcount>0</wordcount>
 		<charcount/>
 		<appname>InstallShield Express</appname>
@@ -226,6 +226,7 @@
 		<col key="yes" def="s72">Property</col>
 		<col key="yes" def="s72">Signature_</col>
 		<row><td>DOTNETVERSION45FULL</td><td>DotNet45Full</td></row>
+		<row><td>MSOFFICE2010</td><td>OFFICE2010</td></row>
 	</table>
 
 	<table name="BBControl">
@@ -269,6 +270,7 @@
 		<row><td>NewBinary21</td><td/><td>&lt;ISProjectFolder&gt;\banner2.jpg</td></row>
 		<row><td>NewBinary22</td><td/><td>&lt;ISProjectFolder&gt;\full-image.jpg</td></row>
 		<row><td>NewBinary23</td><td/><td>&lt;ISProjectFolder&gt;\banner2.jpg</td></row>
+		<row><td>NewBinary24</td><td/><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\Quandl.Excel.Console\bin\Release\Quandl.Excel.Console.exe</td></row>
 		<row><td>NewBinary3</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\Up.ibd</td></row>
 		<row><td>NewBinary4</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\WarningIcon.ibd</td></row>
 		<row><td>NewBinary5</td><td/><td>&lt;ISProjectFolder&gt;\full-image.jpg</td></row>
@@ -346,15 +348,14 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{33BE9A1E-C970-4D69-B5B6-64E41F8933EE}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{C26404ED-0613-4A00-A92F-D0C61791A567}</td><td>BIN1</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{92CFCBA5-C954-442B-8890-64F00820DCBE}</td><td>LocalAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{B9113AA8-E292-472B-80A2-64089A3FED92}</td><td>ProgramFiles64Folder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>IS_ININSTALL_SHORTCUT</td><td>{CCAC810B-8420-4846-AFF9-A97353666B32}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Newtonsoft.Json.dll</td><td>{4CB25ECD-D397-46DD-9E87-6A4A5A8AF886}</td><td>BIN1</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Newtonsoft.Json.dll1</td><td>{DA59C4D7-CBE3-4F7F-84BD-3EEB8334AA5B}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Excel.Addin.Primary_output</td><td>{12102D63-D58C-40FD-A239-C7464184C41A}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.addin.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Excel.Console.exe</td><td>{CB3640EB-334B-4F56-8042-454F5A87F00B}</td><td>BIN1</td><td>2</td><td/><td>quandl.excel.console.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Excel.UDF.Functions.Primary_output</td><td>{9AAC2383-E27C-4F26-B08B-47A2595E52D0}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.udf.functions.p</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Shared.Modules.Primary_output</td><td>{8CA61809-00B7-4D0C-99BB-C2FC03C1F0CA}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.shared.modules.primar</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Shared.dll</td><td>{585888C1-5292-487F-84C1-F62A00491E1A}</td><td>BIN1</td><td>2</td><td/><td>quandl.shared.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Excel.Addin.Primary_output</td><td>{8F6DEE81-F311-4D82-804E-6A30A0BF1B8A}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.addin.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Excel.Console.Primary_output</td><td>{55828322-B2AC-48C1-B194-ACD92AA4519C}</td><td>DATABASEDIR</td><td>2</td><td/><td>quandl.excel.console.primary</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Excel.UDF.Functions.Primary_output</td><td>{0A5A6D47-AEE9-4224-A408-1CC89D9E027E}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.udf.functions.p</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Excel.UDF.Functions_AddIn.dna</td><td>{66DE0CE2-1EB7-47B2-B04F-2C105B794553}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.udf.functions_a</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Excel.UDF.Functions_AddIn.xll</td><td>{EEEC2EB9-2D36-48CE-A783-592DEC375DB3}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.udf.functions_a1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -935,7 +936,7 @@
 		<row><td>DatabaseFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DatabaseFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>DATABASEDIR</td><td>1</td><td>2</td></row>
 		<row><td>DatabaseFolder</td><td>Next</td><td>NewDialog</td><td>SetupType</td><td>1</td><td>1</td></row>
-		<row><td>DestinationFolder</td><td>Back</td><td>NewDialog</td><td>CustomerInformation</td><td>1</td><td>0</td></row>
+		<row><td>DestinationFolder</td><td>Back</td><td>NewDialog</td><td>LicenseAgreement</td><td>NOT Installed</td><td>0</td></row>
 		<row><td>DestinationFolder</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>INSTALLDIR</td><td>1</td><td>2</td></row>
@@ -1025,10 +1026,8 @@
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1")</td><td>3</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>5</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>RegisterAddin</td><td>Not Installed</td><td>1</td></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>10</td></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>6</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[RegisterAddin]</td><td>RegisterAddin</td><td>Not Installed</td><td>2</td></row>
 		<row><td>SetupError</td><td>A</td><td>EndDialog</td><td>ErrorAbort</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>C</td><td>EndDialog</td><td>ErrorCancel</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>I</td><td>EndDialog</td><td>ErrorIgnore</td><td>1</td><td>0</td></row>
@@ -1066,20 +1065,14 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>BIN1</td><td>ISX_DEFAULTCOMPONENT1</td></row>
-		<row><td>BIN1</td><td>Newtonsoft.Json.dll</td></row>
-		<row><td>BIN1</td><td>Quandl.Excel.Console.exe</td></row>
-		<row><td>BIN1</td><td>Quandl.Shared.dll</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
-		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>INSTALLDIR</td><td>IS_ININSTALL_SHORTCUT</td></row>
-		<row><td>INSTALLDIR</td><td>Newtonsoft.Json.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Newtonsoft.Json.dll1</td></row>
 		<row><td>INSTALLDIR</td><td>Quandl.Excel.Addin.Primary_output</td></row>
-		<row><td>INSTALLDIR</td><td>Quandl.Excel.Console.exe</td></row>
+		<row><td>INSTALLDIR</td><td>Quandl.Excel.Console.Primary_output</td></row>
 		<row><td>INSTALLDIR</td><td>Quandl.Excel.UDF.Functions.Primary_output</td></row>
-		<row><td>INSTALLDIR</td><td>Quandl.Shared.Modules.Primary_output</td></row>
-		<row><td>INSTALLDIR</td><td>Quandl.Shared.dll</td></row>
+		<row><td>INSTALLDIR</td><td>Quandl.Excel.UDF.Functions_AddIn.dna</td></row>
+		<row><td>INSTALLDIR</td><td>Quandl.Excel.UDF.Functions_AddIn.xll</td></row>
+		<row><td>SUPPORTDIR</td><td>Quandl.Excel.Console.Primary_output</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1089,17 +1082,20 @@
 		<col def="S0">Target</col>
 		<col def="I4">ExtendedType</col>
 		<col def="S255">ISComments</col>
-		<row><td>ISPreventDowngrade</td><td>19</td><td/><td>[IS_PREVENT_DOWNGRADE_EXIT]</td><td/><td>Exits install when a newer version of this product is found</td></row>
+		<row><td>ISPreventDowngrade</td><td>19</td><td/><td>[IS_PREVENT_DOWNGRADE_EXIT]</td><td/><td/></row>
 		<row><td>ISPrint</td><td>1</td><td>SetAllUsers.dll</td><td>PrintScrollableText</td><td/><td>Prints the contents of a ScrollableText control on a dialog.</td></row>
 		<row><td>ISRunSetupTypeAddLocalEvent</td><td>1</td><td>ISExpHlp.dll</td><td>RunSetupTypeAddLocalEvent</td><td/><td>Run the AddLocal events associated with the Next button on the Setup Type dialog.</td></row>
 		<row><td>ISSelfRegisterCosting</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterCosting</td><td/><td/></row>
 		<row><td>ISSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFiles</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
+		<row><td>ISSetAllUsers</td><td>257</td><td>SetAllUsers.dll</td><td>SetAllUsers</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
-		<row><td>RegisterAddin</td><td>18</td><td>quandl.excel.console.exe</td><td>r</td><td/><td/></row>
+		<row><td>ReRegisterAddin</td><td>18</td><td>quandl.excel.console.primary</td><td>register</td><td/><td/></row>
+		<row><td>RegisterAddin</td><td>1042</td><td>quandl.excel.console.primary</td><td>register</td><td/><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
+		<row><td>UnRegisterAddin</td><td>1058</td><td>DATABASEDIR</td><td>[DATABASEDIR]Quandl.Excel.Console.exe unregister</td><td/><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>
 		<row><td>setUserProfileNT</td><td>51</td><td>USERPROFILE</td><td>[%USERPROFILE]</td><td/><td/></row>
 	</table>
@@ -1162,8 +1158,6 @@
 		<row><td>ALLUSERSPROFILE</td><td>TARGETDIR</td><td>.:ALLUSE~1|All Users</td><td/><td>0</td><td/></row>
 		<row><td>AdminToolsFolder</td><td>TARGETDIR</td><td>.:Admint~1|AdminTools</td><td/><td>0</td><td/></row>
 		<row><td>AppDataFolder</td><td>TARGETDIR</td><td>.:APPLIC~1|Application Data</td><td/><td>0</td><td/></row>
-		<row><td>BIN</td><td>INSTALLDIR</td><td>bin</td><td/><td>0</td><td/></row>
-		<row><td>BIN1</td><td>INSTALLDIR</td><td>bin</td><td/><td>0</td><td/></row>
 		<row><td>CommonAppDataFolder</td><td>TARGETDIR</td><td>.:Common~1|CommonAppData</td><td/><td>0</td><td/></row>
 		<row><td>CommonFiles64Folder</td><td>TARGETDIR</td><td>.:Common64</td><td/><td>0</td><td/></row>
 		<row><td>CommonFilesFolder</td><td>TARGETDIR</td><td>.:Common</td><td/><td>0</td><td/></row>
@@ -1172,7 +1166,7 @@
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>QUANDL_EXCEL_ADDIN</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>QUANDL_INC</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
@@ -1180,9 +1174,12 @@
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT_IT</td><td>ProgramFilesFolder</td><td>MICROS~1|Microsoft IT</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>MICROSOFT_IT</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
-		<row><td>MY_PRODUCT_NAME1</td><td>QUANDL_INC</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
 		<row><td>NEW_DIRECTORY1</td><td>TARGETDIR</td><td>NEW_DIRECTORY1</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY2</td><td>TARGETDIR</td><td>NEW_DIRECTORY2</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY3</td><td>TARGETDIR</td><td>NEW_DIRECTORY3</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY4</td><td>TARGETDIR</td><td>NEW_DIRECTORY4</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY5</td><td>TARGETDIR</td><td>NEW_DIRECTORY5</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
 		<row><td>PrimaryVolumePath</td><td>TARGETDIR</td><td>.:Primar~1|PrimaryVolumePath</td><td/><td>0</td><td/></row>
@@ -1190,10 +1187,10 @@
 		<row><td>ProgramFiles64Folder</td><td>TARGETDIR</td><td>.:Prog64~1|Program Files 64</td><td/><td>0</td><td/></row>
 		<row><td>ProgramFilesFolder</td><td>TARGETDIR</td><td>.:PROGRA~1|program files</td><td/><td>0</td><td/></row>
 		<row><td>ProgramMenuFolder</td><td>TARGETDIR</td><td>.:Programs</td><td/><td>3</td><td/></row>
-		<row><td>QUANDL_EXCELL_ADDIN</td><td>QUANDL_INC</td><td>QUANDL~1|Quandl-Excell-Addin</td><td/><td>0</td><td/></row>
-		<row><td>QUANDL_EXCEL_ADDIN</td><td>QUANDL_INC</td><td>QUANDL~1|Quandl-Excel-Addin</td><td/><td>0</td><td/></row>
+		<row><td>QUANDL.EXCEL.CONSOLE.EXE</td><td>DATABASEDIR</td><td>QUANDL~1|Quandl.Excel.Console.exe</td><td/><td>0</td><td/></row>
 		<row><td>QUANDL_INC</td><td>ProgramFilesFolder</td><td>QUANDL~1|Quandl Inc</td><td/><td>0</td><td/></row>
 		<row><td>RecentFolder</td><td>TARGETDIR</td><td>.:Recent</td><td/><td>0</td><td/></row>
+		<row><td>SUPPORTDIR</td><td>TARGETDIR</td><td>SUPPORTDIR</td><td/><td>0</td><td/></row>
 		<row><td>SendToFolder</td><td>TARGETDIR</td><td>.:SendTo</td><td/><td>3</td><td/></row>
 		<row><td>StartMenuFolder</td><td>TARGETDIR</td><td>.:STARTM~1|Start Menu</td><td/><td>3</td><td/></row>
 		<row><td>StartupFolder</td><td>TARGETDIR</td><td>.:StartUp</td><td/><td>3</td><td/></row>
@@ -1902,14 +1899,13 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>AlwaysInstall</td><td>IS_ININSTALL_SHORTCUT</td></row>
-		<row><td>AlwaysInstall</td><td>Newtonsoft.Json.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Newtonsoft.Json.dll1</td></row>
 		<row><td>AlwaysInstall</td><td>Quandl.Excel.Addin.Primary_output</td></row>
-		<row><td>AlwaysInstall</td><td>Quandl.Excel.Console.exe</td></row>
+		<row><td>AlwaysInstall</td><td>Quandl.Excel.Console.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>Quandl.Excel.UDF.Functions.Primary_output</td></row>
-		<row><td>AlwaysInstall</td><td>Quandl.Shared.Modules.Primary_output</td></row>
-		<row><td>AlwaysInstall</td><td>Quandl.Shared.dll</td></row>
+		<row><td>AlwaysInstall</td><td>Quandl.Excel.UDF.Functions_AddIn.dna</td></row>
+		<row><td>AlwaysInstall</td><td>Quandl.Excel.UDF.Functions_AddIn.xll</td></row>
 	</table>
 
 	<table name="File">
@@ -1924,23 +1920,13 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>app.config</td><td>ISX_DEFAULTCOMPONENT</td><td>APP~1.CON|app.config</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\QuandlShared\app.config</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\Quandl.Excel.Console\bin\Debug\Newtonsoft.Json.dll</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.dll1</td><td>Newtonsoft.Json.dll1</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\QuandlExcelUDFFunctions\bin\Debug\Newtonsoft.Json.dll</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.xml</td><td>ISX_DEFAULTCOMPONENT1</td><td>NEWTON~1.XML|Newtonsoft.Json.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\Quandl.Excel.Console\bin\Debug\Newtonsoft.Json.xml</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.xml1</td><td>ISX_DEFAULTCOMPONENT</td><td>NEWTON~1.XML|Newtonsoft.Json.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\QuandlExcelUDFFunctions\bin\Debug\Newtonsoft.Json.xml</td><td>1</td><td/></row>
-		<row><td>quandl.excel.addin.dll.manif</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.MAN|Quandl.Excel.Addin.dll.manifest</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.dll.manifest</td><td>1</td><td/></row>
-		<row><td>quandl.excel.addin.primary_o</td><td>Quandl.Excel.Addin.Primary_output</td><td>Quandl.Excel.Addin.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Addin&gt;|Built</td><td>3</td><td/></row>
-		<row><td>quandl.excel.addin.vsto</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.VST|Quandl.Excel.Addin.vsto</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.vsto</td><td>1</td><td/></row>
-		<row><td>quandl.excel.console.exe</td><td>Quandl.Excel.Console.exe</td><td>QUANDL~1.EXE|Quandl.Excel.Console.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\Quandl.Excel.Console\bin\Debug\Quandl.Excel.Console.exe</td><td>1</td><td/></row>
-		<row><td>quandl.excel.console.exe.con</td><td>ISX_DEFAULTCOMPONENT1</td><td>QUANDL~1.CON|Quandl.Excel.Console.exe.config</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\Quandl.Excel.Console\bin\Debug\Quandl.Excel.Console.exe.config</td><td>1</td><td/></row>
-		<row><td>quandl.excel.console.pdb</td><td>ISX_DEFAULTCOMPONENT1</td><td>QUANDL~1.PDB|Quandl.Excel.Console.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\Quandl.Excel.Console\bin\Debug\Quandl.Excel.Console.pdb</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions.p</td><td>Quandl.Excel.UDF.Functions.Primary_output</td><td>Quandl.Excel.UDF.Functions.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.UDF.Functions&gt;|Built</td><td>3</td><td/></row>
-		<row><td>quandl.excel.udf.functions_a</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.XLL|Quandl.Excel.UDF.Functions-AddIn.xll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\QuandlExcelUDFFunctions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.xll</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions_a1</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.DNA|Quandl.Excel.UDF.Functions-AddIn.dna</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\QuandlExcelUDFFunctions\Quandl.Excel.UDF.Functions-AddIn.dna</td><td>1</td><td/></row>
-		<row><td>quandl.shared.dll</td><td>Quandl.Shared.dll</td><td>QUANDL~1.DLL|Quandl.Shared.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\Quandl.Excel.Console\bin\Debug\Quandl.Shared.dll</td><td>1</td><td/></row>
-		<row><td>quandl.shared.modules.primar</td><td>Quandl.Shared.Modules.Primary_output</td><td>Quandl.Shared.Modules.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Shared.Modules&gt;|Built</td><td>3</td><td/></row>
-		<row><td>quandl.shared.pdb</td><td>ISX_DEFAULTCOMPONENT1</td><td>QUANDL~1.PDB|Quandl.Shared.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISPROJECTFOLDER&gt;..\Quandl.Excel.Console\bin\Debug\Quandl.Shared.pdb</td><td>1</td><td/></row>
+		<row><td>quandl.excel.addin.dll.manif</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.MAN|Quandl.Excel.Addin.dll.manifest</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.dll.manifest</td><td>1</td><td/></row>
+		<row><td>quandl.excel.addin.primary_o</td><td>Quandl.Excel.Addin.Primary_output</td><td>Quandl.Excel.Addin.Primary output</td><td>0</td><td/><td/><td>0</td><td>1</td><td>&lt;Quandl.Excel.Addin&gt;|Built</td><td>3</td><td/></row>
+		<row><td>quandl.excel.addin.vsto</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.VST|Quandl.Excel.Addin.vsto</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.vsto</td><td>1</td><td/></row>
+		<row><td>quandl.excel.console.primary</td><td>Quandl.Excel.Console.Primary_output</td><td>Quandl.Excel.Console.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Console&gt;|Built</td><td>3</td><td/></row>
+		<row><td>quandl.excel.udf.functions.p</td><td>Quandl.Excel.UDF.Functions.Primary_output</td><td>Quandl.Excel.UDF.Functions.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.UDF.Functions1&gt;|Built</td><td>3</td><td/></row>
+		<row><td>quandl.excel.udf.functions_a</td><td>Quandl.Excel.UDF.Functions_AddIn.dna</td><td>QUANDL~1.DNA|Quandl.Excel.UDF.Functions-AddIn.dna</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.dna</td><td>1</td><td/></row>
+		<row><td>quandl.excel.udf.functions_a1</td><td>Quandl.Excel.UDF.Functions_AddIn.xll</td><td>QUANDL~1.XLL|Quandl.Excel.UDF.Functions-AddIn.xll</td><td>0</td><td/><td/><td>0</td><td>1</td><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.xll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2085,15 +2071,14 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_85509560_FC87_4BCC_A6CA_4C9C4763ED2A_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_0D0F0A3D_9928_4CD4_8BCD_C850F84BE28C_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_6EF04747_1ABE_4BFF_81ED_69C2DBE97390_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_612F5ACB_790C_487F_BE1A_79BC7262E4DC_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>IS_ININSTALL_SHORTCUT</td><td/><td/><td>_A707A2C6_6E5E_4F70_B91A_F6C3DC6E1377_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_EC0A1D3C_8EEA_452E_8C67_832D71A6576A_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Newtonsoft.Json.dll1</td><td/><td/><td>_42EF54DF_D26B_4CE6_A80C_86D9BEAAE52D_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Excel.Addin.Primary_output</td><td/><td/><td>_CFD09486_9903_437B_9B45_F41EB2E6BCCD_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Excel.Console.exe</td><td/><td/><td>_72574E7B_A8EC_41EE_AF60_227E5544864B_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Excel.UDF.Functions.Primary_output</td><td/><td/><td>_D99EBCC7_24B7_4C2C_BB52_CC1B2811A3BA_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Shared.Modules.Primary_output</td><td/><td/><td>_DEC694B1_80D6_45D4_B7DE_0963CBAEB4D2_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Shared.dll</td><td/><td/><td>_A5E41959_5E41_4D60_83EB_47A3432595B0_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Excel.Addin.Primary_output</td><td/><td/><td>_F72BE33E_7D8B_4A92_868F_4ED1C71330E3_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Excel.Console.Primary_output</td><td/><td/><td>_89B39ACE_F5DF_4DEB_B401_079E08B728E7_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Excel.UDF.Functions.Primary_output</td><td/><td/><td>_208E6D32_17AA_487F_9187_4AC65F0FAF06_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Excel.UDF.Functions_AddIn.dna</td><td/><td/><td>_3463DB17_F100_4FEB_B5C1_2456F26BA414_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Excel.UDF.Functions_AddIn.xll</td><td/><td/><td>_609BECC2_625D_4285_9303_F25FB00A9874_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2140,6 +2125,7 @@
 	<table name="ISDependency">
 		<col key="yes" def="S50">ISDependency</col>
 		<col def="I2">Exclude</col>
+		<row><td>XLCALL32.DLL</td><td>1</td></row>
 	</table>
 
 	<table name="ISDisk1File">
@@ -2380,7 +2366,9 @@
 		<row><td>Quandl.Excel.Addin</td><td>QuandlExcelAddinWindows\Quandl.Excel.Addin.csproj</td><td/><td>2</td></row>
 		<row><td>Quandl.Excel.Console</td><td>Quandl.Excel.Console\Quandl.Excel.Console.csproj</td><td/><td>2</td></row>
 		<row><td>Quandl.Excel.UDF.Functions</td><td>QuandlExcelUDFFunctions\Quandl.Excel.UDF.Functions.csproj</td><td/><td>2</td></row>
+		<row><td>Quandl.Excel.UDF.Functions1</td><td>Quandl.Excel.UDF.Functions\Quandl.Excel.UDF.Functions.csproj</td><td/><td>2</td></row>
 		<row><td>Quandl.Shared.Modules</td><td>QuandlShared\Quandl.Shared.Modules.csproj</td><td/><td>2</td></row>
+		<row><td>Quandl.Shared.Modules1</td><td>Quandl.Shared.Modules\Quandl.Shared.Modules.csproj</td><td/><td>2</td></row>
 		<row><td>Quandl.Shared.ModulesTests</td><td>UnitTestProject1\Quandl.Shared.ModulesTests.csproj</td><td/><td>2</td></row>
 		<row><td>QuandlFunctions</td><td>QuandlFunctions\QuandlFunctions.csproj</td><td/><td>2</td></row>
 		<row><td>SystemFolder</td><td/><td/><td>1</td></row>
@@ -2694,6 +2682,7 @@
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-576475283</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_MSOFFICE2010</td><td>1033</td><td>Microsoft Office 2010 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-744201874</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
@@ -3796,7 +3785,7 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.QuandlInc.com</td><td>0</td><td/><td>1495576044</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>https://www.quandl.com</td><td>0</td><td/><td>-878432977</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>1495576044</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>connect@quandl.com</td><td>0</td><td/><td>1495576044</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>https://www.quandl.com</td><td>0</td><td/><td>1705204843</td></row>
@@ -3959,11 +3948,12 @@
 		<row><td>DuplicateFiles</td><td/><td>4210</td><td>DuplicateFiles</td><td/></row>
 		<row><td>FileCost</td><td/><td>900</td><td>FileCost</td><td/></row>
 		<row><td>FindRelatedProducts</td><td>NOT ISSETUPDRIVEN</td><td>420</td><td>FindRelatedProducts</td><td/></row>
-		<row><td>ISPreventDowngrade</td><td>ISFOUNDNEWERPRODUCTVERSION</td><td>450</td><td>ISPreventDowngrade</td><td/></row>
+		<row><td>ISPreventDowngrade</td><td>ISFOUNDNEWERPRODUCTVERSION</td><td>450</td><td/><td/></row>
 		<row><td>ISRunSetupTypeAddLocalEvent</td><td>Not Installed And Not ISRUNSETUPTYPEADDLOCALEVENT</td><td>1050</td><td>ISRunSetupTypeAddLocalEvent</td><td/></row>
 		<row><td>ISSelfRegisterCosting</td><td/><td>2201</td><td/><td/></row>
 		<row><td>ISSelfRegisterFiles</td><td/><td>5601</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td/><td>6601</td><td/><td/></row>
+		<row><td>ISSetAllUsers</td><td>Not Installed</td><td>10</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td/><td>2202</td><td/><td/></row>
 		<row><td>InstallFiles</td><td/><td>4000</td><td>InstallFiles</td><td/></row>
 		<row><td>InstallFinalize</td><td/><td>6600</td><td>InstallFinalize</td><td/></row>
@@ -3984,6 +3974,7 @@
 		<row><td>PublishFeatures</td><td/><td>6300</td><td>PublishFeatures</td><td/></row>
 		<row><td>PublishProduct</td><td/><td>6400</td><td>PublishProduct</td><td/></row>
 		<row><td>RMCCPSearch</td><td>Not CCP_SUCCESS And CCP_TEST</td><td>600</td><td>RMCCPSearch</td><td/></row>
+		<row><td>RegisterAddin</td><td>Not Installed</td><td>6401</td><td/><td/></row>
 		<row><td>RegisterClassInfo</td><td/><td>4600</td><td>RegisterClassInfo</td><td/></row>
 		<row><td>RegisterComPlus</td><td/><td>5700</td><td>RegisterComPlus</td><td/></row>
 		<row><td>RegisterExtensionInfo</td><td/><td>4700</td><td>RegisterExtensionInfo</td><td/></row>
@@ -3995,7 +3986,7 @@
 		<row><td>RegisterUser</td><td/><td>6000</td><td>RegisterUser</td><td/></row>
 		<row><td>RemoveDuplicateFiles</td><td/><td>3400</td><td>RemoveDuplicateFiles</td><td/></row>
 		<row><td>RemoveEnvironmentStrings</td><td/><td>3300</td><td>RemoveEnvironmentStrings</td><td/></row>
-		<row><td>RemoveExistingProducts</td><td/><td>1410</td><td>RemoveExistingProducts</td><td/></row>
+		<row><td>RemoveExistingProducts</td><td/><td>1500</td><td>RemoveExistingProducts</td><td/></row>
 		<row><td>RemoveFiles</td><td/><td>3500</td><td>RemoveFiles</td><td/></row>
 		<row><td>RemoveFolders</td><td/><td>3600</td><td>RemoveFolders</td><td/></row>
 		<row><td>RemoveIniValues</td><td/><td>3100</td><td>RemoveIniValues</td><td/></row>
@@ -4011,6 +4002,7 @@
 		<row><td>SetODBCFolders</td><td/><td>1200</td><td>SetODBCFolders</td><td/></row>
 		<row><td>StartServices</td><td>VersionNT</td><td>5900</td><td>StartServices</td><td/></row>
 		<row><td>StopServices</td><td>VersionNT</td><td>1900</td><td>StopServices</td><td/></row>
+		<row><td>UnRegisterAddin</td><td>REMOVE="ALL"</td><td>1501</td><td/><td/></row>
 		<row><td>UnpublishComponents</td><td/><td>1700</td><td>UnpublishComponents</td><td/></row>
 		<row><td>UnpublishFeatures</td><td/><td>1800</td><td>UnpublishFeatures</td><td/></row>
 		<row><td>UnregisterClassInfo</td><td/><td>2700</td><td>UnregisterClassInfo</td><td/></row>
@@ -4083,7 +4075,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ExecuteAction</td><td/><td>1300</td><td>ExecuteAction</td><td/></row>
 		<row><td>FileCost</td><td/><td>900</td><td>FileCost</td><td/></row>
 		<row><td>FindRelatedProducts</td><td/><td>430</td><td>FindRelatedProducts</td><td/></row>
-		<row><td>ISPreventDowngrade</td><td>ISFOUNDNEWERPRODUCTVERSION</td><td>450</td><td>ISPreventDowngrade</td><td/></row>
+		<row><td>ISPreventDowngrade</td><td>ISFOUNDNEWERPRODUCTVERSION</td><td>450</td><td/><td/></row>
+		<row><td>ISSetAllUsers</td><td>Not Installed</td><td>10</td><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Not Installed</td><td>1210</td><td>InstallWelcome</td><td/></row>
 		<row><td>IsolateComponents</td><td/><td>950</td><td>IsolateComponents</td><td/></row>
 		<row><td>LaunchConditions</td><td>Not Installed</td><td>410</td><td>LaunchConditions</td><td/></row>
@@ -4091,6 +4084,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>MigrateFeatureStates</td><td/><td>1200</td><td>MigrateFeatureStates</td><td/></row>
 		<row><td>PatchWelcome</td><td>Installed And PATCH And Not IS_MAJOR_UPGRADE</td><td>1205</td><td>Patch Panel</td><td/></row>
 		<row><td>RMCCPSearch</td><td>Not CCP_SUCCESS And CCP_TEST</td><td>600</td><td>RMCCPSearch</td><td/></row>
+		<row><td>ReRegisterAddin</td><td>Installed</td><td>1207</td><td/><td/></row>
 		<row><td>ResolveSource</td><td>Not Installed</td><td>990</td><td>ResolveSource</td><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>VersionNT = 400</td><td>970</td><td/><td/></row>
 		<row><td>SetupCompleteError</td><td/><td>-3</td><td>SetupCompleteError</td><td/></row>
@@ -4113,6 +4107,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col key="yes" def="s255">Condition</col>
 		<col def="l255">Description</col>
 		<row><td>DOTNETVERSION45FULL&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL##</td></row>
+		<row><td>MSOFFICE2010</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_MSOFFICE2010##</td></row>
 	</table>
 
 	<table name="ListBox">
@@ -4359,9 +4354,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col key="yes" def="s72">Property</col>
 		<col def="L0">Value</col>
 		<col def="S255">ISComments</col>
-		<row><td>ALLUSERS</td><td>1</td><td/></row>
 		<row><td>ARPHELPLINK</td><td>##ID_STRING3##</td><td/></row>
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
+		<row><td>ARPNOMODIFY</td><td>1</td><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING1##</td><td/></row>
@@ -4429,9 +4424,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{D6EDE9E5-F250-4A87-9A10-74C7C69CFAC8}</td><td/></row>
+		<row><td>ProductCode</td><td>{D6EFE9E5-F250-4A87-9A10-75C7C69CFAC8}</td><td/></row>
 		<row><td>ProductName</td><td>Quandl Excel Addin</td><td/></row>
-		<row><td>ProductVersion</td><td>3.00.0002</td><td/></row>
+		<row><td>ProductVersion</td><td>3.02.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4443,7 +4438,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;ISFOUNDNEWERPRODUCTVERSION;MSOFFICE2010</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{5E31829B-2176-41EB-88FC-FE5BEA8538E0}</td><td/></row>
@@ -4489,6 +4484,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">Name</col>
 		<col def="I2">Type</col>
 		<row><td>DotNet45Full</td><td>2</td><td>SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</td><td>Version</td><td>2</td></row>
+		<row><td>OFFICE2010</td><td>2</td><td>SOFTWARE\Microsoft\Office\14.0\Common\InstallRoot</td><td>Path</td><td>2</td></row>
 	</table>
 
 	<table name="Registry">
@@ -4503,7 +4499,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>Registry2</td><td>1</td><td>SOFTWARE\Microsoft\Office\Excel\Addins\Quandl.Excel.Addin</td><td>Description</td><td>Quandl.Excel.Addin</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
 		<row><td>Registry3</td><td>1</td><td>SOFTWARE\Microsoft\Office\Excel\Addins\Quandl.Excel.Addin</td><td>FriendlyName</td><td>Quandl.Excel.Addin</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
 		<row><td>Registry4</td><td>1</td><td>SOFTWARE\Microsoft\Office\Excel\Addins\Quandl.Excel.Addin</td><td>LoadBehavior</td><td>#3</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
-		<row><td>Registry5</td><td>1</td><td>SOFTWARE\Microsoft\Office\Excel\Addins\Quandl.Excel.Addin</td><td>Manifest</td><td>file:///C:/Program Files (x86)/Quandl Inc/Quandl-Excel-Addin/Quandl.Excel.Addin.vsto|vstolocal</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
+		<row><td>Registry5</td><td>1</td><td>SOFTWARE\Microsoft\Office\Excel\Addins\Quandl.Excel.Addin</td><td>Manifest</td><td>file:///[INSTALLDIR]Quandl.Excel.Addin.vsto|vstolocal</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
 	</table>
 
 	<table name="RemoveFile">

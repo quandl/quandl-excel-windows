@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Quandl.Excel.Addin.UI.Helpers;
+using Quandl.Shared;
 using Quandl.Shared.Models;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
@@ -33,6 +33,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private DateTime? StartDate => _stateControl.StartDate;
 
+        private bool IncludeHeaders => _stateControl.IncludeHeaders;
+
+        private StateControl.ChainTypes ChainType => _stateControl.ChainType;
+
         private StateControl.TimeSeriesFilterTypes DateTypeFilter => _stateControl.DateTypeFilter;
 
         public string ToUdf() => _stateControl.ChainType == StateControl.ChainTypes.TimeSeries
@@ -49,6 +53,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             AddSortFilters(formulaComponents);
             AddTransformationFilters(formulaComponents);
             AddLimitFilters(formulaComponents);
+            AddHeaderOptions(formulaComponents);
 
             // Close off the formula
             return $"=QSERIES({string.Join(",", formulaComponents.Select(n => n.ToString()).ToArray())})";
@@ -56,34 +61,32 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void AddQuandlCodeAndColumns(List<string> formulaComponents)
         {
+            // No columns selected. Only dealing with codes.
             if (Columns.Count == 0)
             {
                 formulaComponents.Add(QuandlCodes.Count() > 1
                     ? $"{{{string.Join(",", QuandlCodes.Select(qc => $"\"{qc}\""))}}}"
                     : $"\"{QuandlCodes[0]}\"");
             }
-            else
+
+            // Some columns have been selected.
+            else if (Columns.Count >= 1)
             {
+                var columns = string.Join(",", Columns.Select(c => $"\"{CodeFromColumn(c)}\"").ToArray());
                 if (Columns.Count == 1)
                 {
-                    formulaComponents.Add($"\"{QuandlCodes[0]}/{Columns[0].Code}\"");
+                    formulaComponents.Add(columns);
                 }
-                else if (Columns.Count > 1)
+                else
                 {
-                    formulaComponents.Add(
-                        $"{{{string.Join(",", Columns.Select(n => $"\"{QuandlCodes[0]}/{n.Code}\"".ToString()).ToArray())}}}");
+                    formulaComponents.Add($"{{{columns}}}");
                 }
             }
         }
 
-        private void AddLimitFilters(List<string> formulaComponents)
+        private string CodeFromColumn(DataColumn column)
         {
-            // Add limit
-            if (TimeSeriesLimitFilter != null || TimeSeriesLimitFilter > 0)
-            {
-                formulaComponents.Add(
-                    $"{TimeSeriesLimitFilter}");
-            }
+            return $"{_stateControl.CodeFromDataHolder(column.Parent)}/{column.Code}";
         }
 
         private void AddCollapseFilters(List<string> formulaComponents)
@@ -127,7 +130,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private string StringFromDate(DateTime? date)
         {
-            return $"\"{((DateTime) date).ToString("yyyy-M-d")}\"";
+            return $"\"{((DateTime) date).ToString(Utilities.DateFormat)}\"";
         }
 
         private void AddSortFilters(List<string> formulaComponents)
@@ -152,6 +155,28 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             else if (_stateControl.TimeseriesFilterAfter("transformation"))
             {
                 formulaComponents.Add("");
+            }
+        }
+
+        private void AddLimitFilters(List<string> formulaComponents)
+        {
+            // Add limit
+            if (TimeSeriesLimitFilter != null || TimeSeriesLimitFilter > 0)
+            {
+                formulaComponents.Add($"{TimeSeriesLimitFilter}");
+            }
+            else if (_stateControl.TimeseriesFilterAfter("limit"))
+            {
+                formulaComponents.Add("");
+            }
+        }
+
+        private void AddHeaderOptions(List<string> formulaComponents)
+        {
+            // Add limit
+            if (!IncludeHeaders)
+            {
+                formulaComponents.Add(false.ToString());
             }
         }
 

@@ -6,5 +6,4 @@ namespace Quandl.Shared.Models
     {
         public List<OldDatatableCollection> DatatableCollections { get; set; }
     }
-
 }

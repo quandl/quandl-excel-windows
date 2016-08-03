@@ -87,12 +87,14 @@
             this.refreshWorkbook.Label = "Workbook";
             this.refreshWorkbook.Name = "refreshWorkbook";
             this.refreshWorkbook.ShowImage = true;
+            this.refreshWorkbook.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.refreshWorkbook_Click);
             // 
             // refreshWorksheet
             // 
             this.refreshWorksheet.Label = "Worksheet";
             this.refreshWorksheet.Name = "refreshWorksheet";
             this.refreshWorksheet.ShowImage = true;
+            this.refreshWorksheet.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.refreshWorksheet_Click);
             // 
             // SettingsGroup
             // 
