@@ -37,7 +37,7 @@ namespace Quandl.Shared.Models
                 {
                     Columns.Add(new DataColumn {
                         Name = c.SelectToken("name").Value<string>().ToUpper(),
-                        Type = ProviderType.DataTable
+                        ProviderType = ProviderType.DataTable
                     });
                 }
                 DataPoints = _additionalData["datatable"].SelectToken("data").ToObject<List<List<object>>>();
