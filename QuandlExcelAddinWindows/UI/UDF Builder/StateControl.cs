@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using PropertyChanged;
 using Quandl.Shared.Models;
+using Quandl.Excel.Addin.UI.UDF_Builder.Filters;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -108,6 +110,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public TimeSeriesFilterTransformations TimeSeriesTransformationFilter { get; set; }
         public TimeSeriesFilterSorts TimeSeriesSortFilter { get; set; }
         public int? TimeSeriesLimitFilter { get; set; }
+
+        public Hashtable DatatableFilters { get; } = new Hashtable();
+
+        public bool IsFilterChanged { get; set; }
 
         // Generic Options
         public bool IncludeHeaders { get; set; }

@@ -144,6 +144,10 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Visual Studio Tools for Office\PIA\Office15\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Office">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Visual Studio Tools for Office\PIA\Office15\Office.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -213,6 +217,23 @@
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TaskPaneControl.cs" />
+    <Compile Include="UI\UDF Builder\DateConditionSelection.xaml.cs">
+      <DependentUpon>DateConditionSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\Filters\DateFilter.xaml.cs">
+      <DependentUpon>DateFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Helpers\FilterHelper.cs" />
+    <Compile Include="UI\UDF Builder\Filters\Filter.cs" />
+    <Compile Include="UI\UDF Builder\Filters\FloatNumberFilter.xaml.cs">
+      <DependentUpon>FloatNumberFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\Filters\IntegerFilter.xaml.cs">
+      <DependentUpon>IntegerFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDF Builder\Filters\StringFilter.xaml.cs">
+      <DependentUpon>StringFilter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UDF Builder\FormulaBuilder.cs" />
     <Compile Include="UI\UDF Builder\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
@@ -309,6 +330,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UDF Builder\ColumnSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\DateConditionSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\Filters\DateFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\Filters\FloatNumberFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\Filters\IntegerFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UDF Builder\Filters\StringFilter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -2,7 +2,7 @@
 
 namespace Quandl.Shared.Models
 {
-    public class OldNamedContentCollection
+    public class NamedContentCollection
     {
         public List<NamedContent> NamedContents { get; set; }
     }
