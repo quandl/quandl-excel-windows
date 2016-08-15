@@ -2,9 +2,9 @@
 
 namespace Quandl.Shared.Models
 {
-    public class OldDatabaseCollection
+    public class DatabaseCollection
     {
-        public List<OldDatabase> Databases { get; set; }
+        public List<Database> Databases { get; set; }
         public OldMeta Meta { get; set; }
     }
 }

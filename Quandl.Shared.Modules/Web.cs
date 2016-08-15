@@ -17,25 +17,25 @@ namespace Quandl.Shared
 {
     public class Web
     {
-        public static async Task<OldUser> WhoAmI(string api_key)
+        public static async Task<User> WhoAmI(string api_key)
         {
             var queryHeaders = new Dictionary<string, string>
             {
                 {"X-API-Token", api_key}
             };
 
-            var userResponse = await RequestAsync<OldUserResponse>("users/me", CallTypes.Search, null, queryHeaders);
+            var userResponse = await RequestAsync<UserResponse>("users/me", CallTypes.Search, null, queryHeaders);
             return userResponse.user;
         }
 
-        public static async Task<OldDatabaseCollection> SearchDatabasesAsync(string query)
+        public static async Task<DatabaseCollection> SearchDatabasesAsync(string query)
         {
             var queryParams = new Dictionary<string, object>
             {
                 {"per_page", "10"},
                 {"query", query}
             };
-            return await RequestAsync<OldDatabaseCollection>("databases", CallTypes.Search, queryParams);
+            return await RequestAsync<DatabaseCollection>("databases", CallTypes.Search, queryParams);
         }
 
 
@@ -66,7 +66,7 @@ namespace Quandl.Shared
             };
 
             var resp =
-                await RequestAsync<OldNamedContentCollection>("named_contents", CallTypes.Search, queryParams, null);
+                await RequestAsync<NamedContentCollection>("named_contents", CallTypes.Search, queryParams, null);
             var namedContent = resp.NamedContents.FirstOrDefault();
             var browseJson = namedContent.HtmlContent;
             var browse = JsonConvert.DeserializeObject<BrowseCollection>(browseJson, JsonSettings());
@@ -125,13 +125,11 @@ namespace Quandl.Shared
             return await RequestAsync<T>(relativeUrl, CallTypes.Search, null);
         }
 
-
-        //public static async Task<DatatableMetadata> GetDatatableMetadata(string vendorCode, string datatableCode)
-        //{
-        //    string relativeUrl = "datatables/" + vendorCode + "/" + datatableCode + "/metadata";
-        //    return await RequestAsync<DatatableMetadata>(relativeUrl, CallTypes.Data, null);
-        //}
-
+        public static async Task<DatatableMetadata> GetDatatableMetadata(string code)
+        {
+            string relativeUrl = "datatables/" + code + "/metadata";
+            return await RequestAsync<DatatableMetadata>(relativeUrl, CallTypes.Data, null);
+        }
 
         private static WebClient QuandlApiWebClient(CallTypes callType = CallTypes.Data)
         {

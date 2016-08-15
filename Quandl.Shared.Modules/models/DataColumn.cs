@@ -11,7 +11,9 @@ namespace Quandl.Shared.Models
 
         public DataHolderDefinition Parent { get; set; }
 
-        public ProviderType Type { get; set; }
+        public ProviderType ProviderType { get; set; }
+
+        public string Type { get; set; }
 
         public string LongName => ParentProperty != null ? $"{ParentProperty.Name} - {Name}" : Name;
 
