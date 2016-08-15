@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Win32;
@@ -14,12 +15,15 @@ namespace Quandl.Shared
 
         public enum AutoUpdateFrequencies
         {
-            [Description("Disabled")] Disabled = -1,
-            [Description("One Day")] OneDay = 1,
-            [Description("Seven Days")] SevenDays = 7
+            [Description("Disabled")]
+            Disabled = -1,
+            [Description("One Day")]
+            OneDay = 1,
+            [Description("Seven Days")]
+            SevenDays = 7
         }
 
-        private const string RegistrySubKey = @"SOFTWARE\Quandl\ExcelAddin";
+        private const string RegistrySubKey = @"SOFTWARE\Quandl\Excel Add-in";
 
         private static QuandlConfig instance;
 
@@ -32,6 +36,32 @@ namespace Quandl.Shared
                     instance = new QuandlConfig();
                 }
                 return instance;
+            }
+        }
+
+        public static bool IgnoreMissingFormulaParams
+        {
+            get { return GetRegistry<bool>("IgnoreMissingFormulaParams"); }
+            set
+            {
+                SetRegistryKeyValue("IgnoreMissingFormulaParams", value, RegistryValueKind.DWord);
+            }
+        }
+
+        public static bool StopCurrentExecution
+        {
+            get { return GetRegistry<bool>("StopCurrentExecution"); }
+            set
+            {
+                SetRegistryKeyValue("StopCurrentExecution", value, RegistryValueKind.DWord);
+            }
+        }
+
+        public static bool PreventCurrentExecution {
+            get { return GetRegistry<bool>("PreventExecution"); }
+            set
+            {
+                SetRegistryKeyValue("PreventExecution", value, RegistryValueKind.DWord);
             }
         }
 
@@ -52,7 +82,7 @@ namespace Quandl.Shared
             set { Instance.autoUpdateFrequency = value; }
         }
 
-        public static int AutoUpdateFrequencyDays => (int) AutoUpdateFrequency;
+        public static int AutoUpdateFrequencyDays => (int)AutoUpdateFrequency;
 
         private string apiKey
         {
@@ -71,6 +101,7 @@ namespace Quandl.Shared
         }
 
         public static bool AutoUpdate => AutoUpdateFrequency != 0;
+
         public event LoginChangedHandler LoginChanged;
         public event LoginChangedHandler AutoUpdateFrequencyChanged;
 
@@ -103,7 +134,7 @@ namespace Quandl.Shared
 
         public static void AuthenticateWithCredentials(string accountName, string pass)
         {
-            var obj = new {user = new {account = accountName, password = pass}};
+            var obj = new { user = new { account = accountName, password = pass } };
             var payload = JsonConvert.SerializeObject(obj);
             var requestUri = Settings.Default.BaseUrl + "users/token_auth";
             var res = Web.Post(requestUri, payload);
@@ -119,9 +150,8 @@ namespace Quandl.Shared
             RegistryValueKind regValueKing = RegistryValueKind.String)
         {
             var appKeyPath = Registry.CurrentUser.CreateSubKey(RegistrySubKey);
-            var apiSubKey = appKeyPath.CreateSubKey(key);
-            apiSubKey.SetValue(key, value, regValueKing);
-            apiSubKey.Close();
+            appKeyPath.SetValue(key, value, regValueKing);
+            appKeyPath.Close();
         }
 
         private static T GetRegistry<T>(string key)
@@ -129,10 +159,13 @@ namespace Quandl.Shared
             var quandlRootKey = Registry.CurrentUser.OpenSubKey(RegistrySubKey);
             if (quandlRootKey != null)
             {
-                var subKey = quandlRootKey.OpenSubKey(key);
-                if (subKey != null)
+                if (typeof(T) == typeof(bool))
                 {
-                    return (T) subKey.GetValue(key, default(T));
+                    return (T)(object)((int)quandlRootKey.GetValue(key, default(int)) == 1);
+                }
+                else
+                {
+                    return (T)quandlRootKey.GetValue(key, default(T));
                 }
             }
 

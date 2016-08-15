@@ -73,7 +73,7 @@ namespace Quandl.Shared
             return browse;
         }
 
-        public static async Task<Dataset> GetData(string quandlCode, Dictionary<string, object> queryParams)
+        public static async Task<Dataset> GetDatasetData(string quandlCode, Dictionary<string, object> queryParams)
         {
             var relativeUrl = "datasets/" + quandlCode + "/data";
             var resp = await RequestAsync<DataArray>(relativeUrl, CallTypes.Data, queryParams);
@@ -81,6 +81,16 @@ namespace Quandl.Shared
             dataset.DatabaseCode = quandlCode.Split('/')[0];
             dataset.DatasetCode = quandlCode.Split('/')[1];
             return dataset;
+        }
+
+        public static async Task<Datatable> GetDatatableData(string quandlCode, Dictionary<string, object> queryParams)
+        {
+            var relativeUrl = "datatables/" + quandlCode;
+            var resp = await RequestAsync<DataArray>(relativeUrl, CallTypes.Data, queryParams);
+            var datatable = new Datatable { Data = resp, Columns = resp.Columns };
+            datatable.VendorCode = quandlCode.Split('/')[0];
+            datatable.DatatableCode = quandlCode.Split('/')[1];
+            return datatable;
         }
 
         public static JObject Post(string requestUri, string body)

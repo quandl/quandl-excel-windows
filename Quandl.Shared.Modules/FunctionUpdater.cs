@@ -17,13 +17,13 @@ namespace Quandl.Shared
             }
             catch (COMException ex)
             {
-                if (ex.Message == "No cells were found.")
+                // No quandl formula cells were found
+                if (ex.HResult == -2146827284)
                 {
-                    throw new MissingFormulaException("No formula's found to update.");
+                    throw new MissingFormulaException("No Quandl formula's were found to update.");
                 }
                 throw;
             }
-            var count = range.Count;
 
             foreach (Range c in range.Cells)
             {
@@ -55,10 +55,26 @@ namespace Quandl.Shared
 
         public static void RecalculateQuandlFunctionsInWorkSheet(Worksheet worksheet)
         {
-            // force recalculation of workbook
+            // force recalculation of workbook by reseting calculation mode.
             var oldValue = worksheet.EnableCalculation;
             worksheet.EnableCalculation = false;
-            worksheet.Calculate();
+            //worksheet.Calculate();
+
+
+            // Find all quandl formula in the worksheet and re-calculate them.
+            Range range = worksheet.UsedRange.SpecialCells(XlCellType.xlCellTypeFormulas);
+            foreach (Range c in range.Cells)
+            {
+                if (!c.HasFormula) continue;
+                string convertedString = c.Formula.ToString().ToUpper();
+                foreach (var formulaDefinition in UserDefinedFunctions)
+                {
+                    if (convertedString.Contains(formulaDefinition))
+                    {
+                        c.Calculate();
+                    }
+                }
+            }
             worksheet.EnableCalculation = oldValue;
         }
 

@@ -16,6 +16,7 @@ namespace Quandl.Excel.Addin
 
         private void Ribbon2_Load(object sender, RibbonUIEventArgs e)
         {
+            SetExecutionToggleIcon();
         }
 
         private void AboutButton_Click(object sender, RibbonControlEventArgs e)
@@ -71,7 +72,39 @@ namespace Quandl.Excel.Addin
 
         private void refreshMulti_Click(object sender, RibbonControlEventArgs e)
         {
-            refreshWorkbook_Click(sender, e);
+            refreshWorksheet_Click(sender, e);
+        }
+
+        private void btnStopAll_Click(object sender, RibbonControlEventArgs e)
+        {
+            QuandlConfig.StopCurrentExecution = true;
+        }
+
+        private void btnExecutionToggle_Click(object sender, RibbonControlEventArgs e)
+        {
+            var prevent = QuandlConfig.PreventCurrentExecution;
+            if (prevent)
+            {
+                QuandlConfig.PreventCurrentExecution = false;
+            }
+            else
+            {
+                QuandlConfig.PreventCurrentExecution = true;
+            }
+            SetExecutionToggleIcon();
+        }
+
+        private void SetExecutionToggleIcon()
+        {
+            var prevent = QuandlConfig.PreventCurrentExecution;
+            if (prevent)
+            {
+                btnExecutionToggle.OfficeImageId = "SkipOccurrence";
+            }
+            else
+            {
+                btnExecutionToggle.OfficeImageId = "FileStartWorkflow";
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using ExcelDna.Integration;
 using Microsoft.Office.Interop.Excel;
 using Quandl.Shared;
 using Quandl.Shared.Models;
+using Quandl.Shared.Excel;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
@@ -31,7 +32,13 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 AllowReference = true)] string rawHeader = null
             )
         {
-            // Parse out all the data.
+            // Prevent the formula from running should it be blocked.
+            if (QuandlConfig.PreventCurrentExecution)
+            {
+                return Locale.English.AutoDownloadTurnedOff;
+            }
+
+            // Parse out all the parameters specified in the UDF.
             var quandlCodeColumns = Tools.GetArrayOfValues(rawQuandlCodeColumns).Select(s => s.ToUpper()).ToList();
             var dates = GetDatesFromFormula(rawDates);
             var collapse = Tools.GetStringValue(rawCollapse);
@@ -44,7 +51,10 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             var reference = (ExcelReference) XlCall.Excel(XlCall.xlfCaller);
             Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
-            // Pull the data and place it in the cells
+            // Begin the reaping thread. This is necessary to kill off and formula that are functioning for a long time.
+            FunctionGrimReaper.BeginTheReaping(currentFormulaCell.Application);
+
+            // Pull the data
             ResultsData results = null;
             try
             {
@@ -55,10 +65,10 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 return e.Message;
             }
 
-            // Sort out and display the data
+            // Sort out the data and place it in the cells
             var sortedResults = new ResultsData(results.SortedData("date", orderAsc), results.Headers);
             var reorderColumns = sortedResults.ExpandAndReorderColumns(quandlCodeColumns);
-            var excelWriter = new ExcelHelp(currentFormulaCell, reorderColumns, includeHeader);
+            var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader);
             return Utilities.ValidateEmptyData(excelWriter.PopulateData());
         }
 
@@ -115,7 +125,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             datasetsWithoutColumns.ForEach(qc => datasets[qc].Columns.Clear());
 
             // Fetch all the data at the same time.
-            var tasks = datasets.Select(dsp => Web.GetData(dsp.Value.Code, dsp.Value.QueryParams));
+            var tasks = datasets.Select(dsp => Web.GetDatasetData(dsp.Value.Code, dsp.Value.QueryParams));
             var fetchTask = Task.WhenAll(tasks);
             fetchTask.Wait();
 
@@ -193,8 +203,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     }
                     else if (_dates.Count != 0)
                     {
-                        throw new DatasetParamError(
-                            "Invalid date filters specified. Please ensure a maximum of two dates are given and they are in the format YYYY-MM-DD.");
+                        throw new DatasetParamError(Locale.English.DatasetParamsInvalidDateFilters);
                     }
 
                     // Collapse filters
@@ -204,8 +213,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     }
                     else if (!string.IsNullOrEmpty(_collapse))
                     {
-                        throw new DatasetParamError(
-                            $"Invalid collapse parameter given : {_collapse}");
+                        throw new DatasetParamError(Locale.English.DatasetParamsInvalidCollapse.Replace("{collapse}", _collapse));
                     }
 
                     // Transformation filters
@@ -215,8 +223,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     }
                     else if (!string.IsNullOrEmpty(_transformation))
                     {
-                        throw new DatasetParamError(
-                            $"Invalid transformation parameter given : {_transformation}");
+                        throw new DatasetParamError(Locale.English.DatasetParamsInvalidTransformation.Replace("{transformation}", _transformation));
                     }
 
                     // Convert limits
@@ -226,7 +233,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     }
                     else if (_limit != null)
                     {
-                        throw new DatasetParamError("Limit must be above zero or not specified.");
+                        throw new DatasetParamError(Locale.English.DatasetParamsLimitZeroOrBelow);
                     }
 
                     return queryParams;

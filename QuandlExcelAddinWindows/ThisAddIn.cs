@@ -19,7 +19,6 @@ namespace Quandl.Excel.Addin
         public delegate void LoginChanged();
 
         private Range _activeCells;
-        private Timer _statusTimer;
 
         public Range ActiveCells
         {
@@ -42,25 +41,8 @@ namespace Quandl.Excel.Addin
 
         public void UpdateStatusBar(Exception error)
         {
-            var oldStatusBarVisibility = Application.DisplayStatusBar;
-            Application.DisplayStatusBar = true;
-            Application.StatusBar = "⚠ Quandl plugin error: " + error.Message;
-
-            // Clean up an old timers;
-            if (_statusTimer != null)
-            {
-                _statusTimer.Stop();
-                _statusTimer.Close();
-            }
-
-            // Create a new timer to show the error temporarily
-            _statusTimer = new Timer(20000);
-            _statusTimer.Elapsed += async (sender, e) => await Task.Run(() =>
-            {
-                Application.StatusBar = false;
-                Application.DisplayStatusBar = oldStatusBarVisibility;
-            });
-            _statusTimer.Start();
+            var status = new Quandl.Shared.Excel.StatusBar(Application);
+            status.AddException(error);
         }
 
         private void ThisAddIn_Startup(object sender, EventArgs e)
@@ -82,8 +64,7 @@ namespace Quandl.Excel.Addin
             if (!FunctionUpdater.HasQuandlFormulaInWorkbook(wb) || !QuandlConfig.AutoUpdate) return;
             const string message = @"Your workbook(s) contain Quandl formulas. Would you like to update your data?";
             const string caption = @"Update Data";
-            var a = Application.Calculation;
-            var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo);
+            var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
