@@ -21,6 +21,7 @@ namespace Quandl.Excel.Addin.UI.Settings
             Loaded += delegate
             {
                 ApiKeyTextBox.Text = QuandlConfig.ApiKey;
+                IgnoreWarningTextBox.IsChecked = QuandlConfig.IgnoreMissingFormulaParams;
                 BindingHelper.SetItemSourceViaEnum(AutoUpdateComboBox, typeof(QuandlConfig.AutoUpdateFrequencies));
             };
         }
@@ -29,6 +30,7 @@ namespace Quandl.Excel.Addin.UI.Settings
         {
             QuandlConfig.ApiKey = ApiKeyTextBox.Text;
             QuandlConfig.AutoUpdateFrequency = (QuandlConfig.AutoUpdateFrequencies) AutoUpdateComboBox.SelectedValue;
+            QuandlConfig.IgnoreMissingFormulaParams = (bool)IgnoreWarningTextBox.IsChecked;
             FadeImage(SaveStatus, new TimeSpan(0, 0, 0, 0, 250), new TimeSpan(0, 0, 0, 2), new TimeSpan(0, 0, 0, 0, 250));
         }
 

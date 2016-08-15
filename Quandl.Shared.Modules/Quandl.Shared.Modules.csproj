@@ -58,6 +58,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -71,7 +72,9 @@
   <ItemGroup>
     <Compile Include="Errors\MissingFormulaException.cs" />
     <Compile Include="Errors\QuandlErrorBase.cs" />
-    <Compile Include="ExcelHelp.cs" />
+    <Compile Include="Excel\FunctionGrimReaper.cs" />
+    <Compile Include="Excel\SheetHelper.cs" />
+    <Compile Include="Excel\StatusBar.cs" />
     <Compile Include="FunctionUpdater.cs" />
     <Compile Include="Helpers\CheckedItemHelper.cs" />
     <Compile Include="Models\DataHolderDefinition.cs" />

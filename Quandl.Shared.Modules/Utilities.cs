@@ -91,7 +91,7 @@ namespace Quandl.Shared
 
         public static string ValidateEmptyData(string quandl_data)
         {
-            if (quandl_data == null || quandl_data.Equals(""))
+            if (string.IsNullOrWhiteSpace(quandl_data))
             {
                 throw new QuandlDataNotFoundException();
             }
