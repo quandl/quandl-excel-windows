@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using ExcelDna.Integration;
 using Quandl.Shared;
+using System.Linq;
+using Microsoft.Office.Interop.Excel;
 
 namespace Quandl.Excel.UDF.Functions
 {
@@ -16,9 +18,9 @@ namespace Quandl.Excel.UDF.Functions
         public static int? GetIntValue(object referenceOrString)
         {
             if (referenceOrString is double)
-                return (int) (double) referenceOrString;
+                return (int)(double)referenceOrString;
             if (referenceOrString is int)
-                return (int) referenceOrString;
+                return (int)referenceOrString;
 
             var cellValue = GetStringValue(referenceOrString);
             if (cellValue == null)
@@ -35,20 +37,7 @@ namespace Quandl.Excel.UDF.Functions
             }
             if (referenceOrString is ExcelReference)
             {
-                return GetValueFromSingleCell((ExcelReference) referenceOrString);
-            }
-            return null;
-        }
-
-        public static string GetDateValue(object referenceOrString)
-        {
-            if (referenceOrString is string)
-            {
-                return referenceOrString.ToString();
-            }
-            if (referenceOrString is ExcelReference)
-            {
-                return GetDateValueFromSingleCell((ExcelReference) referenceOrString);
+                return GetValueFromSingleCell((ExcelReference)referenceOrString);
             }
             return null;
         }
@@ -60,59 +49,121 @@ namespace Quandl.Excel.UDF.Functions
                 true)];
         }
 
-        public static List<string> GetArrayOfValues(object referenceOrString)
+        public static List<object> GetArrayOfValues(object referenceOrString)
         {
             if (referenceOrString is object[,])
             {
-                return GetValuesFromObjectArray((object[,]) referenceOrString);
+                return GetValuesFromObjectArray((object[,])referenceOrString);
             }
             if (referenceOrString is string)
             {
-                return Utilities.GetValuesFromString((string) referenceOrString);
+                return Utilities.GetValuesFromString((string)referenceOrString).Select(s => (object)s).ToList();
             }
             if (referenceOrString is ExcelReference)
             {
-                return GetValuesFromCellRange((ExcelReference) referenceOrString);
+                return GetValuesFromCellRange((ExcelReference)referenceOrString);
             }
-            return new List<string>();
+            return new List<object>();
         }
 
-        public static List<string> GetValuesFromObjectArray(object[,] arr)
+        public static List<DateTime?> GetArrayOfDates(object referenceOrString)
         {
-            var returnValues = new List<string>();
+            if (referenceOrString is object[,])
+            {
+                return GetValuesFromObjectArray((object[,])referenceOrString).Select(GetDateValue).ToList();
+            }
+            else if (referenceOrString is ExcelReference)
+            {
+                var reference = (ExcelReference)referenceOrString;
+                if (!IsSingleCell(reference))
+                {
+                    Range currentFormulaCell = Tools.ReferenceToRange(reference);
+                    var startCell = (Range)currentFormulaCell.Cells[1, 1];
+                    var endCell = (Range)currentFormulaCell.Cells[reference.RowLast - reference.RowFirst + 1, reference.ColumnLast - reference.ColumnFirst + 1];
+                    var startDate = GetDateValue(startCell);
+                    var endDate = GetDateValue(endCell);
+                    return new List<DateTime?>() { startDate, endDate };
+                }
+                else
+                {
+                    var date = GetDateValue(referenceOrString);
+                    if (date != null)
+                    {
+                        return new List<DateTime?>() { date };
+                    }
+                }
+            }
+            else
+            {
+                var date = GetDateValue(referenceOrString);
+                if (date != null)
+                {
+                    return new List<DateTime?>() { date };
+                }
+            }
+            return new List<DateTime?>() { };
+        }
+
+        private static DateTime? GetDateValue(object referenceOrString)
+        {
+            if (referenceOrString is ExcelReference)
+            {
+                return GetDateValueFromPrimitive(((ExcelReference)referenceOrString).GetValue());
+            }
+            if (referenceOrString is Range)
+            {
+                return GetDateValueFromPrimitive(((Range)referenceOrString).Value2);
+            }
+            return GetDateValueFromPrimitive(referenceOrString);
+        }
+
+        public static List<object> GetValuesFromObjectArray(object[,] arr)
+        {
+            var returnValues = new List<object>();
             for (var i = 0; i < arr.GetLength(0); i++)
             {
                 for (var j = 0; j < arr.GetLength(1); j++)
                 {
                     if (!(arr[i, j] is ExcelMissing))
                     {
-                        returnValues.Add(arr[i, j].ToString());
+                        returnValues.Add(arr[i, j]);
                     }
                 }
             }
             return returnValues;
         }
 
-        public static List<string> GetValuesFromCellRange(ExcelReference excelReference)
+        public static List<object> GetValuesFromCellRange(ExcelReference excelReference)
         {
             if (IsSingleCell(excelReference))
             {
-                var returnValue = new List<string>();
-                returnValue.Add(excelReference.GetValue().ToString());
+                var returnValue = new List<object>();
+                returnValue.Add(excelReference.GetValue());
                 return returnValue;
             }
-            return GetValuesFromObjectArray((object[,]) excelReference.GetValue());
+            return GetValuesFromObjectArray((object[,])excelReference.GetValue());
         }
 
         public static string GetValueFromSingleCell(ExcelReference excelReference)
         {
-            return (string) excelReference.GetValue();
+            return (string)excelReference.GetValue();
         }
 
-        public static string GetDateValueFromSingleCell(ExcelReference excelReference)
+        public static DateTime? GetDateValueFromPrimitive(object date)
         {
-            var date = DateTime.FromOADate(Convert.ToDouble(excelReference.GetValue()));
-            return date.ToString("yyyyMMdd");
+            if (date == null || date is ExcelDna.Integration.ExcelMissing)
+            {
+                return null;
+            }
+            if (date is string)
+            {
+                return GetDateValueFromString((string)date);
+            }
+            if (date is double)
+            {
+                return GetDateValueFromDouble((double)date);
+            }
+            throw new ArgumentException("Could not determine date type.");
         }
 
         public static DateTime? GetDateValueFromString(string date)
@@ -121,7 +172,19 @@ namespace Quandl.Excel.UDF.Functions
             {
                 return null;
             }
-            return DateTime.ParseExact(date, Utilities.DateFormat, CultureInfo.InvariantCulture);
+            try
+            {
+                return DateTime.ParseExact(date, Utilities.DateFormat, CultureInfo.InvariantCulture);
+            }
+            catch (FormatException)
+            {
+                return DateTime.Parse(date);
+            }
+        }
+
+        public static DateTime GetDateValueFromDouble(double date)
+        {
+            return DateTime.FromOADate(Convert.ToDouble(date));
         }
 
         public static bool IsSingleCell(ExcelReference er)

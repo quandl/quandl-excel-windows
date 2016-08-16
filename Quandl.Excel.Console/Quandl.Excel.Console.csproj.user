@@ -4,7 +4,7 @@
     <StartAction>Project</StartAction>
     <StartProgram>
     </StartProgram>
-    <StartArguments>unregister</StartArguments>
+    <StartArguments>register</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <PublishUrlHistory>publish\</PublishUrlHistory>

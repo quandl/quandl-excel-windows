@@ -236,7 +236,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private string ProduceQtableFormula()
         {
             var formulaComponents = new List<string>();
-            formulaComponents.Add($"{{{string.Join(",", QuandlCodes)}}}");
+            formulaComponents.Add($"\"{QuandlCodes[0]}\"");
 
             if (Columns.Count == 1)
             {
@@ -245,7 +245,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             else if (Columns.Count > 1)
             {
                 formulaComponents.Add(
-                    $"{{{string.Join(",", Columns.Select(n => $"\"{n.Name}\"".ToString()).ToArray())}}}");
+                    $"{{{string.Join(",", Columns.Select(n => $"\"{n.Name}\"").ToArray())}}}");
             }
 
             AddDatatableFilters(formulaComponents);
