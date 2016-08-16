@@ -9,6 +9,7 @@ namespace Quandl.Shared.Excel
     {
         private static Timer _statusTimer;
         private Application application;
+        private readonly int TIMER_DELAY = 20000;
 
         public StatusBar(Application application)
         {
@@ -29,7 +30,7 @@ namespace Quandl.Shared.Excel
             }
 
             // Create a new timer to show the error temporarily
-            _statusTimer = new Timer(20000);
+            _statusTimer = new Timer(TIMER_DELAY);
             _statusTimer.Elapsed += async (sender, e) => await Task.Run(() =>
             {
                 application.StatusBar = false;
