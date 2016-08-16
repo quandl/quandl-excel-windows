@@ -63,7 +63,7 @@
 		<createdtm>06/21/1999 06:00</createdtm>
 		<lastsavedtm>07/14/2000 09:50</lastsavedtm>
 		<pagecount>500</pagecount>
-		<wordcount>0</wordcount>
+		<wordcount>8</wordcount>
 		<charcount/>
 		<appname>InstallShield Express</appname>
 		<security>1</security>
@@ -351,7 +351,8 @@
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{92CFCBA5-C954-442B-8890-64F00820DCBE}</td><td>LocalAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{B9113AA8-E292-472B-80A2-64089A3FED92}</td><td>ProgramFiles64Folder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>IS_ININSTALL_SHORTCUT</td><td>{CCAC810B-8420-4846-AFF9-A97353666B32}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Excel.Addin.Primary_output</td><td>{8F6DEE81-F311-4D82-804E-6A30A0BF1B8A}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.addin.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Excel.Addin.Content_Files</td><td>{59F8F669-0C2C-4B6D-8207-8B4F78E12F33}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.addin.content_f</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Excel.Addin.Primary_output</td><td>{F28B3C27-3BC1-42CE-83CA-359EA5A11738}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.addin.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Quandl.Excel.Console.Primary_output</td><td>{55828322-B2AC-48C1-B194-ACD92AA4519C}</td><td>DATABASEDIR</td><td>2</td><td/><td>quandl.excel.console.primary</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Quandl.Excel.UDF.Functions.Primary_output</td><td>{0A5A6D47-AEE9-4224-A408-1CC89D9E027E}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.udf.functions.p</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Quandl.Excel.UDF.Functions_AddIn.dna</td><td>{66DE0CE2-1EB7-47B2-B04F-2C105B794553}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.udf.functions_a</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1067,6 +1068,7 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>INSTALLDIR</td><td>IS_ININSTALL_SHORTCUT</td></row>
+		<row><td>INSTALLDIR</td><td>Quandl.Excel.Addin.Content_Files</td></row>
 		<row><td>INSTALLDIR</td><td>Quandl.Excel.Addin.Primary_output</td></row>
 		<row><td>INSTALLDIR</td><td>Quandl.Excel.Console.Primary_output</td></row>
 		<row><td>INSTALLDIR</td><td>Quandl.Excel.UDF.Functions.Primary_output</td></row>
@@ -1095,7 +1097,7 @@
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
-		<row><td>UnRegisterAddin</td><td>1058</td><td>DATABASEDIR</td><td>[DATABASEDIR]Quandl.Excel.Console.exe unregister</td><td/><td/></row>
+		<row><td>UnRegisterAddin</td><td>1122</td><td>DATABASEDIR</td><td>[DATABASEDIR]Quandl.Excel.Console.exe unregister</td><td/><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>
 		<row><td>setUserProfileNT</td><td>51</td><td>USERPROFILE</td><td>[%USERPROFILE]</td><td/><td/></row>
 	</table>
@@ -1188,7 +1190,7 @@
 		<row><td>ProgramFilesFolder</td><td>TARGETDIR</td><td>.:PROGRA~1|program files</td><td/><td>0</td><td/></row>
 		<row><td>ProgramMenuFolder</td><td>TARGETDIR</td><td>.:Programs</td><td/><td>3</td><td/></row>
 		<row><td>QUANDL.EXCEL.CONSOLE.EXE</td><td>DATABASEDIR</td><td>QUANDL~1|Quandl.Excel.Console.exe</td><td/><td>0</td><td/></row>
-		<row><td>QUANDL_INC</td><td>ProgramFilesFolder</td><td>QUANDL~1|Quandl Inc</td><td/><td>0</td><td/></row>
+		<row><td>QUANDL_INC</td><td>AppDataFolder</td><td>Quandl</td><td/><td>0</td><td/></row>
 		<row><td>RecentFolder</td><td>TARGETDIR</td><td>.:Recent</td><td/><td>0</td><td/></row>
 		<row><td>SUPPORTDIR</td><td>TARGETDIR</td><td>SUPPORTDIR</td><td/><td>0</td><td/></row>
 		<row><td>SendToFolder</td><td>TARGETDIR</td><td>.:SendTo</td><td/><td>3</td><td/></row>
@@ -1901,6 +1903,7 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>AlwaysInstall</td><td>IS_ININSTALL_SHORTCUT</td></row>
+		<row><td>AlwaysInstall</td><td>Quandl.Excel.Addin.Content_Files</td></row>
 		<row><td>AlwaysInstall</td><td>Quandl.Excel.Addin.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>Quandl.Excel.Console.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>Quandl.Excel.UDF.Functions.Primary_output</td></row>
@@ -1920,8 +1923,9 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>quandl.excel.addin.content_f</td><td>Quandl.Excel.Addin.Content_Files</td><td>Quandl.Excel.Addin.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Addin&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>quandl.excel.addin.dll.manif</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.MAN|Quandl.Excel.Addin.dll.manifest</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.dll.manifest</td><td>1</td><td/></row>
-		<row><td>quandl.excel.addin.primary_o</td><td>Quandl.Excel.Addin.Primary_output</td><td>Quandl.Excel.Addin.Primary output</td><td>0</td><td/><td/><td>0</td><td>1</td><td>&lt;Quandl.Excel.Addin&gt;|Built</td><td>3</td><td/></row>
+		<row><td>quandl.excel.addin.primary_o</td><td>Quandl.Excel.Addin.Primary_output</td><td>Quandl.Excel.Addin.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Addin&gt;|Built</td><td>3</td><td/></row>
 		<row><td>quandl.excel.addin.vsto</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.VST|Quandl.Excel.Addin.vsto</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.vsto</td><td>1</td><td/></row>
 		<row><td>quandl.excel.console.primary</td><td>Quandl.Excel.Console.Primary_output</td><td>Quandl.Excel.Console.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Console&gt;|Built</td><td>3</td><td/></row>
 		<row><td>quandl.excel.udf.functions.p</td><td>Quandl.Excel.UDF.Functions.Primary_output</td><td>Quandl.Excel.UDF.Functions.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.UDF.Functions1&gt;|Built</td><td>3</td><td/></row>
@@ -2074,7 +2078,8 @@
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_6EF04747_1ABE_4BFF_81ED_69C2DBE97390_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_612F5ACB_790C_487F_BE1A_79BC7262E4DC_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>IS_ININSTALL_SHORTCUT</td><td/><td/><td>_A707A2C6_6E5E_4F70_B91A_F6C3DC6E1377_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Excel.Addin.Primary_output</td><td/><td/><td>_F72BE33E_7D8B_4A92_868F_4ED1C71330E3_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Excel.Addin.Content_Files</td><td/><td/><td>_F04DBC2D_4CC5_4221_AED8_F7881B8E7094_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Excel.Addin.Primary_output</td><td/><td/><td>_B0040B69_DBC0_4D8E_BC6A_BAD7AA4F46A3_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Quandl.Excel.Console.Primary_output</td><td/><td/><td>_89B39ACE_F5DF_4DEB_B401_079E08B728E7_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Quandl.Excel.UDF.Functions.Primary_output</td><td/><td/><td>_208E6D32_17AA_487F_9187_4AC65F0FAF06_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Quandl.Excel.UDF.Functions_AddIn.dna</td><td/><td/><td>_3463DB17_F100_4FEB_B5C1_2456F26BA414_FILTER</td><td/><td/><td/><td/></row>
@@ -3903,7 +3908,7 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\Resources\Quandl_Icon.ico</td><td>0</td></row>
 		<row><td>Quandl.Excel.Conso_4CCCE07A50554807846C2EEB1115026B.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>Quandl.Excel.Conso_5EFD97536D4B43DEB9AB07B3B334DC24.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>Quandl.Excel.Conso_7469EC02DC8943C69407A7FDFC8DF348.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
@@ -4426,7 +4431,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>ProductCode</td><td>{D6EFE9E5-F250-4A87-9A10-75C7C69CFAC8}</td><td/></row>
 		<row><td>ProductName</td><td>Quandl Excel Addin</td><td/></row>
-		<row><td>ProductVersion</td><td>3.03.0000</td><td/></row>
+		<row><td>ProductVersion</td><td>3.05.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4438,7 +4443,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;ISFOUNDNEWERPRODUCTVERSION;MSOFFICE2010</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;ISFOUNDNEWERPRODUCTVERSION;MSOFFICE2010;ISACTIONPROP1</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{5E31829B-2176-41EB-88FC-FE5BEA8538E0}</td><td/></row>
@@ -4717,6 +4722,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">ActionProperty</col>
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
+		<row><td>{5E31829B-2176-41EB-88FC-FE5BEA8538E0}</td><td>3</td><td>4</td><td></td><td>768</td><td/><td>ISACTIONPROP1</td><td>UpgradeOldPackages</td></row>
 	</table>
 
 	<table name="Verb">

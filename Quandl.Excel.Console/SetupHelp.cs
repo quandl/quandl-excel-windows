@@ -8,11 +8,11 @@ namespace Quandl.Excel.Console
 {
     public class SetupHelp
     {
-        private const string OpenValue =
-            @"/R ""C:\Program Files (x86)\Quandl Inc\Quandl.Excel.UDF.Functions-AddIn.xll""";
-
         private const string AddinPartialPackageString = "Quandl";
         private const string AddinPackageString = "Quandl.Excel.UDF.Functions-AddIn.xll";
+
+        private static readonly string OpenValue = $@"/R ""{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\Quandl\Quandl.Excel.UDF.Functions-AddIn.xll""";
+
         public static string ValueKeyName { get; } = "OPEN";
 
         public static void RegisterExcelAddin()
@@ -39,7 +39,12 @@ namespace Quandl.Excel.Console
             }
 
             // Figure out the last OPEN integer and add that in.
-            var values = keys.Select(k => Convert.ToInt32(Regex.Replace(k, "[^0-9]", ""))).ToList();
+            var values = keys.Select(k =>
+            {
+                var destrung = Regex.Replace(k, "[^0-9]", "");
+                return string.IsNullOrWhiteSpace(destrung) ? 0 : Convert.ToInt32(destrung);
+            }).ToList();
+
             var maxKey = values.Any() ? $"{values.Max() + 1}" : "";
             SetRegistryKeyValue(subKey, $"{ValueKeyName}{maxKey}", OpenValue);
         }

@@ -7,6 +7,7 @@ using Microsoft.Office.Interop.Excel;
 using Quandl.Shared;
 using Quandl.Shared.Models;
 using Quandl.Shared.Excel;
+using System.Diagnostics;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
@@ -18,7 +19,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             [ExcelArgument(Name = "quandlCode",
                 Description = "Single or multiple Quandl codes with optional columns references", AllowReference = true)
             ] object rawQuandlCodeColumns,
-            [ExcelArgument(Name = "dateRange", Description = "(optional) The date or range of dates to filter on")] object rawDates = null,
+            [ExcelArgument(Name = "dateRange", Description = "(optional) The date or range of dates to filter on", AllowReference = true)] object rawDates = null,
             [ExcelArgument(Name = "collapse", Description = "(optional) How to collapse the data", AllowReference = true
                 )] string rawCollapse = null,
             [ExcelArgument(Name = "order", Description = "(optional) Order the data is returned in",
@@ -38,49 +39,46 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 return Locale.English.AutoDownloadTurnedOff;
             }
 
-            // Parse out all the parameters specified in the UDF.
-            var quandlCodeColumns = Tools.GetArrayOfValues(rawQuandlCodeColumns).Select(s => s.ToUpper()).ToList();
-            var dates = GetDatesFromFormula(rawDates);
-            var collapse = Tools.GetStringValue(rawCollapse);
-            var orderAsc = Tools.GetStringValue(rawOrder).ToLower() == "asc";
-            var transformation = Tools.GetStringValue(rawTransformation);
-            var limit = Tools.GetIntValue(rawLimit);
-            var includeHeader = string.IsNullOrEmpty(rawHeader) || Tools.GetBoolValue(rawHeader);
-
-            // Get the current cell formula.
-            var reference = (ExcelReference) XlCall.Excel(XlCall.xlfCaller);
-            Range currentFormulaCell = Tools.ReferenceToRange(reference);
-
-            // Begin the reaping thread. This is necessary to kill off and formula that are functioning for a long time.
-            FunctionGrimReaper.BeginTheReaping(currentFormulaCell.Application);
-
-            // Pull the data
-            ResultsData results = null;
             try
             {
-                results = RetrieveData(quandlCodeColumns, dates, collapse, transformation, limit);
+                // Parse out all the parameters specified in the UDF.
+                var quandlCodeColumns = Tools.GetArrayOfValues(rawQuandlCodeColumns).Select(s => ((string)s).ToUpper()).ToList();
+                var dates = Tools.GetArrayOfDates(rawDates);
+                var collapse = Tools.GetStringValue(rawCollapse);
+                var orderAsc = Tools.GetStringValue(rawOrder).ToLower() == "asc";
+                var transformation = Tools.GetStringValue(rawTransformation);
+                var limit = Tools.GetIntValue(rawLimit);
+                var includeHeader = string.IsNullOrEmpty(rawHeader) || Tools.GetBoolValue(rawHeader);
+
+                // Get the current cell formula.
+                var reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
+                Range currentFormulaCell = Tools.ReferenceToRange(reference);
+
+                // Begin the reaping thread. This is necessary to kill off and formula that are functioning for a long time.
+                FunctionGrimReaper.BeginTheReaping(currentFormulaCell.Application);
+
+                // Pull the data
+                ResultsData results = null;
+                try
+                {
+                    results = RetrieveData(quandlCodeColumns, dates, collapse, transformation, limit);
+                }
+                catch (DatasetParamError e)
+                {
+                    return e.Message;
+                }
+
+                // Sort out the data and place it in the cells
+                var sortedResults = new ResultsData(results.SortedData("date", orderAsc), results.Headers);
+                var reorderColumns = sortedResults.ExpandAndReorderColumns(quandlCodeColumns);
+                var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader);
+                return Utilities.ValidateEmptyData(excelWriter.PopulateData());
             }
-            catch (DatasetParamError e)
+            catch (Exception e)
             {
-                return e.Message;
+                Trace.WriteLine(e.Message);
+                throw;
             }
-
-            // Sort out the data and place it in the cells
-            var sortedResults = new ResultsData(results.SortedData("date", orderAsc), results.Headers);
-            var reorderColumns = sortedResults.ExpandAndReorderColumns(quandlCodeColumns);
-            var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader);
-            return Utilities.ValidateEmptyData(excelWriter.PopulateData());
-        }
-
-        private static List<DateTime?> GetDatesFromFormula(object dates)
-        {
-            var dateRange = Tools.GetArrayOfValues(dates);
-            if (dateRange.Count == 0)
-            {
-                return new List<DateTime?>();
-            }
-
-            return dateRange.Select(Tools.GetDateValueFromString).ToList();
         }
 
         private static ResultsData RetrieveData(List<string> quandlCodeColumns,
@@ -179,8 +177,12 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 {
                     var queryParams = new Dictionary<string, object>();
 
-                    // Column Names
+                    // Add column names specified by the user. Remove date as thats returned by default anyways
                     queryParams.Add("column_index", Columns);
+                    if (queryParams["column_index"] is List<string>)
+                    {
+                        queryParams["column_index"] = ((List<string>)queryParams["column_index"]).Where(s => s != "DATE").ToList();
+                    }
 
                     // Convert dates
                     if (_dates.Count == 2 && _dates[0] != null && _dates[1] != null)

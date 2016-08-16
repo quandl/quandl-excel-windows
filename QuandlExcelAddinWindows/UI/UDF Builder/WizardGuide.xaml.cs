@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using System.Windows.Threading;
 using Quandl.Shared;
 using static Quandl.Excel.Addin.UI.UDF_Builder.StateControl;
+using Microsoft.Office.Interop.Excel;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -22,7 +23,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             InitializeComponent();
 
             // Wait for the UI thread to become idle before rendering. Not this can have disastrous performance implications if used incorrectly.
-            Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.ContextIdle, null);
+            Dispatcher.Invoke(new System.Action(() => { }), DispatcherPriority.ContextIdle, null);
 
             // Async check that the user is logged in our not
             Loaded += async delegate
@@ -191,7 +192,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
 
                 // Step button
-                var stepLink = new Button();
+                var stepLink = new System.Windows.Controls.Button();
                 stepLink.Content = stepObject.GetShortTitle();
                 stepLink.Padding = new Thickness(10);
                 var step = i; // Need to duplicate the value to avoid issues with referencing a changing 'i'
@@ -201,7 +202,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 // Separator between step buttons
                 if (i != currentStep)
                 {
-                    var sep = new Label();
+                    var sep = new System.Windows.Controls.Label();
                     sep.Content = "-";
                     sep.Padding = new Thickness(0, 10, 0, 10);
                     stepBreadcrumb.Children.Add(sep);
@@ -219,7 +220,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
 
             // Add in the title
-            var titleBox = new TextBox();
+            var titleBox = new System.Windows.Controls.TextBox();
             titleBox.Text = title;
             titleBox.BorderThickness = new Thickness(0);
             titleBox.Background = Brushes.Transparent;

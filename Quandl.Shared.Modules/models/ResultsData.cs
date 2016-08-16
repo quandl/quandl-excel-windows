@@ -84,7 +84,13 @@ namespace Quandl.Shared.Models
                     ? new List<string> {qcc}
                     : Headers.FindAll(x => x.StartsWith(qcc)).ToList();
             }).SelectMany(i => i).ToList();
-            expandedHeaders.Insert(0, Headers.First()); // This should be date
+
+            // Add a `DATE` field in if the user has not specified one already.
+            expandedHeaders = expandedHeaders.Select(s => s.Length - 4 >= 0 && s.Substring(s.Length - 4, 4) == "DATE" ? "DATE" : s).ToList();
+            if (expandedHeaders.Where(s => s.Length - 4 >= 0 ? s.Substring(s.Length - 4, 4) == "DATE" : false).Count() == 0)
+            {
+                expandedHeaders.Insert(0, Headers.First()); 
+            }
 
             // Re-order the columns appropriately
             var shuffledData = new List<List<object>>();
