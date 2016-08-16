@@ -158,5 +158,14 @@ namespace Quandl.Excel.UDF.Functions.Locale {
                 return ResourceManager.GetString("DatatableParamWithoutKey", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retrieving data.......
+        /// </summary>
+        internal static string UdfRetrievingData {
+            get {
+                return ResourceManager.GetString("UdfRetrievingData", resourceCulture);
+            }
+        }
     }
 }
