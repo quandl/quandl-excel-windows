@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using Quandl.Shared.Excel;
 using System.Diagnostics;
 using System.Resources;
+using StatusBar = Quandl.Shared.Excel.StatusBar;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
@@ -55,6 +56,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
         private static string Process(Range currentFormulaCell, object rawQuandlCode, object rawColumns, object argName1, object argValue1, object argName2, object argValue2, object argName3, object argValue3, object argName4, object argValue4, object argName5, object argValue5, object argName6, object argValue6)
         {
+            StatusBar bar = new StatusBar((Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application);
+            bar.AddMessage(Locale.English.UdfRetrievingData);
             try
             {
                 // Parse out all the parameters specified in the UDF.

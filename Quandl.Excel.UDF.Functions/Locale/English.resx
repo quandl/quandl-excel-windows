@@ -150,4 +150,7 @@
   <data name="DatatableParamWithoutKey" xml:space="preserve">
     <value>'{value}' has been specified without a key.</value>
   </data>
+  <data name="UdfRetrievingData" xml:space="preserve">
+    <value>Retrieving data......</value>
+  </data>
 </root>
