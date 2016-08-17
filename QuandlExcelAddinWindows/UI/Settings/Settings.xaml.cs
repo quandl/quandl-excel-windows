@@ -12,6 +12,9 @@ namespace Quandl.Excel.Addin.UI.Settings
     /// </summary>
     public partial class Settings : UserControl
     {
+        private const int SaveIconFadeTimeMs = 250;
+        private const int SaveIconWaitTimeMs = 1000;
+
         public QuandlConfig.AutoUpdateFrequencies AutoUpdateFrequency;
 
         public Settings()
@@ -23,18 +26,23 @@ namespace Quandl.Excel.Addin.UI.Settings
                 ApiKeyTextBox.Text = QuandlConfig.ApiKey;
                 IgnoreWarningTextBox.IsChecked = QuandlConfig.IgnoreMissingFormulaParams;
                 BindingHelper.SetItemSourceViaEnum(AutoUpdateComboBox, typeof(QuandlConfig.AutoUpdateFrequencies));
+                AutoUpdateComboBox.SelectedValue = QuandlConfig.AutoUpdateFrequency;
             };
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            QuandlConfig.ApiKey = ApiKeyTextBox.Text;
-            QuandlConfig.AutoUpdateFrequency = (QuandlConfig.AutoUpdateFrequencies) AutoUpdateComboBox.SelectedValue;
-            QuandlConfig.IgnoreMissingFormulaParams = (bool)IgnoreWarningTextBox.IsChecked;
-            FadeImage(SaveStatus, new TimeSpan(0, 0, 0, 0, 250), new TimeSpan(0, 0, 0, 2), new TimeSpan(0, 0, 0, 0, 250));
+            FadeImage(SaveStatus, new TimeSpan(0, 0, 0, 0, SaveIconFadeTimeMs), new TimeSpan(0, 0, 0, 0, SaveIconWaitTimeMs), new TimeSpan(0, 0, 0, 0, SaveIconFadeTimeMs), SaveSettings);            
         }
 
-        public static void FadeImage(Image image, TimeSpan fadeInTime, TimeSpan waitTime, TimeSpan fadeOutTime)
+        private void SaveSettings()
+        {
+            QuandlConfig.ApiKey = ApiKeyTextBox.Text;
+            QuandlConfig.AutoUpdateFrequency = (QuandlConfig.AutoUpdateFrequencies)AutoUpdateComboBox.SelectedValue;
+            QuandlConfig.IgnoreMissingFormulaParams = (bool)IgnoreWarningTextBox.IsChecked;
+        }
+
+        private void FadeImage(Image image, TimeSpan fadeInTime, TimeSpan waitTime, TimeSpan fadeOutTime, Action action)
         {
             var fadeInAnimation = new DoubleAnimation(1d, fadeInTime);
             var waitAnimation = new DoubleAnimation(1d, waitTime);
@@ -42,7 +50,7 @@ namespace Quandl.Excel.Addin.UI.Settings
             var originalVisibility = image.Visibility;
             var originalOpactiy = image.Opacity;
 
-            fadeInAnimation.Completed += (o, e) => { image.BeginAnimation(OpacityProperty, waitAnimation); };
+            fadeInAnimation.Completed += (o, e) => { action(); image.BeginAnimation(OpacityProperty, waitAnimation); };
             waitAnimation.Completed += (o, e) => { image.BeginAnimation(OpacityProperty, fadeOutAnimation); };
             fadeOutAnimation.Completed += (o, e) =>
             {

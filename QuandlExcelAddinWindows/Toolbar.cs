@@ -94,7 +94,7 @@ namespace Quandl.Excel.Addin
             SetExecutionToggleIcon();
         }
 
-        private void SetExecutionToggleIcon()
+        public void SetExecutionToggleIcon()
         {
             var prevent = QuandlConfig.PreventCurrentExecution;
             if (prevent)
