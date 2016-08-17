@@ -48,26 +48,36 @@ namespace Quandl.Excel.Addin
         private void ThisAddIn_Startup(object sender, EventArgs e)
         {
             ActiveCells = Application.ActiveCell;
-            Application.WorkbookOpen += Application_WorkbookOpen;
+            TurnOffAutoUpdates();
+
+            Application.WorkbookOpen += CheckWorkbookForFormulaUpdates;
             Application.WorkbookActivate += Workbook_Activate;
             Application.SheetSelectionChange += Workbook_SheetSelectionChange;
-
-            SetupAutoUpdateTimer();
         }
 
         private void ThisAddIn_Shutdown(object sender, EventArgs e)
         {
         }
 
-        private void Application_WorkbookOpen(Workbook wb)
+        private void TurnOffAutoUpdates()
         {
-            if (!FunctionUpdater.HasQuandlFormulaInWorkbook(wb) || !QuandlConfig.AutoUpdate) return;
+            QuandlConfig.PreventCurrentExecution = true;
+            Globals.Ribbons.Ribbon2.SetExecutionToggleIcon();
+        }
+
+        private void CheckWorkbookForFormulaUpdates(Workbook wb)
+        {
+            if (!FunctionUpdater.HasQuandlFormulaInWorkbook(wb) || QuandlConfig.AutoUpdateFrequency != QuandlConfig.AutoUpdateFrequencies.WorkbookOpen) return;
+
             const string message = @"Your workbook(s) contain Quandl formulas. Would you like to update your data?";
             const string caption = @"Update Data";
             var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
+                QuandlConfig.PreventCurrentExecution = false;
+                Globals.Ribbons.Ribbon2.SetExecutionToggleIcon();
+
                 FunctionUpdater.RecalculateQuandlFunctions(wb);
             }
         }
@@ -109,44 +119,6 @@ namespace Quandl.Excel.Addin
         public void OnActiveCellChangedEvent(Range target)
         {
             ActiveCellChangedEvent?.Invoke(target);
-        }
-
-        public void OnAutoUpdateChangedEvent()
-        {
-            SetupAutoUpdateTimer();
-        }
-
-        private void SetupAutoUpdateTimer()
-        {
-            if (!QuandlConfig.AutoUpdate)
-            {
-                QuandlTimer.Instance.DisableUpdateTimer();
-                return;
-            }
-
-            QuandlTimer.Instance.SetupAutoRefreshTimer(TimeoutEventHandler);
-        }
-
-        public void TimeoutEventHandler(object sender, ElapsedEventArgs eventArg)
-        {
-            // don't try to update if user is editing the sheet(s)
-            // try again in later by enabling retry interval timeout if user is editing
-            var isEditing = IsEditing();
-            QuandlTimer.Instance.SetTimeoutInterval(isEditing);
-
-            if (isEditing)
-            {
-                return;
-            }
-
-            var workbooks = Application.Workbooks;
-
-            Application.Interactive = false;
-            foreach (Workbook workbook in workbooks)
-            {
-                FunctionUpdater.RecalculateQuandlFunctions(workbook);
-            }
-            Application.Interactive = true;
         }
 
         // Excel Interop will throw an exception if the user is editing

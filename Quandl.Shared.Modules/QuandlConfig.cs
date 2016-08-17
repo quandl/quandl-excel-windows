@@ -17,10 +17,8 @@ namespace Quandl.Shared
         {
             [Description("Disabled")]
             Disabled = -1,
-            [Description("One Day")]
-            OneDay = 1,
-            [Description("Seven Days")]
-            SevenDays = 7
+            [Description("On Workbook Open")]
+            WorkbookOpen = 1
         }
 
         private const string RegistrySubKey = @"SOFTWARE\Quandl\Excel Add-in";
@@ -75,14 +73,11 @@ namespace Quandl.Shared
             }
         }
 
-        // In days: 1 day or 7 days or never (0 days)
         public static AutoUpdateFrequencies AutoUpdateFrequency
         {
             get { return Instance.autoUpdateFrequency; }
             set { Instance.autoUpdateFrequency = value; }
         }
-
-        public static int AutoUpdateFrequencyDays => (int)AutoUpdateFrequency;
 
         private string apiKey
         {
@@ -99,8 +94,6 @@ namespace Quandl.Shared
             get { return Instance.apiKey; }
             set { Instance.apiKey = value; }
         }
-
-        public static bool AutoUpdate => AutoUpdateFrequency != 0;
 
         public event LoginChangedHandler LoginChanged;
         public event LoginChangedHandler AutoUpdateFrequencyChanged;
