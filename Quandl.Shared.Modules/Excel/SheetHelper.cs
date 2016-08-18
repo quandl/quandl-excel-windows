@@ -6,6 +6,8 @@ using Quandl.Shared.Models;
 using System.Threading;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Forms;
 
 namespace Quandl.Shared.Excel
 {
@@ -30,6 +32,8 @@ namespace Quandl.Shared.Excel
         // Helpers
         private Worksheet _currentWorksheet => _currentFormulaCell.Worksheet;
         private List<string> _remainingHeaders => _results.Headers.GetRange(1, _results.Headers.Count - 1);
+
+        public bool? ConfirmedOverwrite = null;
 
         public SheetHelper(Range currentFormulaCell, ResultsData results, bool includeHeader, bool threaded = false)
         {
@@ -70,9 +74,11 @@ namespace Quandl.Shared.Excel
 
                 throw;
             }
-
-            // Release Mutex to allow another function to write data.
-            DataWriteMutex.ReleaseMutex();
+            finally
+            {
+                // Release Mutex to allow another function to write data.
+                DataWriteMutex.ReleaseMutex();
+            }
 
             // Determine the value present in the first cell.
             return _includeHeader ? _results.Headers[0] : _results.Data[0][0].ToString();
@@ -90,7 +96,7 @@ namespace Quandl.Shared.Excel
                 iterations++;
             }
 
-            if (iterations < MaxCalculationWaitIntervals)
+            if (iterations >= MaxCalculationWaitIntervals)
             {
                 Trace.WriteLine("Max wait calculations iterations exceeded.");
             }
@@ -124,6 +130,8 @@ namespace Quandl.Shared.Excel
 
         private void PopulateHeader()
         {
+            if (ConfirmedOverwrite == false) return;
+
             var dataArray = new List<List<object>>() { _remainingHeaders.Select(d => (object)d).ToList() };
             var rowStart = _currentFormulaCell.Row;
             var columnStart = _currentFormulaCell.Column + 1;
@@ -133,6 +141,8 @@ namespace Quandl.Shared.Excel
 
         private void PopulateGrid(List<List<object>> dataArray, int rowOffset = 0)
         {
+            if (ConfirmedOverwrite == false) return;
+
             var rowStart = rowOffset + _currentFormulaCell.Row;
             var columnStart = _currentFormulaCell.Column;
             var startCell = (Range)_currentWorksheet.Cells[rowStart, columnStart];
@@ -152,8 +162,12 @@ namespace Quandl.Shared.Excel
                 var endCell = (Range)_currentWorksheet.Cells[startCell.Row + data.GetLength(0) - 1, startCell.Column + data.GetLength(1) - 1];
                 var writeRange = _currentWorksheet.Range[startCell, endCell];
 
+                if (!CanWriteData())
+                {
+                    return;
+                }
+
                 // Take control from user, write data, show it.
-                writeRange.Application.UserControl = false;
                 writeRange.Value2 = data;
                 writeRange.Show();
             }
@@ -161,11 +175,6 @@ namespace Quandl.Shared.Excel
             {
                 Trace.WriteLine(e.Message);
                 throw;
-            }
-            finally
-            {
-                // Ensure user has control again
-                startCell.Application.UserControl = true;
             }
         }
 
@@ -176,6 +185,24 @@ namespace Quandl.Shared.Excel
                 for (var c = 0; c != data[0].Count; c++)
                     newData[r, c] = data[r][c];
             return newData;
+        }
+
+        private bool CanWriteData()
+        {
+            if (ConfirmedOverwrite != true && QuandlConfig.OverwriteDataWarning)
+            {
+                var result = System.Windows.Forms.MessageBox.Show(
+                        Locale.English.OverwriteExistingDataPopupDesc,
+                        Locale.English.OverwriteExistingDataPopupTitle,
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning
+                    );
+
+                ConfirmedOverwrite = (result == DialogResult.Yes);
+                return ConfirmedOverwrite == true;
+            }
+
+            return true;
         }
     }
 }

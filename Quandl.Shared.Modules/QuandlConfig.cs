@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using Quandl.Shared.Errors;
 using Quandl.Shared.Properties;
+using System.Linq;
 
 namespace Quandl.Shared
 {
@@ -37,12 +38,21 @@ namespace Quandl.Shared
             }
         }
 
-        public static bool IgnoreMissingFormulaParams
+        public static bool LongRunningQueryWarning
         {
-            get { return GetRegistry<bool>("IgnoreMissingFormulaParams"); }
+            get { return RegistryKeyExists("LongRunningQueryWarning") ? GetRegistry<bool>("LongRunningQueryWarning") : true; }
             set
             {
-                SetRegistryKeyValue("IgnoreMissingFormulaParams", value, RegistryValueKind.DWord);
+                SetRegistryKeyValue("LongRunningQueryWarning", value, RegistryValueKind.DWord);
+            }
+        }
+
+        public static bool OverwriteDataWarning
+        {
+            get { return RegistryKeyExists("OverwriteDataWarning") ? GetRegistry<bool>("OverwriteDataWarning") : true; }
+            set
+            {
+                SetRegistryKeyValue("OverwriteDataWarning", value, RegistryValueKind.DWord);
             }
         }
 
@@ -93,6 +103,11 @@ namespace Quandl.Shared
         {
             get { return Instance.apiKey; }
             set { Instance.apiKey = value; }
+        }
+
+        private static bool RegistryKeyExists(string key) {
+            var quandlRootKey = Registry.CurrentUser.OpenSubKey(RegistrySubKey);
+            return quandlRootKey != null && quandlRootKey.GetValueNames().Contains(key);
         }
 
         public event LoginChangedHandler LoginChanged;

@@ -48,7 +48,6 @@ namespace Quandl.Excel.Addin
         private void ThisAddIn_Startup(object sender, EventArgs e)
         {
             ActiveCells = Application.ActiveCell;
-            TurnOffAutoUpdates();
 
             Application.WorkbookOpen += CheckWorkbookForFormulaUpdates;
             Application.WorkbookActivate += Workbook_Activate;
@@ -67,6 +66,8 @@ namespace Quandl.Excel.Addin
 
         private void CheckWorkbookForFormulaUpdates(Workbook wb)
         {
+            TurnOffAutoUpdates();
+
             if (!FunctionUpdater.HasQuandlFormulaInWorkbook(wb) || QuandlConfig.AutoUpdateFrequency != QuandlConfig.AutoUpdateFrequencies.WorkbookOpen) return;
 
             const string message = @"Your workbook(s) contain Quandl formulas. Would you like to update your data?";

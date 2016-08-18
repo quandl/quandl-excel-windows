@@ -84,7 +84,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 queryParams.AddParam(Tools.GetStringValue(argName6), argValue6);
 
                 // If the user has not added in any query parameters warn them that its probably not a good idea to continue forward.
-                if (!queryParams.UserParamsGiven && !QuandlConfig.IgnoreMissingFormulaParams)
+                if (QuandlConfig.LongRunningQueryWarning && !queryParams.UserParamsGiven)
                 {
                     DialogResult continueAnyways = MessageBox.Show(
                         Locale.English.AdditionalQueryParamsRequiredDesc,
@@ -134,7 +134,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
             public void fetchData()
             {
-                string next_cursor_id = null;
+                string nextCursorId = null;
+                bool? confirmedOverwrite = null;
 
                 try
                 {
@@ -150,7 +151,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
                         // Write fetch rows out to the sheet. If this is the first iteration save the value to display in the formula cell.
                         SheetHelper excelWriter = new SheetHelper(currentRange, processedData, false, true);
-                        if (next_cursor_id == null)
+                        if (nextCursorId == null)
                         {
                             excelWriter = new SheetHelper(currentRange, processedData, true, true);
                         }
@@ -161,24 +162,37 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                             return;
                         }
 
+                        // If the user already accepted to overwrite data then set that.
+                        excelWriter.ConfirmedOverwrite = confirmedOverwrite;
+
+                        // Write data and save state of whether to continue overwriting.
                         excelWriter.PopulateData();
+
+                        // Bail out if the user said no to overwriting data;
+                        confirmedOverwrite = excelWriter.ConfirmedOverwrite;
+                        if (excelWriter.ConfirmedOverwrite == false)
+                        {
+                            StatusBar bar = new StatusBar((Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application);
+                            bar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
+                            return;
+                        }
 
                         // Update the query params for next run if their is a cursor given and then increment the range where new data should go.
                         if (results.Data.Cursor != null)
                         {
-                            var header_offset = 0;
-                            if (next_cursor_id == null)
+                            var headerOffset = 0;
+                            if (nextCursorId == null)
                             {
-                                header_offset = 1;
+                                headerOffset = 1;
                             }
 
-                            next_cursor_id = results.Data.Cursor;
+                            nextCursorId = results.Data.Cursor;
                             datatableParams.AddInternalParam("qopts.cursor_id", results.Data.Cursor);
 
                             var worksheet = currentRange.Worksheet;
-                            currentRange = (Range)worksheet.Cells[currentRange.Row + header_offset + results.Data.DataPoints.Count - 1, currentRange.Column];
+                            currentRange = (Range)worksheet.Cells[currentRange.Row + headerOffset + results.Data.DataPoints.Count - 1, currentRange.Column];
                         }
-                    } while (!string.IsNullOrWhiteSpace(next_cursor_id));
+                    } while (!string.IsNullOrWhiteSpace(nextCursorId));
                 }
                 catch (COMException e)
                 {

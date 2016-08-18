@@ -100,10 +100,12 @@ namespace Quandl.Excel.Addin
             if (prevent)
             {
                 btnExecutionToggle.OfficeImageId = "SkipOccurrence";
+                refreshMulti.Enabled = false;
             }
             else
             {
                 btnExecutionToggle.OfficeImageId = "FileStartWorkflow";
+                refreshMulti.Enabled = true;
             }
         }
 

@@ -60,6 +60,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -77,6 +78,11 @@
     <Compile Include="Excel\StatusBar.cs" />
     <Compile Include="FunctionUpdater.cs" />
     <Compile Include="Helpers\CheckedItemHelper.cs" />
+    <Compile Include="Locale\English.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>English.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataHolderDefinition.cs" />
     <Compile Include="Models\OldMeta.cs" />
     <Compile Include="Models\ResultsData.cs" />
@@ -122,6 +128,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Locale\English.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>English.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
