@@ -51,7 +51,7 @@
         <Label Content="Data Manipulation" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                BorderThickness="0,0,0,1"
                BorderBrush="LightGray" Margin="0,20,0,5" />
-        <Label Content="Collapse" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"
+        <Label Content="Frequency" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"
                ToolTip="Change the sampling frequency of the returned data. Default is 'none' i.e. data is returned in its original granularity." />
         <ComboBox x:Name="ComboBoxFrequency" Grid.Row="4" Grid.Column="1" MinWidth="150"
                   HorizontalAlignment="Left" Margin="0,5" SelectedValue="{Binding TimeSeriesCollapseFilter}"

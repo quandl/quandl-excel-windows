@@ -29,6 +29,15 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             InitializeComponent();
             SelectedDataHolderTextBox.DataContext = this;
+
+            Loaded += delegate
+            {
+                if (StateControl.Instance.ChainType != StateControl.ChainTypes.TimeSeries)
+                {
+                    txtFilterResults.Visibility = Visibility.Collapsed;
+                    PaginationButtons.Visibility = Visibility.Collapsed;
+                }
+            };
         }
 
         private ObservableCollection<DataHolderDefinition> AvailableDataHolders
@@ -169,7 +178,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 ViewData selectedDatatable = (ViewData)lvDatasets.SelectedItem;
                 var code = selectedDatatable.Code;
                 var codes = GetCodes(code);
-                _selectedDatatable = new Datatable {VendorCode = codes.Item1, DatatableCode = codes.Item2};
+                _selectedDatatable = new Datatable { VendorCode = codes.Item1, DatatableCode = codes.Item2 };
                 SetDatatableFromAPI(selectedDatatable.Code);
                 AvailableDataHolders.Add(_selectedDatatable);
             });

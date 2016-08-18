@@ -20,7 +20,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 Description = "Single or multiple Quandl codes with optional columns references", AllowReference = true)
             ] object rawQuandlCodeColumns,
             [ExcelArgument(Name = "dateRange", Description = "(optional) The date or range of dates to filter on", AllowReference = true)] object rawDates = null,
-            [ExcelArgument(Name = "collapse", Description = "(optional) How to collapse the data", AllowReference = true
+            [ExcelArgument(Name = "frequency", Description = "(optional) Change the sampling frequency of the returned data", AllowReference = true
                 )] string rawCollapse = null,
             [ExcelArgument(Name = "order", Description = "(optional) Order the data is returned in",
                 AllowReference = true)] string rawOrder = null,
