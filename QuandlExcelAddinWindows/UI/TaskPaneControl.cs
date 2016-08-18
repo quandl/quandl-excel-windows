@@ -3,11 +3,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Microsoft.Office.Core;
-using Quandl.Excel.Addin.Properties;
 using CustomTaskPane = Microsoft.Office.Tools.CustomTaskPane;
 
 namespace Quandl.Excel.Addin.UI
@@ -58,32 +56,18 @@ namespace Quandl.Excel.Addin.UI
             }
         }
 
-        public void Show(bool asWindow = false)
+        public void Show()
         {
-            if (asWindow)
-            {
-                ShowAsWindow();
-            }
-            else
-            {
-                ShowAsTaskPane();
-            }
+            ShowAsTaskPane();
         }
 
-        private void ShowAsWindow()
-        {
-            var window = new Window
-            {
-                SizeToContent = SizeToContent.WidthAndHeight,
-                ResizeMode = ResizeMode.CanResizeWithGrip,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                MinHeight = 480,
-                MinWidth = 640
-            };
 
-            window.Content = control;
-            window.Icon = BitmapToImageSource(Resources.Quandl_Icon.ToBitmap());
-            window.ShowDialog();
+        public void Close()
+        {
+            if (taskPane != null)
+            {
+                taskPane.Visible = false;
+            }
         }
 
         private void ShowAsTaskPane()

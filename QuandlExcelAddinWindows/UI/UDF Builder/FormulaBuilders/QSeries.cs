@@ -1,29 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Quandl.Shared;
+﻿using Quandl.Shared;
 using Quandl.Shared.Models;
-using Quandl.Excel.Addin.UI.UDF_Builder.Filters;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Quandl.Excel.Addin.UI.UDF_Builder
+namespace Quandl.Excel.Addin.UI.UDF_Builder.FormulaBuilders
 {
-    internal class FormulaBuilder
+    class QSeries : Base
     {
-        private readonly StateControl _stateControl;
-
-        public FormulaBuilder(StateControl stateControl)
-        {
-            _stateControl = stateControl;
-        }
-
-        private ObservableCollection<DataColumn> Columns => _stateControl.Columns;
-        private IList<string> QuandlCodes => _stateControl.QuandlCodes;
-
-        private StateControl.TimeSeriesFilterCollapse TimeSeriesCollapseFilter => _stateControl.TimeSeriesCollapseFilter
-            ;
-
         private StateControl.TimeSeriesFilterSorts TimeSeriesSortFilter => _stateControl.TimeSeriesSortFilter;
 
         private StateControl.TimeSeriesFilterTransformations TimeSeriesTransformationFilter
@@ -37,17 +21,13 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private bool IncludeHeaders => _stateControl.IncludeHeaders;
 
-        private StateControl.ChainTypes ChainType => _stateControl.ChainType;
-
         private StateControl.TimeSeriesFilterTypes DateTypeFilter => _stateControl.DateTypeFilter;
 
-        private Hashtable DatatableFilters => _stateControl.DatatableFilters;
-       
-        public string ToUdf() => _stateControl.ChainType == StateControl.ChainTypes.TimeSeries
-            ? ProduceQdataFormula()
-            : ProduceQtableFormula();
-  
-        private string ProduceQdataFormula()
+        public QSeries(StateControl stateControl) : base(stateControl)
+        {
+        }
+
+        public override string ToUdf()
         {
             var formulaComponents = new List<string>();
 
@@ -134,7 +114,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private string StringFromDate(DateTime? date)
         {
-            return $"\"{((DateTime) date).ToString(Utilities.DateFormat)}\"";
+            return $"\"{((DateTime)date).ToString(Utilities.DateFormat)}\"";
         }
 
         private void AddSortFilters(List<string> formulaComponents)
@@ -233,36 +213,5 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             throw new ArgumentException("Unknown sort type specified.");
         }
 
-        private string ProduceQtableFormula()
-        {
-            var formulaComponents = new List<string>();
-            formulaComponents.Add($"\"{QuandlCodes[0]}\"");
-
-            if (Columns.Count == 1)
-            {
-                formulaComponents.Add($"\"{Columns[0].Name}\"");
-            }
-            else if (Columns.Count > 1)
-            {
-                formulaComponents.Add(
-                    $"{{{string.Join(",", Columns.Select(n => $"\"{n.Name}\"").ToArray())}}}");
-            }
-
-            AddDatatableFilters(formulaComponents);
-            // Close off the formula
-            return $"=QTABLE({string.Join(",", formulaComponents.Select(n => n.ToString()).ToArray())})";
-        }
-
-        private void AddDatatableFilters(List<string> formulaComments)
-        {
-            if (DatatableFilters != null && DatatableFilters.Count > 0)
-            {
-                foreach (DictionaryEntry item in DatatableFilters)
-                {
-                    Filter[] f = item.Value as Filter[];
-                    formulaComments.Add($"\"{f[0].Name}\",{f[0].Value}");
-                }
-            }
-        }
     }
 }
