@@ -234,7 +234,9 @@
     <Compile Include="UI\UDF Builder\Filters\StringFilter.xaml.cs">
       <DependentUpon>StringFilter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UDF Builder\FormulaBuilder.cs" />
+    <Compile Include="UI\UDF Builder\FormulaBuilders\Base.cs" />
+    <Compile Include="UI\UDF Builder\FormulaBuilders\QSeries.cs" />
+    <Compile Include="UI\UDF Builder\FormulaBuilders\QTable.cs" />
     <Compile Include="UI\UDF Builder\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>

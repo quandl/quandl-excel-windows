@@ -106,5 +106,10 @@ namespace Quandl.Excel.Addin
                 btnExecutionToggle.OfficeImageId = "FileStartWorkflow";
             }
         }
+
+        public void CloseBuilder()
+        {
+            _builderPane.Close();
+        }
     }
 }

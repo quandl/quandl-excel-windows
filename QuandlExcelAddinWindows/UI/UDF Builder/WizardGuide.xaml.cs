@@ -241,6 +241,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             if (Globals.ThisAddIn.ActiveCells != null)
             {
                 Globals.ThisAddIn.ActiveCells.Cells[1, 1].Value2 = Instance.UdfFormula;
+                Globals.Ribbons.Ribbon2.CloseBuilder(); // Wish there was a cleaner way to close this off.
             }
         }
     }

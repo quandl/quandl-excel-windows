@@ -7,6 +7,7 @@ using System.Linq;
 using PropertyChanged;
 using Quandl.Shared.Models;
 using Quandl.Excel.Addin.UI.UDF_Builder.Filters;
+using Quandl.Excel.Addin.UI.UDF_Builder.FormulaBuilders;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -146,6 +147,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             TimeSeriesTransformationFilter = TimeSeriesFilterTransformations.Default;
             TimeSeriesSortFilter = TimeSeriesFilterSorts.Default;
             TimeSeriesLimitFilter = null;
+
+            // Reset Datatable Filters
+            DatatableFilters.Clear();
         }
 
         public void ChangeCode(Provider provider, ChainTypes ct)
@@ -192,7 +196,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
 
             // At least the DataCode has been given
-            UdfFormula = new FormulaBuilder(this).ToUdf();
+            UdfFormula = (ChainType == ChainTypes.Datatables) ? (new QTable(this)).ToUdf() : (new QSeries(this)).ToUdf();   
         }
 
         public virtual void OnPropertyChanged(string propertyName)
