@@ -17,6 +17,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 DatePickerStart.DisplayDateStart =
                     ((Dataset) StateControl.Instance.AvailableDataHolders[0]).OldestAvailableDate;
+                DatePickerStart.DisplayDateEnd =
+                   ((Dataset)StateControl.Instance.AvailableDataHolders[0]).NewestAvailableDate;
+                DatePickerEnd.DisplayDateStart =
+                    ((Dataset)StateControl.Instance.AvailableDataHolders[0]).OldestAvailableDate;
                 DatePickerEnd.DisplayDateEnd =
                     ((Dataset) StateControl.Instance.AvailableDataHolders[0]).NewestAvailableDate;
 
