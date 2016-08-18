@@ -13,6 +13,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
     public static class Timeseries
     {
+        private static StatusBar StatusBar => new StatusBar((Application)ExcelDnaUtil.Application);
+
         [ExcelFunction("Pull time series data from the Quandl time series API", Name = "QSERIES", IsMacroType = true,
             Category = "Financial")]
         public static string Qseries(
@@ -57,8 +59,9 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 // Begin the reaping thread. This is necessary to kill off and formula that are functioning for a long time.
                 FunctionGrimReaper.BeginTheReaping(currentFormulaCell.Application);
 
-                StatusBar bar = new StatusBar((Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application);
-                bar.AddMessage(Locale.English.UdfRetrievingData);
+                // Update status
+                StatusBar.AddMessage(Locale.English.UdfRetrievingData);
+
                 // Pull the data
                 ResultsData results = null;
                 try
@@ -74,6 +77,12 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 var sortedResults = new ResultsData(results.SortedData("date", orderAsc), results.Headers);
                 var reorderColumns = sortedResults.ExpandAndReorderColumns(quandlCodeColumns);
                 var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader);
+
+                if (excelWriter.ConfirmedOverwrite == false)
+                {
+                    StatusBar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
+                }
+
                 return Utilities.ValidateEmptyData(excelWriter.PopulateData());
             }
             catch (Exception e)

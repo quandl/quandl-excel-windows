@@ -88,7 +88,7 @@ namespace Quandl.Excel.UDF.Functions.Locale {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downloading data is turned off. Please enable automatic downloading and then click the &apos;Refresh&apos; button..
+        ///   Looks up a localized string similar to Quandl formulas have been turned off. Please enable Quandl formulas and then click the &apos;Refresh&apos; button..
         /// </summary>
         internal static string AutoDownloadTurnedOff {
             get {
@@ -160,11 +160,20 @@ namespace Quandl.Excel.UDF.Functions.Locale {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Retrieving data.......
+        ///   Looks up a localized string similar to Retrieving data ....
         /// </summary>
         internal static string UdfRetrievingData {
             get {
                 return ResourceManager.GetString("UdfRetrievingData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stopping data fetch as per user request. Data would have been overwritten..
+        /// </summary>
+        internal static string WarningOverwriteNotAccepted {
+            get {
+                return ResourceManager.GetString("WarningOverwriteNotAccepted", resourceCulture);
             }
         }
     }

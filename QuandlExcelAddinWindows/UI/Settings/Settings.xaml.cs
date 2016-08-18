@@ -13,7 +13,7 @@ namespace Quandl.Excel.Addin.UI.Settings
     public partial class Settings : UserControl
     {
         private const int SaveIconFadeTimeMs = 250;
-        private const int SaveIconWaitTimeMs = 1000;
+        private const int SaveIconWaitTimeMs = 750;
 
         public QuandlConfig.AutoUpdateFrequencies AutoUpdateFrequency;
 
@@ -24,7 +24,8 @@ namespace Quandl.Excel.Addin.UI.Settings
             Loaded += delegate
             {
                 ApiKeyTextBox.Text = QuandlConfig.ApiKey;
-                IgnoreWarningTextBox.IsChecked = QuandlConfig.IgnoreMissingFormulaParams;
+                LongRunningWarningTextBox.IsChecked = QuandlConfig.LongRunningQueryWarning;
+                OverwriteWarningTextBox.IsChecked = QuandlConfig.OverwriteDataWarning;
                 BindingHelper.SetItemSourceViaEnum(AutoUpdateComboBox, typeof(QuandlConfig.AutoUpdateFrequencies));
                 AutoUpdateComboBox.SelectedValue = QuandlConfig.AutoUpdateFrequency;
             };
@@ -39,7 +40,8 @@ namespace Quandl.Excel.Addin.UI.Settings
         {
             QuandlConfig.ApiKey = ApiKeyTextBox.Text;
             QuandlConfig.AutoUpdateFrequency = (QuandlConfig.AutoUpdateFrequencies)AutoUpdateComboBox.SelectedValue;
-            QuandlConfig.IgnoreMissingFormulaParams = (bool)IgnoreWarningTextBox.IsChecked;
+            QuandlConfig.LongRunningQueryWarning = (bool)LongRunningWarningTextBox.IsChecked;
+            QuandlConfig.OverwriteDataWarning = (bool)OverwriteWarningTextBox.IsChecked;
         }
 
         private void FadeImage(Image image, TimeSpan fadeInTime, TimeSpan waitTime, TimeSpan fadeOutTime, Action action)
