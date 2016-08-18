@@ -18,6 +18,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     DisplayRangeSelection(Globals.ThisAddIn.ActiveCells);
                     Globals.ThisAddIn.ActiveCellChangedEvent +=
                         delegate(Range target) { DisplayRangeSelection(target); };
+                    if (StateControl.Instance.ChainType != StateControl.ChainTypes.TimeSeries)
+                    {
+                        IncludeHeaders.Visibility = System.Windows.Visibility.Collapsed; 
+                    }
                 };
         }
 

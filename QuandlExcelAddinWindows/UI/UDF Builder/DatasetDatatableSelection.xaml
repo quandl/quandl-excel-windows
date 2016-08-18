@@ -65,14 +65,16 @@
         <Label x:Name="lblDatasetsDatatablesResults" Content="Showing 0 results." VerticalAlignment="Bottom"
                Grid.Column="0" Grid.Row="1" Margin="0,0,18,0" />
         <DockPanel x:Name="PaginationButtonDock" Grid.Row="2" Grid.Column="0" Margin="0,10">
-            <Button x:Name="btnFirstPage" Content="&lt;&lt;" HorizontalAlignment="Left" VerticalAlignment="Top"
+            <StackPanel x:Name="PaginationButtons" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnFirstPage" Content="&lt;&lt;" HorizontalAlignment="Left" VerticalAlignment="Top"
                     Width="35" Height="30" Click="btnFirstPage_Click" Margin="0,0,10,0" />
-            <Button x:Name="btnPrevPage" Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35"
+                <Button x:Name="btnPrevPage" Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35"
                     Height="30" Click="btnPrevPage_Click" Margin="0,0,10,0" />
-            <Button x:Name="btnNextPage" Content="&gt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35"
+                <Button x:Name="btnNextPage" Content="&gt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35"
                     Height="30" Click="btnNextPage_Click" Margin="0,0,10,0" />
-            <Button x:Name="btnLastPage" Content="&gt;&gt;" HorizontalAlignment="Left" VerticalAlignment="Top"
+                <Button x:Name="btnLastPage" Content="&gt;&gt;" HorizontalAlignment="Left" VerticalAlignment="Top"
                     Width="35" Height="30" Click="btnLastPage_Click" />
+            </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label Content="Selected Quandl codes" VerticalContentAlignment="Center" />
                 <TextBox x:Name="SelectedDataHolderTextBox" Margin="5,0,0,0" MinWidth="150"
