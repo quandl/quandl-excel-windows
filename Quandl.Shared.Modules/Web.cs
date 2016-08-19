@@ -83,6 +83,13 @@ namespace Quandl.Shared
             return dataset;
         }
 
+        public static async Task<DatasetMetaResponse> GetDatasetMetadata(string quandlCode)
+        {
+            var relativeUrl = "datasets/" + quandlCode + "/metadata";
+            var resp = await RequestAsync<DatasetMetaResponse>(relativeUrl, CallTypes.Data);
+            return resp;
+        }
+
         public static async Task<Datatable> GetDatatableData(string quandlCode, Dictionary<string, object> queryParams)
         {
             var relativeUrl = "datatables/" + quandlCode;

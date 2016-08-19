@@ -13,6 +13,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
     public static class Timeseries
     {
+        private static Dictionary<string, DatasetMeta> datasetMetadata = new Dictionary<string, DatasetMeta>();
+
         private static StatusBar StatusBar => new StatusBar((Application)ExcelDnaUtil.Application);
 
         [ExcelFunction("Pull time series data from the Quandl time series API", Name = "QSERIES", IsMacroType = true,
@@ -75,7 +77,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
                 // Sort out the data and place it in the cells
                 var sortedResults = new ResultsData(results.SortedData("date", orderAsc), results.Headers);
-                var reorderColumns = sortedResults.ExpandAndReorderColumns(quandlCodeColumns);
+                var reorderColumns = sortedResults.ExpandAndReorderColumns(SanitizeColumnNames(quandlCodeColumns));
                 var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader);
 
                 if (excelWriter.ConfirmedOverwrite == false)
@@ -98,10 +100,14 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             var datasets = new Dictionary<string, DatasetParams>();
             var datasetsWithoutColumns = new List<string>();
 
+            var uniqueQuandlCodes = GetDatasetQuandlCodes(quandlCodeColumns);
+            GetDatasetMetadata(uniqueQuandlCodes);
+
+            quandlCodeColumns = SanitizeColumnNames(quandlCodeColumns);
+
             foreach (var quandlCodeColumn in quandlCodeColumns)
             {
-                var splitString = quandlCodeColumn.Split("/".ToCharArray(),
-                    StringSplitOptions.RemoveEmptyEntries);
+                var splitString = SplitQuandlCode(quandlCodeColumn);
 
                 // Quandl code and column (ex: NSE/OIL/HIGH)
                 if (splitString.Length == 3)
@@ -151,6 +157,64 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             }
 
             return combinedResults;
+        }
+
+        private static List<string> GetDatasetQuandlCodes(List<string> qCodes)
+        {
+            HashSet<string> codes = new HashSet<string>();
+
+            foreach (var code in qCodes)
+            {
+                var codeArr = SplitQuandlCode(code);
+                codes.Add($"{codeArr[0]}/{codeArr[1]}");
+            }
+
+            return codes.ToList();
+        }
+
+        private static void GetDatasetMetadata(List<string> datasetCodes)
+        {
+            foreach (var code in datasetCodes)
+            {
+                if (!datasetMetadata.ContainsKey(code))
+                {
+                    // perform a metadata api query based on the dataset code
+                    var fetchTask = Task.WhenAll(Web.GetDatasetMetadata(code));
+                    fetchTask.Wait();
+
+                    var metadata = fetchTask.Result.First().Metadata;
+                    datasetMetadata.Add(code, metadata);
+                }
+            }
+        }
+
+        private static List<string> SanitizeColumnNames(List<string> quandlCodes)
+        {
+            List<string> convertedQuandlCodes = new List<string>();
+
+            foreach (var code in quandlCodes)
+            {
+                var codeFragments = SplitQuandlCode(code);
+                var datasetCode = $"{codeFragments[0]}/{codeFragments[1]}";
+                if (codeFragments.Count() == 3)
+                {
+                    int result;
+                    if (int.TryParse(codeFragments[2], out result))
+                    {
+                        codeFragments[2] = datasetMetadata[datasetCode].Columns[result];
+                    }
+                }
+
+                var newQuandlCode = string.Join("/", codeFragments).ToUpper();
+                convertedQuandlCodes.Add(newQuandlCode);
+            }
+
+            return convertedQuandlCodes;
+        }
+
+        private static string[] SplitQuandlCode(string code)
+        {
+            return code.Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
         }
 
         internal class DatasetParamError : ArgumentException

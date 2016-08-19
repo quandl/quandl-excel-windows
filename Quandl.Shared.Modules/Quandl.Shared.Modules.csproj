@@ -84,6 +84,7 @@
       <DependentUpon>English.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\DataHolderDefinition.cs" />
+    <Compile Include="Models\DatasetMeta.cs" />
     <Compile Include="Models\OldMeta.cs" />
     <Compile Include="Models\ResultsData.cs" />
     <Compile Include="Models\_Shared.cs" />
