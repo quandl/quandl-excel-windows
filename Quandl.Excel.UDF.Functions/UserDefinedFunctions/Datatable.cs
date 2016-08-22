@@ -59,7 +59,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
         private static string Process(Range currentFormulaCell, object rawQuandlCode, object rawColumns, object argName1, object argValue1, object argName2, object argValue2, object argName3, object argValue3, object argName4, object argValue4, object argName5, object argValue5, object argName6, object argValue6)
         {
             StatusBar.AddMessage(Locale.English.UdfRetrievingData);
-
+            var queryParams = new DatatableParams();
             try
             {
                 // Parse out all the parameters specified in the UDF.
@@ -67,7 +67,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 var columns = Tools.GetArrayOfValues(rawColumns).Select(s => ((string)s).ToUpper()).ToList();
 
                 // Add all the query parameters
-                var queryParams = new DatatableParams();
                 if (!string.IsNullOrEmpty(QuandlConfig.ApiKey))
                 {
                     queryParams.AddInternalParam("api_key", QuandlConfig.ApiKey);
@@ -117,6 +116,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             }
             catch (DatatableParamError e)
             {
+                Utilities.LogToSentry(e, "Qtable", queryParams.ToString());
                 return e.Message;
             }
         }
@@ -235,6 +235,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 }
                 catch (Exception e)
                 {
+                    Utilities.LogToSentry(e,"Qtable", datatableParams.ToString());
                     Trace.WriteLine(e.Message);
                 }
                 finally

@@ -37,6 +37,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 catch (Exception exp)
                 {
                     Globals.ThisAddIn.UpdateStatusBar(exp);
+                    Utilities.LogToSentry(exp);
                 }
             };
         }
@@ -152,6 +153,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             catch (Exception exp)
             {
                 Globals.ThisAddIn.UpdateStatusBar(exp);
+                Utilities.LogToSentry(exp);
             }
         }
 
