@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools;
 using Quandl.Shared;

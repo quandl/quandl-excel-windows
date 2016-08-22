@@ -1,5 +1,7 @@
-﻿using ExcelDna.Integration;
+﻿using System;
+using ExcelDna.Integration;
 using ExcelDna.IntelliSense;
+using Quandl.Shared;
 
 namespace Quandl.Excel.UDF.Functions
 {

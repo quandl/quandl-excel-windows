@@ -1,12 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Office.Interop.Excel;
+using Quandl.Shared.Properties;
+using SharpRaven;
+using SharpRaven.Data;
 
 namespace Quandl.Shared
 {
     public class Utilities
     {
         public const string DateFormat = "yyyy-MM-dd";
+
+        private const bool ENABLE_SENTRY_LOG = true;
+
+        public static string AddinReleaseVersion = "3.0beta";
 
         private static string excelVersion;
 
@@ -25,6 +33,24 @@ namespace Quandl.Shared
                 excelVersion = appVersion.Version;
                 return excelVersion;
             }
+        }
+
+        public static async void LogToSentry(System.Exception exception, string key, string value)
+        {
+            if (ENABLE_SENTRY_LOG)
+            {
+                SetSentryData(exception, "Excel-Version", Utilities.GetExcelVersionNumber);
+                SetSentryData(exception, "Addin-Release-Version", Utilities.AddinReleaseVersion);
+                SetSentryData(exception, "X-API-Token", QuandlConfig.ApiKey);
+                SetSentryData(exception, key, value);
+                var ravenClient = new RavenClient(Settings.Default.SentryUrl);
+                await ravenClient.CaptureAsync(new SentryEvent(exception));
+            }
+        }
+
+        public static void LogToSentry(Exception exception)
+        {
+            LogToSentry(exception, null, null);
         }
 
         public static ArrayList GetMatchedListByOrder(ArrayList columnNames, ArrayList columnNamesList,
@@ -105,6 +131,12 @@ namespace Quandl.Shared
             result.Add(item);
             result.AddRange(list);
             return result;
+        }
+
+        private static void SetSentryData(Exception exception, string key, string value)
+        {
+            if (key != null && !exception.Data.Contains(key))
+                exception.Data.Add(key, value);
         }
     }
 }

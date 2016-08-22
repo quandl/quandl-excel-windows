@@ -71,6 +71,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 if (!(exception is QuandlFromDateIsGreaterThanEndDateException ||
                     exception is QuandlDateCanNotBlankException))
                 {
+                    Utilities.LogToSentry(exception);
                     throw;
                 }
             }

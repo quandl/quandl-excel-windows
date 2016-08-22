@@ -74,6 +74,8 @@ namespace Quandl.Excel.Addin.UI.Settings
                 DisplayErrorMessage("Something went wrong. Please try again later.");
                 Globals.ThisAddIn.UpdateStatusBar(exp);
                 // For debug purposes only. This should not make it to production.
+
+                Utilities.LogToSentry(exp);
             }
         }
 
