@@ -1,11 +1,9 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Quandl.Shared.Errors;
-using Quandl.Shared.Properties;
 using System.Linq;
 
 namespace Quandl.Shared
@@ -144,8 +142,7 @@ namespace Quandl.Shared
         {
             var obj = new { user = new { account = accountName, password = pass } };
             var payload = JsonConvert.SerializeObject(obj);
-            var requestUri = Settings.Default.BaseUrl + "users/token_auth";
-            var res = Web.Post(requestUri, payload);
+            var res = Web.Authenticate(payload);
             Instance.apiKey = res["user"]["api_key"].ToObject<string>();
         }
 

@@ -12,7 +12,7 @@ namespace Quandl.Excel.Addin.Controls
             InitializeComponent();
             Text = string.Format("About {0}", AssemblyTitle);
             labelProductName.Text = AssemblyProduct;
-            labelVersion.Text = string.Format("Version {0}", AssemblyVersion);
+            labelVersion.Text = string.Format("Version {0}", Quandl.Shared.Utilities.ReleaseVersion);
             labelCopyright.Text = AssemblyCopyright;
             labelCompanyName.Text = AssemblyCompany;
             textBoxDescription.Text = AssemblyDescription;

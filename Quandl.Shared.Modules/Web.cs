@@ -17,6 +17,12 @@ namespace Quandl.Shared
 {
     public class Web
     {
+        private enum CallTypes
+        {
+            Search,
+            Data
+        }
+
         public static async Task<User> WhoAmI(string api_key)
         {
             var queryHeaders = new Dictionary<string, string>
@@ -37,7 +43,6 @@ namespace Quandl.Shared
             };
             return await RequestAsync<DatabaseCollection>("databases", CallTypes.Search, queryParams);
         }
-
 
         public static async Task<DatasetsResponse> SearchDatasetsAsync(string databaseCode, string query, int page,
             int perPage)
@@ -100,13 +105,6 @@ namespace Quandl.Shared
             return datatable;
         }
 
-        public static JObject Post(string requestUri, string body)
-        {
-            var client = QuandlApiWebClient();
-            var response = client.UploadString(requestUri, body);
-            return JObject.Parse(response);
-        }
-
         public static async Task<T> GetResponseJson<T>(string requestParams)
         {
             var client = new WebClient();
@@ -148,7 +146,7 @@ namespace Quandl.Shared
             return await RequestAsync<DatatableMetadata>(relativeUrl, CallTypes.Data, null);
         }
 
-        private static WebClient QuandlApiWebClient(CallTypes callType = CallTypes.Data)
+        public static JObject Authenticate(string body)
         {
             var client = new WebClient
             {
@@ -156,10 +154,10 @@ namespace Quandl.Shared
                 {
                     [HttpRequestHeader.Accept] = "application/json",
                     [HttpRequestHeader.ContentType] = "application/json",
-                    [HttpRequestHeader.UserAgent] = $"QuandlExcelAddIn/3.0 {CallTypeMapper(callType)}",
-                    ["Request-Source"] = "excel",
+                    [HttpRequestHeader.UserAgent] = UserAgent(CallTypes.Search),
+                    ["Request-Source"] = Utilities.ReleaseSource,
                     ["Request-Platform"] = Utilities.GetExcelVersionNumber,
-                    ["Request-Version"] = "3.0beta"
+                    ["Request-Version"] = Utilities.ReleaseVersion
                 }
             };
             if (!string.IsNullOrEmpty(QuandlConfig.ApiKey))
@@ -167,7 +165,9 @@ namespace Quandl.Shared
                 client.Headers["X-API-Token"] = QuandlConfig.ApiKey;
             }
 
-            return client;
+            var requestUri = Settings.Default.BaseUrl + "users/token_auth";
+            var response = client.UploadString(requestUri, body);
+            return JObject.Parse(response);
         }
 
         private static string ConvertListToQueryString(string key, List<string> queryValues)
@@ -187,10 +187,10 @@ namespace Quandl.Shared
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.UserAgent.Clear();
-                client.DefaultRequestHeaders.UserAgent.ParseAdd($"QuandlExcelAddIn/3.0 {CallTypeMapper(callType)}");
+                client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent(callType));
                 client.DefaultRequestHeaders.Add("Request-Platform", Utilities.GetExcelVersionNumber);
-                client.DefaultRequestHeaders.Add("Request-Version", Utilities.AddinReleaseVersion);
-                client.DefaultRequestHeaders.Add("Request-Source", "excel");
+                client.DefaultRequestHeaders.Add("Request-Version", Utilities.ReleaseVersion);
+                client.DefaultRequestHeaders.Add("Request-Source", Utilities.ReleaseSource);
 
                 if (!string.IsNullOrEmpty(QuandlConfig.ApiKey) &&
                     (headers == null || !headers.ContainsKey("X-API-Token")))
@@ -258,10 +258,9 @@ namespace Quandl.Shared
             return callType == CallTypes.Data ? "(Data)" : "(Search/Guide)";
         }
 
-        private enum CallTypes
+        private static string UserAgent(CallTypes callType)
         {
-            Search,
-            Data
+            return $"QuandlExcelAddIn/3.0 {CallTypeMapper(callType)}";
         }
     }
 }
