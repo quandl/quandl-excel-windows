@@ -7,10 +7,6 @@ The Quandl Excel Add-In allows you to search through, find and download any of Q
 
 ## Install
 
-### End User
-
-http://www.quandl.com/help/excel
-
 ### Development
 
 1. Download and install file:///C:/Program%20Files%20(x86)/Microsoft%20Visual%20Studio%2014.0/Common7/IDE/Extensions/InstallShield/InstallShieldProject/1033/InstallShield_ult.html
@@ -53,6 +49,10 @@ Things to note:
 2. Use windows application `certmgr.msc` to to import QuandlDigitCertCodeSign.pfx to your local certification store
 3. `cd  $PROJECT_ROOT_FOLDER\quandl-excel-windows\QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1`
 4. run this command to sign your setup package `SignTool sign /n "Quandl Inc." setup.exe`
+
+## FAQ
+
+For a list of excel COM exceptions and what they mean please see: [Errors](./ERRORS.md)
 
 ## License
 

@@ -150,8 +150,17 @@
   <data name="DatatableParamWithoutKey" xml:space="preserve">
     <value>'{value}' has been specified without a key.</value>
   </data>
+  <data name="UdfCompleteError" xml:space="preserve">
+    <value>The formula did not fully complete.</value>
+  </data>
+  <data name="UdfCompleteSuccess" xml:space="preserve">
+    <value>All data retrieved successfully</value>
+  </data>
   <data name="UdfRetrievingData" xml:space="preserve">
     <value>Retrieving data ...</value>
+  </data>
+  <data name="UdfRetrievingDataMoreDetails" xml:space="preserve">
+    <value>Retrieved {currentRow} rows. Continuing ...</value>
   </data>
   <data name="WarningOverwriteNotAccepted" xml:space="preserve">
     <value>Stopping data fetch as per user request. Data would have been overwritten.</value>

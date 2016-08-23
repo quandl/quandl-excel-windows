@@ -160,11 +160,38 @@ namespace Quandl.Excel.UDF.Functions.Locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The formula did not fully complete..
+        /// </summary>
+        internal static string UdfCompleteError {
+            get {
+                return ResourceManager.GetString("UdfCompleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All data retrieved successfully.
+        /// </summary>
+        internal static string UdfCompleteSuccess {
+            get {
+                return ResourceManager.GetString("UdfCompleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retrieving data ....
         /// </summary>
         internal static string UdfRetrievingData {
             get {
                 return ResourceManager.GetString("UdfRetrievingData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retrieved {currentRow} rows. Continuing ....
+        /// </summary>
+        internal static string UdfRetrievingDataMoreDetails {
+            get {
+                return ResourceManager.GetString("UdfRetrievingDataMoreDetails", resourceCulture);
             }
         }
         

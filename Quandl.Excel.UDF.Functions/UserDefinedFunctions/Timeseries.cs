@@ -8,14 +8,16 @@ using Quandl.Shared;
 using Quandl.Shared.Models;
 using Quandl.Shared.Excel;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
     public static class Timeseries
     {
         private static Dictionary<string, DatasetMeta> datasetMetadata = new Dictionary<string, DatasetMeta>();
+        private static StatusBar StatusBar => StatusBarInstance();
 
-        private static StatusBar StatusBar => new StatusBar((Application)ExcelDnaUtil.Application);
 
         [ExcelFunction("Pull time series data from the Quandl time series API", Name = "QSERIES", IsMacroType = true,
             Category = "Financial")]
@@ -85,10 +87,13 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     StatusBar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
                 }
 
-                return Utilities.ValidateEmptyData(excelWriter.PopulateData());
+                var firstCellMsg = Utilities.ValidateEmptyData(excelWriter.PopulateData());
+                StatusBar.AddMessage(Locale.English.UdfCompleteSuccess);
+                return firstCellMsg;
             }
             catch (Exception e)
             {
+                StatusBar.AddMessage(Locale.English.UdfCompleteError);
                 Trace.WriteLine(e.Message);
                 throw;
             }
@@ -146,7 +151,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
             // Create a bunch of results which we can combine to one giant table
             var combinedResults = new ResultsData(new List<List<object>>(), new List<string>());
-            foreach (var qcc in fetchTask.Result.Select((x, i) => new {Value = x, Index = i}))
+            foreach (var qcc in fetchTask.Result.Select((x, i) => new { Value = x, Index = i }))
             {
                 var dataset = qcc.Value;
                 var columns =
@@ -159,10 +164,29 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             return combinedResults;
         }
 
+        // Try really hard to get the instance of the status bar from the application.
+        public static StatusBar StatusBarInstance()
+        {
+            try
+            {
+                return new StatusBar((Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application);
+            }
+            catch (COMException e)
+            {
+                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER)
+                if (e.HResult == -2147417846 || e.HResult == -2146777998)
+                {
+                    Thread.Sleep(Datatable.RetryWaitTimeMs);
+                    return StatusBarInstance();
+                }
+
+                throw;
+            }
+        }
+
         private static List<string> GetDatasetQuandlCodes(List<string> qCodes)
         {
             HashSet<string> codes = new HashSet<string>();
-
             foreach (var code in qCodes)
             {
                 var codeArr = SplitQuandlCode(code);
@@ -227,11 +251,11 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
         internal class DatasetParams
         {
             private readonly string _collapse;
-            private readonly string[] _collapseFilters = {"daily", "weekly", "monthly", "quarterly", "annual"};
+            private readonly string[] _collapseFilters = { "daily", "weekly", "monthly", "quarterly", "annual" };
             private readonly List<DateTime?> _dates;
             private readonly int? _limit;
             private readonly string _transformation;
-            private readonly string[] _transformationFilters = {"diff", "rdiff", "rdiff_from", "cumul", "normalize"};
+            private readonly string[] _transformationFilters = { "diff", "rdiff", "rdiff_from", "cumul", "normalize" };
             public readonly string Code;
 
             public readonly List<string> Columns;
@@ -262,21 +286,21 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     // Convert dates
                     if (_dates.Count == 2 && _dates[0] != null && _dates[1] != null)
                     {
-                        queryParams.Add("start_date", ((DateTime) _dates[0]).ToString(Utilities.DateFormat));
-                        queryParams.Add("end_date", ((DateTime) _dates[1]).ToString(Utilities.DateFormat));
+                        queryParams.Add("start_date", ((DateTime)_dates[0]).ToString(Utilities.DateFormat));
+                        queryParams.Add("end_date", ((DateTime)_dates[1]).ToString(Utilities.DateFormat));
                     }
                     else if (_dates.Count == 2 && _dates[0] != null && _dates[1] == null)
                     {
-                        queryParams.Add("start_date", ((DateTime) _dates[0]).ToString(Utilities.DateFormat));
+                        queryParams.Add("start_date", ((DateTime)_dates[0]).ToString(Utilities.DateFormat));
                     }
                     else if (_dates.Count == 2 && _dates[0] == null && _dates[1] != null)
                     {
-                        queryParams.Add("end_date", ((DateTime) _dates[1]).ToString(Utilities.DateFormat));
+                        queryParams.Add("end_date", ((DateTime)_dates[1]).ToString(Utilities.DateFormat));
                     }
                     else if (_dates.Count == 1 && _dates[0] != null)
                     {
-                        queryParams.Add("start_date", ((DateTime) _dates[0]).ToString(Utilities.DateFormat));
-                        queryParams.Add("end_date", ((DateTime) _dates[0]).ToString(Utilities.DateFormat));
+                        queryParams.Add("start_date", ((DateTime)_dates[0]).ToString(Utilities.DateFormat));
+                        queryParams.Add("end_date", ((DateTime)_dates[0]).ToString(Utilities.DateFormat));
                     }
                     else if (_dates.Count != 0)
                     {

@@ -1,15 +1,39 @@
 ﻿using System;
 using Microsoft.Office.Interop.Excel;
-using System.Timers;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace Quandl.Shared.Excel
 {
     public class StatusBar
     {
-        private static Timer _statusTimer;
+        private static System.Timers.Timer _statusTimer;
         private Application application;
         private readonly int TIMER_DELAY = 20000;
+
+        // Retry wait if excel is busy
+        private const int RetryWaitTimeMs = 500;
+
+        // Try really hard to get the instance of the status bar from the application.
+        public static StatusBar Instance(object application)
+        {
+            try
+            {
+                return new StatusBar((Microsoft.Office.Interop.Excel.Application)application);
+            }
+            catch (COMException e)
+            {
+                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER)
+                if (e.HResult == -2147417846)
+                {
+                    Thread.Sleep(RetryWaitTimeMs);
+                    return Instance(application);
+                }
+
+                throw;
+            }
+        }
 
         public StatusBar(Application application)
         {
@@ -19,7 +43,6 @@ namespace Quandl.Shared.Excel
         public void AddMessage(string msg)
         {
             var oldStatusBarVisibility = application.DisplayStatusBar;
-            application.DisplayStatusBar = true;
             application.StatusBar = msg;
 
             // Clean up an old timers;
@@ -30,11 +53,10 @@ namespace Quandl.Shared.Excel
             }
 
             // Create a new timer to show the error temporarily
-            _statusTimer = new Timer(TIMER_DELAY);
+            _statusTimer = new System.Timers.Timer(TIMER_DELAY);
             _statusTimer.Elapsed += async (sender, e) => await Task.Run(() =>
             {
-                application.StatusBar = false;
-                application.DisplayStatusBar = oldStatusBarVisibility;
+                ResetToDefault();
             });
             _statusTimer.Start();
         }
@@ -42,6 +64,25 @@ namespace Quandl.Shared.Excel
         public void AddException(Exception error)
         {
             AddMessage("⚠ Quandl plugin error: " + error.Message);
+        }
+
+        public void ResetToDefault()
+        {
+            try
+            {
+                application.StatusBar = false;
+            }
+            catch (COMException e)
+            {
+                // Basically the system is paused due to a user making an update somewhere. Please wait and retry again.
+                if (e.HResult == -2146777998)
+                {
+                    Thread.Sleep(RetryWaitTimeMs);
+                    ResetToDefault();
+                    return;
+                }
+                throw;
+            }
         }
     }
 }
