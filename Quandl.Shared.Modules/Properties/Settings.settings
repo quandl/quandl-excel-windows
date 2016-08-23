@@ -1,7 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
-              GeneratedClassNamespace="Quandl.Shared.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Quandl.Shared.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="ApiKey" Type="System.String" Scope="User">
@@ -12,6 +10,9 @@
     </Setting>
     <Setting Name="AutoUpdate" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SentryUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://1ceee60045814f2181d1472ff7de3c80:cc70ae50b4df44fb8af055d663da8594@app.getsentry.com/92967</Value>
     </Setting>
   </Settings>
 </SettingsFile>

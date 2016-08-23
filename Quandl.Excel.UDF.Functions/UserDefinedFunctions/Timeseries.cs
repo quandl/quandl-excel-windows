@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -95,6 +95,13 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             {
                 StatusBar.AddMessage(Locale.English.UdfCompleteError);
                 Trace.WriteLine(e.Message);
+                Utilities.LogToSentry(e, "Qtable", $"|rawQuandlCodeColumns:{rawQuandlCodeColumns.ToString()}" +
+                                                   $"|rawDates:{rawDates.ToString()}" +
+                                                   $"|rawCollapse:{rawCollapse.ToString()}" +
+                                                   $"|rawOrder:{rawOrder.ToString()}" +
+                                                   $"|rawTransformation:{rawTransformation.ToString()}" +
+                                                   $"|rawLimit:{rawLimit.ToString()}" +
+                                                   $"|rawHeader:{rawHeader.ToString()}");
                 throw;
             }
         }
