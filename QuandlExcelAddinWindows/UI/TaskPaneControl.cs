@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Microsoft.Office.Core;
+using Quandl.Shared;
 using CustomTaskPane = Microsoft.Office.Tools.CustomTaskPane;
 
 namespace Quandl.Excel.Addin.UI

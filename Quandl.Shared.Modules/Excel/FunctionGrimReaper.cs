@@ -89,6 +89,7 @@ namespace Quandl.Shared.Excel
             {
                 var statusBar = new Shared.Excel.StatusBar(_application);
                 statusBar.AddException(e);
+                Utilities.LogToSentry(e);
             }
             finally
             {

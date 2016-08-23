@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Excel.UDF.Functions"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Shared.Modules", "Quandl.Shared.Modules\Quandl.Shared.Modules.csproj", "{C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Test.UnitTests", "Quandl.Test.UnitTests\Quandl.Test.UnitTests.csproj", "{C812A183-AE4F-4155-985E-17C9FA91C519}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -183,6 +185,26 @@ Global
 		{C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 		{C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C}.SingleImage|x86.ActiveCfg = Release|Any CPU
 		{C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C}.SingleImage|x86.Build.0 = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.CD_ROM|x86.Build.0 = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.Debug|x86.Build.0 = Debug|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.DVD-5|x86.Build.0 = Debug|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.Release|x86.ActiveCfg = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.Release|x86.Build.0 = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{C812A183-AE4F-4155-985E-17C9FA91C519}.SingleImage|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

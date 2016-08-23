@@ -55,5 +55,15 @@ namespace Quandl.Shared.Properties {
                 this["AutoUpdate"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://1ceee60045814f2181d1472ff7de3c80:cc70ae50b4df44fb8af055d663da8594@app.get" +
+            "sentry.com/92967")]
+        public string SentryUrl {
+            get {
+                return ((string)(this["SentryUrl"]));
+            }
+        }
     }
 }
