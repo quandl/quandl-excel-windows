@@ -10,11 +10,11 @@ namespace Quandl.Shared
 {
     public class Utilities
     {
+        public const string ReleaseVersion = "3.0alpha1";
+        public const string ReleaseSource = "excel";
+
         public const string DateFormat = "yyyy-MM-dd";
-
         private const bool ENABLE_SENTRY_LOG = true;
-
-        public static string AddinReleaseVersion = "3.0beta";
 
         private static string excelVersion;
 
@@ -40,7 +40,7 @@ namespace Quandl.Shared
             if (ENABLE_SENTRY_LOG)
             {
                 SetSentryData(exception, "Excel-Version", Utilities.GetExcelVersionNumber);
-                SetSentryData(exception, "Addin-Release-Version", Utilities.AddinReleaseVersion);
+                SetSentryData(exception, "Addin-Release-Version", Utilities.ReleaseVersion);
                 SetSentryData(exception, "X-API-Token", QuandlConfig.ApiKey);
                 SetSentryData(exception, key, value);
                 var ravenClient = new RavenClient(Settings.Default.SentryUrl);

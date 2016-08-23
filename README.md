@@ -32,10 +32,12 @@ The Quandl Excel Add-In allows you to search through, find and download any of Q
 5. Restart into non-admin mode
 6. Right click solution file and select `Rebuild Solution`
 7. $PROJECT_ROOT_FOLDER\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
+8. Change the product code and bump the version number.
 
 Things to note:
 
 * UnRegisterAddin must have code `1501` in the `.isl` file.
+* Be sure to bump the version AND change your product code number under `Organize Your Setup` => `General Information`. This is necessary for a seemless upgrade.
 
 ### Password Protect Digital Certificate
 
