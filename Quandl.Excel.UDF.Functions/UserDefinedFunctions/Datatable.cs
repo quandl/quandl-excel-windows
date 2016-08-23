@@ -3,16 +3,13 @@ using Microsoft.Office.Interop.Excel;
 using Quandl.Shared.Models;
 using System.Linq;
 using System;
-using static Quandl.Excel.UDF.Functions.UserDefinedFunctions.Timeseries;
 using System.Collections.Generic;
 using Quandl.Shared;
 using System.Threading;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Quandl.Shared.Excel;
 using System.Diagnostics;
-using System.Resources;
 using StatusBar = Quandl.Shared.Excel.StatusBar;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
@@ -20,6 +17,11 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
     public static class Datatable
     {
         private const int RowPullCountMax = 1000;
+
+        // Retry wait if excel is busy
+        public const int RetryWaitTimeMs = 500;
+
+        private static StatusBar StatusBar => StatusBarInstance();
 
         [ExcelFunction("Pull in Quandl data via the API", Name = "QTABLE", IsMacroType = true, Category = "Financial")]
         public static string Qtable(
@@ -56,8 +58,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
         private static string Process(Range currentFormulaCell, object rawQuandlCode, object rawColumns, object argName1, object argValue1, object argName2, object argValue2, object argName3, object argValue3, object argName4, object argValue4, object argName5, object argValue5, object argName6, object argValue6)
         {
-            StatusBar bar = new StatusBar((Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application);
-            bar.AddMessage(Locale.English.UdfRetrievingData);
+            StatusBar.AddMessage(Locale.English.UdfRetrievingData);
+
             try
             {
                 // Parse out all the parameters specified in the UDF.
@@ -119,6 +121,26 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             }
         }
 
+        // Try really hard to get the instance of the status bar from the application.
+        public static StatusBar StatusBarInstance()
+        {
+            try
+            {
+                return new StatusBar((Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application);
+            }
+            catch (COMException e)
+            {
+                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER)
+                if (e.HResult == -2147417846 || e.HResult == -2146777998)
+                {
+                    Thread.Sleep(RetryWaitTimeMs);
+                    return StatusBarInstance();
+                }
+
+                throw;
+            }
+        }
+
         internal class RetrieveAndWriteData
         {
             private string quandlCode;
@@ -134,6 +156,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
             public void fetchData()
             {
+                int currentRow = 0;
                 string nextCursorId = null;
                 bool? confirmedOverwrite = null;
 
@@ -145,6 +168,10 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         var task = Web.GetDatatableData(quandlCode, datatableParams.QueryParams);
                         task.Wait();
                         var results = task.Result;
+
+                        // Inform the user whats going on.
+                        currentRow += results.Data.DataPoints.Count();
+                        StatusBar.AddMessage(Locale.English.UdfRetrievingDataMoreDetails.Replace("{currentRow}", currentRow.ToString()));
 
                         // Process fetched rows
                         var processedData = new ResultsData(results.Data.DataPoints, results.Columns.Select(c => c.Code).ToList());
@@ -172,8 +199,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         confirmedOverwrite = excelWriter.ConfirmedOverwrite;
                         if (excelWriter.ConfirmedOverwrite == false)
                         {
-                            StatusBar bar = new StatusBar((Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application);
-                            bar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
+                            StatusBar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
                             return;
                         }
 
@@ -211,6 +237,12 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 {
                     Trace.WriteLine(e.Message);
                 }
+                finally
+                {
+                    // This message should get immediately overwritten in the case of a real success.
+                    StatusBar.AddMessage(Locale.English.UdfCompleteError);
+                }
+                StatusBar.AddMessage(Locale.English.UdfCompleteSuccess);
             }
 
             private bool WorksheetStillExists()
