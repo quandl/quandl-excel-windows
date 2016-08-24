@@ -17,6 +17,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     /// </summary>
     public partial class DatasetDatatableSelection : WizardUIBase
     {
+        private const int _timerDebounce = 400;
+
         private readonly int pageSteps = 10;
         private readonly int perPageCount = 50;
         private int _currentPage = 1;
@@ -24,6 +26,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private Datatable _selectedDatatable;
         private int _totalNumberOfDisplayedItems;
         private int _totalPageCount = 1;
+
+        private DispatcherTimer _timer = new DispatcherTimer();
 
         public DatasetDatatableSelection()
         {
@@ -37,6 +41,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     txtFilterResults.Visibility = Visibility.Collapsed;
                     PaginationButtons.Visibility = Visibility.Collapsed;
                 }
+            };
+
+            this.Unloaded += delegate
+            {
+                _timer.Stop();
             };
         }
 
@@ -58,10 +67,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void DebounceSearchFilter()
         {
-            var timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(400);
-            timer.Tick += timer_Tick;
-            timer.Start();
+            _timer.Interval = TimeSpan.FromMilliseconds(_timerDebounce);
+            _timer.Tick += timer_Tick;
+            _timer.Start();
         }
 
         private void UpdatePaginationControls()

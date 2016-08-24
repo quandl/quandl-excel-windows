@@ -177,10 +177,10 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         var processedData = new ResultsData(results.Data.DataPoints, results.Columns.Select(c => c.Code).ToList());
 
                         // Write fetch rows out to the sheet. If this is the first iteration save the value to display in the formula cell.
-                        SheetHelper excelWriter = new SheetHelper(currentRange, processedData, false, true);
+                        SheetHelper excelWriter = new SheetHelper(currentRange, processedData, false, false, true);
                         if (nextCursorId == null)
                         {
-                            excelWriter = new SheetHelper(currentRange, processedData, true, true);
+                            excelWriter = new SheetHelper(currentRange, processedData, true, true, true);
                         }
 
                         // Bail out if the worksheet no longer exists.
@@ -204,7 +204,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         }
 
                         // Update the query params for next run if their is a cursor given and then increment the range where new data should go.
-                        if (results.Data.Cursor != null)
+
+                        if (!string.IsNullOrWhiteSpace(results.Data.Cursor))
                         {
                             var headerOffset = 0;
                             if (nextCursorId == null)
@@ -216,9 +217,15 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                             datatableParams.AddInternalParam("qopts.cursor_id", results.Data.Cursor);
 
                             var worksheet = currentRange.Worksheet;
-                            currentRange = (Range)worksheet.Cells[currentRange.Row + headerOffset + results.Data.DataPoints.Count - 1, currentRange.Column];
+                            currentRange = (Range)worksheet.Cells[currentRange.Row + headerOffset + results.Data.DataPoints.Count, currentRange.Column];
+                        }
+                        else
+                        {
+                            nextCursorId = null;
                         }
                     } while (!string.IsNullOrWhiteSpace(nextCursorId));
+
+                    StatusBar.AddMessage(Locale.English.UdfCompleteSuccess);
                 }
                 catch (COMException e)
                 {
@@ -237,13 +244,13 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 {
                     Utilities.LogToSentry(e,"Qtable", datatableParams.ToString());
                     Trace.WriteLine(e.Message);
+                    throw;
                 }
                 finally
                 {
                     // This message should get immediately overwritten in the case of a real success.
                     StatusBar.AddMessage(Locale.English.UdfCompleteError);
                 }
-                StatusBar.AddMessage(Locale.English.UdfCompleteSuccess);
             }
 
             private bool WorksheetStillExists()

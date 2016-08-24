@@ -8,6 +8,8 @@ using System.Windows.Threading;
 using Quandl.Shared;
 using static Quandl.Excel.Addin.UI.UDF_Builder.StateControl;
 using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -240,10 +242,22 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void InsertButton_OnClickButton_click(object sender, RoutedEventArgs e)
         {
-            if (Globals.ThisAddIn.ActiveCells != null)
+            try
             {
-                Globals.ThisAddIn.ActiveCells.Cells[1, 1].Value2 = Instance.UdfFormula;
-                Globals.Ribbons.Ribbon2.CloseBuilder(); // Wish there was a cleaner way to close this off.
+                if (Globals.ThisAddIn.ActiveCells != null)
+                {
+                    Globals.ThisAddIn.ActiveCells.Cells[1, 1].Value2 = Instance.UdfFormula;
+                    Globals.Ribbons.Ribbon2.CloseBuilder(); // Wish there was a cleaner way to close this off.
+                }
+            }
+            catch (COMException ex) {
+                // Ignore no cells being selected error.
+                if (ex.HResult == -2146827864)
+                {
+                    Trace.WriteLine(ex.Message);
+                    return;
+                }
+                throw;
             }
         }
     }

@@ -80,7 +80,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 // Sort out the data and place it in the cells
                 var sortedResults = new ResultsData(results.SortedData("date", orderAsc), results.Headers);
                 var reorderColumns = sortedResults.ExpandAndReorderColumns(SanitizeColumnNames(quandlCodeColumns));
-                var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader);
+                var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader, true);
 
                 if (excelWriter.ConfirmedOverwrite == false)
                 {

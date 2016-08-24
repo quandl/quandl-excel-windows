@@ -28,6 +28,7 @@ namespace Quandl.Shared.Excel
         private readonly bool _includeHeader;
         private readonly ResultsData _results;
         private readonly bool _threaded;
+        private readonly bool _firstRow;
 
         // Helpers
         private Worksheet _currentWorksheet => _currentFormulaCell.Worksheet;
@@ -35,21 +36,22 @@ namespace Quandl.Shared.Excel
 
         public bool? ConfirmedOverwrite = null;
 
-        public SheetHelper(Range currentFormulaCell, ResultsData results, bool includeHeader, bool threaded = false)
+        public SheetHelper(Range currentFormulaCell, ResultsData results, bool includeHeader, bool firstRow = false, bool threaded = false)
         {
             _currentFormulaCell = currentFormulaCell;
             _results = results;
             _includeHeader = includeHeader;
             _threaded = threaded;
+            _firstRow = firstRow;
         }
 
         public string PopulateData()
         {
-            // Acquire Mutex to avoid multiple functions writing at the same time.
-            DataWriteMutex.WaitOne();
-
             try
             {
+                // Acquire Mutex to avoid multiple functions writing at the same time.
+                DataWriteMutex.WaitOne();
+
                 // Since this is executing in a thread wait for excel to be finished whatever calculations its currently doing before writing to other cells. Helps avoid some issues.
                 if (_threaded)
                 {
@@ -57,6 +59,9 @@ namespace Quandl.Shared.Excel
                 }
 
                 Populate();
+
+                // Release Mutex to allow another function to write data.
+                DataWriteMutex.ReleaseMutex();
             }
             catch (COMException e)
             {
@@ -65,19 +70,14 @@ namespace Quandl.Shared.Excel
                 // Release Mutex to allow another function to write data.
                 DataWriteMutex.ReleaseMutex();
 
-                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER)
-                if (e.HResult == -2147417846)
+                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER or VBA_E_IGNORE)
+                if (e.HResult == -2147417846 || e.HResult == -2146777998)
                 {
                     Thread.Sleep(RetryWaitTimeMs);
                     return PopulateData();
                 }
 
                 throw;
-            }
-            finally
-            {
-                // Release Mutex to allow another function to write data.
-                DataWriteMutex.ReleaseMutex();
             }
 
             // Determine the value present in the first cell.
@@ -104,27 +104,26 @@ namespace Quandl.Shared.Excel
 
         private void Populate()
         {
-            var dataStartingRowOffset = 0;
-
-            // Assume column names is the first row of data.
-            if (_includeHeader)
-            {
-                dataStartingRowOffset = 1;
-                PopulateHeader();
-            }
-
             // Populate data handling the first row separately if data is on the header row.
             var data = _results.Data;
 
-            if (_includeHeader)
+            // The first row contains headers and the original UDF formula.
+            if (_firstRow && _includeHeader)
             {
-                PopulateGrid(data, dataStartingRowOffset);
+                PopulateHeader();
+                PopulateGrid(data, 1);
             }
-            else if (data.Count >= 1)
+            // The first row contains data (no headers) and the original UDF formula.
+            else if (_firstRow && data.Count >= 1)
             {
                 for (var j = 1; j < data[0].Count; j++)
                     _currentFormulaCell[1, j + 1].Value2 = data[0][j]?.ToString() ?? "";
-                PopulateGrid(data.GetRange(1, data.Count - 1), dataStartingRowOffset);
+                PopulateGrid(data.GetRange(1, data.Count - 1), 1);
+            }
+            // Purely populating data, the first row was written in another call.
+            else if (data.Count >= 1)
+            {
+                PopulateGrid(data, 0);
             }
         }
 
@@ -169,7 +168,11 @@ namespace Quandl.Shared.Excel
 
                 // Take control from user, write data, show it.
                 writeRange.Value2 = data;
-                writeRange.Show();
+
+                if (QuandlConfig.ScrollOnInsert)
+                {
+                    writeRange.Cells[data.GetLength(0), 1].Show();
+                }
             }
             catch (COMException e)
             {
