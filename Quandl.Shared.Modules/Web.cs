@@ -54,13 +54,13 @@ namespace Quandl.Shared
                 {"per_page", perPage.ToString()},
                 {"query", query}
             };
-            return await RequestAsync<DatasetsResponse>("datasets", CallTypes.Data, queryParams);
+            return await RequestAsync<DatasetsResponse>("datasets", CallTypes.Search, queryParams);
         }
 
         public static async Task<DatasetResponse> SearchDatasetAsync(string datasetCode)
         {
             string relativeUrl = $"datasets/{datasetCode}/metadata";
-            return await RequestAsync<DatasetResponse>(relativeUrl, CallTypes.Data);
+            return await RequestAsync<DatasetResponse>(relativeUrl, CallTypes.Search);
         }
 
         public static async Task<BrowseCollection> BrowseAsync()
@@ -91,7 +91,7 @@ namespace Quandl.Shared
         public static async Task<DatasetMetaResponse> GetDatasetMetadata(string quandlCode)
         {
             var relativeUrl = "datasets/" + quandlCode + "/metadata";
-            var resp = await RequestAsync<DatasetMetaResponse>(relativeUrl, CallTypes.Data);
+            var resp = await RequestAsync<DatasetMetaResponse>(relativeUrl, CallTypes.Search);
             return resp;
         }
 
@@ -105,18 +105,6 @@ namespace Quandl.Shared
             return datatable;
         }
 
-        public static async Task<T> GetResponseJson<T>(string requestParams)
-        {
-            var client = new WebClient();
-            var requestUri = Settings.Default.BaseUrl + requestParams;
-            var resp = await client.DownloadStringTaskAsync(requestUri);
-            var settings = new JsonSerializerSettings
-            {
-                ContractResolver = new SnakeCaseMappingResolver()
-            };
-            return JsonConvert.DeserializeObject<T>(resp, settings);
-        }
-
         public static async Task<T> GetModelByIds<T>(string type, List<string> ids) where T : class, new()
         {
             if (ids.Count.Equals(0))
@@ -124,14 +112,14 @@ namespace Quandl.Shared
                 return new T();
             }
             var queryParams = new Dictionary<string, object> {{"ids", ids}};
-            var callType = type.Equals("databases") ? CallTypes.Data : CallTypes.Search;
+            var callType = type.Equals("databases") ? CallTypes.Search : CallTypes.Search;
             return await RequestAsync<T>(type, callType, queryParams);
         }
 
         public static async Task<T> GetDatabase<T>(string code)
         {
             var relativeUrl = "databases/" + code;
-            return await RequestAsync<T>(relativeUrl, CallTypes.Data, null);
+            return await RequestAsync<T>(relativeUrl, CallTypes.Search, null);
         }
 
         public static async Task<T> GetDatatableCollection<T>(string code)
@@ -143,7 +131,7 @@ namespace Quandl.Shared
         public static async Task<DatatableMetadata> GetDatatableMetadata(string code)
         {
             string relativeUrl = "datatables/" + code + "/metadata";
-            return await RequestAsync<DatatableMetadata>(relativeUrl, CallTypes.Data, null);
+            return await RequestAsync<DatatableMetadata>(relativeUrl, CallTypes.Search, null);
         }
 
         public static JObject Authenticate(string body)
