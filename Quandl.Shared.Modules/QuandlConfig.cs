@@ -36,6 +36,15 @@ namespace Quandl.Shared
             }
         }
 
+        public static bool ScrollOnInsert
+        {
+            get { return RegistryKeyExists("ScrollOnInsert") ? GetRegistry<bool>("ScrollOnInsert") : true; }
+            set
+            {
+                SetRegistryKeyValue("ScrollOnInsert", value, RegistryValueKind.DWord);
+            }
+        }
+
         public static bool LongRunningQueryWarning
         {
             get { return RegistryKeyExists("LongRunningQueryWarning") ? GetRegistry<bool>("LongRunningQueryWarning") : true; }

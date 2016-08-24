@@ -99,12 +99,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.FormulaBuilders
             else if (DateTypeFilter == StateControl.TimeSeriesFilterTypes.Range && StartDate != null)
             {
                 formulaComponents.Add(
-                    $"{{{string.Join(",", StringFromDate(StartDate), "")}}}");
+                    $"{{{string.Join(",", StringFromDate(StartDate), "\"\"")}}}");
             }
             else if (DateTypeFilter == StateControl.TimeSeriesFilterTypes.Range && EndDate != null)
             {
                 formulaComponents.Add(
-                    $"{{{string.Join(",", "", StringFromDate(EndDate))}}}");
+                    $"{{{string.Join(",", "\"\"", StringFromDate(EndDate))}}}");
             }
             else if (_stateControl.TimeseriesFilterAfter("date"))
             {

@@ -42,23 +42,36 @@ namespace Quandl.Shared.Excel
 
         public void AddMessage(string msg)
         {
-            var oldStatusBarVisibility = application.DisplayStatusBar;
-            application.StatusBar = msg;
-
-            // Clean up an old timers;
-            if (_statusTimer != null)
+            try
             {
-                _statusTimer.Stop();
-                _statusTimer.Close();
+                application.StatusBar = msg;
+
+                // Clean up an old timers;
+                if (_statusTimer != null)
+                {
+                    _statusTimer.Stop();
+                    _statusTimer.Close();
+                }
+
+                // Create a new timer to show the error temporarily
+                _statusTimer = new System.Timers.Timer(TIMER_DELAY);
+                _statusTimer.Elapsed += async (sender, e) => await Task.Run(() =>
+                {
+                    ResetToDefault();
+                });
+                _statusTimer.Start();
             }
-
-            // Create a new timer to show the error temporarily
-            _statusTimer = new System.Timers.Timer(TIMER_DELAY);
-            _statusTimer.Elapsed += async (sender, e) => await Task.Run(() =>
+            catch (COMException e)
             {
-                ResetToDefault();
-            });
-            _statusTimer.Start();
+                // Excel is locked atm. Need to wait till its free
+                if (e.HResult == -2147417846 || e.HResult == -2146777998)
+                {
+                    Thread.Sleep(RetryWaitTimeMs);
+                    AddMessage(msg);
+                    return;
+                }
+                throw;
+            }
         }
 
         public void AddException(Exception error)

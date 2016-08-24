@@ -28,6 +28,7 @@ namespace Quandl.Excel.Addin.UI.Settings
                 OverwriteWarningTextBox.IsChecked = QuandlConfig.OverwriteDataWarning;
                 BindingHelper.SetItemSourceViaEnum(AutoUpdateComboBox, typeof(QuandlConfig.AutoUpdateFrequencies));
                 AutoUpdateComboBox.SelectedValue = QuandlConfig.AutoUpdateFrequency;
+                ScollEnabledCheckBox.IsChecked = QuandlConfig.ScrollOnInsert;
             };
         }
 
@@ -42,6 +43,7 @@ namespace Quandl.Excel.Addin.UI.Settings
             QuandlConfig.AutoUpdateFrequency = (QuandlConfig.AutoUpdateFrequencies)AutoUpdateComboBox.SelectedValue;
             QuandlConfig.LongRunningQueryWarning = (bool)LongRunningWarningTextBox.IsChecked;
             QuandlConfig.OverwriteDataWarning = (bool)OverwriteWarningTextBox.IsChecked;
+            QuandlConfig.ScrollOnInsert = ScollEnabledCheckBox.IsEnabled;
         }
 
         private void FadeImage(Image image, TimeSpan fadeInTime, TimeSpan waitTime, TimeSpan fadeOutTime, Action action)

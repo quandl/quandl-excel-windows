@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls;
 using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -37,9 +39,25 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void DisplayRangeSelection(Range target)
         {
-            SelectedCellTextbox.Text = target != null
-                ? $"{target.Worksheet.Name}!{target.Cells[1, 1].Address}"
-                : "No cells selected";
+            SelectedCellTextbox.Text = "Please select one cell to insert your formula into.";
+
+            try
+            {
+                if (target != null && target.Worksheet != null)
+                {
+                    SelectedCellTextbox.Text = $"{target.Worksheet.Name}!{target.Cells[1, 1].Address}";
+                }
+            }
+            catch (COMException ex)
+            {
+                // Ignore no cells being selected error.
+                if (ex.HResult == -2146827864)
+                {
+                    Trace.WriteLine(ex.Message);
+                    return;
+                }
+                throw;
+            }
         }
     }
 }
