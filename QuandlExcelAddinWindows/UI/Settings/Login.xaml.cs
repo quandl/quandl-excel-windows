@@ -51,7 +51,7 @@ namespace Quandl.Excel.Addin.UI.Settings
                 }
                 else if (!string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(password.Text))
                 {
-                    QuandlConfig.AuthenticateWithCredentials(email.Text, password.Text);
+                    QuandlConfig.AuthenticateWithCredentials(new Web(), email.Text, password.Text);
                 }
                 else
                 {

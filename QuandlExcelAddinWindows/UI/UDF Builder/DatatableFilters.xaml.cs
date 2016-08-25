@@ -43,7 +43,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 if (StateControl.Instance.AvailableDataHolders != null)
                 {
                     Datatable dt = StateControl.Instance.AvailableDataHolders[0] as Datatable;
-                    DatatableMetadata items = await Web.GetDatatableMetadata(dt.Code);
+                    DatatableMetadata items = await new Web().GetDatatableMetadata(dt.Code);
                     foreach (string filter in items.datatable.Filters)
                     {
                         var column = items.datatable.Columns.FirstOrDefault(x => x.Name.Equals(filter));

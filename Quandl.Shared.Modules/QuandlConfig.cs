@@ -72,7 +72,8 @@ namespace Quandl.Shared
             }
         }
 
-        public static bool PreventCurrentExecution {
+        public static bool PreventCurrentExecution 
+        {
             get { return GetRegistry<bool>("PreventExecution"); }
             set
             {
@@ -112,7 +113,8 @@ namespace Quandl.Shared
             set { Instance.apiKey = value; }
         }
 
-        private static bool RegistryKeyExists(string key) {
+        private static bool RegistryKeyExists(string key) 
+        {
             var quandlRootKey = Registry.CurrentUser.OpenSubKey(RegistrySubKey);
             return quandlRootKey != null && quandlRootKey.GetValueNames().Contains(key);
         }
@@ -134,7 +136,7 @@ namespace Quandl.Shared
 
             try
             {
-                var user = await Web.WhoAmI(apiKey);
+                var user = await new Web().WhoAmI(apiKey);
                 return user != null && user.ApiKey == apiKey;
             }
             catch (QuandlErrorBase exp)
@@ -147,11 +149,11 @@ namespace Quandl.Shared
             }
         }
 
-        public static void AuthenticateWithCredentials(string accountName, string pass)
+        public static void AuthenticateWithCredentials(Web web, string accountName, string pass)
         {
             var obj = new { user = new { account = accountName, password = pass } };
             var payload = JsonConvert.SerializeObject(obj);
-            var res = Web.Authenticate(payload);
+            var res = web.Authenticate(payload);
             Instance.apiKey = res["user"]["api_key"].ToObject<string>();
         }
 
