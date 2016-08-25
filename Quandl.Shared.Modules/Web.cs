@@ -23,7 +23,7 @@ namespace Quandl.Shared
             Data
         }
 
-        public static async Task<User> WhoAmI(string api_key)
+        public virtual async Task<User> WhoAmI(string api_key)
         {
             var queryHeaders = new Dictionary<string, string>
             {
@@ -34,7 +34,7 @@ namespace Quandl.Shared
             return userResponse.user;
         }
 
-        public static async Task<DatabaseCollection> SearchDatabasesAsync(string query)
+        public virtual async Task<DatabaseCollection> SearchDatabasesAsync(string query)
         {
             var queryParams = new Dictionary<string, object>
             {
@@ -44,7 +44,8 @@ namespace Quandl.Shared
             return await RequestAsync<DatabaseCollection>("databases", CallTypes.Search, queryParams);
         }
 
-        public static async Task<DatasetsResponse> SearchDatasetsAsync(string databaseCode, string query, int page,
+
+        public virtual async Task<DatasetsResponse> SearchDatasetsAsync(string databaseCode, string query, int page,
             int perPage)
         {
             var queryParams = new Dictionary<string, object>
@@ -57,13 +58,13 @@ namespace Quandl.Shared
             return await RequestAsync<DatasetsResponse>("datasets", CallTypes.Search, queryParams);
         }
 
-        public static async Task<DatasetResponse> SearchDatasetAsync(string datasetCode)
+        public virtual async Task<DatasetResponse> SearchDatasetAsync(string datasetCode)
         {
             string relativeUrl = $"datasets/{datasetCode}/metadata";
             return await RequestAsync<DatasetResponse>(relativeUrl, CallTypes.Search);
         }
 
-        public static async Task<BrowseCollection> BrowseAsync()
+        public virtual async Task<BrowseCollection> BrowseAsync()
         {
             var queryParams = new Dictionary<string, object>
             {
@@ -78,7 +79,7 @@ namespace Quandl.Shared
             return browse;
         }
 
-        public static async Task<Dataset> GetDatasetData(string quandlCode, Dictionary<string, object> queryParams)
+        public virtual async Task<Dataset> GetDatasetData(string quandlCode, Dictionary<string, object> queryParams)
         {
             var relativeUrl = "datasets/" + quandlCode + "/data";
             var resp = await RequestAsync<DataArray>(relativeUrl, CallTypes.Data, queryParams);
@@ -88,14 +89,14 @@ namespace Quandl.Shared
             return dataset;
         }
 
-        public static async Task<DatasetMetaResponse> GetDatasetMetadata(string quandlCode)
+        public virtual async Task<DatasetMetaResponse> GetDatasetMetadata(string quandlCode)
         {
             var relativeUrl = "datasets/" + quandlCode + "/metadata";
             var resp = await RequestAsync<DatasetMetaResponse>(relativeUrl, CallTypes.Search);
             return resp;
         }
 
-        public static async Task<Datatable> GetDatatableData(string quandlCode, Dictionary<string, object> queryParams)
+        public virtual async Task<Datatable> GetDatatableData(string quandlCode, Dictionary<string, object> queryParams)
         {
             var relativeUrl = "datatables/" + quandlCode;
             var resp = await RequestAsync<DataArray>(relativeUrl, CallTypes.Data, queryParams);
@@ -105,7 +106,7 @@ namespace Quandl.Shared
             return datatable;
         }
 
-        public static async Task<T> GetModelByIds<T>(string type, List<string> ids) where T : class, new()
+        public virtual async Task<T> GetModelByIds<T>(string type, List<string> ids) where T : class, new()
         {
             if (ids.Count.Equals(0))
             {
@@ -116,25 +117,25 @@ namespace Quandl.Shared
             return await RequestAsync<T>(type, callType, queryParams);
         }
 
-        public static async Task<T> GetDatabase<T>(string code)
+        public virtual async Task<T> GetDatabase<T>(string code)
         {
             var relativeUrl = "databases/" + code;
             return await RequestAsync<T>(relativeUrl, CallTypes.Search, null);
         }
 
-        public static async Task<T> GetDatatableCollection<T>(string code)
+        public virtual async Task<T> GetDatatableCollection<T>(string code)
         {
             var relativeUrl = "datatable_collections/" + code;
             return await RequestAsync<T>(relativeUrl, CallTypes.Search, null);
         }
 
-        public static async Task<DatatableMetadata> GetDatatableMetadata(string code)
+        public virtual async Task<DatatableMetadata> GetDatatableMetadata(string code)
         {
             string relativeUrl = "datatables/" + code + "/metadata";
-            return await RequestAsync<DatatableMetadata>(relativeUrl, CallTypes.Search, null);
+            return await RequestAsync<DatatableMetadata>(relativeUrl, CallTypes.Data, null);
         }
 
-        public static JObject Authenticate(string body)
+        public virtual JObject Authenticate(string body)
         {
             var client = new WebClient
             {

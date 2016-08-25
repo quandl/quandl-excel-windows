@@ -53,7 +53,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private async void PopulateTreeView()
         {
-            var items = await Web.BrowseAsync();
+            var items = await new Web().BrowseAsync();
             var categories = new Categories();
 
             foreach (var item in items.Items)
@@ -289,7 +289,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             try
             {
-                var dtc = await Web.GetDatatableCollection<DatatableCollectionResponse>(code);
+                var dtc = await new Web().GetDatatableCollection<DatatableCollectionResponse>(code);
                 StateControl.Instance.ChangeCode(dtc.Provider, StateControl.ChainTypes.Datatables);
                 return true;
             }
@@ -303,7 +303,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             try
             {
-                var response = await Web.GetDatabase<DatabaseResponse>(code);
+                var response = await new Web().GetDatabase<DatabaseResponse>(code);
                 StateControl.Instance.ChangeCode(response.Provider, StateControl.ChainTypes.TimeSeries);
                 return true;
             }
@@ -316,7 +316,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private async Task<DatabaseCollectionResponse> GetAllDatabase(LeafCategory leafCategory)
         {
             var type = "database";
-            return await Web.GetModelByIds<DatabaseCollectionResponse>(type + "s", GetListIds(leafCategory, type));
+            return await new Web().GetModelByIds<DatabaseCollectionResponse>(type + "s", GetListIds(leafCategory, type));
         }
 
         private async Task<DatatableCollectionsResponse> GetAllDatatable(LeafCategory leafCategory)
@@ -324,7 +324,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             var type = "datatable-collection";
             return
                 await
-                    Web.GetModelByIds<DatatableCollectionsResponse>(type.Replace("-", "_") + "s",
+                    new Web().GetModelByIds<DatatableCollectionsResponse>(type.Replace("-", "_") + "s",
                         GetListIds(leafCategory, type));
         }
 

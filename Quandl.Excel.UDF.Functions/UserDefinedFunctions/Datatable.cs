@@ -99,7 +99,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
                 // Pull the metadata first to get the first column name. This is not very efficient as it makes another call just to get one field.
                 queryParams.AddInternalParam("qopts.per_page", 1);
-                var task = Web.GetDatatableData(quandlCode, queryParams.QueryParams);
+                var task = new Web().GetDatatableData(quandlCode, queryParams.QueryParams);
                 task.Wait();
                 var firstCellString = task.Result.Columns[0].Name;
 
@@ -165,7 +165,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     do
                     {
                         // Fetch rows
-                        var task = Web.GetDatatableData(quandlCode, datatableParams.QueryParams);
+                        var task = new Web().GetDatatableData(quandlCode, datatableParams.QueryParams);
                         task.Wait();
                         var results = task.Result;
 
