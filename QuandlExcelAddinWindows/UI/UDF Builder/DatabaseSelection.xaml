@@ -7,7 +7,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="500">
-    <xctk:BusyIndicator Name="LoadingState"  IsBusy="False" DisplayAfter="0" >
+    <xctk:BusyIndicator Name="LoadingState"  IsBusy="False" DisplayAfter="1" >
         <Grid RenderTransformOrigin="0.318,0.34">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" MinWidth="200" />
