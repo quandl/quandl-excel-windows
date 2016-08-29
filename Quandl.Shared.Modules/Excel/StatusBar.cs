@@ -8,40 +8,33 @@ namespace Quandl.Shared.Excel
 {
     public class StatusBar
     {
+        private const int MsgAutoRemovalTimerMs = 30000;
+        private const int RetryWaitTimeMs = 1000;
+        private const int MaximumRetries = 50;
+
         private static System.Timers.Timer _statusTimer;
         private Application application;
-        private readonly int TIMER_DELAY = 20000;
-
-        // Retry wait if excel is busy
-        private const int RetryWaitTimeMs = 500;
-
-        // Try really hard to get the instance of the status bar from the application.
-        public static StatusBar Instance(object application)
-        {
-            try
-            {
-                return new StatusBar((Microsoft.Office.Interop.Excel.Application)application);
-            }
-            catch (COMException e)
-            {
-                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER)
-                if (e.HResult == -2147417846)
-                {
-                    Thread.Sleep(RetryWaitTimeMs);
-                    return Instance(application);
-                }
-
-                throw;
-            }
-        }
 
         public StatusBar(Application application)
         {
             this.application = application;
         }
 
+        // Thread the status bar updates to prevent the main application thread from locking waiting to update the status bar.
         public void AddMessage(string msg)
         {
+            new Thread(() => AddMessageWithoutThreading(msg, 0)).Start();
+        }
+
+        private void AddMessageWithoutThreading(string msg, int retries)
+        {
+            // Fail out after maximum retries.
+            if (retries == MaximumRetries)
+            {
+                Shared.Utilities.LogToSentry(new Exception("Could not update status bar."), new System.Collections.Generic.Dictionary<string, string> { { "Message", msg }, { "Retries", retries.ToString() } });
+                return;
+            }
+
             try
             {
                 application.StatusBar = msg;
@@ -54,7 +47,7 @@ namespace Quandl.Shared.Excel
                 }
 
                 // Create a new timer to show the error temporarily
-                _statusTimer = new System.Timers.Timer(TIMER_DELAY);
+                _statusTimer = new System.Timers.Timer(MsgAutoRemovalTimerMs);
                 _statusTimer.Elapsed += async (sender, e) => await Task.Run(() =>
                 {
                     ResetToDefault();
@@ -67,16 +60,20 @@ namespace Quandl.Shared.Excel
                 if (e.HResult == -2147417846 || e.HResult == -2146777998)
                 {
                     Thread.Sleep(RetryWaitTimeMs);
-                    AddMessage(msg);
+                    AddMessageWithoutThreading(msg, retries + 1);
                     return;
                 }
                 throw;
+            }
+            catch (NullReferenceException e)
+            {
+                Utilities.LogToSentry(e);
             }
         }
 
         public void AddException(Exception error)
         {
-            AddMessage("⚠ Quandl plugin error: " + error.Message);
+            AddMessage("⚠ Error : " + error.Message);
         }
 
         public void ResetToDefault()

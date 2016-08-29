@@ -83,7 +83,7 @@ namespace Quandl.Shared
 
         private AutoUpdateFrequencies autoUpdateFrequency
         {
-            get { return GetRegistry<AutoUpdateFrequencies>("AutoUpdateFrequency"); }
+            get { return RegistryKeyExists("AutoUpdateFrequency") ? GetRegistry<AutoUpdateFrequencies>("AutoUpdateFrequency") : AutoUpdateFrequencies.Disabled; }
             set
             {
                 SetRegistryKeyValue("AutoUpdateFrequency", value, RegistryValueKind.DWord);
