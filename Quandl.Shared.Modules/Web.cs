@@ -17,6 +17,8 @@ namespace Quandl.Shared
 {
     public class Web
     {
+        private const int MaxRequestTimeout = 30000;
+
         private enum CallTypes
         {
             Search,
@@ -149,6 +151,7 @@ namespace Quandl.Shared
                     ["Request-Version"] = Utilities.ReleaseVersion
                 }
             };
+
             if (!string.IsNullOrEmpty(QuandlConfig.ApiKey))
             {
                 client.Headers["X-API-Token"] = QuandlConfig.ApiKey;
@@ -172,6 +175,7 @@ namespace Quandl.Shared
         {
             using (var client = new HttpClient())
             {
+                client.Timeout = new TimeSpan(0, 0, 0, 0, MaxRequestTimeout);
                 client.BaseAddress = new Uri(Settings.Default.BaseUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

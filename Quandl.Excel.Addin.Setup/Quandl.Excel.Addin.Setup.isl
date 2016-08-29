@@ -269,7 +269,7 @@
 		<row><td>NewBinary21</td><td/><td>&lt;ISProjectFolder&gt;\banner2.jpg</td></row>
 		<row><td>NewBinary22</td><td/><td>&lt;ISProjectFolder&gt;\full-image.jpg</td></row>
 		<row><td>NewBinary23</td><td/><td>&lt;ISProjectFolder&gt;\banner2.jpg</td></row>
-		<row><td>NewBinary24</td><td/><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\Quandl.Excel.Console\bin\Release\Quandl.Excel.Console.exe</td></row>
+		<row><td>NewBinary24</td><td/><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.Console\bin\Release\Quandl.Excel.Console.exe</td></row>
 		<row><td>NewBinary3</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\Up.ibd</td></row>
 		<row><td>NewBinary4</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\WarningIcon.ibd</td></row>
 		<row><td>NewBinary5</td><td/><td>&lt;ISProjectFolder&gt;\full-image.jpg</td></row>
@@ -1923,13 +1923,13 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>quandl.excel.addin.content_f</td><td>Quandl.Excel.Addin.Content_Files</td><td>Quandl.Excel.Addin.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Addin&gt;|ContentFiles</td><td>3</td><td/></row>
-		<row><td>quandl.excel.addin.dll.manif</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.MAN|Quandl.Excel.Addin.dll.manifest</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.dll.manifest</td><td>1</td><td/></row>
+		<row><td>quandl.excel.addin.dll.manif</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.MAN|Quandl.Excel.Addin.dll.manifest</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.dll.manifest</td><td>1</td><td/></row>
 		<row><td>quandl.excel.addin.primary_o</td><td>Quandl.Excel.Addin.Primary_output</td><td>Quandl.Excel.Addin.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Addin&gt;|Built</td><td>3</td><td/></row>
-		<row><td>quandl.excel.addin.vsto</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.VST|Quandl.Excel.Addin.vsto</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.vsto</td><td>1</td><td/></row>
+		<row><td>quandl.excel.addin.vsto</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.VST|Quandl.Excel.Addin.vsto</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.vsto</td><td>1</td><td/></row>
 		<row><td>quandl.excel.console.primary</td><td>Quandl.Excel.Console.Primary_output</td><td>Quandl.Excel.Console.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Console&gt;|Built</td><td>3</td><td/></row>
 		<row><td>quandl.excel.udf.functions.p</td><td>Quandl.Excel.UDF.Functions.Primary_output</td><td>Quandl.Excel.UDF.Functions.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.UDF.Functions1&gt;|Built</td><td>3</td><td/></row>
-		<row><td>quandl.excel.udf.functions_a</td><td>Quandl.Excel.UDF.Functions_AddIn.dna</td><td>QUANDL~1.DNA|Quandl.Excel.UDF.Functions-AddIn.dna</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.dna</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions_a1</td><td>Quandl.Excel.UDF.Functions_AddIn.xll</td><td>QUANDL~1.XLL|Quandl.Excel.UDF.Functions-AddIn.xll</td><td>0</td><td/><td/><td>0</td><td>1</td><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.xll</td><td>1</td><td/></row>
+		<row><td>quandl.excel.udf.functions_a</td><td>Quandl.Excel.UDF.Functions_AddIn.dna</td><td>QUANDL~1.DNA|Quandl.Excel.UDF.Functions-AddIn.dna</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.dna</td><td>1</td><td/></row>
+		<row><td>quandl.excel.udf.functions_a1</td><td>Quandl.Excel.UDF.Functions_AddIn.xll</td><td>QUANDL~1.XLL|Quandl.Excel.UDF.Functions-AddIn.xll</td><td>0</td><td/><td/><td>0</td><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.xll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2437,7 +2437,7 @@
 		<row><td>DVD-18</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>15.83</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-5</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>4.38</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-9</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>7.95</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
-		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1033</td><td>0</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>108573</td><td/><td/><td/><td>3</td></row>
+		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1033</td><td>0</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td>C:\Users\Developer\Documents\GitHubVisualStudio\quandl-excel-windows\QuandlExcelAddinWindows\QuandlDigitCertCodeSign.pfx</td><td/><td/><td>536979487</td><td/><td/><td/><td>3</td></row>
 		<row><td>WebDeployment</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>4</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>124941</td><td/><td/><td/><td>3</td></row>
 	</table>
 
@@ -2485,7 +2485,7 @@
 		<row><td>DVD-18</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>DVD-5</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>DVD-9</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
-		<row><td>SingleImage</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>1</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
+		<row><td>SingleImage</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>1</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td>***REMOVED***</td></row>
 		<row><td>WebDeployment</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>setup</td><td>Default</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>2</td><td>http://www.Installengine.com/Msiengine20</td><td>http://www.Installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 	</table>
 
@@ -2494,6 +2494,7 @@
 		<col key="yes" def="s72">ISProductConfiguration_</col>
 		<col key="yes" def="s72">Name</col>
 		<col def="s0">Value</col>
+		<row><td>SingleImage</td><td>Express</td><td>SignatureDescription</td><td>Quandl Excel Addin</td></row>
 	</table>
 
 	<table name="ISReleasePublishInfo">
@@ -4426,9 +4427,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{24D5E540-738B-4912-98EA-E4F5C63E048D}</td><td/></row>
+		<row><td>ProductCode</td><td>{B9249C5C-B4B2-4EF4-A174-3D35E6C3C786}</td><td/></row>
 		<row><td>ProductName</td><td>Quandl Excel Addin</td><td/></row>
-		<row><td>ProductVersion</td><td>3.13.0000</td><td/></row>
+		<row><td>ProductVersion</td><td>3.14.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

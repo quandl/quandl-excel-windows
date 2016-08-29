@@ -5,6 +5,7 @@ using Microsoft.Office.Interop.Excel;
 using Quandl.Shared.Properties;
 using SharpRaven;
 using SharpRaven.Data;
+using System.Diagnostics;
 
 namespace Quandl.Shared
 {
@@ -37,6 +38,7 @@ namespace Quandl.Shared
 
         public static async void LogToSentry(System.Exception exception, string key, string value)
         {
+            Trace.WriteLine(exception.Message);
             if (ENABLE_SENTRY_LOG)
             {
                 SetSentryData(exception, "Excel-Version", Utilities.GetExcelVersionNumber);
