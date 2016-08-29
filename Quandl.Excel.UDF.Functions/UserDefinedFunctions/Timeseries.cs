@@ -152,7 +152,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             datasetsWithoutColumns.ForEach(qc => datasets[qc].Columns.Clear());
 
             // Fetch all the data at the same time.
-            var tasks = datasets.Select(dsp => Web.GetDatasetData(dsp.Value.Code, dsp.Value.QueryParams));
+            var tasks = datasets.Select(dsp => new Web().GetDatasetData(dsp.Value.Code, dsp.Value.QueryParams));
             var fetchTask = Task.WhenAll(tasks);
             fetchTask.Wait();
 
@@ -210,7 +210,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 if (!datasetMetadata.ContainsKey(code))
                 {
                     // perform a metadata api query based on the dataset code
-                    var fetchTask = Task.WhenAll(Web.GetDatasetMetadata(code));
+                    var fetchTask = Task.WhenAll(new Web().GetDatasetMetadata(code));
                     fetchTask.Wait();
 
                     var metadata = fetchTask.Result.First().Metadata;
