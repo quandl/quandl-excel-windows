@@ -26,13 +26,17 @@ The Quandl Excel Add-In allows you to search through, find and download any of Q
 ### Build installation package
 
 1. Follow the instructions list in `Development` section above, setup the project
-2. Install the key `QuandlDigitCertCodeSign.pfx` from lastpass to the projects missing it
+2. Install the key `QuandlDigitCertCodeSign.pfx` from lastpass to the projects missing it.
+  * The output of each project needs to be signed individually
+  * Additionally the installer needs to be signed as well
 3. Download the dependencies under `Quandl.Excel.Addin.Setup -> 2 Specify Application Data => Redistributables`. You will need to do this as an admin.
 4. Ensure your project QuandlDigitCertCodeSign.pfx files have the protected password. See [Password Protect Digital Certificate](#password-protect-digital-certificate)
 5. Restart into non-admin mode
-6. Right click solution file and select `Rebuild Solution`
-7. $PROJECT_ROOT_FOLDER\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
-8. Change the product code and bump the version number.
+6. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => Signing`
+7. Change the product code (use the helper) and bump the version number.
+  * Be sure to leave the upgrade code untouched.
+8. Right click solution file and select `Rebuild Solution`
+9. $PROJECT_ROOT_FOLDER\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
 
 Things to note:
 

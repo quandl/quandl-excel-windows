@@ -9,7 +9,6 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Quandl.Shared.Excel;
-using System.Diagnostics;
 using StatusBar = Quandl.Shared.Excel.StatusBar;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
@@ -116,7 +115,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             }
             catch (DatatableParamError e)
             {
-                Utilities.LogToSentry(e, "Qtable", queryParams.ToString());
+                Utilities.LogToSentry(e, "QTABLE", queryParams.ToString());
                 return e.Message;
             }
         }
@@ -234,22 +233,20 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     {
                         return;
                     }
+
+                    Utilities.LogToSentry(e, "QTABLE", datatableParams.ToString());
+                    StatusBar.AddMessage(Locale.English.UdfCompleteError);
                     throw;
                 }
                 catch (ThreadAbortException)
                 {
-                    return; // Safe to ignore aborting threads
+                    return; // Safe to ignore aborting threads. Assume user forcibly stopped the UDF.
                 }
                 catch (Exception e)
                 {
-                    Utilities.LogToSentry(e,"Qtable", datatableParams.ToString());
-                    Trace.WriteLine(e.Message);
-                    throw;
-                }
-                finally
-                {
-                    // This message should get immediately overwritten in the case of a real success.
+                    Utilities.LogToSentry(e, "QTABLE", datatableParams.ToString());
                     StatusBar.AddMessage(Locale.English.UdfCompleteError);
+                    throw;
                 }
             }
 
