@@ -178,6 +178,15 @@ namespace Quandl.Excel.UDF.Functions.Locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter your api key to begin pulling data..
+        /// </summary>
+        internal static string UdfRequiresAPIKey {
+            get {
+                return ResourceManager.GetString("UdfRequiresAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retrieving data ....
         /// </summary>
         internal static string UdfRetrievingData {

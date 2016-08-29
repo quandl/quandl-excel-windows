@@ -26,9 +26,10 @@ namespace Quandl.Excel.Addin.UI.Settings
                 ApiKeyTextBox.Text = QuandlConfig.ApiKey;
                 LongRunningWarningTextBox.IsChecked = QuandlConfig.LongRunningQueryWarning;
                 OverwriteWarningTextBox.IsChecked = QuandlConfig.OverwriteDataWarning;
-                BindingHelper.SetItemSourceViaEnum(AutoUpdateComboBox, typeof(QuandlConfig.AutoUpdateFrequencies));
                 AutoUpdateComboBox.SelectedValue = QuandlConfig.AutoUpdateFrequency;
                 ScollEnabledCheckBox.IsChecked = QuandlConfig.ScrollOnInsert;
+
+                BindingHelper.SetItemSourceViaEnum(AutoUpdateComboBox, typeof(QuandlConfig.AutoUpdateFrequencies));
             };
         }
 

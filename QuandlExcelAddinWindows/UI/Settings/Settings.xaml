@@ -27,7 +27,7 @@
         <ComboBox x:Name="AutoUpdateComboBox" Grid.Column="1" Grid.Row="0" Margin="10,10,0,10"
                   DisplayMemberPath="Description"
                   SelectedValuePath="value"
-                  SelectedValue="shared:QuandlConfig.AutoUpdateFrequency" SelectedIndex="0" />
+                  SelectedValue="shared:QuandlConfig.AutoUpdateFrequency" />
         
         <Label Content="Api Key" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Right"
                VerticalAlignment="Center" />

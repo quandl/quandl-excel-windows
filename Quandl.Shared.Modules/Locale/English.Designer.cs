@@ -61,6 +61,15 @@ namespace Quandl.Shared.Locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We are unable to download the requested data at this moment. Please try again later or reduce the amount of data requested with additional filters..
+        /// </summary>
+        internal static string ApiExperiencingIssues {
+            get {
+                return ResourceManager.GetString("ApiExperiencingIssues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The cells you are trying to update may contain data in the location that the Quandl formula wants to write to. Would you like to continue?.
         /// </summary>
         internal static string OverwriteExistingDataPopupDesc {

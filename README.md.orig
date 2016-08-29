@@ -5,7 +5,9 @@
 
 The Quandl Excel Add-In allows you to search through, find and download any of Quandl's millions of datasets directly from within Microsoft Excel. It's completely free; usage is unlimited and unrestricted. Currently this Add-in is limited to windows only as it uses features and functions which are only available on the windows version of excel.
 
-## Development
+## Install
+
+### Development
 
 A few things that will make your excel development experience much easier:
 
@@ -13,9 +15,9 @@ A few things that will make your excel development experience much easier:
 * Use Async tasks and don't block with long running code. This will block the Excel UI due to it being single threaded.
 * When making calls to excel via ExcelDNA thing of Excel as the `server` and our ExcelDNA app as the `client`. Design your application as if you are making `requests` of excel which it may or may not fulfill. Also not that the Excel `server` can be busy (overloaded) due to its single threaded nature and you may need to wait and retry your call later to fulfill it.
 
-### Setup
+#### Setup
 
-1. Download and install `file:///C:/Program%20Files%20(x86)/Microsoft%20Visual%20Studio%2014.0/Common7/IDE/Extensions/InstallShield/InstallShieldProject/1033/InstallShield_ult.html`
+1. Download and install file:///C:/Program%20Files%20(x86)/Microsoft%20Visual%20Studio%2014.0/Common7/IDE/Extensions/InstallShield/InstallShieldProject/1033/InstallShield_ult.html
  * Open Solution -> right click solution -> add -> new project -> other project type -> InstallShield
  * Walk through the steps on the side to download and install InstallShield (Make note of your install key)
 3. Restart `Visual Studio` and enter in your install key
@@ -29,30 +31,25 @@ A few things that will make your excel development experience much easier:
 10. Click `Create Test Certificate` without a password
 11. You should now be able to build the project.
 
-## Building a Release package
+### Building a Release package
 
-1. Follow the instructions list in `Development` section above to setup the project and its basic dependencies.
-2. Download and place the key `QuandlDigitCertCodeSign.pfx` from lastpass in the root of the projects missing it.
+1. Follow the instructions list in `Development` section above, setup the project
+2. Install the key `QuandlDigitCertCodeSign.pfx` from lastpass to the projects missing it.
   * The output of each project needs to be signed individually
   * Additionally the installer needs to be signed as well
-  * The QuandlDigitCertCodeSign.pfx file has been password protected and will need the decryption key to be used. See [Password Protect Digital Certificate](#password-protect-digital-certificate)
-3. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
-4. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information` 
-  1. Change the product code (use the helper - `{...}`)
-  2. Bump the version number.
-    * Be sure to leave the upgrade code untouched.
-5. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
-5. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
-6. Switch your `Run Mode` to `release` instead of `debug`
-7. Right click solution file and select `Rebuild Solution`
-8. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
+3. Download the dependencies under `Quandl.Excel.Addin.Setup -> 2 Specify Application Data => Redistributables`. You will need to do this as an admin.
+4. Ensure your project QuandlDigitCertCodeSign.pfx files have the protected password. See [Password Protect Digital Certificate](#password-protect-digital-certificate)
+5. Restart into non-admin mode
+6. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => Signing`
+7. Change the product code (use the helper) and bump the version number.
+  * Be sure to leave the upgrade code untouched.
+8. Right click solution file and select `Rebuild Solution`
+9. $PROJECT_ROOT_FOLDER\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
 
 Things to note:
 
 * UnRegisterAddin must have code `1501` in the `.isl` file.
 * Be sure to bump the version AND change your product code number under `Organize Your Setup` => `General Information`. This is necessary for a seemless upgrade.
-* Allow of our dependencies have been listed as `web` dependencies to keep our installer small. 
-  * Should you need to install them locally you can do that navigating to `Quandl.Excel.Addin.Setup -> 2 Specify Application Data => Redistributables`. You will need to do this in Visual Studio as an admin.
 
 ### Password Protect Digital Certificate
 
@@ -61,10 +58,27 @@ Things to note:
 3. Select the Digital Certificate
 4. Enter password (found in lastpass) and Save
 
-## Unit testing
+### Sign installation package
 
-See [Unit Testing Guide](UNIT_TEST_GUIDE.md)
+1. Download  `QuandlDigitCertCodeSign.pfx` from lastpass to your local windows folder 
+2. Use windows application `certmgr.msc` to to import QuandlDigitCertCodeSign.pfx to your local certification store
+3. `cd  $PROJECT_ROOT_FOLDER\quandl-excel-windows\QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1`
+4. run this command to sign your setup package `SignTool sign /n "Quandl Inc." setup.exe`
 
+### Unit testing
+<<<<<<< HEAD
+- see [Unit Testing Guide](UNIT_TEST_GUIDE.md)
+=======
+
+- Tools need to install, VS Tools -> Extensions and Updates, install NUnit 3 Test Adapter and Test Generator NUnit extension
+- unit testing framework [NUnit 3](http://www.nunit.org/)
+- useful documentation for nunit [https://github.com/nunit/docs/wiki/NUnit-Documentation](https://github.com/nunit/docs/wiki/NUnit-Documentation)
+- C# Demo project [https://github.com/nunit/nunit-csharp-samples](https://github.com/nunit/nunit-csharp-samples)
+- Mocking framework [Moq](https://github.com/moq/moq4)
+- Moq mocking oject should be interface or virtual function
+- [Moq quick start](https://github.com/Moq/moq4/wiki/Quickstart)
+- [Moq API](http://www.nudoq.org/#!/Projects/Moq)
+>>>>>>> ca4efb1... Readme updates.
 
 ## FAQ
 
