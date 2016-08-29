@@ -107,7 +107,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             if (StateControl.Instance.ChainType == StateControl.ChainTypes.TimeSeries)
             {
                 txtFilterResults.IsEnabled = true;
-                var datasets = await Web.SearchDatasetsAsync(code, query, _currentPage, perPageCount);
+                var datasets = await new Web().SearchDatasetsAsync(code, query, _currentPage, perPageCount);
 
                 Dispatcher.Invoke(() =>
                 {
@@ -148,7 +148,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private async void SetDatatableFromAPI(string code)
         {
-            DatatableMetadata dtm = await Web.GetDatatableMetadata(code);
+            DatatableMetadata dtm = await new Web().GetDatatableMetadata(code);
             AvailableDataHolders.Clear();
             _selectedDatatable = dtm.datatable;
             AvailableDataHolders.Add(_selectedDatatable);
