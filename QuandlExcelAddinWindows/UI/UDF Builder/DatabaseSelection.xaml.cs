@@ -11,6 +11,7 @@ using Quandl.Shared;
 using Quandl.Shared.Errors;
 using Quandl.Shared.Models;
 using Quandl.Shared.Models.Browse;
+using Xceed.Wpf.Toolkit;
 
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
@@ -53,6 +54,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private async void PopulateTreeView()
         {
+            LoadingState.IsBusy = true;
             var items = await new Web().BrowseAsync();
             var categories = new Categories();
 
@@ -71,11 +73,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     }
                 }
             }
-            Dispatcher.Invoke(() => { BrowseData.ItemsSource = categories; });
+            Dispatcher.Invoke(() => { BrowseData.ItemsSource = categories;
+                                        LoadingState.IsBusy = false;
+            });
         }
 
         private async void PopulateList(object current)
         {
+            LoadingState.IsBusy = true;
             _allItems = new List<ViewData>();
             var cur = (LeafCategory) current;
             var dbCollection = await GetAllDatabase(cur);
@@ -87,6 +92,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 AllDatabaseList.ItemsSource = _allItems;
                 PremiumDatabaseList.ItemsSource = PremiumItems();
                 FreeDatabaseList.ItemsSource = FreeItems();
+                LoadingState.IsBusy = false;
             });
         }
 
