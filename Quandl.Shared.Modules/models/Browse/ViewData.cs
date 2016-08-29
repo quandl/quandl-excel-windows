@@ -12,6 +12,11 @@ namespace Quandl.Shared.Models.Browse
 
         public string Name { get; set; }
         public ObservableCollection<SubCategory> SubCategories { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     public class SubCategory
@@ -23,6 +28,11 @@ namespace Quandl.Shared.Models.Browse
 
         public string Name { get; set; }
         public ObservableCollection<LeafCategory> LeafCategories { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     public class LeafCategory
@@ -39,6 +49,11 @@ namespace Quandl.Shared.Models.Browse
         public string Name { get; set; }
 
         public List<OrderedResourceIds> OrderList { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
 
@@ -75,5 +90,10 @@ namespace Quandl.Shared.Models.Browse
         public string DataType { get; set; }
 
         public object DataSource { get; set; }
+
+        public override string ToString()
+        {
+            return $"{DataType} {Code} {Name}";
+        }
     }
 }

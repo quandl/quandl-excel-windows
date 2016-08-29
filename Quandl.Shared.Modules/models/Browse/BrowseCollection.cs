@@ -8,6 +8,11 @@ namespace Quandl.Shared.Models.Browse
         public List<BrowseCollection> Items { get; set; }
 
         public List<OrderedResourceIds> OrderedResourceIds { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     public class OrderedResourceIds
