@@ -1,10 +1,5 @@
 ﻿using NUnit.Framework;
-using Quandl.Shared;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -21,10 +16,9 @@ namespace Quandl.Shared.Tests
             {
                 QuandlConfig.Reset();
             }
-            catch (Exception e)
+            catch (ArgumentException)
             {
-                if (!e.Message.Contains("Cannot delete a subkey tree because the subkey does not exist."))
-                    throw;
+                // Exception message: Cannot delete a subkey tree because the subkey does not exist.
                 // do nothing if key not exist
             }
 
@@ -43,7 +37,7 @@ namespace Quandl.Shared.Tests
             {
                 QuandlConfig.AuthenticateWithCredentials(webMock.Object, "account", "password");
             }
-            catch (Exception e)
+            catch (NullReferenceException e)
             { 
                 Assert.Fail("QuandlConfig.AuthenticateWithCredentials should not throw exception:" + e.Message);
             }
