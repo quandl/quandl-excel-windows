@@ -57,14 +57,8 @@ Things to note:
 4. run this command to sign your setup package `SignTool sign /n "Quandl Inc." setup.exe`
 
 ### Unit testing
-- Tools need to install, VS Tools -> Extensions and Updates, install NUnit 3 Test Adapter and Test Generator NUnit extension
-- unit testing framework [NUnit 3](http://www.nunit.org/)
-- useful documentation for nunit [https://github.com/nunit/docs/wiki/NUnit-Documentation](https://github.com/nunit/docs/wiki/NUnit-Documentation)
-- C# Demo project [https://github.com/nunit/nunit-csharp-samples](https://github.com/nunit/nunit-csharp-samples)
-- Mocking framework [Moq](https://github.com/moq/moq4)
-- Moq mocking oject should be interface or virtual function
-- [Moq quick start](https://github.com/Moq/moq4/wiki/Quickstart)
-- [Moq API](http://www.nudoq.org/#!/Projects/Moq)
+- see [Unit Testing Guide](UNIT_TEST_GUIDE.md)
+
 ## FAQ
 
 For a list of excel COM exceptions and what they mean please see: [Errors](./ERRORS.md)
