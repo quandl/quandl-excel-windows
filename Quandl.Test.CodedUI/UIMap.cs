@@ -39,7 +39,9 @@
 
         public UIStepTwoPaneCustom ExcelClient6()
         {
-            return UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIStepTwoPaneCustom
+            return
+                UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane
+                    .UIStepTwoPaneCustom;
         }
 
 
