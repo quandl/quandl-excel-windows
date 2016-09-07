@@ -65,8 +65,13 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     category.SubCategories.Add(subCategory);
                     foreach (var detailItem in subItem.Items)
                     {
-                        var detail = new LeafCategory(detailItem.Name, detailItem.OrderedResourceIds);
-                        subCategory.LeafCategories.Add(detail);
+                        // remove intraday data
+                        if (detailItem.Name != null && !detailItem.Name.ToLower().Contains("intraday"))
+                        {
+                            var detail = new LeafCategory(detailItem.Name, detailItem.OrderedResourceIds);
+                            subCategory.LeafCategories.Add(detail);
+                        }
+    
                     }
                 }
             }
