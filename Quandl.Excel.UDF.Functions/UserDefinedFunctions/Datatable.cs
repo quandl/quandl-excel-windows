@@ -9,7 +9,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Quandl.Shared.Excel;
-using StatusBar = Quandl.Shared.Excel.StatusBar;
+using System.Threading.Tasks;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
@@ -17,10 +17,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
     {
         private const int RowPullCountMax = 1000;
 
-        // Retry wait if excel is busy
-        public const int RetryWaitTimeMs = 500;
-
-        private static StatusBar StatusBar => StatusBarInstance();
 
         [ExcelFunction("Pull in Quandl data via the API", Name = "QTABLE", IsMacroType = true, Category = "Financial")]
         public static string Qtable(
@@ -57,7 +53,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
         private static string Process(Range currentFormulaCell, object rawQuandlCode, object rawColumns, object argName1, object argValue1, object argName2, object argValue2, object argName3, object argValue3, object argName4, object argValue4, object argName5, object argValue5, object argName6, object argValue6)
         {
-            StatusBar.AddMessage(Locale.English.UdfRetrievingData);
+            Common.StatusBar.AddMessage(Locale.English.UdfRetrievingData);
             var queryParams = new DatatableParams();
             try
             {
@@ -84,19 +80,15 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 queryParams.AddParam(Tools.GetStringValue(argName6), argValue6);
 
                 // If the user has not added in any query parameters warn them that its probably not a good idea to continue forward.
-                if (QuandlConfig.LongRunningQueryWarning && !queryParams.UserParamsGiven)
+                if (!ShouldContinueWithoutParams(queryParams.UserParamsGiven))
                 {
-                    DialogResult continueAnyways = MessageBox.Show(
-                        Locale.English.AdditionalQueryParamsRequiredDesc,
-                        Locale.English.AdditionalQueryParamsRequiredTitle,
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (continueAnyways == DialogResult.No)
-                    {
-                        return Locale.English.AdditionalQueryParamsPleaseAdd;
-                    }
+                    return Locale.English.AdditionalQueryParamsPleaseAdd;
                 }
 
+                throw new Exception("ASDASDAS");
+
                 // Pull the metadata first to get the first column name. This is not very efficient as it makes another call just to get one field.
+                Common.StatusBar.AddMessage(Locale.English.UdfRetrievingData);
                 queryParams.AddInternalParam("qopts.per_page", 1);
                 var task = new Web().GetDatatableData(quandlCode, queryParams.QueryParams);
                 task.Wait();
@@ -115,29 +107,43 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             }
             catch (DatatableParamError e)
             {
-                Utilities.LogToSentry(e, "QTABLE", queryParams.ToString());
+                Utilities.LogToSentry(e, AdditionalInfo(queryParams));
                 return e.Message;
+            }
+            catch (Exception e)
+            {
+                return Common.HandlePotentialQuandlError(e, true, AdditionalInfo(queryParams));
             }
         }
 
-        // Try really hard to get the instance of the status bar from the application.
-        public static StatusBar StatusBarInstance()
+        // Spawn a msg box to ask the user if they want to continue even if they don't have any query params given.
+        // This is run in a task thread to avoid deadlock issues within the main excel thread.
+        private static bool ShouldContinueWithoutParams(bool paramsGiven)
         {
-            try
+            var shouldContinue = Task.Factory.StartNew(() =>
             {
-                return new StatusBar((Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application);
-            }
-            catch (COMException e)
-            {
-                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER)
-                if (e.HResult == -2147417846 || e.HResult == -2146777998)
+                if (QuandlConfig.LongRunningQueryWarning && !paramsGiven)
                 {
-                    Thread.Sleep(RetryWaitTimeMs);
-                    return StatusBarInstance();
+                    DialogResult continueAnyways = MessageBox.Show(
+                        Locale.English.AdditionalQueryParamsRequiredDesc,
+                        Locale.English.AdditionalQueryParamsRequiredTitle,
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (continueAnyways == DialogResult.No)
+                    {
+                        return false;
+                    }
                 }
+                return true;
+            });
+            shouldContinue.Wait();
+            return shouldContinue.Result;
+        }
 
-                throw;
-            }
+        private static Dictionary<string, string> AdditionalInfo(DatatableParams queryParams)
+        {
+            var d1 = new Dictionary<string, string>() { { "UDF", "QTABLE" } };
+            var d2 = queryParams.QueryParams.Select(entry => new KeyValuePair<string, string>(entry.Key, Utilities.ObjectToHumanString(entry.Value)));
+            return d1.Concat(d2).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
         }
 
         internal class RetrieveAndWriteData
@@ -170,7 +176,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
                         // Inform the user whats going on.
                         currentRow += results.Data.DataPoints.Count();
-                        StatusBar.AddMessage(Locale.English.UdfRetrievingDataMoreDetails.Replace("{currentRow}", currentRow.ToString()));
+                        Common.StatusBar.AddMessage(Locale.English.UdfRetrievingDataMoreDetails.Replace("{currentRow}", currentRow.ToString()));
 
                         // Process fetched rows
                         var processedData = new ResultsData(results.Data.DataPoints, results.Columns.Select(c => c.Code).ToList());
@@ -198,12 +204,11 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         confirmedOverwrite = excelWriter.ConfirmedOverwrite;
                         if (excelWriter.ConfirmedOverwrite == false)
                         {
-                            StatusBar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
+                            Common.StatusBar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
                             return;
                         }
 
                         // Update the query params for next run if their is a cursor given and then increment the range where new data should go.
-
                         if (!string.IsNullOrWhiteSpace(results.Data.Cursor))
                         {
                             var headerOffset = 0;
@@ -224,7 +229,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         }
                     } while (!string.IsNullOrWhiteSpace(nextCursorId));
 
-                    StatusBar.AddMessage(Locale.English.UdfCompleteSuccess);
+                    Common.StatusBar.AddMessage(Locale.English.UdfCompleteSuccess);
                 }
                 catch (COMException e)
                 {
@@ -234,9 +239,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         return;
                     }
 
-                    Utilities.LogToSentry(e, "QTABLE", datatableParams.ToString());
-                    StatusBar.AddMessage(Locale.English.UdfCompleteError);
-                    throw;
+                    Common.HandlePotentialQuandlError(e, false, AdditionalInfo(datatableParams));
+                    Common.StatusBar.AddMessage(Locale.English.UdfCompleteError);
                 }
                 catch (ThreadAbortException)
                 {
@@ -244,9 +248,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 }
                 catch (Exception e)
                 {
-                    Utilities.LogToSentry(e, "QTABLE", datatableParams.ToString());
-                    StatusBar.AddMessage(Locale.English.UdfCompleteError);
-                    throw;
+                    Common.HandlePotentialQuandlError(e, false, AdditionalInfo(datatableParams));
+                    Common.StatusBar.AddMessage(Locale.English.UdfCompleteError);
                 }
             }
 

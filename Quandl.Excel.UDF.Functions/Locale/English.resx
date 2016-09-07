@@ -156,6 +156,9 @@
   <data name="UdfCompleteSuccess" xml:space="preserve">
     <value>All data retrieved successfully</value>
   </data>
+  <data name="UdfRequiresAPIKey" xml:space="preserve">
+    <value>Please enter your api key to begin pulling data.</value>
+  </data>
   <data name="UdfRetrievingData" xml:space="preserve">
     <value>Retrieving data ...</value>
   </data>
