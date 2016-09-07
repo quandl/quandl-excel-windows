@@ -100,6 +100,19 @@ namespace Quandl.Test.CodedUI
         }
         
         /// <summary>
+        /// AssertSelectedDatasetCode - Use 'AssertSelectedDatasetCodeExpectedValues' to pass parameters into this method.
+        /// </summary>
+        public void AssertSelectedDatasetCode()
+        {
+            #region Variable Declarations
+            WpfEdit uISelectedDataHolderTeEdit = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UISelectedDataHolderTeEdit;
+            #endregion
+
+            // Verify that the 'Text' property of 'SelectedDataHolderTextBox' text box equals 'EOD/FB'
+            Assert.AreEqual(this.AssertSelectedDatasetCodeExpectedValues.UISelectedDataHolderTeEditText, uISelectedDataHolderTeEdit.Text);
+        }
+        
+        /// <summary>
         /// Click the next button
         /// </summary>
         public void ClickNextButton()
@@ -185,6 +198,19 @@ namespace Quandl.Test.CodedUI
             Mouse.Click(uIAllTabPage, new Point(17, 13));
         }
         
+        /// <summary>
+        /// SelectDatasetDatatable - Use 'SelectDatasetDatatableParams' to pass parameters into this method.
+        /// </summary>
+        public void SelectDatasetDatatable()
+        {
+            #region Variable Declarations
+            WpfList uIDatasetsDatatablesLiList = this.UIQuandlFormulaBuilderWindow1.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIStepTwoPaneCustom.UIDatasetsDatatablesScPane.UIDatasetsDatatablesLiList;
+            #endregion
+
+            // Select 'Carbo Ceramics Inc. (CRR) Stock Prices\, Dividends and Splits' in 'DatasetsDatatablesListView' list box
+            uIDatasetsDatatablesLiList.SelectedItemsAsString = this.SelectDatasetDatatableParams.UIDatasetsDatatablesLiListSelectedItemsAsString;
+        }
+        
         #region Properties
         public virtual AssertCorrectUDFSignatureExpectedValues AssertCorrectUDFSignatureExpectedValues
         {
@@ -246,6 +272,18 @@ namespace Quandl.Test.CodedUI
             }
         }
         
+        public virtual AssertSelectedDatasetCodeExpectedValues AssertSelectedDatasetCodeExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertSelectedDatasetCodeExpectedValues == null))
+                {
+                    this.mAssertSelectedDatasetCodeExpectedValues = new AssertSelectedDatasetCodeExpectedValues();
+                }
+                return this.mAssertSelectedDatasetCodeExpectedValues;
+            }
+        }
+        
         public virtual InputDatabaseCodeParams InputDatabaseCodeParams
         {
             get
@@ -267,6 +305,18 @@ namespace Quandl.Test.CodedUI
                     this.mLoginWithApiKeyParams = new LoginWithApiKeyParams();
                 }
                 return this.mLoginWithApiKeyParams;
+            }
+        }
+        
+        public virtual SelectDatasetDatatableParams SelectDatasetDatatableParams
+        {
+            get
+            {
+                if ((this.mSelectDatasetDatatableParams == null))
+                {
+                    this.mSelectDatasetDatatableParams = new SelectDatasetDatatableParams();
+                }
+                return this.mSelectDatasetDatatableParams;
             }
         }
         
@@ -378,9 +428,13 @@ namespace Quandl.Test.CodedUI
         
         private AssertSelectedDatabaseCodeExpectedValues mAssertSelectedDatabaseCodeExpectedValues;
         
+        private AssertSelectedDatasetCodeExpectedValues mAssertSelectedDatasetCodeExpectedValues;
+        
         private InputDatabaseCodeParams mInputDatabaseCodeParams;
         
         private LoginWithApiKeyParams mLoginWithApiKeyParams;
+        
+        private SelectDatasetDatatableParams mSelectDatasetDatatableParams;
         
         private UIExcelWindow mUIExcelWindow;
         
@@ -481,6 +535,21 @@ namespace Quandl.Test.CodedUI
     }
     
     /// <summary>
+    /// Parameters to be passed into 'AssertSelectedDatasetCode'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class AssertSelectedDatasetCodeExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Verify that the 'Text' property of 'SelectedDataHolderTextBox' text box equals 'EOD/FB'
+        /// </summary>
+        public string UISelectedDataHolderTeEditText = "EOD/FB";
+        #endregion
+    }
+    
+    /// <summary>
     /// Parameters to be passed into 'InputDatabaseCode'
     /// </summary>
     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
@@ -507,6 +576,21 @@ namespace Quandl.Test.CodedUI
         /// Type 'R7Tb5usNpL7xCbTRP3Qd' in 'apiKey' text box
         /// </summary>
         public string UIApiKeyEditText = "R7Tb5usNpL7xCbTRP3Qd";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'SelectDatasetDatatable'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class SelectDatasetDatatableParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select 'Carbo Ceramics Inc. (CRR) Stock Prices\, Dividends and Splits' in 'DatasetsDatatablesListView' list box
+        /// </summary>
+        public string UIDatasetsDatatablesLiListSelectedItemsAsString = "Carbo Ceramics Inc. (CRR) Stock Prices\\, Dividends and Splits";
         #endregion
     }
     
@@ -1490,6 +1574,30 @@ namespace Quandl.Test.CodedUI
                 return this.mUIItemCustom5;
             }
         }
+        
+        public UIItemCustom6 UIItemCustom6
+        {
+            get
+            {
+                if ((this.mUIItemCustom6 == null))
+                {
+                    this.mUIItemCustom6 = new UIItemCustom6(this);
+                }
+                return this.mUIItemCustom6;
+            }
+        }
+        
+        public UIStepTwoPaneCustom UIStepTwoPaneCustom
+        {
+            get
+            {
+                if ((this.mUIStepTwoPaneCustom == null))
+                {
+                    this.mUIStepTwoPaneCustom = new UIStepTwoPaneCustom(this);
+                }
+                return this.mUIStepTwoPaneCustom;
+            }
+        }
         #endregion
         
         #region Fields
@@ -1504,6 +1612,10 @@ namespace Quandl.Test.CodedUI
         private UIItemCustom4 mUIItemCustom4;
         
         private UIItemCustom5 mUIItemCustom5;
+        
+        private UIItemCustom6 mUIItemCustom6;
+        
+        private UIStepTwoPaneCustom mUIStepTwoPaneCustom;
         #endregion
     }
     
@@ -1865,6 +1977,70 @@ namespace Quandl.Test.CodedUI
                 return this.mUIComboBoxTransformatiComboBox;
             }
         }
+        
+        public WpfButton UIItemButton
+        {
+            get
+            {
+                if ((this.mUIItemButton == null))
+                {
+                    this.mUIItemButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "btnFirstPage";
+                    this.mUIItemButton.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIItemButton;
+            }
+        }
+        
+        public WpfButton UIItemButton1
+        {
+            get
+            {
+                if ((this.mUIItemButton1 == null))
+                {
+                    this.mUIItemButton1 = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton1.SearchProperties[WpfButton.PropertyNames.AutomationId] = "btnPrevPage";
+                    this.mUIItemButton1.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIItemButton1;
+            }
+        }
+        
+        public WpfButton UIItemButton2
+        {
+            get
+            {
+                if ((this.mUIItemButton2 == null))
+                {
+                    this.mUIItemButton2 = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton2.SearchProperties[WpfButton.PropertyNames.AutomationId] = "btnNextPage";
+                    this.mUIItemButton2.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIItemButton2;
+            }
+        }
+        
+        public WpfButton UIItemButton3
+        {
+            get
+            {
+                if ((this.mUIItemButton3 == null))
+                {
+                    this.mUIItemButton3 = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton3.SearchProperties[WpfButton.PropertyNames.AutomationId] = "btnLastPage";
+                    this.mUIItemButton3.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIItemButton3;
+            }
+        }
         #endregion
         
         #region Fields
@@ -1897,6 +2073,14 @@ namespace Quandl.Test.CodedUI
         private WpfComboBox mUIComboBoxFrequencyComboBox;
         
         private WpfComboBox mUIComboBoxTransformatiComboBox;
+        
+        private WpfButton mUIItemButton;
+        
+        private WpfButton mUIItemButton1;
+        
+        private WpfButton mUIItemButton2;
+        
+        private WpfButton mUIItemButton3;
         #endregion
     }
     
@@ -2980,6 +3164,213 @@ namespace Quandl.Test.CodedUI
     }
     
     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIItemCustom6 : WpfCustom
+    {
+        
+        public UIItemCustom6(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatasetDatatableSelection";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public UILvDatasetsList UILvDatasetsList
+        {
+            get
+            {
+                if ((this.mUILvDatasetsList == null))
+                {
+                    this.mUILvDatasetsList = new UILvDatasetsList(this);
+                }
+                return this.mUILvDatasetsList;
+            }
+        }
+        
+        public UIDatasetsDatatablesLiList UIDatasetsDatatablesLiList
+        {
+            get
+            {
+                if ((this.mUIDatasetsDatatablesLiList == null))
+                {
+                    this.mUIDatasetsDatatablesLiList = new UIDatasetsDatatablesLiList(this);
+                }
+                return this.mUIDatasetsDatatablesLiList;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UILvDatasetsList mUILvDatasetsList;
+        
+        private UIDatasetsDatatablesLiList mUIDatasetsDatatablesLiList;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UILvDatasetsList : WpfList
+    {
+        
+        public UILvDatasetsList(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasets";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfListItem UIFacebookIncFBStockPrListItem
+        {
+            get
+            {
+                if ((this.mUIFacebookIncFBStockPrListItem == null))
+                {
+                    this.mUIFacebookIncFBStockPrListItem = new WpfListItem(this);
+                    #region Search Criteria
+                    this.mUIFacebookIncFBStockPrListItem.SearchProperties[WpfListItem.PropertyNames.Name] = "Facebook Inc. (FB) Stock Prices, Dividends and Splits";
+                    this.mUIFacebookIncFBStockPrListItem.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIFacebookIncFBStockPrListItem;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfListItem mUIFacebookIncFBStockPrListItem;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIDatasetsDatatablesLiList : WpfList
+    {
+        
+        public UIDatasetsDatatablesLiList(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasetsDatatables";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfListItem UIDigitalRealtyTrustInListItem
+        {
+            get
+            {
+                if ((this.mUIDigitalRealtyTrustInListItem == null))
+                {
+                    this.mUIDigitalRealtyTrustInListItem = new WpfListItem(this);
+                    #region Search Criteria
+                    this.mUIDigitalRealtyTrustInListItem.SearchProperties[WpfListItem.PropertyNames.Name] = "Digital Realty Trust Inc. Redeemable Preferred Stock Series H (DLR_P_H) Stock Pri" +
+                        "ces, Dividends and Splits";
+                    this.mUIDigitalRealtyTrustInListItem.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDigitalRealtyTrustInListItem;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfListItem mUIDigitalRealtyTrustInListItem;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIStepTwoPaneCustom : WpfCustom
+    {
+        
+        public UIStepTwoPaneCustom(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatasetDatatableSelection";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "StepTwoPane";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public UIDatasetsDatatablesLiList1 UIDatasetsDatatablesLiList
+        {
+            get
+            {
+                if ((this.mUIDatasetsDatatablesLiList == null))
+                {
+                    this.mUIDatasetsDatatablesLiList = new UIDatasetsDatatablesLiList1(this);
+                }
+                return this.mUIDatasetsDatatablesLiList;
+            }
+        }
+        
+        public WpfEdit UIDatabaseCodeBoxEdit
+        {
+            get
+            {
+                if ((this.mUIDatabaseCodeBoxEdit == null))
+                {
+                    this.mUIDatabaseCodeBoxEdit = new WpfEdit(this);
+                    #region Search Criteria
+                    this.mUIDatabaseCodeBoxEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "DatabaseCodeBox";
+                    this.mUIDatabaseCodeBoxEdit.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDatabaseCodeBoxEdit;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIDatasetsDatatablesLiList1 mUIDatasetsDatatablesLiList;
+        
+        private WpfEdit mUIDatabaseCodeBoxEdit;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIDatasetsDatatablesLiList1 : WpfList
+    {
+        
+        public UIDatasetsDatatablesLiList1(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasetsDatatables";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfListItem UIBlackrockMuniYieldCaListItem
+        {
+            get
+            {
+                if ((this.mUIBlackrockMuniYieldCaListItem == null))
+                {
+                    this.mUIBlackrockMuniYieldCaListItem = new WpfListItem(this);
+                    #region Search Criteria
+                    this.mUIBlackrockMuniYieldCaListItem.SearchProperties[WpfListItem.PropertyNames.Name] = "Blackrock MuniYield California Fund Inc. (MYC) Stock Prices, Dividends and Splits" +
+                        "";
+                    this.mUIBlackrockMuniYieldCaListItem.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIBlackrockMuniYieldCaListItem;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfListItem mUIBlackrockMuniYieldCaListItem;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
     public class UIQuandlFormulaBuilderWindow1 : WinWindow
     {
         
@@ -3087,29 +3478,71 @@ namespace Quandl.Test.CodedUI
         }
         
         #region Properties
-        public UIItemCustom6 UIItemCustom
+        public UIItemCustom7 UIItemCustom
         {
             get
             {
                 if ((this.mUIItemCustom == null))
                 {
-                    this.mUIItemCustom = new UIItemCustom6(this);
+                    this.mUIItemCustom = new UIItemCustom7(this);
                 }
                 return this.mUIItemCustom;
+            }
+        }
+        
+        public UIItemCustom12 UIItemCustom1
+        {
+            get
+            {
+                if ((this.mUIItemCustom1 == null))
+                {
+                    this.mUIItemCustom1 = new UIItemCustom12(this);
+                }
+                return this.mUIItemCustom1;
+            }
+        }
+        
+        public UIItemCustom21 UIItemCustom2
+        {
+            get
+            {
+                if ((this.mUIItemCustom2 == null))
+                {
+                    this.mUIItemCustom2 = new UIItemCustom21(this);
+                }
+                return this.mUIItemCustom2;
+            }
+        }
+        
+        public UIStepTwoPaneCustom1 UIStepTwoPaneCustom
+        {
+            get
+            {
+                if ((this.mUIStepTwoPaneCustom == null))
+                {
+                    this.mUIStepTwoPaneCustom = new UIStepTwoPaneCustom1(this);
+                }
+                return this.mUIStepTwoPaneCustom;
             }
         }
         #endregion
         
         #region Fields
-        private UIItemCustom6 mUIItemCustom;
+        private UIItemCustom7 mUIItemCustom;
+        
+        private UIItemCustom12 mUIItemCustom1;
+        
+        private UIItemCustom21 mUIItemCustom2;
+        
+        private UIStepTwoPaneCustom1 mUIStepTwoPaneCustom;
         #endregion
     }
     
     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
-    public class UIItemCustom6 : WpfCustom
+    public class UIItemCustom7 : WpfCustom
     {
         
-        public UIItemCustom6(UITestControl searchLimitContainer) : 
+        public UIItemCustom7(UITestControl searchLimitContainer) : 
                 base(searchLimitContainer)
         {
             #region Search Criteria
@@ -3419,6 +3852,283 @@ namespace Quandl.Test.CodedUI
         
         #region Fields
         private WpfTreeItem mUIAgricultureFuturesOpTreeItem;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIItemCustom12 : WpfCustom
+    {
+        
+        public UIItemCustom12(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.WizardGuide";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public UIQuandlExcelAddincompPane2 UIQuandlExcelAddincompPane
+        {
+            get
+            {
+                if ((this.mUIQuandlExcelAddincompPane == null))
+                {
+                    this.mUIQuandlExcelAddincompPane = new UIQuandlExcelAddincompPane2(this);
+                }
+                return this.mUIQuandlExcelAddincompPane;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIQuandlExcelAddincompPane2 mUIQuandlExcelAddincompPane;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIQuandlExcelAddincompPane2 : WpfPane
+    {
+        
+        public UIQuandlExcelAddincompPane2(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.Frame";
+            this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "stepFrame";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfList UILvDatasetsList
+        {
+            get
+            {
+                if ((this.mUILvDatasetsList == null))
+                {
+                    this.mUILvDatasetsList = new WpfList(this);
+                    #region Search Criteria
+                    this.mUILvDatasetsList.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasets";
+                    this.mUILvDatasetsList.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUILvDatasetsList;
+            }
+        }
+        
+        public WpfEdit UITxtFilterResultsEdit
+        {
+            get
+            {
+                if ((this.mUITxtFilterResultsEdit == null))
+                {
+                    this.mUITxtFilterResultsEdit = new WpfEdit(this);
+                    #region Search Criteria
+                    this.mUITxtFilterResultsEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "txtFilterResults";
+                    this.mUITxtFilterResultsEdit.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUITxtFilterResultsEdit;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfList mUILvDatasetsList;
+        
+        private WpfEdit mUITxtFilterResultsEdit;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIItemCustom21 : WpfCustom
+    {
+        
+        public UIItemCustom21(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatasetDatatableSelection";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public UIDatasetsDatatablesPane UIDatasetsDatatablesPane
+        {
+            get
+            {
+                if ((this.mUIDatasetsDatatablesPane == null))
+                {
+                    this.mUIDatasetsDatatablesPane = new UIDatasetsDatatablesPane(this);
+                }
+                return this.mUIDatasetsDatatablesPane;
+            }
+        }
+        
+        public UIDatasetsDatatablesPane1 UIDatasetsDatatablesPane1
+        {
+            get
+            {
+                if ((this.mUIDatasetsDatatablesPane1 == null))
+                {
+                    this.mUIDatasetsDatatablesPane1 = new UIDatasetsDatatablesPane1(this);
+                }
+                return this.mUIDatasetsDatatablesPane1;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIDatasetsDatatablesPane mUIDatasetsDatatablesPane;
+        
+        private UIDatasetsDatatablesPane1 mUIDatasetsDatatablesPane1;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIDatasetsDatatablesPane : WpfPane
+    {
+        
+        public UIDatasetsDatatablesPane(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.ScrollViewer";
+            this.SearchProperties[WpfPane.PropertyNames.Name] = "DatasetsDatatables";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfList UIDatasetsDatatblesLisList
+        {
+            get
+            {
+                if ((this.mUIDatasetsDatatblesLisList == null))
+                {
+                    this.mUIDatasetsDatatblesLisList = new WpfList(this);
+                    #region Search Criteria
+                    this.mUIDatasetsDatatblesLisList.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasets";
+                    this.mUIDatasetsDatatblesLisList.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDatasetsDatatblesLisList;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfList mUIDatasetsDatatblesLisList;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIDatasetsDatatablesPane1 : WpfPane
+    {
+        
+        public UIDatasetsDatatablesPane1(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.ScrollViewer";
+            this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "DatasetsDatatablesScrollViewer";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfList UIDatasetsDatatablesLiList
+        {
+            get
+            {
+                if ((this.mUIDatasetsDatatablesLiList == null))
+                {
+                    this.mUIDatasetsDatatablesLiList = new WpfList(this);
+                    #region Search Criteria
+                    this.mUIDatasetsDatatablesLiList.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasetsDatatables";
+                    this.mUIDatasetsDatatablesLiList.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDatasetsDatatablesLiList;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfList mUIDatasetsDatatablesLiList;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIStepTwoPaneCustom1 : WpfCustom
+    {
+        
+        public UIStepTwoPaneCustom1(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatasetDatatableSelection";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "StepTwoPane";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public UIDatasetsDatatablesScPane UIDatasetsDatatablesScPane
+        {
+            get
+            {
+                if ((this.mUIDatasetsDatatablesScPane == null))
+                {
+                    this.mUIDatasetsDatatablesScPane = new UIDatasetsDatatablesScPane(this);
+                }
+                return this.mUIDatasetsDatatablesScPane;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIDatasetsDatatablesScPane mUIDatasetsDatatablesScPane;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIDatasetsDatatablesScPane : WpfPane
+    {
+        
+        public UIDatasetsDatatablesScPane(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.ScrollViewer";
+            this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "DatasetsDatatablesScrollViewer";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfList UIDatasetsDatatablesLiList
+        {
+            get
+            {
+                if ((this.mUIDatasetsDatatablesLiList == null))
+                {
+                    this.mUIDatasetsDatatablesLiList = new WpfList(this);
+                    #region Search Criteria
+                    this.mUIDatasetsDatatablesLiList.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasetsDatatables";
+                    this.mUIDatasetsDatatablesLiList.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDatasetsDatatablesLiList;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfList mUIDatasetsDatatablesLiList;
         #endregion
     }
     

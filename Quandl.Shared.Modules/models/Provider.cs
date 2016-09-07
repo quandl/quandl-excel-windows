@@ -39,17 +39,25 @@ namespace Quandl.Shared.Models
         }
 
         // Following is helper methods
-        public ArrayList ToDatatablesViewData()
+        public List<Datatable> GetDatatables()
         {
-            ArrayList list = new ArrayList();
+            List<Datatable> datatables = new List<Datatable>();
+
             foreach (var dt in _additionalData["datatables"])
             {
-                var code = ((Newtonsoft.Json.Linq.JContainer) dt.First).First.ToString();
-                var data = new ViewData(Id, code, Premium, null);
-                data.Name = ((Newtonsoft.Json.Linq.JContainer)dt.Last).First.ToString();
-                list.Add(data);
+                string[] codes = ((Newtonsoft.Json.Linq.JContainer) dt.First).First.ToString().Split('/');
+
+                Datatable datatable = new Datatable();
+                datatable.Id = Id;
+                datatable.VendorCode = codes[0];
+                datatable.DatatableCode = codes[1];
+                datatable.Name = ((Newtonsoft.Json.Linq.JContainer) dt.Last).First.ToString();
+                datatable.Premium = Premium;
+
+                datatables.Add(datatable);
             }
-            return list;
+
+            return datatables;
         }
 
         public ViewData ToViewData(string type)

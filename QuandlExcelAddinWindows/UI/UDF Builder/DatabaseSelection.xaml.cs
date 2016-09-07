@@ -261,7 +261,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     isDatabaseExist = await ValidateDatabase(code);
                 }
                  
-
                 if (!isDatatableExist && !isDatabaseExist)
                 {
                     ShowValidationError(code);
