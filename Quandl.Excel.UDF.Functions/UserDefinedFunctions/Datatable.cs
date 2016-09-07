@@ -85,8 +85,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     return Locale.English.AdditionalQueryParamsPleaseAdd;
                 }
 
-                throw new Exception("ASDASDAS");
-
                 // Pull the metadata first to get the first column name. This is not very efficient as it makes another call just to get one field.
                 Common.StatusBar.AddMessage(Locale.English.UdfRetrievingData);
                 queryParams.AddInternalParam("qopts.per_page", 1);
