@@ -12,12 +12,15 @@ using Quandl.Shared.Errors;
 using Quandl.Shared.Models;
 using Quandl.Shared.Models.Browse;
 using Quandl.Shared.Properties;
+using System.Windows;
 
 namespace Quandl.Shared
 {
     public class Web
     {
-        private const int MaxRequestTimeout = 30000;
+        private const int MaxHTTPRequestTimeout = 30000;
+        private const int MaxHTTPRequestRetries = 2;
+        private const int FailedRequestAttemptDelay = 2500;
 
         private enum CallTypes
         {
@@ -175,7 +178,7 @@ namespace Quandl.Shared
         {
             using (var client = new HttpClient())
             {
-                client.Timeout = new TimeSpan(0, 0, 0, 0, MaxRequestTimeout);
+                client.Timeout.Add(new TimeSpan(0, 0, 0, 0, MaxHTTPRequestTimeout));
                 client.BaseAddress = new Uri(Settings.Default.BaseUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -204,15 +207,45 @@ namespace Quandl.Shared
                     relativeUrl = relativeUrl + "?" + StringifyQueryParams(queryParams);
                 }
 
-                var resp = await client.GetAsync(relativeUrl);
+                // Attempt to fetch the data. 
+                var resp = await RetrieveResponseWithRetries(client, relativeUrl);
+                var data = await resp.Content.ReadAsStringAsync();
+
                 if (resp.StatusCode != HttpStatusCode.OK)
                 {
-                    throw new QuandlErrorBase(resp.StatusCode);
+                    var error = JsonConvert.DeserializeObject<QuandlError>(data, JsonSettings());
+                    throw new QuandlErrorBase(resp.StatusCode, error.Code, error.Message);
                 }
 
-                var data = await resp.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<T>(data, JsonSettings());
             }
+        }
+
+        private static async Task<HttpResponseMessage> RetrieveResponseWithRetries(HttpClient client, string relativeUrl, int remainingRetries = MaxHTTPRequestRetries)
+        {
+            var resp = await client.GetAsync(relativeUrl).ConfigureAwait(false);
+
+            // Data fetching failed. There are retries remaining.
+            if ((int)resp.StatusCode >= 500 && remainingRetries > 0)
+            {
+                await Task.Delay(MaxHTTPRequestTimeout);
+                return await RetrieveResponseWithRetries(client, relativeUrl, remainingRetries - 1);
+            }
+
+            // The server returned an error and there are no retries remaining.
+            else if ((int)resp.StatusCode >= 500)
+            {
+                var data2 = await resp.Content.ReadAsStringAsync();
+                var errorData =  JsonConvert.DeserializeObject<QuandlError>(data2, JsonSettings());
+                var error = new QuandlErrorBase(resp.StatusCode, errorData.Code, errorData.Message);
+                Utilities.LogToSentry(error, 
+                    new Dictionary<string, string>(){ { "APIKey", QuandlConfig.ApiKey }, {  "RequestUrl", relativeUrl } }
+                );
+                MessageBox.Show(Locale.English.ApiExperiencingIssues);
+                throw error;
+            }
+
+            return resp;
         }
 
         private static string StringifyQueryParams(Dictionary<string, object> queryParams)

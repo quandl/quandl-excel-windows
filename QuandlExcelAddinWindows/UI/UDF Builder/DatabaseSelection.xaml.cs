@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +9,6 @@ using Quandl.Shared;
 using Quandl.Shared.Errors;
 using Quandl.Shared.Models;
 using Quandl.Shared.Models.Browse;
-using Xceed.Wpf.Toolkit;
 
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder

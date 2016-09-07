@@ -7,17 +7,12 @@ using Microsoft.Office.Interop.Excel;
 using Quandl.Shared;
 using Quandl.Shared.Models;
 using Quandl.Shared.Excel;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
     public static class Timeseries
     {
         private static Dictionary<string, DatasetMeta> datasetMetadata = new Dictionary<string, DatasetMeta>();
-        private static StatusBar StatusBar => StatusBarInstance();
-
 
         [ExcelFunction("Pull time series data from the Quandl time series API", Name = "QSERIES", IsMacroType = true,
             Category = "Financial")]
@@ -64,7 +59,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 FunctionGrimReaper.BeginTheReaping(currentFormulaCell.Application);
 
                 // Update status
-                StatusBar.AddMessage(Locale.English.UdfRetrievingData);
+                Common.StatusBar.AddMessage(Locale.English.UdfRetrievingData);
 
                 // Pull the data
                 ResultsData results = null;
@@ -84,27 +79,29 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
                 if (excelWriter.ConfirmedOverwrite == false)
                 {
-                    StatusBar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
+                    Common.StatusBar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
                 }
 
                 var firstCellMsg = Utilities.ValidateEmptyData(excelWriter.PopulateData());
-                StatusBar.AddMessage(Locale.English.UdfCompleteSuccess);
+                Common.StatusBar.AddMessage(Locale.English.UdfCompleteSuccess);
                 return firstCellMsg;
             }
             catch (Exception e)
             {
-                StatusBar.AddMessage(Locale.English.UdfCompleteError);
-                Trace.WriteLine(e.Message);
-                Utilities.LogToSentry(e, "Qtable", $"|rawQuandlCodeColumns:{rawQuandlCodeColumns.ToString()}" +
-                                                   $"|rawDates:{rawDates.ToString()}" +
-                                                   $"|rawCollapse:{rawCollapse.ToString()}" +
-                                                   $"|rawOrder:{rawOrder.ToString()}" +
-                                                   $"|rawTransformation:{rawTransformation.ToString()}" +
-                                                   $"|rawLimit:{rawLimit.ToString()}" +
-                                                   $"|rawHeader:{rawHeader.ToString()}");
-                throw;
+                Common.StatusBar.AddMessage(Locale.English.UdfCompleteError);
+                return Common.HandlePotentialQuandlError(e, true, new Dictionary<string, string>() {
+                    { "UDF", "QSERIES" },
+                    { "Columns", Utilities.ObjectToHumanString(rawQuandlCodeColumns) },
+                    { "Dates", Utilities.ObjectToHumanString(rawDates) },
+                    { "Collapse", Utilities.ObjectToHumanString(rawCollapse) },
+                    { "Order", Utilities.ObjectToHumanString(rawOrder) },
+                    { "Transformation", Utilities.ObjectToHumanString(rawTransformation) },
+                    { "Limit", Utilities.ObjectToHumanString(rawLimit) },
+                    { "Header", Utilities.ObjectToHumanString(rawHeader) },
+                });
             }
         }
+
 
         private static ResultsData RetrieveData(List<string> quandlCodeColumns,
             List<DateTime?> dates, string collapse, string transformation, int? limit)
@@ -169,26 +166,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             }
 
             return combinedResults;
-        }
-
-        // Try really hard to get the instance of the status bar from the application.
-        public static StatusBar StatusBarInstance()
-        {
-            try
-            {
-                return new StatusBar((Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application);
-            }
-            catch (COMException e)
-            {
-                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER)
-                if (e.HResult == -2147417846 || e.HResult == -2146777998)
-                {
-                    Thread.Sleep(Datatable.RetryWaitTimeMs);
-                    return StatusBarInstance();
-                }
-
-                throw;
-            }
         }
 
         private static List<string> GetDatasetQuandlCodes(List<string> qCodes)

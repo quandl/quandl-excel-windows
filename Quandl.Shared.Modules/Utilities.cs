@@ -6,12 +6,14 @@ using Quandl.Shared.Properties;
 using SharpRaven;
 using SharpRaven.Data;
 using System.Diagnostics;
+using System.Linq;
+using MoreLinq;
 
 namespace Quandl.Shared
 {
     public class Utilities
     {
-        public const string ReleaseVersion = "3.0alpha1";
+        public const string ReleaseVersion = "3.0alpha2";
         public const string ReleaseSource = "excel";
 
         public const string DateFormat = "yyyy-MM-dd";
@@ -36,7 +38,7 @@ namespace Quandl.Shared
             }
         }
 
-        public static async void LogToSentry(System.Exception exception, string key, string value)
+        public static async void LogToSentry(System.Exception exception, Dictionary<string, string> additionalData = null)
         {
             Trace.WriteLine(exception.Message);
             if (ENABLE_SENTRY_LOG)
@@ -44,7 +46,10 @@ namespace Quandl.Shared
                 SetSentryData(exception, "Excel-Version", Utilities.GetExcelVersionNumber);
                 SetSentryData(exception, "Addin-Release-Version", Utilities.ReleaseVersion);
                 SetSentryData(exception, "X-API-Token", QuandlConfig.ApiKey);
-                SetSentryData(exception, key, value);
+                if (additionalData != null)
+                {
+                    additionalData.ForEach(k => SetSentryData(exception, k.Key, k.Value));
+                }
                 var ravenClient = new RavenClient(Settings.Default.SentryUrl);
                 await ravenClient.CaptureAsync(new SentryEvent(exception));
             }
@@ -52,7 +57,7 @@ namespace Quandl.Shared
 
         public static void LogToSentry(Exception exception)
         {
-            LogToSentry(exception, null, null);
+            LogToSentry(exception, null);
         }
 
         public static ArrayList GetMatchedListByOrder(ArrayList columnNames, ArrayList columnNamesList,
@@ -115,6 +120,29 @@ namespace Quandl.Shared
                 result.Add(list[i]);
             }
             return result;
+        }
+
+        public static string ObjectToHumanString(object obj)
+        {
+            var value = obj.ToString();
+
+            try
+            {
+                if (obj is List<string>)
+                {
+                    value = string.Join(", ", ((List<string>)obj).Select(s => s.ToString()));
+                }
+                else if (obj is object[,])
+                {
+                    string[] to = ((object[,])obj).Cast<string>().ToArray();
+                    value = string.Join(", ", to);
+                }
+            }
+            catch (Exception)
+            {
+                // bail since we really don't know what to do at this point.
+            }
+            return value;
         }
 
         public static string ValidateEmptyData(string quandl_data)

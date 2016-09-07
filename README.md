@@ -5,11 +5,17 @@
 
 The Quandl Excel Add-In allows you to search through, find and download any of Quandl's millions of datasets directly from within Microsoft Excel. It's completely free; usage is unlimited and unrestricted. Currently this Add-in is limited to windows only as it uses features and functions which are only available on the windows version of excel.
 
-## Install
+## Development
 
-### Development
+A few things that will make your excel development experience much easier:
 
-1. Download and install file:///C:/Program%20Files%20(x86)/Microsoft%20Visual%20Studio%2014.0/Common7/IDE/Extensions/InstallShield/InstallShieldProject/1033/InstallShield_ult.html
+* Excel is single threaded
+* Use Async tasks and don't block with long running code. This will block the Excel UI due to it being single threaded.
+* When making calls to excel via ExcelDNA thing of Excel as the `server` and our ExcelDNA app as the `client`. Design your application as if you are making `requests` of excel which it may or may not fulfill. Also not that the Excel `server` can be busy (overloaded) due to its single threaded nature and you may need to wait and retry your call later to fulfill it.
+
+### Setup
+
+1. Download and install `file:///C:/Program%20Files%20(x86)/Microsoft%20Visual%20Studio%2014.0/Common7/IDE/Extensions/InstallShield/InstallShieldProject/1033/InstallShield_ult.html`
  * Open Solution -> right click solution -> add -> new project -> other project type -> InstallShield
  * Walk through the steps on the side to download and install InstallShield (Make note of your install key)
 3. Restart `Visual Studio` and enter in your install key
@@ -23,25 +29,30 @@ The Quandl Excel Add-In allows you to search through, find and download any of Q
 10. Click `Create Test Certificate` without a password
 11. You should now be able to build the project.
 
-### Build installation package
+## Building a Release package
 
-1. Follow the instructions list in `Development` section above, setup the project
-2. Install the key `QuandlDigitCertCodeSign.pfx` from lastpass to the projects missing it.
+1. Follow the instructions list in `Development` section above to setup the project and its basic dependencies.
+2. Download and place the key `QuandlDigitCertCodeSign.pfx` from lastpass in the root of the projects missing it.
   * The output of each project needs to be signed individually
   * Additionally the installer needs to be signed as well
-3. Download the dependencies under `Quandl.Excel.Addin.Setup -> 2 Specify Application Data => Redistributables`. You will need to do this as an admin.
-4. Ensure your project QuandlDigitCertCodeSign.pfx files have the protected password. See [Password Protect Digital Certificate](#password-protect-digital-certificate)
-5. Restart into non-admin mode
-6. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => Signing`
-7. Change the product code (use the helper) and bump the version number.
-  * Be sure to leave the upgrade code untouched.
-8. Right click solution file and select `Rebuild Solution`
-9. $PROJECT_ROOT_FOLDER\quandl-excel-windows \QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1\setup.exe is the setup package
+  * The QuandlDigitCertCodeSign.pfx file has been password protected and will need the decryption key to be used. See [Password Protect Digital Certificate](#password-protect-digital-certificate)
+3. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
+4. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information` 
+  1. Change the product code (use the helper - `{...}`)
+  2. Bump the version number.
+    * Be sure to leave the upgrade code untouched.
+5. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
+5. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
+6. Switch your `Run Mode` to `release` instead of `debug`
+7. Right click solution file and select `Rebuild Solution`
+8. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
 
 Things to note:
 
 * UnRegisterAddin must have code `1501` in the `.isl` file.
 * Be sure to bump the version AND change your product code number under `Organize Your Setup` => `General Information`. This is necessary for a seemless upgrade.
+* Allow of our dependencies have been listed as `web` dependencies to keep our installer small. 
+  * Should you need to install them locally you can do that navigating to `Quandl.Excel.Addin.Setup -> 2 Specify Application Data => Redistributables`. You will need to do this in Visual Studio as an admin.
 
 ### Password Protect Digital Certificate
 
@@ -50,18 +61,27 @@ Things to note:
 3. Select the Digital Certificate
 4. Enter password (found in lastpass) and Save
 
-### Sign installation package
-1. Download  `QuandlDigitCertCodeSign.pfx` from lastpass to your local windows folder 
-2. Use windows application `certmgr.msc` to to import QuandlDigitCertCodeSign.pfx to your local certification store
-3. `cd  $PROJECT_ROOT_FOLDER\quandl-excel-windows\QuandlExcelAddinSetup\Quandl.Excel.Addin.Setup\Express\SingleImage\DiskImages\DISK1`
-4. run this command to sign your setup package `SignTool sign /n "Quandl Inc." setup.exe`
+## Unit testing
 
-### Unit testing
-- see [Unit Testing Guide](UNIT_TEST_GUIDE.md)
+See [Unit Testing Guide](UNIT_TEST_GUIDE.md)
+
 
 ## FAQ
 
 For a list of excel COM exceptions and what they mean please see: [Errors](./ERRORS.md)
+
+### The VSTO Add-in and or UDF excel plugin is listed but not displaying/activating
+
+Excel seems to a have a bug where even when you close all its windows it can leave the main process running in the background. This seems to be for quick preview reasons (when you click an excel file in explorer). When this happens excel unloads all its add-ins to save memory. However this also means that it won't reload them until next time its started properly. To reload the add-in you must forcibly close any remaing excel instances from the task manager `details` tab.
+
+### My UDF function was running along great but then appears to have stopped updating
+
+This could be a number of things but generally means that our implementation has run into one of the following problems:
+
+* Unhandled excel exception - Excel has many mysterious exceptions that result in COMException errors. If left unhandled they can crash excel or stop the running UDF.
+* Threading deadlock - This can happen if we use our threads in a non thread safe way. Basically we are not handling a specific case properly.  
+* Excel request deadlock - This can occur when excel is busy and we try to make another request to it from a different thread.
+* Unhandled server error response - Our server is having issues and after a few retries our code simply gives up.
 
 ## License
 
