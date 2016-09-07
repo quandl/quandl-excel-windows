@@ -7,6 +7,9 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
     [CodedUITest]
     public class DatabaseSelectionTest
     {
+        public UIMap UIMap => map ?? (map = new UIMap());
+        private UIMap map;
+
         #region Additional test attributes
 
         [TestInitialize()]
@@ -26,10 +29,6 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
         }
 
         #endregion
-
-        public UIMap UIMap => map ?? (map = new UIMap());
-
-        private UIMap map;
 
         private class DatabaseFilter
         {

@@ -39,5 +39,9 @@ namespace Quandl.Shared.Models
         public string DatasetCode { get; set; }
         public string DatabaseCode { get; set; }
         public string Description { get; set; }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

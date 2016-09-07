@@ -22,7 +22,14 @@ namespace Quandl.Test.CodedUI
         public UIMap UIMap => map ?? (map = new UIMap());
         private UIMap map;
 
-        #region Tests for the Quandl UDF Builder
+        [TestMethod]
+        public void LoginWithAPIKey()
+        {
+            UIMap.OpenExcelAndWorksheet();
+            UIMap.OpenLoginPage();
+            UIMap.LoginWithApiKey();
+            UIMap.AssertLoggedIn();
+        }
 
         [TestMethod]
         public void LoginWithUsername()
@@ -32,7 +39,5 @@ namespace Quandl.Test.CodedUI
             UIMap.LoginWithUsername();
             UIMap.AssertLoggedIn();
         }
-
-        #endregion Tests
     }
 }

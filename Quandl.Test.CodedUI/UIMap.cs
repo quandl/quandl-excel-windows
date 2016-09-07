@@ -1,40 +1,56 @@
 ﻿namespace Quandl.Test.CodedUI
 {
-    using System.Drawing;
+    using System.CodeDom.Compiler;
     using Microsoft.VisualStudio.TestTools.UITesting;
-    using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
     using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
     using Microsoft.Win32;
     using System.Collections.Generic;
+
     public partial class UIMap
     {
-        #region WPF Components
+        #region Coded UI Test Components
 
-        private UIItemCustom1 ExcelClient()
+        private UIItemCustom1 ExcelClient1()
         {
             return UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom;
         }
 
-        private UIItemCustom11 ExcelClient1()
+        private UIItemCustom11 ExcelClient2()
         {
             return UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1;
         }
 
-        private UIItemCustom6 ExcelClient2()
+        private UIItemCustom7 ExcelClient3()
         {
             return UIQuandlFormulaBuilderWindow1.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom;
         }
 
-        private WpfButton NextButton()
+        private UIItemCustom12 ExcelClient4()
         {
-            return ExcelClient().UINextButton;
+            return UIQuandlFormulaBuilderWindow1.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1;
+        }
+
+        public UIItemCustom21 ExcelClient5()
+        {
+            return UIQuandlFormulaBuilderWindow1.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom2;
+        }
+
+        public UIStepTwoPaneCustom ExcelClient6()
+        {
+            return UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIStepTwoPaneCustom
+        }
+
+
+        public WpfButton NextButton()
+        {
+            return ExcelClient1().UINextButton;
         }
 
         private WpfTabPage GetSelectedTab()
         {
-            var tabList = ExcelClient1().UITabControlTabList;
+            var tabList = ExcelClient2().UITabControlTabList;
             var tabPage = tabList.UIAllTabPage;
 
             string name = "";
@@ -57,7 +73,7 @@
 
         private WpfTabPage SetSelectedTab(string name)
         {
-            var tab = ExcelClient1().UITabControlTabList.UIPremiumTabPage;
+            var tab = ExcelClient2().UITabControlTabList.UIPremiumTabPage;
             tab.SearchProperties[WpfTabPage.PropertyNames.Name] = name;
             return tab;
         }
@@ -82,7 +98,7 @@
 
         public void OpenExcelAndWorksheet()
         {
-            var blankWorkbookListItem = this.UIExcelWindow.UIFeaturedList.UIBlankworkbookListItem;
+            var blankWorkbookListItem = UIExcelWindow.UIFeaturedList.UIBlankworkbookListItem;
             string ExePath = "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\EXCEL.EXE";
             string AlternateExePath = "%ProgramFiles%\\Microsoft Office\\root\\Office16\\EXCEL.EXE";
 
@@ -101,9 +117,9 @@
 
         public void LoginWithUsername()
         {
-            var txtEmailAddress = ExcelClient().UIQuandlExcelAddincompPane.UIEmailEdit;
-            var txtPassword = ExcelClient().UIQuandlExcelAddincompPane.UIPasswordEdit;
-            var btnLogin = ExcelClient().UIQuandlExcelAddincompPane.UILoginButton;
+            var txtEmailAddress = ExcelClient1().UIQuandlExcelAddincompPane.UIEmailEdit;
+            var txtPassword = ExcelClient1().UIQuandlExcelAddincompPane.UIPasswordEdit;
+            var btnLogin = ExcelClient1().UIQuandlExcelAddincompPane.UILoginButton;
 
             string username = "qa_admin@quandl.com";
             string password = "vXMGhxrm2a#r4DFjvnT^";
@@ -113,26 +129,26 @@
             Mouse.Click(btnLogin);
         }
 
-        public void AssertCorrectUDFSignature(string UDF)
+        public void AssertCorrectUDFSignature(string signature)
         {
-            var txtUDFSignature = ExcelClient().UIUdfOutputEdit;
+            var txtUDFSignature = ExcelClient1().UIUdfOutputEdit;
 
-            Assert.AreEqual(UDF, txtUDFSignature.Text, "Generated QSERIES function not correct");
+            Assert.AreEqual(signature, txtUDFSignature.Text, "Generated QSERIES function not correct");
         }
 
         public void AssertSelectedDatabaseCode(string databaseCode)
         {
-            var txtDatabaseCode = ExcelClient().UIQuandlExcelAddincompPane.UIDatabaseCodeBoxEdit;
+            var txtDatabaseCode = ExcelClient1().UIQuandlExcelAddincompPane.UIDatabaseCodeBoxEdit;
 
             Assert.AreEqual(databaseCode, txtDatabaseCode.Text);
         }
 
         public void SelectBrowseCategory(string leaf1, string leaf2, string leaf3)
         {
-            var treeBranch1 = ExcelClient1().UIBrowseDataTree.UIStockDataTreeItem;
+            var treeBranch1 = ExcelClient2().UIBrowseDataTree.UIStockDataTreeItem;
             var treeBranch2 = treeBranch1.UIUnitedStatesTreeItem;
             var treeBranch3 = treeBranch2.UIStockPricesEndofDayCTreeItem;
-            var lstDatabase = ExcelClient1().UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
+            var lstDatabase = ExcelClient2().UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
 
             treeBranch1.SearchProperties[WpfTreeItem.PropertyNames.Name] = leaf1;
             treeBranch2.SearchProperties[WpfTreeItem.PropertyNames.Name] = leaf2;
@@ -146,7 +162,7 @@
         public void SelectBrowseFilter(string tabName)
         {
             var tab = SetSelectedTab(tabName);
-            var databaseList = ExcelClient1().UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
+            var databaseList = ExcelClient2().UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
 
             databaseList.SearchProperties[WpfList.PropertyNames.AutomationId] = $"{tabName}DatabaseList";
             databaseList.Container = tab;
@@ -156,8 +172,8 @@
 
         public void SelectDatabase(string databaseName, string filter = "All")
         {
-            var tab = ExcelClient2().UITabControlTabList.UIAllTabPage;
-            var databaseList = ExcelClient2().UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
+            var tab = ExcelClient3().UITabControlTabList.UIAllTabPage;
+            var databaseList = ExcelClient3().UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
 
             tab.SearchProperties[WpfTabPage.PropertyNames.Name] = filter;
 
@@ -167,8 +183,8 @@
 
         public List<string> GetDatabaseList(string filter = "All")
         {
-            var tab = ExcelClient2().UITabControlTabList.UIAllTabPage;
-            var databaseList = ExcelClient2().UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
+            var tab = ExcelClient3().UITabControlTabList.UIAllTabPage;
+            var databaseList = ExcelClient3().UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
 
             tab.SearchProperties[WpfTabPage.PropertyNames.Name] = filter;
             databaseList.SearchProperties[WpfList.PropertyNames.AutomationId] = $"{filter}DatabaseList";
@@ -186,7 +202,7 @@
 
         public void InputDatabaseCode(string databaseCode)
         {
-            var txtDatabaseCode = ExcelClient().UIQuandlExcelAddincompPane.UIDatabaseCodeBoxEdit;
+            var txtDatabaseCode = ExcelClient1().UIQuandlExcelAddincompPane.UIDatabaseCodeBoxEdit;
 
             txtDatabaseCode.Text = databaseCode;
         }
@@ -201,11 +217,141 @@
         public void AssertInvalidDatabaseCode(string code)
         {
             var uINextButton = NextButton();
-            var txtDatabaseCode = ExcelClient1().UIEODFBisnotavalidcodeText.UIEODFBisnotavalidcodeText1;
+            var txtDatabaseCode = ExcelClient2().UIEODFBisnotavalidcodeText.UIEODFBisnotavalidcodeText1;
 
             txtDatabaseCode.WaitForControlReady();
             Assert.AreEqual(txtDatabaseCode.DisplayText, $"\"{code}\" is not a valid code.");
             Assert.AreNotEqual(AssertNextButtonEnabledExpectedValues.UINextButtonEnabled, uINextButton.Enabled, "Next button not enabled");
         }
+
+        public void FilterDatasetsDatatables(string filter)
+        {
+            var txtDatasetsFilter = ExcelClient1().UIQuandlExcelAddincompPane.UITxtFilterResultsEdit;
+
+            txtDatasetsFilter.Text = filter;
+        }
+
+        public void AssertCorrectDatasetDatatableCode(string datasetDatatableCode)
+        {
+            var txtDatasetDatatableCode = ExcelClient6().UIDatabaseCodeBoxEdit.Text;
+
+            Assert.AreEqual(datasetDatatableCode, txtDatasetDatatableCode);
+        }
+
+        public void AssertFirstPageButtonEnabled(bool enabled = true)
+        {
+            var btnFirstPage = ExcelClient1().UIQuandlExcelAddincompPane.UIItemButton;
+
+            if (enabled)
+            {
+                btnFirstPage.WaitForControlEnabled();
+            }
+            Assert.AreEqual(enabled, btnFirstPage.Enabled);
+        }
+
+        public void AssertPreviousPageButtonEnabled(bool enabled = true)
+        {
+            var btnPrevPage = ExcelClient1().UIQuandlExcelAddincompPane.UIItemButton1;
+
+            if (enabled)
+            {
+                btnPrevPage.WaitForControlEnabled();
+            }
+            Assert.AreEqual(enabled, btnPrevPage.Enabled);
+        }
+
+        public void AssertNextPageButtonEnabled(bool enabled = true)
+        {
+            var btnNextPage = ExcelClient1().UIQuandlExcelAddincompPane.UIItemButton2;
+
+            if (enabled)
+            {
+                btnNextPage.WaitForControlEnabled();
+            }
+            Assert.AreEqual(enabled, btnNextPage.Enabled);
+        }
+
+        public void AssertLastPageButtonEnabled(bool enabled = true)
+        {
+            var btnLastPage = ExcelClient1().UIQuandlExcelAddincompPane.UIItemButton3;
+
+            if (enabled)
+            {
+                btnLastPage.WaitForControlEnabled();
+            }
+            Assert.AreEqual(enabled, btnLastPage.Enabled);
+        }
+
+        public void ClickDatasetPageButton(string page)
+        {
+            var button = new WpfButton();
+
+            switch (page)
+            {
+                case "<<":
+                    button = ExcelClient1().UIQuandlExcelAddincompPane.UIItemButton;
+                    break;
+                case "<":
+                    button = ExcelClient1().UIQuandlExcelAddincompPane.UIItemButton1;
+                    break;
+                case ">>":
+                    button = ExcelClient1().UIQuandlExcelAddincompPane.UIItemButton3;
+                    break;
+                default:
+                    button = ExcelClient1().UIQuandlExcelAddincompPane.UIItemButton2;
+                    break;
+            }
+
+            Mouse.Click(button);
+        }
+
+        public void SelectDatasetOrDatatableByName(string name)
+        {
+            var stepTwoPane = ExcelClient5().UIDatasetsDatatablesPane;
+            var datasetsScrollViewer = new WpfScrollViewer(stepTwoPane);
+            var datasetsListView = new UIDatasetsDatatablesLiList(datasetsScrollViewer);
+
+            datasetsListView.SearchProperties[WpfList.PropertyNames.AutomationId] = "DatasetsDatatablesListView";
+            datasetsListView.SelectedItemsAsString = name;
+        }
+
+        public void SelectDatasetOrDatatableByIndex(int index)
+        {
+            var stepTwoPane = ExcelClient5().UIDatasetsDatatablesPane;
+            var datasetsScrollViewer = new WpfScrollViewer(stepTwoPane);
+            var datasetsListView = new UIDatasetsDatatablesLiList(datasetsScrollViewer);
+
+            datasetsListView.SearchProperties[WpfList.PropertyNames.AutomationId] = "DatasetsDatatablesListView";
+            datasetsListView.SelectedIndices = new int[] { index };
+        }
+
+        public string GetSelectedDatasetDatatableCode()
+        {
+            return UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIStepTwoPaneCustom.UIDatabaseCodeBoxEdit.Text;
+        }
+    }
+
+    public class WpfScrollViewer : WpfPane
+    {
+        public WpfScrollViewer(UITestControl container) : base(container)
+        {
+            SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.ScrollViewer";
+            SearchProperties[WpfPane.PropertyNames.AutomationId] = "ListViewScrollViewerWrapper";
+            WindowTitles.Add("Quandl Formula Builder");
+        }
+
+        public WpfList UIDatasetList
+        {
+            get
+            {
+                if (datasetsList == null)
+                {
+                    datasetsList = new WpfList();
+                    datasetsList.SearchProperties[WpfList.PropertyNames.AutomationId] = "DatasetsDatatablesListView";
+                }
+                return datasetsList;
+            }
+        }
+        private WpfList datasetsList;
     }
 }

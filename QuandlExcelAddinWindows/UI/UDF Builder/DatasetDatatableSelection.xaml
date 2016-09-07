@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Quandl.Excel.Addin.UI.UDF_Builder.DatasetDatatableSelection"
+             AutomationProperties.AutomationId="StepTwoPane"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -47,11 +48,11 @@
             </TextBox.Style>
         </TextBox>
         <ScrollViewer Grid.Row="1" Grid.Column="0" Padding="0,0,0,26" Background="White" BorderBrush="#FFABADB3"
-                      BorderThickness="1"
+                      BorderThickness="1" AutomationProperties.AutomationId="DatasetsDatatablesScrollViewer"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch"
-                      VerticalContentAlignment="Stretch">
-            <ListView x:Name="lvDatasets" Margin="0" Padding="0" BorderThickness="0" BorderBrush="{x:Null}"
-                      HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0"
+                      VerticalContentAlignment="Stretch" x:Name="ListViewScrollViewerWrapper">
+            <ListView x:Name="lvDatasetsDatatables" Margin="0" Padding="0" BorderThickness="0" BorderBrush="{x:Null}"
+                      HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" AutomationProperties.AutomationId="DatasetsDatatablesListView"
                       SelectionChanged="lvDatasetsDatatables_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -75,10 +76,11 @@
                 <Button x:Name="btnLastPage" Content="&gt;&gt;" HorizontalAlignment="Left" VerticalAlignment="Top"
                     Width="35" Height="30" Click="btnLastPage_Click" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" AutomationProperties.AutomationId="StepTwoBottomBar">
                 <Label Content="Selected Quandl codes" VerticalContentAlignment="Center" />
                 <TextBox x:Name="SelectedDataHolderTextBox" Margin="5,0,0,0" MinWidth="150"
-                         VerticalContentAlignment="Center" IsEnabled="False" ToolTip="Your selected codes." Padding="5">
+                         VerticalContentAlignment="Center" IsEnabled="False" Padding="5"
+                         ToolTip="Your selected codes." AutomationProperties.AutomationId="DatabaseCodeBox">
                     <TextBox.Style>
                         <Style TargetType="TextBox">
                             <Style.Resources>

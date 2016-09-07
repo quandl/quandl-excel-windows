@@ -115,9 +115,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     {
                         return;
                     }
-                    lvDatasets.ItemsSource = datasets.Datasets;
+                    lvDatasetsDatatables.ItemsSource = datasets.Datasets;
                     _totalPageCount = (int)datasets.Meta.TotalPages;
-                    _totalNumberOfDisplayedItems = lvDatasets.Items.Count;
+                    _totalNumberOfDisplayedItems = lvDatasetsDatatables.Items.Count;
                     UpdateResultsLabel();
                     UpdatePaginationControls();
                 });
@@ -125,8 +125,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             else
             {
                 txtFilterResults.IsEnabled = false;
-                lvDatasets.ItemsSource = StateControl.Instance.Provider.ToDatatablesViewData(); ;
-                _totalNumberOfDisplayedItems = lvDatasets.Items.Count;
+                lvDatasetsDatatables.ItemsSource = StateControl.Instance.Provider.GetDatatables();
+                _totalNumberOfDisplayedItems = lvDatasetsDatatables.Items.Count;
                 UpdateResultsLabel();
             }
         }
@@ -158,7 +158,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             AvailableDataHolders.Clear();
             Columns.Clear();
-            if (lvDatasets.SelectedItem == null)
+            if (lvDatasetsDatatables.SelectedItem == null)
             {
                 return;
             }
@@ -167,7 +167,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 Dispatcher.Invoke(() =>
                 {
-                    selectedDataset = (Dataset)lvDatasets.SelectedItem;
+                    selectedDataset = (Dataset)lvDatasetsDatatables.SelectedItem;
                     AvailableDataHolders.Add(selectedDataset);
                 });
             }
@@ -183,23 +183,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             Dispatcher.Invoke(() =>
             {
-                ViewData selectedDatatable = (ViewData)lvDatasets.SelectedItem;
-                var code = selectedDatatable.Code;
-                var codes = GetCodes(code);
-                _selectedDatatable = new Datatable { VendorCode = codes.Item1, DatatableCode = codes.Item2 };
-                SetDatatableFromAPI(selectedDatatable.Code);
-                AvailableDataHolders.Add(_selectedDatatable);
+                Datatable selectedItem = (Datatable)lvDatasetsDatatables.SelectedItem;
+                SetDatatableFromAPI(selectedItem.Code);
+                AvailableDataHolders.Add(selectedItem);
             });
-        }
-
-        private Tuple<string, string> GetCodes(string fullCode)
-        {
-            if (fullCode != null)
-            {
-                string[] r = fullCode.Split(Convert.ToChar("/"));
-                return Tuple.Create(r[0], r[1]);
-            }
-            return null;
         }
 
         private void btnNextPage_Click(object sender, RoutedEventArgs e)
