@@ -8,7 +8,7 @@ namespace Quandl.Shared.Models
     public class QuandlError
     {
         [JsonExtensionData]
-        private IDictionary<string, JToken> _additionalData;
+        private IDictionary<string, JToken> _additionalData = null;
 
         public string Code { get; set; }
         public string Message { get; set; }

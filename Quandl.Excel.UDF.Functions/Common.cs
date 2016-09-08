@@ -1,4 +1,5 @@
 ﻿using ExcelDna.Integration;
+using Quandl.Shared;
 using Quandl.Shared.Errors;
 using Quandl.Shared.Excel;
 using System;
@@ -12,11 +13,10 @@ namespace Quandl.Excel.UDF.Functions
     public class Common
     {
         // Retry wait if excel is busy
-        public const int RetryWaitTimeMs = 500;
+        private const int RetryWaitTimeMs = 500;
+        private const int MaximumRetries = 20;
 
-        private static Microsoft.Office.Interop.Excel.Application _application = null;
-
-        public static StatusBar StatusBar => StatusBarInstance();
+        public static IStatusBar StatusBar => StatusBarInstance();
 
         public static string HandleQuandlError(QuandlErrorBase e, bool reThrow = true, Dictionary<string, string> additionalData = null)
         {
@@ -60,15 +60,18 @@ namespace Quandl.Excel.UDF.Functions
         }
 
         // Try really hard to get the instance of the status bar from the application.
-        public static StatusBar StatusBarInstance()
+        public static IStatusBar StatusBarInstance(int retryCount = MaximumRetries)
         {
+            // Ran out of retries
+            if (retryCount == 0)
+            {
+                return new NullStatusBar();
+            }
+
+            // Normal status bar access
             try
             {
-                if (_application == null)
-                {
-                    _application = (Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application;
-                }
-                return new StatusBar(_application);
+                return new StatusBar();
             }
             catch (COMException e)
             {
@@ -76,10 +79,11 @@ namespace Quandl.Excel.UDF.Functions
                 if (e.HResult == -2147417846 || e.HResult == -2146777998)
                 {
                     Thread.Sleep(RetryWaitTimeMs);
-                    return StatusBarInstance();
+                    return StatusBarInstance(retryCount - 1);
                 }
 
-                throw;
+                Utilities.LogToSentry(e);
+                return new NullStatusBar();
             }
         }
     }

@@ -17,7 +17,7 @@ namespace Quandl.Shared
         public const string ReleaseSource = "excel";
 
         public const string DateFormat = "yyyy-MM-dd";
-        private const bool ENABLE_SENTRY_LOG = true;
+        private const bool ENABLE_SENTRY_LOG = false;
 
         private static string excelVersion;
 
@@ -41,6 +41,7 @@ namespace Quandl.Shared
         public static async void LogToSentry(System.Exception exception, Dictionary<string, string> additionalData = null)
         {
             Trace.WriteLine(exception.Message);
+
             if (ENABLE_SENTRY_LOG)
             {
                 SetSentryData(exception, "Excel-Version", Utilities.GetExcelVersionNumber);

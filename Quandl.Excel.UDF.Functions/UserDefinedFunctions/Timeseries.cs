@@ -55,9 +55,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 var reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
                 Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
-                // Begin the reaping thread. This is necessary to kill off and formula that are functioning for a long time.
-                FunctionGrimReaper.BeginTheReaping(currentFormulaCell.Application);
-
                 // Update status
                 Common.StatusBar.AddMessage(Locale.English.UdfRetrievingData);
 

@@ -6,14 +6,16 @@ using System.Collections.Generic;
 
 namespace Quandl.Shared.Excel
 {
-    public class StatusBar : IStatusBar
+    public class ThreadedStatusBar : IStatusBar
     {
+        private const int MsgAutoRemovalTimerMs = 30000;
         private const int RetryWaitTimeMs = 1000;
         private const int MaximumRetries = 10;
 
+        private static System.Timers.Timer _statusTimer;
         private Application application;
 
-        public StatusBar()
+        public ThreadedStatusBar()
         {
             try
             {
@@ -26,20 +28,29 @@ namespace Quandl.Shared.Excel
         }
 
         // Be sure to cleanup any references to excel COM objects that may exist.
-        ~StatusBar()
+        ~ThreadedStatusBar()
         {
-            application = null;
+            Cleanup();
         }
 
         // Thread the status bar updates to prevent the main application thread from locking waiting to update the status bar.
         public void AddMessage(string msg)
         {
-            AddMessageWithoutThreading(msg);
+            var addMsgThread = new Thread(() => AddMessageWithoutThreading(msg));
+            addMsgThread.Priority = ThreadPriority.Lowest;
+            addMsgThread.IsBackground = true;
+            addMsgThread.Start();
         }
 
         public void AddException(Exception error)
         {
             AddMessage("⚠ Error : " + error.Message);
+        }
+
+        private void Cleanup()
+        {
+            application = null;
+            MsgTimerShutdown();
         }
 
         private void AddMessageWithoutThreading(string msg, int retryCount = MaximumRetries)
@@ -54,6 +65,15 @@ namespace Quandl.Shared.Excel
             try
             {
                 application.StatusBar = msg;
+
+                // Clean up an old timers;
+                MsgTimerShutdown();
+
+                // Create a new timer to show the error temporarily
+                _statusTimer = new System.Timers.Timer(MsgAutoRemovalTimerMs);
+                _statusTimer.AutoReset = false;
+                _statusTimer.Elapsed += (sender, e) => ResetToDefault();
+                _statusTimer.Start();
             }
             catch (COMException e)
             {
@@ -69,6 +89,41 @@ namespace Quandl.Shared.Excel
             catch (NullReferenceException e)
             {
                 Utilities.LogToSentry(e);
+            }
+        }
+
+        private void MsgTimerShutdown()
+        {
+            if (_statusTimer != null)
+            {
+                _statusTimer.Stop();
+                _statusTimer.Close();
+                _statusTimer.Dispose();
+            }
+        }
+
+        private void ResetToDefault(int retryCount = MaximumRetries)
+        {
+            if (retryCount == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                application.StatusBar = false;
+                MsgTimerShutdown();
+            }
+            catch (COMException e)
+            {
+                // Basically the system is paused due to a user making an update somewhere. Please wait and retry again.
+                if (e.HResult == -2146777998)
+                {
+                    Thread.Sleep(RetryWaitTimeMs);
+                    ResetToDefault(retryCount - 1);
+                    return;
+                }
+                throw;
             }
         }
     }
