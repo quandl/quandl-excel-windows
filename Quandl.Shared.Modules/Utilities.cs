@@ -17,7 +17,7 @@ namespace Quandl.Shared
         public const string ReleaseSource = "excel";
 
         public const string DateFormat = "yyyy-MM-dd";
-        private const bool ENABLE_SENTRY_LOG = false;
+        private const bool ENABLE_SENTRY_LOG = true;
 
         private static string excelVersion;
 
