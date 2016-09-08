@@ -129,14 +129,18 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
         }
 
-        public void Reset()
+        public void Reset(int step = 0)
         {
             AvailableDataHolders.Clear();
             Columns.Clear();
             UdfFormula = "";
-            CurrentStep = 0;
-            ChainType = ChainTypes.Datatables;
-            Provider = null;
+            CurrentStep = step;
+            // reset provider at step 0 or 1, need keep provider selected at step 1
+            if (step == 0 || step == 1)
+            {
+                ChainType = ChainTypes.Datatables;
+                Provider = null;
+            }
             IncludeHeaders = true;
 
             // Reset Dataset Filters
@@ -196,7 +200,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
 
             // At least the DataCode has been given
-            UdfFormula = (ChainType == ChainTypes.Datatables) ? (new QTable(this)).ToUdf() : (new QSeries(this)).ToUdf();   
+            UdfFormula = (ChainType == ChainTypes.Datatables) ? (new QTable(this)).ToUdf() : (new QSeries(this)).ToUdf();
         }
 
         public virtual void OnPropertyChanged(string propertyName)
