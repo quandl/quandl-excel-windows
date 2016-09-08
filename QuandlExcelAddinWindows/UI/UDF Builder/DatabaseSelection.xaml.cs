@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
@@ -22,6 +23,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private List<ViewData> _allItems;
         private Timer _timer;
         private static Provider Provider => StateControl.Instance.Provider;
+        private static CancellationTokenSource _cancellationTokenSource;
 
         public DatabaseSelection()
         {
@@ -83,20 +85,38 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private async void PopulateList(object current)
         {
+            CancelPreviousCalls();
             LoadingState.IsBusy = true;
             _allItems = new List<ViewData>();
             var cur = (LeafCategory)current;
-            var dbCollection = await GetAllDatabase(cur);
-            var dtcCollection = await GetAllDatatable(cur);
-            SetDataList(cur, dbCollection.Providers, dtcCollection.Providers);
-
-            Dispatcher.Invoke(() =>
+            try
             {
-                AllDatabaseList.ItemsSource = _allItems;
-                PremiumDatabaseList.ItemsSource = PremiumItems();
-                FreeDatabaseList.ItemsSource = FreeItems();
-                LoadingState.IsBusy = false;
-            });
+                var dbCollection = await GetAllDatabase(cur, _cancellationTokenSource.Token);
+                var dtcCollection = await GetAllDatatable(cur, _cancellationTokenSource.Token);
+                SetDataList(cur, dbCollection.Providers, dtcCollection.Providers);
+
+                Dispatcher.Invoke(() =>
+                {
+                    AllDatabaseList.ItemsSource = _allItems;
+                    PremiumDatabaseList.ItemsSource = PremiumItems();
+                    FreeDatabaseList.ItemsSource = FreeItems();
+                    LoadingState.IsBusy = false;
+                });
+            }
+            catch (OperationCanceledException)
+            {
+                // Do nothing, since it is being canceled on purpose
+            }
+
+        }
+
+        private void CancelPreviousCalls()
+        {
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+            }
+            _cancellationTokenSource = new CancellationTokenSource();
         }
 
         private void SetDataList(LeafCategory current, List<Provider> dbProviders, List<Provider> dtcProviders)
@@ -324,19 +344,16 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
         }
 
-        private async Task<DatabaseCollectionResponse> GetAllDatabase(LeafCategory leafCategory)
+        private async Task<DatabaseCollectionResponse> GetAllDatabase(LeafCategory leafCategory, CancellationToken token)
         {
             var type = "database";
-            return await new Web().GetModelByIds<DatabaseCollectionResponse>(type + "s", GetListIds(leafCategory, type));
+            return await new Web().GetModelByIds<DatabaseCollectionResponse>(type + "s", GetListIds(leafCategory, type), token);
         }
 
-        private async Task<DatatableCollectionsResponse> GetAllDatatable(LeafCategory leafCategory)
+        private async Task<DatatableCollectionsResponse> GetAllDatatable(LeafCategory leafCategory, CancellationToken token)
         {
             var type = "datatable-collection";
-            return
-                await
-                    new Web().GetModelByIds<DatatableCollectionsResponse>(type.Replace("-", "_") + "s",
-                        GetListIds(leafCategory, type));
+            return await new Web().GetModelByIds<DatatableCollectionsResponse>(type.Replace("-", "_") + "s", GetListIds(leafCategory, type), token);
         }
 
         private List<string> GetListIds(LeafCategory leafCategory, string type)
