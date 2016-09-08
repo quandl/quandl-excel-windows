@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Forms;
-using System.Windows.Threading;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools;
 using Quandl.Shared;
-using Timer = System.Timers.Timer;
+using Quandl.Shared.Excel;
 
 namespace Quandl.Excel.Addin
 {
@@ -42,8 +39,7 @@ namespace Quandl.Excel.Addin
 
         public void UpdateStatusBar(Exception error)
         {
-            var status = new Quandl.Shared.Excel.StatusBar(Application);
-            status.AddException(error);
+            (new Shared.Excel.StatusBar()).AddException(error);
         }
 
         private void ThisAddIn_Startup(object sender, EventArgs e)
@@ -57,6 +53,7 @@ namespace Quandl.Excel.Addin
 
         private void ThisAddIn_Shutdown(object sender, EventArgs e)
         {
+            FunctionGrimReaper.EndReaping();
         }
 
         private void TurnOffAutoUpdates()

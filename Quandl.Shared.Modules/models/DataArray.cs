@@ -8,7 +8,7 @@ namespace Quandl.Shared.Models
 {
     public class DataArray
     {
-        [JsonExtensionData] private IDictionary<string, JToken> _additionalData;
+        [JsonExtensionData] private IDictionary<string, JToken> _additionalData = null;
 
         public List<List<object>> DataPoints { get; set; }
         public List<DataColumn> Columns { get; set; }

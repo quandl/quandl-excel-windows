@@ -45,9 +45,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 return Locale.English.AutoDownloadTurnedOff;
             }
 
-            // Begin the reaping thread. This is necessary to kill off and formula that are functioning for a long time.
-            FunctionGrimReaper.BeginTheReaping(currentFormulaCell.Application);
-
             return Process(currentFormulaCell, rawQuandlCode, rawColumns, argName1, argValue1, argName2, argValue2, argName3, argValue3, argName4, argValue4, argName5, argValue5, argName6, argValue6);
         }
 
@@ -98,8 +95,12 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 // Pull the data
                 var retriever = new RetrieveAndWriteData(quandlCode, queryParams, (Range)currentFormulaCell);
                 var thready = new Thread(retriever.fetchData);
+                thready.Priority = ThreadPriority.Normal;
+                thready.IsBackground = true;
                 thready.Start();
-                FunctionGrimReaper.AddNewThread(thready);
+
+                // Begin the reaping thread. This is necessary to kill off and formula that are functioning for a long time.
+                FunctionGrimReaper.AddNewThread(thready, currentFormulaCell.Application); 
 
                 return Utilities.ValidateEmptyData(firstCellString);
             }

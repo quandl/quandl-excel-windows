@@ -70,6 +70,24 @@ namespace Quandl.Shared.Locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quandl downloads stopped..
+        /// </summary>
+        internal static string DownloadStopped {
+            get {
+                return ResourceManager.GetString("DownloadStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stopping all Quandl data downloads..
+        /// </summary>
+        internal static string DownloadStopping {
+            get {
+                return ResourceManager.GetString("DownloadStopping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The cells you are trying to update may contain data in the location that the Quandl formula wants to write to. Would you like to continue?.
         /// </summary>
         internal static string OverwriteExistingDataPopupDesc {

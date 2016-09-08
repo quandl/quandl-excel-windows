@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Office.Interop.Excel;
 using Quandl.Shared.Models;
 using System.Threading;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows;
 using System.Windows.Forms;
 
 namespace Quandl.Shared.Excel
