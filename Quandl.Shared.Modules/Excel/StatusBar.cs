@@ -11,24 +11,25 @@ namespace Quandl.Shared.Excel
         private const int RetryWaitTimeMs = 1000;
         private const int MaximumRetries = 10;
 
-        private Application application;
+        private Application _application;
 
         public StatusBar()
         {
             try
             {
-                application = (Application)Marshal.GetActiveObject("Excel.Application");
+                // There is a potential issue where this will get the `background` excel if one is running. In which case you may not see status messages display.
+                _application = (Application)Marshal.GetActiveObject("Excel.Application");
             }
             catch (COMException)
             {
-                application = new Application();
+                _application = new Application();
             }
         }
 
         // Be sure to cleanup any references to excel COM objects that may exist.
         ~StatusBar()
         {
-            application = null;
+            _application = null;
         }
 
         // Thread the status bar updates to prevent the main application thread from locking waiting to update the status bar.
@@ -53,7 +54,7 @@ namespace Quandl.Shared.Excel
 
             try
             {
-                application.StatusBar = msg;
+                _application.StatusBar = msg;
             }
             catch (COMException e)
             {
