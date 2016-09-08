@@ -156,12 +156,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void lvDatasetsDatatables_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AvailableDataHolders.Clear();
-            Columns.Clear();
             if (lvDatasetsDatatables.SelectedItem == null)
             {
                 return;
             }
+
+            // Reset state for step 2 but keep Provider which chose by step 1
+            StateControl.Instance.Reset(2);
+
             var selectedDataset = new Dataset();
             if (StateControl.Instance.ChainType == StateControl.ChainTypes.TimeSeries)
             {
