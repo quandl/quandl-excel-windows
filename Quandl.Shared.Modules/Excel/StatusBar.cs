@@ -59,7 +59,7 @@ namespace Quandl.Shared.Excel
             catch (COMException e)
             {
                 // Excel is locked atm. Need to wait till its free
-                if (e.HResult == -2147417846 || e.HResult == -2146777998)
+                if (e.HResult == -2147417846 || e.HResult == -2146777998 || e.HResult == -2146827284)
                 {
                     Thread.Sleep(RetryWaitTimeMs);
                     AddMessageWithoutThreading(msg, retryCount - 1);
