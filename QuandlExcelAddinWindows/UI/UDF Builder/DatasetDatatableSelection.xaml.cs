@@ -142,6 +142,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             var currentText = txtFilterResults.Text;
             if (currentText == _lastFilterText) return;
+            _currentPage = 1;
             GetDatasetsDatatablesFromAPI(currentText);
             _lastFilterText = currentText;
         }
