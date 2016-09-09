@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,7 +21,6 @@ namespace Quandl.Shared
     {
         private const int MaxHTTPRequestTimeout = 30000;
         private const int MaxHTTPRequestRetries = 2;
-        private const int FailedRequestAttemptDelay = 2500;
 
         private enum CallTypes
         {
@@ -111,7 +111,7 @@ namespace Quandl.Shared
             return datatable;
         }
 
-        public virtual async Task<T> GetModelByIds<T>(string type, List<string> ids) where T : class, new()
+        public virtual async Task<T> GetModelByIds<T>(string type, List<string> ids, CancellationToken token) where T : class, new()
         {
             if (ids.Count.Equals(0))
             {
@@ -119,7 +119,7 @@ namespace Quandl.Shared
             }
             var queryParams = new Dictionary<string, object> {{"ids", ids}};
             var callType = type.Equals("databases") ? CallTypes.Search : CallTypes.Search;
-            return await RequestAsync<T>(type, callType, queryParams);
+            return await RequestAsync<T>(type, callType, queryParams, null, token);
         }
 
         public virtual async Task<T> GetDatabase<T>(string code)
@@ -172,9 +172,12 @@ namespace Quandl.Shared
             return queryString;
         }
 
-        private static async Task<T> RequestAsync<T>(string relativeUrl, CallTypes callType = CallTypes.Data,
+        private static async Task<T> RequestAsync<T>(
+            string relativeUrl, 
+            CallTypes callType = CallTypes.Data,
             Dictionary<string, object> queryParams = null,
-            Dictionary<string, string> headers = null)
+            Dictionary<string, string> headers = null,
+            CancellationToken token = default(CancellationToken))
         {
             using (var client = new HttpClient())
             {
@@ -208,7 +211,7 @@ namespace Quandl.Shared
                 }
 
                 // Attempt to fetch the data. 
-                var resp = await RetrieveResponseWithRetries(client, relativeUrl);
+                var resp = await RetrieveResponseWithRetries(client, relativeUrl, token);
                 var data = await resp.Content.ReadAsStringAsync();
 
                 if (resp.StatusCode != HttpStatusCode.OK)
@@ -221,15 +224,15 @@ namespace Quandl.Shared
             }
         }
 
-        private static async Task<HttpResponseMessage> RetrieveResponseWithRetries(HttpClient client, string relativeUrl, int remainingRetries = MaxHTTPRequestRetries)
+        private static async Task<HttpResponseMessage> RetrieveResponseWithRetries(HttpClient client, string relativeUrl, CancellationToken token, int remainingRetries = MaxHTTPRequestRetries)
         {
-            var resp = await client.GetAsync(relativeUrl).ConfigureAwait(false);
+            var resp = await client.GetAsync(relativeUrl, token).ConfigureAwait(false);
 
             // Data fetching failed. There are retries remaining.
             if ((int)resp.StatusCode >= 500 && remainingRetries > 0)
             {
                 await Task.Delay(MaxHTTPRequestTimeout);
-                return await RetrieveResponseWithRetries(client, relativeUrl, remainingRetries - 1);
+                return await RetrieveResponseWithRetries(client, relativeUrl, token, remainingRetries - 1);
             }
 
             // The server returned an error and there are no retries remaining.
