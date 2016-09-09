@@ -93,6 +93,7 @@
     <Compile Include="UIMap.Designer.cs">
       <DependentUpon>UIMap.uitest</DependentUpon>
     </Compile>
+    <Compile Include="UI\UDF Builder\TimeSeriesFiltersTest.cs" />
     <Compile Include="UI\UDF Builder\ColumnSelectionTest.cs" />
     <Compile Include="UI\UDF Builder\DatasetDatatableSelectionTest.cs" />
     <Compile Include="UI\UDF Builder\DatabaseSelectionTest.cs" />
@@ -110,6 +111,9 @@
       <Project>{C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C}</Project>
       <Name>Quandl.Shared.Modules</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
