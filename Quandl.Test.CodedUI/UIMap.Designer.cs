@@ -126,19 +126,6 @@ namespace Quandl.Test.CodedUI
         }
         
         /// <summary>
-        /// Click the next button
-        /// </summary>
-        public void ClickNextButton()
-        {
-            #region Variable Declarations
-            WpfButton uINextButton = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UINextButton;
-            #endregion
-
-            // Click 'next' button
-            Mouse.Click(uINextButton, new Point(20, 14));
-        }
-        
-        /// <summary>
         /// InputDatabaseCode - Use 'InputDatabaseCodeParams' to pass parameters into this method.
         /// </summary>
         public void InputDatabaseCode()
@@ -1664,6 +1651,18 @@ namespace Quandl.Test.CodedUI
                 return this.mUIQuandlExcelAddincompPane;
             }
         }
+        
+        public UIItemCustom111 UIItemCustom11
+        {
+            get
+            {
+                if ((this.mUIItemCustom11 == null))
+                {
+                    this.mUIItemCustom11 = new UIItemCustom111(this);
+                }
+                return this.mUIItemCustom11;
+            }
+        }
         #endregion
         
         #region Fields
@@ -1686,6 +1685,8 @@ namespace Quandl.Test.CodedUI
         private UIStepThreePaneCustom mUIStepThreePaneCustom;
         
         private UIQuandlExcelAddincompPane2 mUIQuandlExcelAddincompPane;
+        
+        private UIItemCustom111 mUIItemCustom11;
         #endregion
     }
     
@@ -2111,6 +2112,22 @@ namespace Quandl.Test.CodedUI
                 return this.mUIItemButton3;
             }
         }
+        
+        public WpfComboBox UIDateRangeTypeFilterComboBox
+        {
+            get
+            {
+                if ((this.mUIDateRangeTypeFilterComboBox == null))
+                {
+                    this.mUIDateRangeTypeFilterComboBox = new WpfComboBox(this);
+                    #region Search Criteria
+                    this.mUIDateRangeTypeFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "DateRangeTypeFilter";
+                    this.mUIDateRangeTypeFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDateRangeTypeFilterComboBox;
+            }
+        }
         #endregion
         
         #region Fields
@@ -2151,6 +2168,8 @@ namespace Quandl.Test.CodedUI
         private WpfButton mUIItemButton2;
         
         private WpfButton mUIItemButton3;
+        
+        private WpfComboBox mUIDateRangeTypeFilterComboBox;
         #endregion
     }
     
@@ -3803,6 +3822,42 @@ namespace Quandl.Test.CodedUI
     }
     
     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIItemCustom111 : WpfCustom
+    {
+        
+        public UIItemCustom111(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.TimeSeriesFilters";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfDatePicker UIDateFromFilterDatePicker
+        {
+            get
+            {
+                if ((this.mUIDateFromFilterDatePicker == null))
+                {
+                    this.mUIDateFromFilterDatePicker = new WpfDatePicker(this);
+                    #region Search Criteria
+                    this.mUIDateFromFilterDatePicker.SearchProperties[WpfDatePicker.PropertyNames.AutomationId] = "DateFromFilter";
+                    this.mUIDateFromFilterDatePicker.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDateFromFilterDatePicker;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfDatePicker mUIDateFromFilterDatePicker;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
     public class UIQuandlFormulaBuilderWindow1 : WinWindow
     {
         
@@ -4365,12 +4420,30 @@ namespace Quandl.Test.CodedUI
                 return this.mUITxtFilterResultsEdit;
             }
         }
+        
+        public WpfDatePicker UIDateToFilterDatePicker
+        {
+            get
+            {
+                if ((this.mUIDateToFilterDatePicker == null))
+                {
+                    this.mUIDateToFilterDatePicker = new WpfDatePicker(this);
+                    #region Search Criteria
+                    this.mUIDateToFilterDatePicker.SearchProperties[WpfDatePicker.PropertyNames.AutomationId] = "DateToFilter";
+                    this.mUIDateToFilterDatePicker.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDateToFilterDatePicker;
+            }
+        }
         #endregion
         
         #region Fields
         private WpfList mUILvDatasetsList;
         
         private WpfEdit mUITxtFilterResultsEdit;
+        
+        private WpfDatePicker mUIDateToFilterDatePicker;
         #endregion
     }
     

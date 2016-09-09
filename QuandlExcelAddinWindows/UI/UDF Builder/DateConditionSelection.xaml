@@ -8,6 +8,5 @@
     <Grid>
         <ComboBox x:Name="ConditionBox" HorizontalAlignment="Left" Margin="0,45,0,0" VerticalAlignment="Top" Width="40" SelectionChanged="ConditionBox_OnSelectionChanged"/>
         <DatePicker x:Name="DateBox"  HorizontalAlignment="Left" Margin="50,45,0,0" VerticalAlignment="Top" SelectedDateChanged="DateBox_OnSelectedDateChanged"/>
-
     </Grid>
 </UserControl>

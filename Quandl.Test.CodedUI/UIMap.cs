@@ -1,19 +1,12 @@
 ﻿namespace Quandl.Test.CodedUI
 {
-    using System;
-    using System.CodeDom.Compiler;
-    using System.Drawing;
-    using System.Text.RegularExpressions;
-    using System.Windows.Input;
-    using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
-    using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
-    using MouseButtons = System.Windows.Forms.MouseButtons;
     using Microsoft.VisualStudio.TestTools.UITest.Extension;
     using Microsoft.VisualStudio.TestTools.UITesting;
     using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.Win32;
     using Shared.Models;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
@@ -50,6 +43,11 @@
         public UIItemPane1 ExcelClient5()
         {
             return UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane;
+        }
+
+        public UIItemCustom12 ExcelClient6()
+        {
+            return UIQuandlFormulaBuilderWindow1.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1;
         }
 
         public WpfButton NextButton()
@@ -316,12 +314,16 @@
 
         public void SelectDatasetOrDatatableByName(string name)
         {
+            Playback.PlaybackSettings.MatchExactHierarchy = false;
+
             var stepTwoPane = ExcelClient4().UIDatasetsDatatablesPane;
             var datasetsScrollViewer = new WpfScrollViewer(stepTwoPane);
             var datasetsListView = new UIDatasetsDatatablesLiList(datasetsScrollViewer);
 
             datasetsListView.SearchProperties[WpfList.PropertyNames.AutomationId] = "DatasetsDatatablesListView";
             datasetsListView.SelectedItemsAsString = name;
+
+            Playback.PlaybackSettings.MatchExactHierarchy = true;
         }
 
         public void SelectDatasetOrDatatableByIndex(int index)
@@ -415,6 +417,34 @@
                                                .UISelectedColumnListItems.FindMatchingControls();
 
             return selectedColumns.Count;
+        }
+
+        public void ClickNextButton()
+        {
+            WpfButton btnNext = ExcelClient().UIItemCustom.UINextButton;
+
+            Mouse.Click(btnNext);
+        }
+
+        public void SelectDatasetDateRangeFilter(string description, string value)
+        {
+            var lstDateRangeFilter = ExcelClient().UIItemCustom.UIQuandlExcelAddincompPane.UIDateRangeTypeFilterComboBox;
+
+            lstDateRangeFilter.SelectedItem = $"{{ Description = {description}, value = {value} }}";
+        }
+
+        public void SelectDatasetDateFromFilter(string date)
+        {
+            var dateFromPicker = ExcelClient().UIItemCustom11.UIDateFromFilterDatePicker;
+
+            dateFromPicker.DateAsString = date;
+        }
+
+        public void SelectDatasetDateToFilter(string date)
+        {
+            var dateToFilter = ExcelClient6().UIQuandlExcelAddincompPane.UIDateToFilterDatePicker;
+
+            dateToFilter.DateAsString = date;
         }
     }
 
