@@ -33,7 +33,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void SetDataCodeBox()
         {
-            if ( Provider != null)
+            if (Provider != null)
             {
                 DatabaseCodeBox.Text = Provider.Code;
             }
@@ -57,11 +57,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
             foreach (var item in items.Items)
             {
-                var category = new Category {Name = item.Name};
+                var category = new Category { Name = item.Name };
                 categories.Add(category);
                 foreach (var subItem in item.Items)
                 {
-                    var subCategory = new SubCategory {Name = subItem.Name};
+                    var subCategory = new SubCategory { Name = subItem.Name };
                     category.SubCategories.Add(subCategory);
                     foreach (var detailItem in subItem.Items)
                     {
@@ -71,12 +71,13 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                             var detail = new LeafCategory(detailItem.Name, detailItem.OrderedResourceIds);
                             subCategory.LeafCategories.Add(detail);
                         }
-    
                     }
                 }
             }
-            Dispatcher.Invoke(() => { BrowseData.ItemsSource = categories;
-                                        LoadingState.IsBusy = false;
+            Dispatcher.Invoke(() =>
+            {
+                BrowseData.ItemsSource = categories;
+                LoadingState.IsBusy = false;
             });
         }
 
@@ -84,7 +85,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             LoadingState.IsBusy = true;
             _allItems = new List<ViewData>();
-            var cur = (LeafCategory) current;
+            var cur = (LeafCategory)current;
             var dbCollection = await GetAllDatabase(cur);
             var dtcCollection = await GetAllDatatable(cur);
             SetDataList(cur, dbCollection.Providers, dtcCollection.Providers);
@@ -200,17 +201,17 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
             if (AllDatabaseList.SelectedValue != null)
             {
-                var selectedItem = (ViewData) AllDatabaseList.SelectedValue;
+                var selectedItem = (ViewData)AllDatabaseList.SelectedValue;
                 SetSelection(selectedItem);
             }
             else if (PremiumDatabaseList.SelectedValue != null)
             {
-                var selectedItem = (ViewData) PremiumDatabaseList.SelectedValue;
+                var selectedItem = (ViewData)PremiumDatabaseList.SelectedValue;
                 SetSelection(selectedItem);
             }
             else if (FreeDatabaseList.SelectedValue != null)
             {
-                var selectedItem = (ViewData) FreeDatabaseList.SelectedValue;
+                var selectedItem = (ViewData)FreeDatabaseList.SelectedValue;
                 SetSelection(selectedItem);
             }
         }
@@ -225,20 +226,23 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             if (selectedItem.Type.Equals("database"))
             {
-                StateControl.Instance.ChangeCode((Provider) selectedItem.DataSource, StateControl.ChainTypes.TimeSeries);
+                StateControl.Instance.ChangeCode((Provider)selectedItem.DataSource, StateControl.ChainTypes.TimeSeries);
             }
             else if (selectedItem.Type.Equals("datatable-collection"))
             {
-                StateControl.Instance.ChangeCode((Provider) selectedItem.DataSource, StateControl.ChainTypes.Datatables);
+                StateControl.Instance.ChangeCode((Provider)selectedItem.DataSource, StateControl.ChainTypes.Datatables);
             }
         }
 
         // stackoverflow.com/questions/8001450/c-sharp-wait-for-user-to-finish-typing-in-a-text-box
         private void DatabaseCodeBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var origin = (TextBox) sender;
+            var origin = (TextBox)sender;
             if (!origin.IsFocused)
                 return;
+
+            // disable next button, since input is not done yet
+            StateControl.Instance.Provider = null;
 
             DisposeTimer();
             _timer = new Timer(TimerElapsed, origin.Text, VALIDATION_DELAY, VALIDATION_DELAY);
@@ -260,7 +264,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 {
                     isDatabaseExist = await ValidateDatabase(code);
                 }
-                 
+
                 if (!isDatatableExist && !isDatabaseExist)
                 {
                     ShowValidationError(code);
