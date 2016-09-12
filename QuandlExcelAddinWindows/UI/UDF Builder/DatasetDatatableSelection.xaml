@@ -68,13 +68,13 @@
         <DockPanel x:Name="PaginationButtonDock" Grid.Row="2" Grid.Column="0" Margin="0,10">
             <StackPanel x:Name="PaginationButtons" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="btnFirstPage" Content="&lt;&lt;" HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Width="35" Height="30" Click="btnFirstPage_Click" Margin="0,0,10,0" />
+                    Width="35" Height="30" Click="btnFirstPage_Click" Margin="0,0,10,0" Background="#C5D1D8" BorderBrush="#D8E7EF" />
                 <Button x:Name="btnPrevPage" Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35"
-                    Height="30" Click="btnPrevPage_Click" Margin="0,0,10,0" />
+                    Height="30" Click="btnPrevPage_Click" Margin="0,0,10,0" Background="#C5D1D8" BorderBrush="#D8E7EF" />
                 <Button x:Name="btnNextPage" Content="&gt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35"
-                    Height="30" Click="btnNextPage_Click" Margin="0,0,10,0" />
+                    Height="30" Click="btnNextPage_Click" Margin="0,0,10,0" Background="#C5D1D8" BorderBrush="#D8E7EF" />
                 <Button x:Name="btnLastPage" Content="&gt;&gt;" HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Width="35" Height="30" Click="btnLastPage_Click" />
+                    Width="35" Height="30" Click="btnLastPage_Click" Background="#C5D1D8" BorderBrush="#D8E7EF" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" AutomationProperties.AutomationId="StepTwoBottomBar">
                 <Label Content="Selected Quandl codes" VerticalContentAlignment="Center" />
