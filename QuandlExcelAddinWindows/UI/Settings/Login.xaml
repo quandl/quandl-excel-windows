@@ -46,32 +46,7 @@
                     </Style>
                 </TextBox.Style>
             </TextBox>
-            <TextBox x:Name="password" DockPanel.Dock="Left" Margin="10,0,10,10" Width="200" Padding="5">
-                <TextBox.Style>
-                    <Style TargetType="TextBox">
-                        <Style.Resources>
-                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None"
-                                         TileMode="None">
-                                <VisualBrush.Visual>
-                                    <Label Content="Your password" Foreground="LightGray" Background="White"
-                                           Padding="5" Width="200" />
-                                </VisualBrush.Visual>
-                            </VisualBrush>
-                        </Style.Resources>
-                        <Style.Triggers>
-                            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                            </Trigger>
-                            <Trigger Property="Text" Value="{x:Null}">
-                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                            </Trigger>
-                            <Trigger Property="IsKeyboardFocused" Value="True">
-                                <Setter Property="Background" Value="White" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
+            <PasswordBox x:Name="password" DockPanel.Dock="Left" Margin="10,0,10,10" Width="200" Padding="5" Initialized="password_Initialized" IsKeyboardFocusedChanged="password_IsKeyboardFocusedChanged"></PasswordBox>
             <Label Content="or" HorizontalContentAlignment="Center" Padding="0" Margin="10,0,10,0" FontSize="14" />
             <TextBox x:Name="apiKey" DockPanel.Dock="Left" Margin="10,10,10,10" Padding="5" Width="200">
                 <TextBox.Style>
