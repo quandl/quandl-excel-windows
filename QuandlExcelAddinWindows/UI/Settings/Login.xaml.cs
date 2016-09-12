@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Quandl.Shared;
 using Quandl.Shared.Errors;
+using System.Windows.Media;
 
 namespace Quandl.Excel.Addin.UI.Settings
 {
@@ -49,9 +50,9 @@ namespace Quandl.Excel.Addin.UI.Settings
                         DisplayErrorMessage("Invalid api key specified.");
                     }
                 }
-                else if (!string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(password.Text))
+                else if (!string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(password.Password))
                 {
-                    QuandlConfig.AuthenticateWithCredentials(new Web(), email.Text, password.Text);
+                    QuandlConfig.AuthenticateWithCredentials(new Web(), email.Text, password.Password);
                 }
                 else
                 {
@@ -94,6 +95,37 @@ namespace Quandl.Excel.Addin.UI.Settings
         private void registerButton_click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://www.quandl.com/?modal=register");
+        }
+
+        private VisualBrush PasswordBoxHint()
+        {
+            var vb = new VisualBrush();
+            vb.AlignmentX = AlignmentX.Left;
+            vb.AlignmentY = AlignmentY.Center;
+            vb.Stretch = Stretch.None;
+            vb.TileMode = TileMode.None;
+
+            var lb = new Label();
+            lb.Content = "Your password";
+            lb.Background = Brushes.White;
+            lb.Foreground = Brushes.LightGray;
+            lb.Padding = new Thickness(5,5,5,5);
+            lb.Width = 200;
+
+            vb.Visual = lb;
+            return vb;
+        }
+
+        private void password_Initialized(object sender, EventArgs e)
+        {
+            password.Background = PasswordBoxHint();
+        }
+
+        private void password_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            password.Background = (!password.IsKeyboardFocused && password.Password.Length == 0) 
+                                ? (Brush) PasswordBoxHint() 
+                                : Brushes.White;
         }
     }
 }
