@@ -17,19 +17,19 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black" HorizontalAlignment="Stretch">
-            <DockPanel x:Name="stepBreadcrumb" LastChildFill="True" />
+        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#C5D1D8" HorizontalAlignment="Stretch">
+            <DockPanel x:Name="stepBreadcrumb" LastChildFill="True"/>
         </Border>
         <Frame x:Name="stepFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="10" Grid.Row="1"
-               NavigationUIVisibility="Hidden" Source="/Quandl.Excel.Addin;component/UI/UDF Builder/Loading.xaml" />
+               NavigationUIVisibility="Hidden" Background="White" Source="/Quandl.Excel.Addin;component/UI/UDF Builder/Loading.xaml" />
         <DockPanel LastChildFill="True" Grid.Row="2">
             <Button x:Name="insertButton" DockPanel.Dock="Right" Content="insert" VerticalAlignment="Top" Width="42"
                     Margin="10" Click="InsertButton_OnClickButton_click" Padding="5" Visibility="Collapsed" />
             <Button x:Name="nextButton" DockPanel.Dock="Right" Content="next" VerticalAlignment="Top" Width="42"
-                    Margin="10" Click="nextButton_click" Padding="5" />
+                    Margin="10" Click="nextButton_click" Padding="5" Background="#0B8FFF" Foreground="White" BorderBrush="#C5D1D8"/>
             <Button x:Name="prevButton" DockPanel.Dock="Right" Content="prev" VerticalAlignment="Top" Width="42"
-                    Margin="10,10,0,10" Click="prevButton_click" Padding="5" />
+                    Margin="10,10,0,10" Click="prevButton_click" Padding="5" Background="#C5D1D8" BorderBrush="#C5D1D8" />
             <TextBox x:Name="udfOutput" DockPanel.Dock="Left" Margin="10,10,0,10" TextWrapping="NoWrap"
                      IsReadOnly="True" Text="{Binding UdfFormula, Source={x:Static local:StateControl.Instance}}"
                      VerticalAlignment="Center" VerticalContentAlignment="Center" ToolTip="Your UDF formula"
