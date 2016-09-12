@@ -58,7 +58,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private void PrepareFormEvents()
         {
             QuandlConfig.Instance.LoginChanged += LoginOrSearch;
-            Instance.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
+            Instance.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
                 if (e.PropertyName != "UdfFormula")
                 {
@@ -187,7 +187,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 // Set the title of the form
                 var type = Type.GetType("Quandl.Excel.Addin.UI.UDF_Builder." + steps[i]);
-                var stepObject = (WizardUIBase) Activator.CreateInstance(type);
+                var stepObject = (WizardUIBase)Activator.CreateInstance(type);
 
                 // Should this be the title shown
                 if (i == stepNumber)
@@ -220,7 +220,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 child.FontSize = 15;
                 child.Margin = new Thickness(0);
                 child.BorderThickness = new Thickness(0);
-                child.Background = Brushes.Transparent;
+                child.Foreground = Brushes.Black;
+                child.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDF, 0XEE, 0XFB));
             }
 
             // Add in the title
@@ -234,8 +235,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             stepBreadcrumb.Children.Add(titleBox);
 
             // Highlight the current step
-            var stepElement = (Control) stepBreadcrumb.Children[(stepNumber + 1)*2 - 2];
-            stepElement.Background = Brushes.AliceBlue;
+            var stepElement = (Control)stepBreadcrumb.Children[(stepNumber + 1) * 2 - 2];
+            stepElement.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x0B, 0X8F, 0XFF));
+            stepElement.Foreground = Brushes.White;
 
             AllowMovementToNextStep(stepNumber);
         }
@@ -250,7 +252,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     Globals.Ribbons.Ribbon2.CloseBuilder(); // Wish there was a cleaner way to close this off.
                 }
             }
-            catch (COMException ex) {
+            catch (COMException ex)
+            {
                 // Ignore no cells being selected error.
                 if (ex.HResult == -2146827864)
                 {
