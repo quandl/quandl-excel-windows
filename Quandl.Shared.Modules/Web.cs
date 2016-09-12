@@ -39,17 +39,6 @@ namespace Quandl.Shared
             return userResponse.user;
         }
 
-        public virtual async Task<DatabaseCollection> SearchDatabasesAsync(string query)
-        {
-            var queryParams = new Dictionary<string, object>
-            {
-                {"per_page", "10"},
-                {"query", query}
-            };
-            return await RequestAsync<DatabaseCollection>("databases", CallTypes.Search, queryParams);
-        }
-
-
         public virtual async Task<DatasetsResponse> SearchDatasetsAsync(string databaseCode, string query, int page,
             int perPage)
         {
@@ -61,12 +50,6 @@ namespace Quandl.Shared
                 {"query", query}
             };
             return await RequestAsync<DatasetsResponse>("datasets", CallTypes.Search, queryParams);
-        }
-
-        public virtual async Task<DatasetResponse> SearchDatasetAsync(string datasetCode)
-        {
-            string relativeUrl = $"datasets/{datasetCode}/metadata";
-            return await RequestAsync<DatasetResponse>(relativeUrl, CallTypes.Search);
         }
 
         public virtual async Task<BrowseCollection> BrowseAsync()

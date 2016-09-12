@@ -149,9 +149,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private async void SetDatatableFromAPI(string code)
         {
-            DatatableMetadata dtm = await new Web().GetDatatableMetadata(code);
-            AvailableDataHolders.Clear();
-            _selectedDatatable = dtm.datatable;
+            DatatableMetadata datatableMetadata = await new Web().GetDatatableMetadata(code);
+
+            _selectedDatatable = (Datatable)lvDatasetsDatatables.SelectedItem;
+            _selectedDatatable.Columns = datatableMetadata.datatable.Columns;
+
             AvailableDataHolders.Add(_selectedDatatable);
         }
 
@@ -188,7 +190,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 Datatable selectedItem = (Datatable)lvDatasetsDatatables.SelectedItem;
                 SetDatatableFromAPI(selectedItem.Code);
-                AvailableDataHolders.Add(selectedItem);
             });
         }
 

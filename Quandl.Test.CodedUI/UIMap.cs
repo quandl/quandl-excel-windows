@@ -1,16 +1,31 @@
 ﻿namespace Quandl.Test.CodedUI
 {
+    using System;
     using System.CodeDom.Compiler;
+    using System.Drawing;
+    using System.Text.RegularExpressions;
+    using System.Windows.Input;
+    using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
+    using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
+    using MouseButtons = System.Windows.Forms.MouseButtons;
+    using Microsoft.VisualStudio.TestTools.UITest.Extension;
     using Microsoft.VisualStudio.TestTools.UITesting;
     using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
     using Microsoft.Win32;
+    using Shared.Models;
     using System.Collections.Generic;
+    using System.Linq;
+    using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
 
     public partial class UIMap
     {
         #region Coded UI Test Components
+
+        private UIItemPane1 ExcelClient()
+        {
+            return UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane;
+        }
 
         private UIItemCustom1 ExcelClient1()
         {
@@ -27,23 +42,15 @@
             return UIQuandlFormulaBuilderWindow1.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom;
         }
 
-        private UIItemCustom12 ExcelClient4()
-        {
-            return UIQuandlFormulaBuilderWindow1.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1;
-        }
-
-        public UIItemCustom21 ExcelClient5()
+        public UIItemCustom21 ExcelClient4()
         {
             return UIQuandlFormulaBuilderWindow1.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom2;
         }
 
-        public UIStepTwoPaneCustom ExcelClient6()
+        public UIItemPane1 ExcelClient5()
         {
-            return
-                UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane
-                    .UIStepTwoPaneCustom;
+            return UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane;
         }
-
 
         public WpfButton NextButton()
         {
@@ -235,7 +242,7 @@
 
         public void AssertCorrectDatasetDatatableCode(string datasetDatatableCode)
         {
-            var txtDatasetDatatableCode = ExcelClient6().UIDatabaseCodeBoxEdit.Text;
+            var txtDatasetDatatableCode = ExcelClient5().UIStepTwoPaneCustom.UIDatabaseCodeBoxEdit.Text;
 
             Assert.AreEqual(datasetDatatableCode, txtDatasetDatatableCode);
         }
@@ -309,7 +316,7 @@
 
         public void SelectDatasetOrDatatableByName(string name)
         {
-            var stepTwoPane = ExcelClient5().UIDatasetsDatatablesPane;
+            var stepTwoPane = ExcelClient4().UIDatasetsDatatablesPane;
             var datasetsScrollViewer = new WpfScrollViewer(stepTwoPane);
             var datasetsListView = new UIDatasetsDatatablesLiList(datasetsScrollViewer);
 
@@ -319,7 +326,7 @@
 
         public void SelectDatasetOrDatatableByIndex(int index)
         {
-            var stepTwoPane = ExcelClient5().UIDatasetsDatatablesPane;
+            var stepTwoPane = ExcelClient4().UIDatasetsDatatablesPane;
             var datasetsScrollViewer = new WpfScrollViewer(stepTwoPane);
             var datasetsListView = new UIDatasetsDatatablesLiList(datasetsScrollViewer);
 
@@ -330,6 +337,84 @@
         public string GetSelectedDatasetDatatableCode()
         {
             return UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIStepTwoPaneCustom.UIDatabaseCodeBoxEdit.Text;
+        }
+
+        public void SelectColumn(DataColumn column)
+        {
+            var rootItem = ExcelClient().UIStepThreePaneCustom.UIColumnsTreeViewTree.UIColumnsTreeRootItem;
+            rootItem.SearchProperties[UITestControl.PropertyNames.Name] = column.Parent.Name;
+
+            var listItem = rootItem.UIColumnsTreeListItem1;
+            listItem.SearchProperties[UITestControl.PropertyNames.Name] = $"{column.Parent.Name} - {column.Name}";
+            listItem.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
+
+            var checkBox = listItem.UIColumnListItemCheckBox;
+            checkBox.SearchProperties[WpfControl.PropertyNames.AutomationId] = column.Name;
+            checkBox.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
+
+            checkBox.Checked = !checkBox.Checked;
+        }
+
+        public void ClickAddAllColumnsButton()
+        {
+            var btnAddAllColumns = ExcelClient().UIQuandlExcelAddincompPane.UIStepThreePaneCustom.UIAddAllButton;
+
+            Mouse.Click(btnAddAllColumns);
+        }
+
+        public void ClickRemoveAllColumnsButton()
+        {
+            var btnRemoveAllColumns = ExcelClient().UIQuandlExcelAddincompPane.UIStepThreePaneCustom.UIRemoveAllButton;
+
+            Mouse.Click(btnRemoveAllColumns);
+        }
+
+        public void AssertColumnAddedToSelection(DataColumn column)
+        {
+            string columnLongName = $"{column.Parent.Name} - {column.Name}";
+            var columnList = ExcelClient().UIStepThreePaneCustom.UISelectedColumnsList;
+            var columnListItem = columnList.UISelectedColumnListItem;
+            columnListItem.SearchProperties[UITestControl.PropertyNames.Name] = columnLongName;
+
+            Assert.AreEqual(true, columnListItem.Exists);
+            Assert.AreEqual(columnLongName, columnListItem.DisplayText);
+        }
+
+        public void AssertNumberOfColumnsSelected(int count)
+        {
+            var columnList = ExcelClient().UIStepThreePaneCustom.UISelectedColumnsList;
+
+            Assert.AreEqual(count, CountSelectedColumns());
+        }
+
+        public List<DataColumn> GetAllAvailableColumns()
+        {
+            var columnCollection = ExcelClient().UIStepThreePaneCustom.UIColumnsTreeViewTree.UIColumnsTreeRootItem
+                                                .UIColumnTreeListItem2.FindMatchingControls();
+
+            List<DataColumn> columns = new List<DataColumn>();
+            foreach (var column in columnCollection)
+            {
+                string columnName = column.Name.Split(new string[] { " - " }, StringSplitOptions.None).Last();
+                columns.Add(new DataColumn { Name = columnName });
+            }
+            return columns;
+        }
+
+        public int CountAvailableColumns()
+        {
+            var columnCollection = ExcelClient().UIStepThreePaneCustom.UIColumnsTreeViewTree.UIColumnsTreeRootItem
+                                                .UIColumnTreeListtemCollection.FindMatchingControls();
+
+            return columnCollection.Count;
+        }
+
+        public int CountSelectedColumns()
+        {
+            var selectedColumns = ExcelClient().UIStepThreePaneCustom.UISelectedColumnsList
+                                               .UISelectedColumnListItems.FindMatchingControls();
+
+            return selectedColumns.Count;
         }
     }
 

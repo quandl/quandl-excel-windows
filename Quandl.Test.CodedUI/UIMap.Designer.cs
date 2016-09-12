@@ -31,6 +31,19 @@ namespace Quandl.Test.CodedUI
     {
         
         /// <summary>
+        /// AssertColumnSelected - Use 'AssertColumnSelectedExpectedValues' to pass parameters into this method.
+        /// </summary>
+        public void AssertColumnSelected()
+        {
+            #region Variable Declarations
+            WpfListItem uISelectedColumnListItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIStepThreePaneCustom.UISelectedColumnsList.UISelectedColumnListItem;
+            #endregion
+
+            // Verify that the 'Name' property of 'Apple Inc. (AAPL) Stock Prices, Dividends and Spli...' list item equals ''
+            Assert.AreEqual(this.AssertColumnSelectedExpectedValues.UISelectedColumnListItemName, uISelectedColumnListItem.Name);
+        }
+        
+        /// <summary>
         /// AssertCorrectUDFSignature - Use 'AssertCorrectUDFSignatureExpectedValues' to pass parameters into this method.
         /// </summary>
         public void AssertCorrectUDFSignature()
@@ -212,6 +225,18 @@ namespace Quandl.Test.CodedUI
         }
         
         #region Properties
+        public virtual AssertColumnSelectedExpectedValues AssertColumnSelectedExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertColumnSelectedExpectedValues == null))
+                {
+                    this.mAssertColumnSelectedExpectedValues = new AssertColumnSelectedExpectedValues();
+                }
+                return this.mAssertColumnSelectedExpectedValues;
+            }
+        }
+        
         public virtual AssertCorrectUDFSignatureExpectedValues AssertCorrectUDFSignatureExpectedValues
         {
             get
@@ -418,6 +443,8 @@ namespace Quandl.Test.CodedUI
         #endregion
         
         #region Fields
+        private AssertColumnSelectedExpectedValues mAssertColumnSelectedExpectedValues;
+        
         private AssertCorrectUDFSignatureExpectedValues mAssertCorrectUDFSignatureExpectedValues;
         
         private AssertInvalidDatabaseCodeMessageExpectedValues mAssertInvalidDatabaseCodeMessageExpectedValues;
@@ -451,6 +478,21 @@ namespace Quandl.Test.CodedUI
         private UIQuandlFormulaBuilderWindow1 mUIQuandlFormulaBuilderWindow1;
         
         private UIItemWindow11 mUIItemWindow1;
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'AssertColumnSelected'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class AssertColumnSelectedExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Verify that the 'Name' property of 'Apple Inc. (AAPL) Stock Prices, Dividends and Spli...' list item equals ''
+        /// </summary>
+        public string UISelectedColumnListItemName = "";
         #endregion
     }
     
@@ -1598,6 +1640,30 @@ namespace Quandl.Test.CodedUI
                 return this.mUIStepTwoPaneCustom;
             }
         }
+        
+        public UIStepThreePaneCustom UIStepThreePaneCustom
+        {
+            get
+            {
+                if ((this.mUIStepThreePaneCustom == null))
+                {
+                    this.mUIStepThreePaneCustom = new UIStepThreePaneCustom(this);
+                }
+                return this.mUIStepThreePaneCustom;
+            }
+        }
+        
+        public UIQuandlExcelAddincompPane2 UIQuandlExcelAddincompPane
+        {
+            get
+            {
+                if ((this.mUIQuandlExcelAddincompPane == null))
+                {
+                    this.mUIQuandlExcelAddincompPane = new UIQuandlExcelAddincompPane2(this);
+                }
+                return this.mUIQuandlExcelAddincompPane;
+            }
+        }
         #endregion
         
         #region Fields
@@ -1616,6 +1682,10 @@ namespace Quandl.Test.CodedUI
         private UIItemCustom6 mUIItemCustom6;
         
         private UIStepTwoPaneCustom mUIStepTwoPaneCustom;
+        
+        private UIStepThreePaneCustom mUIStepThreePaneCustom;
+        
+        private UIQuandlExcelAddincompPane2 mUIQuandlExcelAddincompPane;
         #endregion
     }
     
@@ -3371,6 +3441,368 @@ namespace Quandl.Test.CodedUI
     }
     
     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIStepThreePaneCustom : WpfCustom
+    {
+        
+        public UIStepThreePaneCustom(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.ColumnSelection";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "StepThreePane";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public UIColumnsTreeViewTree UIColumnsTreeViewTree
+        {
+            get
+            {
+                if ((this.mUIColumnsTreeViewTree == null))
+                {
+                    this.mUIColumnsTreeViewTree = new UIColumnsTreeViewTree(this);
+                }
+                return this.mUIColumnsTreeViewTree;
+            }
+        }
+        
+        public UISelectedColumnsList UISelectedColumnsList
+        {
+            get
+            {
+                if ((this.mUISelectedColumnsList == null))
+                {
+                    this.mUISelectedColumnsList = new UISelectedColumnsList(this);
+                }
+                return this.mUISelectedColumnsList;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIColumnsTreeViewTree mUIColumnsTreeViewTree;
+        
+        private UISelectedColumnsList mUISelectedColumnsList;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIColumnsTreeViewTree : WpfTree
+    {
+        
+        public UIColumnsTreeViewTree(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfTree.PropertyNames.AutomationId] = "ColumnsTreeView";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public UIColumnsTreeRootItem UIColumnsTreeRootItem
+        {
+            get
+            {
+                if ((this.mUIColumnsTreeRootItem == null))
+                {
+                    this.mUIColumnsTreeRootItem = new UIColumnsTreeRootItem(this);
+                }
+                return this.mUIColumnsTreeRootItem;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIColumnsTreeRootItem mUIColumnsTreeRootItem;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIColumnsTreeRootItem : WpfTreeItem
+    {
+        
+        public UIColumnsTreeRootItem(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Apple Inc. (AAPL) Stock Prices, Dividends and Splits";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public UIColumnsTreeListItem1 UIColumnsTreeListItem1
+        {
+            get
+            {
+                if ((this.mUIColumnsTreeListItem1 == null))
+                {
+                    this.mUIColumnsTreeListItem1 = new UIColumnsTreeListItem1(this);
+                }
+                return this.mUIColumnsTreeListItem1;
+            }
+        }
+        
+        public WpfTreeItem UIColumnTreeListtemCollection
+        {
+            get
+            {
+                if ((this.mUIColumnTreeListtemCollection == null))
+                {
+                    this.mUIColumnTreeListtemCollection = new WpfTreeItem(this);
+                    #region Search Criteria
+                    this.mUIColumnTreeListtemCollection.SearchProperties.Add(new PropertyExpression(WpfTreeItem.PropertyNames.ClassName, "Uia.TreeViewItem", PropertyExpressionOperator.Contains));
+                    this.mUIColumnTreeListtemCollection.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
+                    this.mUIColumnTreeListtemCollection.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIColumnTreeListtemCollection;
+            }
+        }
+        
+        public UIColumnTreeListItem2 UIColumnTreeListItem2
+        {
+            get
+            {
+                if ((this.mUIColumnTreeListItem2 == null))
+                {
+                    this.mUIColumnTreeListItem2 = new UIColumnTreeListItem2(this);
+                }
+                return this.mUIColumnTreeListItem2;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIColumnsTreeListItem1 mUIColumnsTreeListItem1;
+        
+        private WpfTreeItem mUIColumnTreeListtemCollection;
+        
+        private UIColumnTreeListItem2 mUIColumnTreeListItem2;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIColumnsTreeListItem1 : WpfTreeItem
+    {
+        
+        public UIColumnsTreeListItem1(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Apple Inc. (AAPL) Stock Prices, Dividends and Splits - Open";
+            this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfCheckBox UIColumnListItemCheckBox
+        {
+            get
+            {
+                if ((this.mUIColumnListItemCheckBox == null))
+                {
+                    this.mUIColumnListItemCheckBox = new WpfCheckBox(this);
+                    #region Search Criteria
+                    this.mUIColumnListItemCheckBox.SearchProperties[WpfCheckBox.PropertyNames.AutomationId] = "Open";
+                    this.mUIColumnListItemCheckBox.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
+                    this.mUIColumnListItemCheckBox.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIColumnListItemCheckBox;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfCheckBox mUIColumnListItemCheckBox;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIColumnTreeListItem2 : WpfTreeItem
+    {
+        
+        public UIColumnTreeListItem2(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties.Add(new PropertyExpression(WpfTreeItem.PropertyNames.ClassName, "Uia.TreeViewItem", PropertyExpressionOperator.Contains));
+            this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfCheckBox UIColumnListItemCheckBoxCollection
+        {
+            get
+            {
+                if ((this.mUIColumnListItemCheckBoxCollection == null))
+                {
+                    this.mUIColumnListItemCheckBoxCollection = new WpfCheckBox(this);
+                    #region Search Criteria
+                    this.mUIColumnListItemCheckBoxCollection.SearchProperties.Add(new PropertyExpression(WpfCheckBox.PropertyNames.ClassName, "Uia.CheckBox", PropertyExpressionOperator.Contains));
+                    this.mUIColumnListItemCheckBoxCollection.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
+                    this.mUIColumnListItemCheckBoxCollection.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIColumnListItemCheckBoxCollection;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfCheckBox mUIColumnListItemCheckBoxCollection;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UISelectedColumnsList : WpfList
+    {
+        
+        public UISelectedColumnsList(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfList.PropertyNames.AutomationId] = "SelectedColumns";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfListItem UISelectedColumnListItem
+        {
+            get
+            {
+                if ((this.mUISelectedColumnListItem == null))
+                {
+                    this.mUISelectedColumnListItem = new WpfListItem(this);
+                    #region Search Criteria
+                    this.mUISelectedColumnListItem.SearchProperties[WpfListItem.PropertyNames.Name] = "Apple Inc. (AAPL) Stock Prices, Dividends and Splits - Open";
+                    this.mUISelectedColumnListItem.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUISelectedColumnListItem;
+            }
+        }
+        
+        public WpfListItem UISelectedColumnListItems
+        {
+            get
+            {
+                if ((this.mUISelectedColumnListItems == null))
+                {
+                    this.mUISelectedColumnListItems = new WpfListItem(this);
+                    #region Search Criteria
+                    this.mUISelectedColumnListItems.SearchProperties.Add(new PropertyExpression(WpfListItem.PropertyNames.ClassName, "Uia.ListBoxItem", PropertyExpressionOperator.Contains));
+                    this.mUISelectedColumnListItems.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUISelectedColumnListItems;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfListItem mUISelectedColumnListItem;
+        
+        private WpfListItem mUISelectedColumnListItems;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIQuandlExcelAddincompPane2 : WpfPane
+    {
+        
+        public UIQuandlExcelAddincompPane2(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.Frame";
+            this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "stepFrame";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public UIStepThreePaneCustom1 UIStepThreePaneCustom
+        {
+            get
+            {
+                if ((this.mUIStepThreePaneCustom == null))
+                {
+                    this.mUIStepThreePaneCustom = new UIStepThreePaneCustom1(this);
+                }
+                return this.mUIStepThreePaneCustom;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIStepThreePaneCustom1 mUIStepThreePaneCustom;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIStepThreePaneCustom1 : WpfCustom
+    {
+        
+        public UIStepThreePaneCustom1(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.ColumnSelection";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "StepThreePane";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfButton UIAddAllButton
+        {
+            get
+            {
+                if ((this.mUIAddAllButton == null))
+                {
+                    this.mUIAddAllButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIAddAllButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "ButtonAddAll";
+                    this.mUIAddAllButton.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIAddAllButton;
+            }
+        }
+        
+        public WpfButton UIRemoveAllButton
+        {
+            get
+            {
+                if ((this.mUIRemoveAllButton == null))
+                {
+                    this.mUIRemoveAllButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIRemoveAllButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "ButtonRemoveAll";
+                    this.mUIRemoveAllButton.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIRemoveAllButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfButton mUIAddAllButton;
+        
+        private WpfButton mUIRemoveAllButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
     public class UIQuandlFormulaBuilderWindow1 : WinWindow
     {
         
@@ -3869,13 +4301,13 @@ namespace Quandl.Test.CodedUI
         }
         
         #region Properties
-        public UIQuandlExcelAddincompPane2 UIQuandlExcelAddincompPane
+        public UIQuandlExcelAddincompPane3 UIQuandlExcelAddincompPane
         {
             get
             {
                 if ((this.mUIQuandlExcelAddincompPane == null))
                 {
-                    this.mUIQuandlExcelAddincompPane = new UIQuandlExcelAddincompPane2(this);
+                    this.mUIQuandlExcelAddincompPane = new UIQuandlExcelAddincompPane3(this);
                 }
                 return this.mUIQuandlExcelAddincompPane;
             }
@@ -3883,15 +4315,15 @@ namespace Quandl.Test.CodedUI
         #endregion
         
         #region Fields
-        private UIQuandlExcelAddincompPane2 mUIQuandlExcelAddincompPane;
+        private UIQuandlExcelAddincompPane3 mUIQuandlExcelAddincompPane;
         #endregion
     }
     
     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
-    public class UIQuandlExcelAddincompPane2 : WpfPane
+    public class UIQuandlExcelAddincompPane3 : WpfPane
     {
         
-        public UIQuandlExcelAddincompPane2(UITestControl searchLimitContainer) : 
+        public UIQuandlExcelAddincompPane3(UITestControl searchLimitContainer) : 
                 base(searchLimitContainer)
         {
             #region Search Criteria
