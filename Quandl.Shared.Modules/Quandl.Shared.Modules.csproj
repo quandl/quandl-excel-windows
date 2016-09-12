@@ -93,7 +93,6 @@
     <Compile Include="Models\DataHolderDefinition.cs" />
     <Compile Include="Models\DatasetMeta.cs" />
     <Compile Include="Models\QuandlError.cs" />
-    <Compile Include="Models\OldMeta.cs" />
     <Compile Include="Models\ResultsData.cs" />
     <Compile Include="Models\_Shared.cs" />
     <Compile Include="Models\DataArray.cs" />
@@ -104,7 +103,6 @@
     <Compile Include="Models\IDataStructure.cs" />
     <Compile Include="Models\Browse\BrowseCollection.cs" />
     <Compile Include="Models\Database.cs" />
-    <Compile Include="Models\DatabaseCollection.cs" />
     <Compile Include="Models\NamedContentCollection.cs" />
     <Compile Include="Models\UserResponse.cs" />
     <Compile Include="Models\Browse\ViewData.cs" />

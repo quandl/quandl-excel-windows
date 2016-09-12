@@ -93,6 +93,7 @@
     <Compile Include="UIMap.Designer.cs">
       <DependentUpon>UIMap.uitest</DependentUpon>
     </Compile>
+    <Compile Include="UI\UDF Builder\ColumnSelectionTest.cs" />
     <Compile Include="UI\UDF Builder\DatasetDatatableSelectionTest.cs" />
     <Compile Include="UI\UDF Builder\DatabaseSelectionTest.cs" />
   </ItemGroup>
@@ -103,6 +104,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="UIMap.uitest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Quandl.Shared.Modules\Quandl.Shared.Modules.csproj">
+      <Project>{C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C}</Project>
+      <Name>Quandl.Shared.Modules</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
