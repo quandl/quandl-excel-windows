@@ -14,10 +14,13 @@ namespace Quandl.Excel.Addin.UI.Settings
     /// </summary>
     public partial class Login : UserControl
     {
+        private VisualBrush _buttonHint;
+
         public Login()
         {
+            InitializePasswordBoxHint();
             InitializeComponent();
-
+            
             Loaded += delegate
             {
                 errorLabel.Visibility = Visibility.Hidden;
@@ -97,34 +100,36 @@ namespace Quandl.Excel.Addin.UI.Settings
             Process.Start("https://www.quandl.com/?modal=register");
         }
 
-        private VisualBrush PasswordBoxHint()
+        private void InitializePasswordBoxHint()
         {
-            var vb = new VisualBrush();
-            vb.AlignmentX = AlignmentX.Left;
-            vb.AlignmentY = AlignmentY.Center;
-            vb.Stretch = Stretch.None;
-            vb.TileMode = TileMode.None;
+             if (_buttonHint == null)
+            {
+                _buttonHint = new VisualBrush();
+                _buttonHint.AlignmentX = AlignmentX.Left;
+                _buttonHint.AlignmentY = AlignmentY.Center;
+                _buttonHint.Stretch = Stretch.None;
+                _buttonHint.TileMode = TileMode.None;
 
-            var lb = new Label();
-            lb.Content = "Your password";
-            lb.Background = Brushes.White;
-            lb.Foreground = Brushes.LightGray;
-            lb.Padding = new Thickness(5,5,5,5);
-            lb.Width = 200;
+                var lb = new Label();
+                lb.Content = "Your password";
+                lb.Background = Brushes.White;
+                lb.Foreground = Brushes.LightGray;
+                lb.Padding = new Thickness(5, 5, 5, 5);
+                lb.Width = 200;
 
-            vb.Visual = lb;
-            return vb;
+                _buttonHint.Visual = lb;
+            }
         }
 
         private void password_Initialized(object sender, EventArgs e)
         {
-            password.Background = PasswordBoxHint();
+            password.Background = _buttonHint;
         }
 
         private void password_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             password.Background = (!password.IsKeyboardFocused && password.Password.Length == 0) 
-                                ? (Brush) PasswordBoxHint() 
+                                ? (Brush) _buttonHint 
                                 : Brushes.White;
         }
     }
