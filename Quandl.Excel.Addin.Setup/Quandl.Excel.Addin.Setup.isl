@@ -3789,11 +3789,11 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>https://www.quandl.com</td><td>0</td><td/><td>-878432977</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>https://www.quandl.com</td><td>0</td><td/><td>1822728970</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>1495576044</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>connect@quandl.com</td><td>0</td><td/><td>1151655368</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>https://www.quandl.com</td><td>0</td><td/><td>1705204843</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>http://help.quandl.com/</td><td>0</td><td/><td>1151612392</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>http://help.quandl.com/</td><td>0</td><td/><td>1822728970</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>UNINST|Uninstall Quandl-Excell-Addin</td><td>1033</td><td>UNINST~1|Uninstall Quandl Excel Addin</td><td>0</td><td/><td>1705190923</td></row>
 	</table>
@@ -4429,9 +4429,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{4D31E482-EA4C-4240-B0BC-0028C5420F08}</td><td/></row>
+		<row><td>ProductCode</td><td>{F6562051-A3C9-4206-9FE0-7429D7F37AFC}</td><td/></row>
 		<row><td>ProductName</td><td>Quandl Excel Addin</td><td/></row>
-		<row><td>ProductVersion</td><td>3.20.0000</td><td/></row>
+		<row><td>ProductVersion</td><td>3.21.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
