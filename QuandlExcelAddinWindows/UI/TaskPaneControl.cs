@@ -15,6 +15,7 @@ namespace Quandl.Excel.Addin.UI
     {
         private readonly UserControl control;
         private readonly string name;
+        private readonly float _scalingFactor = Utilities.WindowsScalingFactor();
 
         private CustomTaskPane taskPane;
 
@@ -100,11 +101,11 @@ namespace Quandl.Excel.Addin.UI
             {
                 taskPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionFloating;
                 taskPane.DockPositionRestrict = MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoHorizontal;
-                taskPane.Width = 640;
-                taskPane.Height = 480;
+                taskPane.Width = (int)(640 * _scalingFactor);
+                taskPane.Height = (int)(480 * _scalingFactor);
                 taskPane.Visible = true;
             }
-
+            
             // Set it to the center of the screen
             var screen = Screen.FromControl(control);
             SetCustomPanePositionWhenFloating(taskPane, screen.Bounds.Width/2 - taskPane.Width/2,
@@ -119,7 +120,7 @@ namespace Quandl.Excel.Addin.UI
 
             customTaskPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionFloating;
             customTaskPane.Visible = true; //The task pane must be visible to set its position
-
+            
             var window = FindWindowW("MsoCommandBar", customTaskPane.Title); //MLHIDE
             if (window == null) return;
 
