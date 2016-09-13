@@ -10,10 +10,9 @@
     <xctk:BusyIndicator Name="LoadingState"  IsBusy="False" DisplayAfter="1" >
         <Grid RenderTransformOrigin="0.318,0.34">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="82*" MinWidth="200" />
-                <ColumnDefinition Width="166*"/>
+                <ColumnDefinition Width="1*" MinWidth="200" />
                 <ColumnDefinition Width="3" />
-                <ColumnDefinition Width="249*" MinWidth="200" />
+                <ColumnDefinition Width="1*" MinWidth="200" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
