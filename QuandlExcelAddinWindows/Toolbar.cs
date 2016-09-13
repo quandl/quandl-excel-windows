@@ -82,29 +82,22 @@ namespace Quandl.Excel.Addin
 
         private void btnExecutionToggle_Click(object sender, RibbonControlEventArgs e)
         {
-            var prevent = QuandlConfig.PreventCurrentExecution;
-            if (prevent)
-            {
-                QuandlConfig.PreventCurrentExecution = false;
-            }
-            else
-            {
-                QuandlConfig.PreventCurrentExecution = true;
-            }
+            QuandlConfig.PreventCurrentExecution = !QuandlConfig.PreventCurrentExecution;
             SetExecutionToggleIcon();
         }
 
         public void SetExecutionToggleIcon()
         {
-            var prevent = QuandlConfig.PreventCurrentExecution;
-            if (prevent)
+            if (QuandlConfig.PreventCurrentExecution)
             {
-                btnExecutionToggle.OfficeImageId = "SkipOccurrence";
+                btnExecutionToggle.OfficeImageId = "FileStartWorkflow";
+                btnExecutionToggle.Label = "Enable Formulas";
                 refreshMulti.Enabled = false;
             }
             else
             {
-                btnExecutionToggle.OfficeImageId = "FileStartWorkflow";
+                btnExecutionToggle.OfficeImageId = "SkipOccurrence";
+                btnExecutionToggle.Label = "Disable Formulas";
                 refreshMulti.Enabled = true;
             }
         }
