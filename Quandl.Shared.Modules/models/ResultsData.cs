@@ -39,7 +39,7 @@ namespace Quandl.Shared.Models
 
         public List<List<object>> SortedData(string field, bool ascending = false)
         {
-            var indexToSort = Headers.Select(s => s.ToLower()).ToList().IndexOf(field.ToLower());
+            var indexToSort = Headers.Select(s => s.ToUpper()).ToList().IndexOf(field.ToUpper());
             if (ascending)
             {
                 return (from row in Data
@@ -74,7 +74,7 @@ namespace Quandl.Shared.Models
             return Enumerable.Repeat(default(T), capacity).ToList();
         }
 
-        public ResultsData ExpandAndReorderColumns(List<string> quandlCodeColumns)
+        public ResultsData ExpandAndReorderColumns(List<string> quandlCodeColumns, string dateColumn)
         {
             // Expand the column header names
             var expandedHeaders = quandlCodeColumns.Select(qcc =>
@@ -85,9 +85,12 @@ namespace Quandl.Shared.Models
                     : Headers.FindAll(x => x.StartsWith(qcc)).ToList();
             }).SelectMany(i => i).ToList();
 
+            //var dateColumnName = expandedHeaders.Select(s => s.ToUpper()).ToList()[0].Split(Convert.ToChar("/")).Last();
+            var length = dateColumn.Length;
+
             // Add a `DATE` field in if the user has not specified one already.
-            expandedHeaders = expandedHeaders.Select(s => s.Length - 4 >= 0 && s.Substring(s.Length - 4, 4) == "DATE" ? "DATE" : s).ToList();
-            if (expandedHeaders.Where(s => s.Length - 4 >= 0 ? s.Substring(s.Length - 4, 4) == "DATE" : false).Count() == 0)
+            expandedHeaders = expandedHeaders.Select(s => s.Length - length >= 0 && s.Substring(s.Length - length, length) == dateColumn ? dateColumn : s).ToList();
+            if (expandedHeaders.Where(s => s.Length - length >= 0 ? s.Substring(s.Length - length, length) == dateColumn : false).Count() == 0)
             {
                 expandedHeaders.Insert(0, Headers.First()); 
             }
@@ -100,6 +103,11 @@ namespace Quandl.Shared.Models
             foreach (var header in expandedHeaders)
             {
                 var columnIndex = Headers.IndexOf(header);
+
+                // Handle the case when any dataset which first column is not DATE
+                if ( columnIndex != 0 && Headers.Count >= 2 && Headers[1] == expandedHeaders[0])
+                    columnIndex--;
+
                 for (var r = 0; r < Data.Count; r++)
                 {
                     shuffledData[r].Add(Data[r][columnIndex]);
