@@ -69,9 +69,12 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     return e.Message;
                 }
 
+                // Assume the first column is date column
+                string dateColumn = results.Headers.Select(s => s.ToUpper()).ToList()[0];
+                
                 // Sort out the data and place it in the cells
-                var sortedResults = new ResultsData(results.SortedData("date", orderAsc), results.Headers);
-                var reorderColumns = sortedResults.ExpandAndReorderColumns(SanitizeColumnNames(quandlCodeColumns));
+                var sortedResults = new ResultsData(results.SortedData(dateColumn, orderAsc), results.Headers);
+                var reorderColumns = sortedResults.ExpandAndReorderColumns(SanitizeColumnNames(quandlCodeColumns), dateColumn);
                 var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader, true);
 
                 if (excelWriter.ConfirmedOverwrite == false)
@@ -157,7 +160,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 var dataset = qcc.Value;
                 var columns =
                     dataset.Columns.Select(
-                        c => c.Code.ToUpper() == "DATE" ? c.Code : $"{dataset.Code}/{c.Code}".ToUpper()).ToList();
+                        c => c.Code.ToUpper() == dataset.Columns[0].Code ? c.Code : $"{dataset.Code}/{c.Code}".ToUpper()).ToList();
                 var newResults = new ResultsData(dataset.Data.DataPoints, columns);
                 combinedResults = combinedResults.Combine(newResults);
             }
