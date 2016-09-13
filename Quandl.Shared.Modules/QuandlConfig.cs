@@ -38,7 +38,7 @@ namespace Quandl.Shared
 
         public static bool ScrollOnInsert
         {
-            get { return RegistryKeyExists("ScrollOnInsert") ? GetRegistry<bool>("ScrollOnInsert") : true; }
+            get { return RegistryKeyExists("ScrollOnInsert") ? GetRegistry<bool>("ScrollOnInsert") : false; }
             set
             {
                 SetRegistryKeyValue("ScrollOnInsert", value, RegistryValueKind.DWord);
