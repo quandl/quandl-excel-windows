@@ -8,6 +8,7 @@ using SharpRaven.Data;
 using System.Diagnostics;
 using System.Linq;
 using MoreLinq;
+using System.Drawing;
 
 namespace Quandl.Shared
 {
@@ -20,6 +21,7 @@ namespace Quandl.Shared
         private const bool ENABLE_SENTRY_LOG = true;
 
         private static string excelVersion;
+        private const int WinDefaultDpi = 96;
 
         public static string GetExcelVersionNumber
         {
@@ -154,6 +156,26 @@ namespace Quandl.Shared
             }
 
             return quandl_data;
+        }
+
+        /*
+         * g is a graphics object in a window. We just need to get the 
+         * current windows dpi settings so any window will do.
+         * http://stackoverflow.com/questions/5977445/how-to-get-windows-display-settings
+         * 
+         * 96(WinDefaultDpi) is the default dpi for Windows
+         * https://blogs.msdn.microsoft.com/fontblog/2005/11/08/where-does-96-dpi-come-from-in-windows/
+         * 
+         * According to https://msdn.microsoft.com/en-us/library/system.drawing.graphics.fromhwnd(v=vs.110).aspx
+         * you should .Dispose of the graphics object when you are done with it.
+         * 
+         */
+        public static float WindowsScalingFactor()
+        {
+            Graphics g = Graphics.FromHwnd(IntPtr.Zero);
+            float factor = g.DpiX/WinDefaultDpi;
+            g.Dispose();
+            return  factor;
         }
 
         private static ArrayList PrependToList(ArrayList list, string item)
