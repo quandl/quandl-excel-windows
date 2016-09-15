@@ -27,13 +27,13 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            CodedUITestHelpers.SetupCodedUITests();
+            CodedUITestHelpers.SetupCodedUITest();
         }
 
         [TestCleanup()]
         public void MyTestCleanup()
         {
-            CodedUITestHelpers.CompleteCodedUITests();
+            CodedUITestHelpers.CompleteCodedUITest();
         }
 
         #endregion

@@ -16,6 +16,8 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
         private string _filterDateFormat;
         private string _udfDateFormat;
 
+        private Dictionary<string, string> _filterOptions;
+
         public TimeSeriesFiltersTest()
         {
             UIMap = CodedUITestHelpers.UIMap;
@@ -29,35 +31,54 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
         [TestInitialize()]
         public void MyTestInitialize()
         {
+            CodedUITestHelpers.SetupCodedUITest();
             CodedUITestHelpers.CompleteStep1(_dataset.DatabaseCode);
             CodedUITestHelpers.CompleteStep2(_dataset, _dataset.Name);
             CodedUITestHelpers.CompleteStep3(null);
+
+            ResetFilterOptions();
         }
 
         [TestCleanup()]
         public void MyTestCleanup()
         {
-            UIMap.ClearRegistryApiKey();
+            CodedUITestHelpers.CompleteCodedUITest();
         }
 
         #endregion
 
+        private void ResetFilterOptions()
+        {
+            _filterOptions = new Dictionary<string, string>();
+            _filterOptions.Add("dataset_code", _dataset.Code);
+            _filterOptions.Add("date_range", "");
+            _filterOptions.Add("frequency", "");
+            _filterOptions.Add("sort", "");
+            _filterOptions.Add("transformation", "");
+            _filterOptions.Add("limit", "");
+        }
+
         private string QSeriesUDF(List<DateTime> dates = null)
         {
+            List<string> udfParams = new List<string>();
+            udfParams.Add($"\"{_dataset.Code}\"");
+
             if (dates == null || dates.Count == 0)
             {
-                return $"=QSERIES(\"{_dataset.Code}\")";
+                udfParams.Add(null);
             }
-            else if (dates.Count == 1)
+            else if (dates != null && dates.Count == 1)
             {
-                return $"=QSERIES(\"{_dataset.Code}\",\"{dates.First().ToString(_udfDateFormat)}\")";
+                udfParams.Add($"\"{dates.First().ToString(_udfDateFormat)}\"");
             }
-            else
+            else if (dates != null && dates.Count == 2)
             {
-                List<string> strDates = dates.Select(date => { return date.ToString(_udfDateFormat); }).ToList();
-                string datesArray = $"{{\"{string.Join("\",\"", strDates)}\"}}";
-                return $"=QSERIES(\"{_dataset.Code}\",{datesArray})";
+                List<string> formattedDates = dates.Select(date => { return date.ToString(_udfDateFormat); }).ToList();
+                udfParams.Add($"{{\"{string.Join("\",\"", formattedDates)}\"}}");
             }
+
+            string qseries = string.Join(",", udfParams.Where(param => !String.IsNullOrEmpty(param)).ToList());
+            return $"=QSERIES({qseries})";
         }
 
         [TestMethod]
@@ -93,6 +114,39 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
 
             string expectedUDF = QSeriesUDF(new List<DateTime> { fromDate, toDate });
             UIMap.AssertCorrectUDFSignature(expectedUDF);
+        }
+
+        [TestMethod]
+        public void SelectFrequencyFilter()
+        {
+            _filterOptions["frequency"] = "Quarter";
+
+            UIMap.SelectFrequencyFilter("Quarterly", _filterOptions["frequency"]);
+            UIMap.AssertCorrectUDFSignature();
+        }
+
+        [TestMethod]
+        public void SelectTransformationFilter()
+        {
+            _filterOptions["transforamtion"] = "Diff";
+
+            UIMap.SelectTransformationFilter("Row-on-row change (diff)", _filterOptions["transformation"]);
+        }
+
+        [TestMethod]
+        public void SelectSortFilter()
+        {
+            _filterOptions["sort"] = "Ascending";
+
+            UIMap.SelectSortFilter("Ascending", _filterOptions["sort"]);
+        }
+
+        [TestMethod]
+        public void SelectLimitFilter()
+        {
+            _filterOptions["limit"] = "10";
+
+            UIMap.SelectLimitFilter(_filterOptions["limit"]);
         }
     }
 }
