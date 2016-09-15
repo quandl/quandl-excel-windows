@@ -116,7 +116,7 @@
         public void OpenLoginPage()
         {
             var tabQuandl = this.UIExcelWindow.UIItemWindow.UIRibbonClient.UIQuandlTabPage;
-            var uiDownloadButton = this.UIExcelWindow.UIItemWindow.UIDataToolBar.UIDownloadButton;
+            var uiDownloadButton = this.UIExcelWindow.UIItemWindow.UIDataToolBar.UIGetDataButton;
 
             Mouse.Click(tabQuandl);
             Mouse.Click(uiDownloadButton);
@@ -424,6 +424,13 @@
             WpfButton btnNext = ExcelClient().UIItemCustom.UINextButton;
 
             Mouse.Click(btnNext);
+        }
+
+        public void ClickInsertButton()
+        {
+            WpfButton btnInsert = ExcelClient().UIItemCustom.UIInsertButton;
+
+            Mouse.Click(btnInsert);
         }
 
         public void SelectDatasetDateRangeFilter(string description, string value)

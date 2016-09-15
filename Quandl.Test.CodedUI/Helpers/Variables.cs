@@ -11,6 +11,7 @@ namespace Quandl.Test.CodedUI.Helpers
         private static Datatable _datatable;
         private static List<DataColumn> _datasetColumns;
         private static List<DataColumn> _datatableColumns;
+        private Dictionary<string, string> _filterOptions;
 
         public static Dataset SampleDataset()
         {
@@ -21,6 +22,21 @@ namespace Quandl.Test.CodedUI.Helpers
                     DatabaseCode = "EOD",
                     DatasetCode = "AAPL",
                     Name = "Apple Inc. (AAPL) Stock Prices, Dividends and Splits"
+                };
+            }
+
+            return _dataset;
+        }
+
+        public static Dataset FreeDataset()
+        {
+            if (_dataset == null)
+            {
+                _dataset = new Dataset
+                {
+                    DatabaseCode = "WIKI",
+                    DatasetCode = "FMC",
+                    Name = "FMC Corp. (FMC) Prices, Dividends, Splits and Trading Volume"
                 };
             }
 
@@ -71,6 +87,17 @@ namespace Quandl.Test.CodedUI.Helpers
             }
 
             return _datasetColumns;
+        }
+        public static Dictionary<string, string> filtersAllHistRdiff()
+        {
+            var filterOptions = new Dictionary<string, string>();
+            filterOptions.Add("date_range", null);
+            filterOptions.Add("transformation", "Row-on-row % change (rdiff)");
+            filterOptions.Add("transformation code", "RDiff");
+            filterOptions.Add("frequency", null);
+            filterOptions.Add("sort", null);
+            filterOptions.Add("limit", null);
+            return filterOptions;
         }
     }
 }
