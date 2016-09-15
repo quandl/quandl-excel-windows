@@ -31,7 +31,10 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 AllowReference = true)] object rawLimit = null,
             [ExcelArgument(Name = "headers",
                 Description = "(optional) Default: true - Whether the resulting data will include a header row",
-                AllowReference = true)] string rawHeader = null
+                AllowReference = true)] string rawHeader = null,
+            [ExcelArgument(Name = "dates",
+                Description = "(optional) Default: true - Whether the resulting data will include a dates column",
+                AllowReference = true)] string rawDateColumn = null
             )
         {
             // Prevent the formula from running should it be blocked.
@@ -50,6 +53,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 var transformation = Tools.GetStringValue(rawTransformation);
                 var limit = Tools.GetIntValue(rawLimit);
                 var includeHeader = string.IsNullOrEmpty(rawHeader) || Tools.GetBoolValue(rawHeader);
+                var includeDates = string.IsNullOrEmpty(rawDateColumn) || Tools.GetBoolValue(rawDateColumn);
 
                 // Get the current cell formula.
                 var reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
@@ -62,7 +66,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 ResultsData results = null;
                 try
                 {
-                    results = RetrieveData(quandlCodeColumns, dates, collapse, transformation, limit);
+                    results = RetrieveData(quandlCodeColumns, dates, collapse, transformation, limit, includeDates);
                 }
                 catch (DatasetParamError e)
                 {
@@ -74,7 +78,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 
                 // Sort out the data and place it in the cells
                 var sortedResults = new ResultsData(results.SortedData(dateColumn, orderAsc), results.Headers);
-                var reorderColumns = sortedResults.ExpandAndReorderColumns(SanitizeColumnNames(quandlCodeColumns), dateColumn);
+                var reorderColumns = sortedResults.ExpandAndReorderColumns(SanitizeColumnNames(quandlCodeColumns), dateColumn, includeDates);
                 var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader, true);
 
                 if (excelWriter.ConfirmedOverwrite == false)
@@ -98,13 +102,15 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     { "Transformation", Utilities.ObjectToHumanString(rawTransformation) },
                     { "Limit", Utilities.ObjectToHumanString(rawLimit) },
                     { "Header", Utilities.ObjectToHumanString(rawHeader) },
+                    { "Dates", Utilities.ObjectToHumanString(rawDateColumn) },
                 });
             }
         }
 
 
         private static ResultsData RetrieveData(List<string> quandlCodeColumns,
-            List<DateTime?> dates, string collapse, string transformation, int? limit)
+            List<DateTime?> dates, string collapse, string transformation, int? limit,
+            bool hideColumns = false)
         {
             var datasets = new Dictionary<string, DatasetParams>();
             var datasetsWithoutColumns = new List<string>();
@@ -158,9 +164,9 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             foreach (var qcc in fetchTask.Result.Select((x, i) => new { Value = x, Index = i }))
             {
                 var dataset = qcc.Value;
-                var columns =
-                    dataset.Columns.Select(
-                        c => c.Code.ToUpper() == dataset.Columns[0].Code ? c.Code : $"{dataset.Code}/{c.Code}".ToUpper()).ToList();
+                var columns = dataset.Columns.Select(c => c.Code.ToUpper() == dataset.Columns[0].Code
+                                                        ? c.Code
+                                                        : $"{dataset.Code}/{c.Code}".ToUpper()).ToList();
                 var newResults = new ResultsData(dataset.Data.DataPoints, columns);
                 combinedResults = combinedResults.Combine(newResults);
             }

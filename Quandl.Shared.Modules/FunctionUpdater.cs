@@ -60,7 +60,6 @@ namespace Quandl.Shared
             worksheet.EnableCalculation = false;
             //worksheet.Calculate();
 
-
             // Find all quandl formula in the worksheet and re-calculate them.
             Range range = worksheet.UsedRange.SpecialCells(XlCellType.xlCellTypeFormulas);
             foreach (Range c in range.Cells)

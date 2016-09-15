@@ -74,7 +74,7 @@ namespace Quandl.Shared.Models
             return Enumerable.Repeat(default(T), capacity).ToList();
         }
 
-        public ResultsData ExpandAndReorderColumns(List<string> quandlCodeColumns, string dateColumn)
+        public ResultsData ExpandAndReorderColumns(List<string> quandlCodeColumns, string dateColumn, bool insertDateColumn)
         {
             // Expand the column header names
             var expandedHeaders = quandlCodeColumns.Select(qcc =>
@@ -88,11 +88,14 @@ namespace Quandl.Shared.Models
             //var dateColumnName = expandedHeaders.Select(s => s.ToUpper()).ToList()[0].Split(Convert.ToChar("/")).Last();
             var length = dateColumn.Length;
 
-            // Add a `DATE` field in if the user has not specified one already.
-            expandedHeaders = expandedHeaders.Select(s => s.Length - length >= 0 && s.Substring(s.Length - length, length) == dateColumn ? dateColumn : s).ToList();
-            if (expandedHeaders.Where(s => s.Length - length >= 0 ? s.Substring(s.Length - length, length) == dateColumn : false).Count() == 0)
+            if (insertDateColumn)
             {
-                expandedHeaders.Insert(0, Headers.First()); 
+                // Add a `DATE` field in if the user has not specified one already.
+                expandedHeaders = expandedHeaders.Select(s => s.Length - length >= 0 && s.Substring(s.Length - length, length) == dateColumn ? dateColumn : s).ToList();
+                if (expandedHeaders.Where(s => s.Length - length >= 0 ? s.Substring(s.Length - length, length) == dateColumn : false).Count() == 0)
+                {
+                    expandedHeaders.Insert(0, Headers.First());
+                }
             }
 
             // Re-order the columns appropriately
@@ -105,8 +108,10 @@ namespace Quandl.Shared.Models
                 var columnIndex = Headers.IndexOf(header);
 
                 // Handle the case when any dataset which first column is not DATE
-                if ( columnIndex != 0 && Headers.Count >= 2 && Headers[1] == expandedHeaders[0])
+                if (columnIndex != 0 && Headers.Count >= 2 && Headers[1] == expandedHeaders[0] && insertDateColumn)
+                {
                     columnIndex--;
+                }
 
                 for (var r = 0; r < Data.Count; r++)
                 {
