@@ -125,14 +125,19 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 var splitString = SplitQuandlCode(quandlCodeColumn);
 
                 // Quandl code and column (ex: NSE/OIL/HIGH)
-                if (splitString.Length == 3)
+                if (splitString.Length >= 3)
                 {
                     var quandlCode = string.Join("/", splitString[0], splitString[1]);
                     if (!datasets.ContainsKey(quandlCode))
                     {
                         datasets[quandlCode] = new DatasetParams(quandlCode, dates, collapse, transformation, limit);
                     }
-                    datasets[quandlCode].Columns.Add(splitString[2]);
+
+                    // concatenate column name if it has a forward slash and was broken up in string split
+                    string columnName = (splitString.Length > 3)
+                                      ? string.Join("/", splitString.Skip(2).ToArray())
+                                      : splitString[2];
+                    datasets[quandlCode].Columns.Add(columnName);
                 }
                 // Quandl code only (ex: NSE/OIL)
                 else if (splitString.Length == 2)
