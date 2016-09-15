@@ -24,13 +24,13 @@ namespace Quandl.Test.CodedUI.Helpers
             UIMap.LoginWithApiKey();
         }
 
-        public static void SetupCodedUITests()
+        public static void SetupCodedUITest()
         {
             SetCodedUITestsConfiguration();
             OpenExcelAndLogin();
         }
 
-        public static void CompleteCodedUITests()
+        public static void CompleteCodedUITest()
         {
             UIMap.ClearRegistryApiKey();
         }

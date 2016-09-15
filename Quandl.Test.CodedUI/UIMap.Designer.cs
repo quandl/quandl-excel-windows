@@ -2128,6 +2128,54 @@ namespace Quandl.Test.CodedUI
                 return this.mUIDateRangeTypeFilterComboBox;
             }
         }
+        
+        public WpfComboBox UIFrequencyFilterComboBox
+        {
+            get
+            {
+                if ((this.mUIFrequencyFilterComboBox == null))
+                {
+                    this.mUIFrequencyFilterComboBox = new WpfComboBox(this);
+                    #region Search Criteria
+                    this.mUIFrequencyFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "FrequencyFilter";
+                    this.mUIFrequencyFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIFrequencyFilterComboBox;
+            }
+        }
+        
+        public WpfComboBox UITransformationFilterComboBox
+        {
+            get
+            {
+                if ((this.mUITransformationFilterComboBox == null))
+                {
+                    this.mUITransformationFilterComboBox = new WpfComboBox(this);
+                    #region Search Criteria
+                    this.mUITransformationFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "TransformationFilter";
+                    this.mUITransformationFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUITransformationFilterComboBox;
+            }
+        }
+        
+        public WpfComboBox UISortFilterComboBox
+        {
+            get
+            {
+                if ((this.mUISortFilterComboBox == null))
+                {
+                    this.mUISortFilterComboBox = new WpfComboBox(this);
+                    #region Search Criteria
+                    this.mUISortFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "SortFilter";
+                    this.mUISortFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUISortFilterComboBox;
+            }
+        }
         #endregion
         
         #region Fields
@@ -2170,6 +2218,12 @@ namespace Quandl.Test.CodedUI
         private WpfButton mUIItemButton3;
         
         private WpfComboBox mUIDateRangeTypeFilterComboBox;
+        
+        private WpfComboBox mUIFrequencyFilterComboBox;
+        
+        private WpfComboBox mUITransformationFilterComboBox;
+        
+        private WpfComboBox mUISortFilterComboBox;
         #endregion
     }
     

@@ -446,6 +446,34 @@
 
             dateToFilter.DateAsString = date;
         }
+
+        public void SelectFrequencyFilter(string description, string value)
+        {
+            var frequencyComboBox = ExcelClient().UIItemCustom.UIQuandlExcelAddincompPane.UIFrequencyFilterComboBox;
+
+            frequencyComboBox.SelectedItem = $"{{ Description = {description}, value = {value} }}";
+        }
+
+        public void SelectLimitFilter(string limit)
+        {
+            var limitTextBox = ExcelClient().UIItemCustom.UIQuandlExcelAddincompPane.UIAutoSelectTextBoxEdit;
+
+            limitTextBox.Text = limit;
+        }
+
+        public void SelectSortFilter(string description, string value)
+        {
+            var sortComboBox = ExcelClient().UIItemCustom.UIQuandlExcelAddincompPane.UISortFilterComboBox;
+
+            sortComboBox.SelectedItem = $"{{ Description = {description}, value = {value} }}";
+        }
+
+        public void SelectTransformationFilter(string description, string value)
+        {
+            var transformationComboBox = ExcelClient().UIItemCustom.UIQuandlExcelAddincompPane.UITransformationFilterComboBox;
+
+            transformationComboBox.SelectedItem = $"{{ Description = {description}, value = {value} }}";
+        }
     }
 
     public class WpfScrollViewer : WpfPane
