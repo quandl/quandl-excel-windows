@@ -62,5 +62,37 @@ namespace Quandl.Test.CodedUI.Helpers
 
             UIMap.ClickNextButton();
         }
+        public static void CompleteStep4(Dictionary<string, string> filters)
+        {
+            if (filters["frequency"] != null)
+            {
+                UIMap.SelectDatasetDateRangeFilter(filters["frequency"], filters["frequency code"]);
+            }
+            if (filters["date_range"] != null)
+            {
+                UIMap.SelectFrequencyFilter(filters["date_range"], filters["date_range"]);
+            }
+            if (filters["transformation"] != null)
+            {
+                UIMap.SelectTransformationFilter(filters["transformation"], filters["transformation code"]);
+            }
+            if (filters["sort"] != null)
+            {
+                UIMap.SelectSortFilter(filters["sort"], filters["sort code"]);
+            }
+            if (filters["limit"] != null)
+            {
+                UIMap.SelectSortFilter(filters["sort"], filters["sort code"]);
+            }
+            UIMap.ClickNextButton();
+        }
+
+        public static void CompleteStep5(bool includeHeaders)
+        {
+            if (includeHeaders == true)
+            {
+                UIMap.SelectIncludeHeaders();
+            }
+        }
     }
 }
