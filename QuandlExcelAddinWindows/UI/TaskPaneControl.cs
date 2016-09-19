@@ -63,7 +63,6 @@ namespace Quandl.Excel.Addin.UI
             ShowAsTaskPane();
         }
 
-
         public void Close()
         {
             if (taskPane != null)
@@ -84,13 +83,13 @@ namespace Quandl.Excel.Addin.UI
                     timer.AutoReset = false;
                     timer.Elapsed += (sender, e) =>
                     {
-                        if (taskPane.Width < 640)
+                        if (taskPane.Width < 700)
                         {
-                            taskPane.Width = 640;
+                            taskPane.Width = 700;
                         }
-                        if (taskPane.Height < 480)
+                        if (taskPane.Height < 540)
                         {
-                            taskPane.Width = 480;
+                            taskPane.Height = 540;
                         }
                     };
                     timer.Start();
@@ -101,8 +100,8 @@ namespace Quandl.Excel.Addin.UI
             {
                 taskPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionFloating;
                 taskPane.DockPositionRestrict = MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoHorizontal;
-                taskPane.Width = (int)(640 * _scalingFactor);
-                taskPane.Height = (int)(480 * _scalingFactor);
+                taskPane.Width = (int)(700 * _scalingFactor);
+                taskPane.Height = (int)(540 * _scalingFactor);
                 taskPane.Visible = true;
             }
             

@@ -1,10 +1,12 @@
-﻿using Microsoft.Office.Tools.Ribbon;
+﻿using Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Tools.Ribbon;
 using Quandl.Excel.Addin.Controls;
 using Quandl.Excel.Addin.UI;
 using Quandl.Excel.Addin.UI.Settings;
 using Quandl.Excel.Addin.UI.UDF_Builder;
 using Quandl.Shared;
 using Quandl.Shared.Errors;
+using System.Windows.Media;
 
 namespace Quandl.Excel.Addin
 {
@@ -40,6 +42,9 @@ namespace Quandl.Excel.Addin
                 _builderPane = new TaskPaneControl(_guideChild, "Quandl Formula Builder");
             }
             _guideChild.Reset();
+            _guideChild.Background = Brushes.White;
+            _guideChild.Margin = new System.Windows.Thickness(0);
+            _guideChild.Padding = new System.Windows.Thickness(0);
             _builderPane.Show();
         }
 

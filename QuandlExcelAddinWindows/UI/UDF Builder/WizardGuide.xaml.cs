@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Quandl.Shared;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Threading;
-using Quandl.Shared;
 using static Quandl.Excel.Addin.UI.UDF_Builder.StateControl;
-using Microsoft.Office.Interop.Excel;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -199,18 +198,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 var stepLink = new System.Windows.Controls.Button();
                 stepLink.Content = stepObject.GetShortTitle();
                 stepLink.Padding = new Thickness(10);
+                stepLink.Margin = new Thickness(0, 0, 2, 0);
+
                 var step = i; // Need to duplicate the value to avoid issues with referencing a changing 'i'
                 stepLink.Click += delegate { ShowStep(step); };
                 stepBreadcrumb.Children.Add(stepLink);
-
-                // Separator between step buttons
-                if (i != currentStep)
-                {
-                    var sep = new System.Windows.Controls.Label();
-                    sep.Content = "-";
-                    sep.Padding = new Thickness(0, 10, 0, 10);
-                    stepBreadcrumb.Children.Add(sep);
-                }
+                stepBreadcrumb.Margin = new Thickness(10);
             }
 
             // Set some common styling elements
@@ -218,10 +211,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 child.HorizontalAlignment = HorizontalAlignment.Left;
                 child.FontSize = 15;
-                child.Margin = new Thickness(0);
                 child.BorderThickness = new Thickness(0);
                 child.Foreground = Brushes.Black;
-                child.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDF, 0XEE, 0XFB));
+                child.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xB1, 0XDB, 0XFF));
             }
 
             // Add in the title
@@ -235,7 +227,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             stepBreadcrumb.Children.Add(titleBox);
 
             // Highlight the current step
-            var stepElement = (Control)stepBreadcrumb.Children[(stepNumber + 1) * 2 - 2];
+            var stepElement = (Control)stepBreadcrumb.Children[(stepNumber)];
             stepElement.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x0B, 0X8F, 0XFF));
             stepElement.Foreground = Brushes.White;
 
