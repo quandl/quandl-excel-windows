@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using Quandl.Excel.Addin.UI.Helpers;
+﻿using Quandl.Excel.Addin.UI.Helpers;
 using Quandl.Excel.Addin.UI.UDF_Builder.Filters;
 using Quandl.Shared;
 using Quandl.Shared.Models;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -18,13 +15,13 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     {
         private ObservableCollection<DataHolderDefinition> AvailableDataHolders
              => StateControl.Instance.AvailableDataHolders;
+
         public DatatableFilters()
         {
             InitializeComponent();
             DataContext = StateControl.Instance;
             SetDatatableFilters();
         }
-
 
         public string GetTitle()
         {
@@ -44,11 +41,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 {
                     Datatable dt = StateControl.Instance.AvailableDataHolders[0] as Datatable;
                     DatatableMetadata items = await new Web().GetDatatableMetadata(dt.Code);
+
                     foreach (string filter in items.datatable.Filters)
                     {
                         var column = items.datatable.Columns.FirstOrDefault(x => x.Name.Equals(filter));
                         PopulateFilters(column.Name, column.Type.ToLower());
-  
                     }
                 }
             });
@@ -75,8 +72,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     FiltersGroup.Children.Add(new FloatNumberFilter(name, new FilterHelper()));
                     break;
             }
-            
         }
-
     }
 }

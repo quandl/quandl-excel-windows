@@ -175,7 +175,7 @@ namespace Quandl.Shared
             Graphics g = Graphics.FromHwnd(IntPtr.Zero);
             float factor = g.DpiX/WinDefaultDpi;
             g.Dispose();
-            return  factor;
+            return factor;
         }
 
         private static ArrayList PrependToList(ArrayList list, string item)

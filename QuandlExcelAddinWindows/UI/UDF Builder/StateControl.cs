@@ -184,7 +184,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
         }
 
-
         public string[] GetStepList()
         {
             return ChainType == ChainTypes.TimeSeries ? timeSeriesChain : datatableChain;

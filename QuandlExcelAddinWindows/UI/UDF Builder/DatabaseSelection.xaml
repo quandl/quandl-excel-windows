@@ -39,16 +39,26 @@
                     </WrapPanel>
                 </DataTemplate>
             </Grid.Resources>
+            
             <TreeView Name="BrowseData" ItemsSource="{StaticResource CatData}" ItemTemplate="{StaticResource Categories}"
                   SelectedItemChanged="TreeView_SelectedItemChanged" Grid.Row="0" Grid.Column="0"
-                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,5,0" Grid.ColumnSpan="2" BorderBrush="#C5D1D8" />
+                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,5,0" Grid.ColumnSpan="2" BorderBrush="#C5D1D8">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="Padding" Value="1,2" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
+
             <GridSplitter Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" />
-            <TabControl x:Name="TabControl" SelectionChanged="tabControl_SelectionChanged" Grid.Row="0" Grid.Column="3"
-                    Margin="5,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1" BorderBrush="#C5D1D8">
+            
+            <TabControl x:Name="TabControl" SelectionChanged="tabControl_SelectionChanged"
+                        Grid.Row="0" Grid.Column="3" Margin="5,0,0,0" VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch" BorderThickness="1" BorderBrush="#C5D1D8">
                 <TabItem Header="All">
                     <ListView Name="AllDatabaseList" Margin="0" BorderThickness="0"
-                          SelectionChanged="DatabaseList_SelectionChanged"
-                          ItemTemplate="{DynamicResource QuandlDataItem}">
+                              SelectionChanged="DatabaseList_SelectionChanged"
+                              ItemTemplate="{DynamicResource QuandlDataItem}">
                         <ListView.ItemContainerStyle>
                             <Style>
                                 <Setter Property="AutomationProperties.Name" Value="{Binding XPath=.}" />
@@ -58,38 +68,36 @@
                 </TabItem>
                 <TabItem Header="Premium">
                     <ListView Name="PremiumDatabaseList" Margin="0" BorderThickness="0"
-                          SelectionChanged="DatabaseList_SelectionChanged"
-                          ItemTemplate="{DynamicResource QuandlDataItem}" />
+                              SelectionChanged="DatabaseList_SelectionChanged"
+                              ItemTemplate="{DynamicResource QuandlDataItem}" />
                 </TabItem>
                 <TabItem Header="Free">
                     <ListView Name="FreeDatabaseList" Margin="0" BorderThickness="0"
-                          SelectionChanged="DatabaseList_SelectionChanged"
-                          ItemTemplate="{DynamicResource QuandlDataItem}" />
+                              SelectionChanged="DatabaseList_SelectionChanged"
+                              ItemTemplate="{DynamicResource QuandlDataItem}" />
                 </TabItem>
             </TabControl>
-            <Label Content="Search by database code" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"
-               Grid.Column="0" MinWidth="100"
-               Margin="0,1,5,1" FontWeight="Bold" />
-            <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" Margin="5,10,0,5">
+            <Label Content="Search by database Code" HorizontalAlignment="Right" VerticalAlignment="Center"
+                   Grid.Row="2" Grid.Column="0" />
+            <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" Margin="5,10">
                 <TextBox x:Name="DatabaseCodeBox" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap"
-                     VerticalAlignment="Center" MinWidth="100" CharacterCasing="Upper" Padding="5"
-                     TextChanged="DatabaseCodeBox_OnTextChanged">
+                         VerticalAlignment="Center" MinWidth="100" CharacterCasing="Upper" Padding="5"
+                         TextChanged="DatabaseCodeBox_OnTextChanged">
                     <TextBox.Style>
                         <Style TargetType="TextBox">
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type TextBox}">
-                                        <Border x:Name="bg" BorderBrush="#C5D1D8" BorderThickness="1">
-                                            <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                        <Border x:Name="bg" BorderBrush="#FFC5D1D8" BorderThickness="1">
+                                            <ScrollViewer x:Name="PART_ContentHost" Background="White"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="BorderBrush" TargetName="bg" Value="DarkGray"/>
-                                                <Setter Property="BorderThickness" TargetName="bg" Value="1.2"/>
+                                                <Setter Property="BorderBrush" TargetName="bg" Value="#FFC5D1D8"/>
                                             </Trigger>
                                             <Trigger Property="IsFocused" Value="True">
-                                                <Setter Property="BorderBrush" TargetName="bg" Value="DarkGray"/>
-                                                <Setter Property="BorderThickness" TargetName="bg" Value="1.2"/>
+                                                <Setter Property="BorderBrush" TargetName="bg" Value="#FFC5D1D8"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>

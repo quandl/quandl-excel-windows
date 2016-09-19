@@ -19,7 +19,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="txtFilterResults" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Margin="0,10" Padding="0,5"
+        <TextBox x:Name="txtFilterResults" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Margin="0,0,0,10" Padding="0,5"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                  VerticalContentAlignment="Stretch">
             <TextBox.Style>
