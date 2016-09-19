@@ -43,12 +43,12 @@
         <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Vertical" ToolTip="If set a warning message will display for Quandl formulas that may be potentially long running and have a potential to crash Excel.">
             <StackPanel Orientation="Horizontal">
                 <CheckBox x:Name="LongRunningWarningTextBox" Margin="10,10,0,10" />
-                <Label Content="Long Running Formula" VerticalAlignment="Center"/>
+                <Label Content="Long running formula" VerticalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" ToolTip="If set a warning message will display when Quandl formulas attempt to overwrite existing data.">
                 <CheckBox x:Name="OverwriteWarningTextBox" Margin="10,10,0,10" />
-                <Label Content="Overwrite Existing Data" VerticalAlignment="Center"/>
+                <Label Content="Overwrite existing data" VerticalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
 

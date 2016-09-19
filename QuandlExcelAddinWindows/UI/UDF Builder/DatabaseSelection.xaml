@@ -67,9 +67,9 @@
                           ItemTemplate="{DynamicResource QuandlDataItem}" />
                 </TabItem>
             </TabControl>
-            <Label Content="Database Code" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"
-               Grid.Column="1"
-               Margin="0,11,5,1" FontWeight="Bold" />
+            <Label Content="Search by database code" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"
+               Grid.Column="0" MinWidth="100"
+               Margin="0,1,5,1" FontWeight="Bold" />
             <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" Margin="5,10,0,5">
                 <TextBox x:Name="DatabaseCodeBox" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap"
                      VerticalAlignment="Center" MinWidth="100" CharacterCasing="Upper" Padding="5"

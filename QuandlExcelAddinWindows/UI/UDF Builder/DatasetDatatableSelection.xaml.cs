@@ -57,7 +57,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public string GetTitle()
         {
-            return "Choose Your Dataset or Data Table";
+            return "Choose dataset or data table";
         }
 
         public string GetShortTitle()

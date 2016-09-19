@@ -31,7 +31,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public string GetTitle()
         {
-            return "Choose Your Columns";
+            return "Choose columns";
         }
 
         public string GetShortTitle()
