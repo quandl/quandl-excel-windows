@@ -28,7 +28,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public string GetTitle()
         {
-            return "Filter Data";
+            return "Customize data table data";
         }
 
         public string GetShortTitle()

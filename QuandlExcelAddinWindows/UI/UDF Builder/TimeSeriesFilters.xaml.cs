@@ -31,7 +31,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public string GetTitle()
         {
-            return "Customize Time Series Data";
+            return "Customize time series data";
         }
 
         public string GetShortTitle()

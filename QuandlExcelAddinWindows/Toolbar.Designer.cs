@@ -36,14 +36,14 @@
         {
             this.QuandlTab = this.Factory.CreateRibbonTab();
             this.DataGroup = this.Factory.CreateRibbonGroup();
-            this.group1 = this.Factory.CreateRibbonGroup();
-            this.SettingsGroup = this.Factory.CreateRibbonGroup();
             this.udf_builder = this.Factory.CreateRibbonButton();
+            this.group1 = this.Factory.CreateRibbonGroup();
             this.refreshMulti = this.Factory.CreateRibbonSplitButton();
             this.refreshWorksheet = this.Factory.CreateRibbonButton();
             this.refreshWorkbook = this.Factory.CreateRibbonButton();
             this.btnStopAll = this.Factory.CreateRibbonButton();
             this.btnExecutionToggle = this.Factory.CreateRibbonButton();
+            this.SettingsGroup = this.Factory.CreateRibbonGroup();
             this.openQuandlSettings = this.Factory.CreateRibbonButton();
             this.AboutButton = this.Factory.CreateRibbonButton();
             this.QuandlTab.SuspendLayout();
@@ -67,6 +67,15 @@
             this.DataGroup.Label = "Data";
             this.DataGroup.Name = "DataGroup";
             // 
+            // udf_builder
+            // 
+            this.udf_builder.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.udf_builder.Label = "Get Data";
+            this.udf_builder.Name = "udf_builder";
+            this.udf_builder.OfficeImageId = "ChartShowData";
+            this.udf_builder.ShowImage = true;
+            this.udf_builder.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.udfBuilder_Click);
+            // 
             // group1
             // 
             this.group1.Items.Add(this.refreshMulti);
@@ -74,21 +83,6 @@
             this.group1.Items.Add(this.btnExecutionToggle);
             this.group1.Label = "Control";
             this.group1.Name = "group1";
-            // 
-            // SettingsGroup
-            // 
-            this.SettingsGroup.Items.Add(this.openQuandlSettings);
-            this.SettingsGroup.Items.Add(this.AboutButton);
-            this.SettingsGroup.Name = "SettingsGroup";
-            // 
-            // udf_builder
-            // 
-            this.udf_builder.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.udf_builder.Label = "Download";
-            this.udf_builder.Name = "udf_builder";
-            this.udf_builder.OfficeImageId = "ChartShowData";
-            this.udf_builder.ShowImage = true;
-            this.udf_builder.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.udfBuilder_Click);
             // 
             // refreshMulti
             // 
@@ -130,6 +124,12 @@
             this.btnExecutionToggle.Name = "btnExecutionToggle";
             this.btnExecutionToggle.ShowImage = true;
             this.btnExecutionToggle.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnExecutionToggle_Click);
+            // 
+            // SettingsGroup
+            // 
+            this.SettingsGroup.Items.Add(this.openQuandlSettings);
+            this.SettingsGroup.Items.Add(this.AboutButton);
+            this.SettingsGroup.Name = "SettingsGroup";
             // 
             // openQuandlSettings
             // 

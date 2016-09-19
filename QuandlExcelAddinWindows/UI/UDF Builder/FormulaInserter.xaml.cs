@@ -29,7 +29,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public string GetTitle()
         {
-            return "Data Placement";
+            return "Choose where to place the data";
         }
 
         public string GetShortTitle()

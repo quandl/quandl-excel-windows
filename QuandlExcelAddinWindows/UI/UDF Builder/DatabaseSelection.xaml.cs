@@ -43,7 +43,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         public string GetTitle()
         {
-            return "Browse Databases or Enter a Database Code";
+            return "Browse databases or enter a database code";
         }
 
         public string GetShortTitle()
