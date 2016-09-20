@@ -24,23 +24,23 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
 
         public string Identifier { get; set; }
 
-        public Filter[] Value
+        public Filter Filter
         {
             get
             {
                 string input = StringFilterInput.Text.ToString();
                 string[] filterValues = input.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                return new Filter[1] { new Filter
+                return  new Filter
                 {
                     Name = Identifier,
                     Value = filterValues.Length == 1 ? $"\"{filterValues.First()}\"" : $"{{{string.Join(",",filterValues.Select(n => $"\"{n}\"").ToArray())}}}"
-                }};
+                };
             }
         }
 
         private void StringFilterInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            FilterHelper.PropertyChanged(Value);
+            FilterHelper.PropertyChanged(Filter);
         }
     }
 }
