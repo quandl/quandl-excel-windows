@@ -20,17 +20,20 @@ namespace Quandl.Excel.Addin.UI.Settings
         public Settings()
         {
             InitializeComponent();
-
             Loaded += delegate
             {
-                ApiKeyTextBox.Text = QuandlConfig.ApiKey;
-                LongRunningWarningTextBox.IsChecked = QuandlConfig.LongRunningQueryWarning;
-                OverwriteWarningTextBox.IsChecked = QuandlConfig.OverwriteDataWarning;
-                AutoUpdateComboBox.SelectedValue = QuandlConfig.AutoUpdateFrequency;
-                ScollEnabledCheckBox.IsChecked = QuandlConfig.ScrollOnInsert;
-
+                SetSettings();
                 BindingHelper.SetItemSourceViaEnum(AutoUpdateComboBox, typeof(QuandlConfig.AutoUpdateFrequencies));
             };
+        }
+
+        public void SetSettings()
+        {
+            ApiKeyTextBox.Text = QuandlConfig.ApiKey;
+            LongRunningWarningTextBox.IsChecked = QuandlConfig.LongRunningQueryWarning;
+            OverwriteWarningTextBox.IsChecked = QuandlConfig.OverwriteDataWarning;
+            AutoUpdateComboBox.SelectedValue = QuandlConfig.AutoUpdateFrequency;
+            ScollEnabledCheckBox.IsChecked = QuandlConfig.ScrollOnInsert;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -44,7 +47,7 @@ namespace Quandl.Excel.Addin.UI.Settings
             QuandlConfig.AutoUpdateFrequency = (QuandlConfig.AutoUpdateFrequencies)AutoUpdateComboBox.SelectedValue;
             QuandlConfig.LongRunningQueryWarning = (bool)LongRunningWarningTextBox.IsChecked;
             QuandlConfig.OverwriteDataWarning = (bool)OverwriteWarningTextBox.IsChecked;
-            QuandlConfig.ScrollOnInsert = ScollEnabledCheckBox.IsEnabled;
+            QuandlConfig.ScrollOnInsert = ScollEnabledCheckBox.IsChecked.Value;
         }
 
         private void FadeImage(Image image, TimeSpan fadeInTime, TimeSpan waitTime, TimeSpan fadeOutTime, Action action)
