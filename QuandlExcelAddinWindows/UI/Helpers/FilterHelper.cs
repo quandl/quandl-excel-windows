@@ -16,26 +16,28 @@ namespace Quandl.Excel.Addin.UI.Helpers
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public void PropertyChanged(Filter[] value )
+        public void PropertyChanged(Filter filter )
         {
-            Hashtable df = StateControl.Instance.DatatableFilters;
-            if (df.ContainsKey(Id))
+            if (filter == null) return;
+            Hashtable datatableFilters = StateControl.Instance.DatatableFilters;
+            string filterValue = filter.Value.Trim();
+            if (datatableFilters.ContainsKey(Id))
             {
-                if (value != null && (value[0].Value.Trim().Replace("\"","").Equals("") || value[0].Value.Trim().Equals("{}")))
+                if (filterValue.Replace("\"","").Equals("") || filterValue.Equals("{}"))
                 {
-                   df.Remove(Id);
+                   datatableFilters.Remove(Id);
                 }
                 else
                 {
-                    df[Id] = value;
+                    datatableFilters[Id] = filter;
                 }
                 
             }
-            else
+            else if(filterValue.Replace("\"", "") != "")
             {
-                df.Add(Id, value);
+                datatableFilters.Add(Id, filter);
             }
-            StateControl.Instance.IsFilterChanged = StateControl.Instance.IsFilterChanged ? false : true;
+            StateControl.Instance.IsFilterChanged = !StateControl.Instance.IsFilterChanged;
         }
 
         public static void Reset()

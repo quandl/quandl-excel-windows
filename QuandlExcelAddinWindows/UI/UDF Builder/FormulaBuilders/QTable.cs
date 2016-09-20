@@ -54,8 +54,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.FormulaBuilders
             {
                 foreach (DictionaryEntry item in DatatableFilters)
                 {
-                    Filter[] f = item.Value as Filter[];
-                    formulaComponents.Add($"\"{f[0].Name}\",{f[0].Value}");
+                    Filter f = item.Value as Filter;
+                    formulaComponents.Add($"\"{f.Name}\",{f.Value}");
                 }
             }
         }
