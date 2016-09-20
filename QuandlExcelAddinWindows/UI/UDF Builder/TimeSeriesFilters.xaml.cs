@@ -6,10 +6,12 @@ using Quandl.Shared.Models;
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
     /// <summary>
-    ///     Interaction logic for TimeSeriesFilters.xaml
+    /// Interaction logic for TimeSeriesFilters.xaml
     /// </summary>
     public partial class TimeSeriesFilters : UserControl, WizardUIBase
     {
+        public bool _limitEnabled = true;
+
         public TimeSeriesFilters()
         {
             InitializeComponent();
@@ -42,14 +44,20 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private void ComboBoxDateSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateDateVisibility();
+            EnableLimitFilter();
+        }
+
+        private void EnableLimitFilter()
+        {
+            var selected = (StateControl.TimeSeriesFilterTypes)ComboBoxDateSelection.SelectedValue;
+            Limit.IsEnabled = (selected != StateControl.TimeSeriesFilterTypes.Single);
         }
 
         private void SetFilterSelections()
         {
             BindingHelper.SetItemSourceViaEnum(ComboBoxDateSelection, typeof(StateControl.TimeSeriesFilterTypes));
             BindingHelper.SetItemSourceViaEnum(ComboBoxFrequency, typeof(StateControl.TimeSeriesFilterCollapse));
-            BindingHelper.SetItemSourceViaEnum(ComboBoxTransformation,
-                typeof(StateControl.TimeSeriesFilterTransformations));
+            BindingHelper.SetItemSourceViaEnum(ComboBoxTransformation, typeof(StateControl.TimeSeriesFilterTransformations));
             BindingHelper.SetItemSourceViaEnum(ComboBoxSort, typeof(StateControl.TimeSeriesFilterSorts));
         }
 

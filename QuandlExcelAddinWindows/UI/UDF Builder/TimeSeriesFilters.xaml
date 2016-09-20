@@ -24,7 +24,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-
         <Label Content="Date Filters" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0,0,0,1"
                BorderBrush="LightGray" Margin="0,0,0,5" />
         <Label Content="Date Range Type" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
@@ -47,7 +46,6 @@
                         SelectedDate="{Binding EndDate}"
                         ToolTip="Retrieve data rows up to and including the specified end date." />
         </StackPanel>
-
         <Label Content="Data Manipulation" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                BorderThickness="0,0,0,1"
                BorderBrush="LightGray" Margin="0,20,0,5" />
@@ -65,7 +63,6 @@
                   DisplayMemberPath="Description"
                   SelectedValuePath="value"
                   ToolTip="Perform elementary calculations on the data prior to downloading. Default is 'none'. Calculation options are described below." />
-
         <Label Content="Results" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0,0,0,1"
                BorderBrush="LightGray" Margin="0,20,0,5"
                ToolTip="Return data in ascending or descending order of date." />
