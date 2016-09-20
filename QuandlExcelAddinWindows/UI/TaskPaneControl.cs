@@ -14,6 +14,7 @@ namespace Quandl.Excel.Addin.UI
     internal class TaskPaneControl
     {
         private readonly UserControl control;
+        private readonly System.Windows.Controls.UserControl userControl;
         private readonly string name;
         private readonly float _scalingFactor = Utilities.WindowsScalingFactor();
 
@@ -28,6 +29,7 @@ namespace Quandl.Excel.Addin.UI
         public TaskPaneControl(System.Windows.Controls.UserControl userControl, string name)
         {
             var controlHost = new TaskPaneWpfControlHost();
+            this.userControl = userControl;
             controlHost.WpfElementHost.HostContainer.Children.Add(userControl);
             control = controlHost;
             this.name = name;
@@ -103,6 +105,10 @@ namespace Quandl.Excel.Addin.UI
                 taskPane.Width = (int)(700 * _scalingFactor);
                 taskPane.Height = (int)(540 * _scalingFactor);
                 taskPane.Visible = true;
+                if (name == "Settings")
+                {
+                    ((Settings.Settings)userControl).SetSettings();
+                }
             }
             
             // Set it to the center of the screen
