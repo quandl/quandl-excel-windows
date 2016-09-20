@@ -37,6 +37,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             Dispatcher.Invoke(async () =>
             {
+                FilterHelper.Reset();
                 if (StateControl.Instance.AvailableDataHolders != null)
                 {
                     Datatable dt = StateControl.Instance.AvailableDataHolders[0] as Datatable;

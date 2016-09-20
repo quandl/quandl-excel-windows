@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Quandl.Excel.Addin.UI.UDF_Builder.Filters;
 using Quandl.Excel.Addin.UI.UDF_Builder;
 
@@ -9,9 +8,11 @@ namespace Quandl.Excel.Addin.UI.Helpers
     {
         public FilterHelper()
         {
-            Id = System.Guid.NewGuid().ToString();
+            Id = FilterHelper._count.ToString();
+            FilterHelper._count++;
         }
 
+        private static int _count = 0;
         public string Id { get; set; }
         public string Name { get; set; }
 
@@ -35,6 +36,12 @@ namespace Quandl.Excel.Addin.UI.Helpers
                 df.Add(Id, value);
             }
             StateControl.Instance.IsFilterChanged = StateControl.Instance.IsFilterChanged ? false : true;
+        }
+
+        public static void Reset()
+        {
+            _count = 0;
+            StateControl.Instance.DatatableFilters.Clear();
         }
     }
 }
