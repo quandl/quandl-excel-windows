@@ -40,7 +40,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.FormulaBuilders
             AddHeaderOptions(formulaComponents);
 
             // Close off the formula
-            return $"=QSERIES({string.Join(",", formulaComponents.Select(n => n.ToString()).ToArray())})";
+            return $"=QSERIES({string.Join(",", formulaComponents.Select(n => n.ToString()).ToArray()).TrimEnd(',')})";
         }
 
         private void AddQuandlCodeAndColumns(List<string> formulaComponents)
@@ -145,7 +145,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.FormulaBuilders
         private void AddLimitFilters(List<string> formulaComponents)
         {
             // Add limit
-            if (TimeSeriesLimitFilter != null || TimeSeriesLimitFilter > 0)
+            if ((TimeSeriesLimitFilter != null || TimeSeriesLimitFilter > 0) && DateTypeFilter != StateControl.TimeSeriesFilterTypes.Single)
             {
                 formulaComponents.Add($"{TimeSeriesLimitFilter}");
             }

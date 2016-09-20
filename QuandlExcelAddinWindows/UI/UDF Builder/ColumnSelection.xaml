@@ -8,7 +8,8 @@
              xmlns:models="clr-namespace:Quandl.Shared.Models;assembly=Quandl.Shared"
              xmlns:helpers="clr-namespace:Quandl.Excel.Addin.UI.Helpers;assembly=Quandl.Shared"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="300" d:DesignWidth="400"
+             Padding="0,0,0,10">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" MinWidth="200" />
