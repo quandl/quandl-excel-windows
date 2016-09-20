@@ -50,7 +50,7 @@ namespace Quandl.Excel.Addin.UI.Settings
                     }
                     else
                     {
-                        DisplayErrorMessage("Invalid api key specified.");
+                        DisplayErrorMessage(Properties.Settings.Default.SettingsInValidApiKey);
                     }
                 }
                 else if (!string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(password.Password))
@@ -59,23 +59,23 @@ namespace Quandl.Excel.Addin.UI.Settings
                 }
                 else
                 {
-                    DisplayErrorMessage("Please input your login credentials.");
+                    DisplayErrorMessage(Properties.Settings.Default.SettingsIncorrectUsernameOrPassword);
                 }
             }
             catch (QuandlErrorBase exp)
             {
                 if (exp.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    DisplayErrorMessage("Incorrect credentials inputted.");
+                    DisplayErrorMessage(Properties.Settings.Default.SettingsIncorrectCredentials);
                 }
                 else
                 {
-                    DisplayErrorMessage("Something went wrong. Please try again later.");
+                    DisplayErrorMessage(Properties.Settings.Default.SettingsSomethingWrongTryLater);
                 }
             }
             catch (Exception exp)
             {
-                DisplayErrorMessage("Something went wrong. Please try again later.");
+                DisplayErrorMessage(Properties.Settings.Default.SettingsIncorrectUsernameOrPassword);
                 Globals.ThisAddIn.UpdateStatusBar(exp);
                 // For debug purposes only. This should not make it to production.
 

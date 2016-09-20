@@ -23,15 +23,6 @@ namespace Quandl.Excel.Addin.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Code {0} is invalid!")]
-        public string DataCodeValidationMessage {
-            get {
-                return ((string)(this["DataCodeValidationMessage"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Specify how you would like to filter data with any of the options below or none.")]
@@ -103,6 +94,66 @@ namespace Quandl.Excel.Addin.Properties {
             }
             set {
                 this["DatatableFilterIntegerNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"{0}\" is not a valid code.")]
+        public string DataCodeValidationMessage {
+            get {
+                return ((string)(this["DataCodeValidationMessage"]));
+            }
+            set {
+                this["DataCodeValidationMessage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Please check your API key.")]
+        public string SettingsInValidApiKey {
+            get {
+                return ((string)(this["SettingsInValidApiKey"]));
+            }
+            set {
+                this["SettingsInValidApiKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Your username or password is incorrect.")]
+        public string SettingsIncorrectUsernameOrPassword {
+            get {
+                return ((string)(this["SettingsIncorrectUsernameOrPassword"]));
+            }
+            set {
+                this["SettingsIncorrectUsernameOrPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Invalid login credentials.")]
+        public string SettingsIncorrectCredentials {
+            get {
+                return ((string)(this["SettingsIncorrectCredentials"]));
+            }
+            set {
+                this["SettingsIncorrectCredentials"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Something went wrong. Please try again later.")]
+        public string SettingsSomethingWrongTryLater {
+            get {
+                return ((string)(this["SettingsSomethingWrongTryLater"]));
+            }
+            set {
+                this["SettingsSomethingWrongTryLater"] = value;
             }
         }
     }
