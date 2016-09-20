@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Quandl.Excel.Addin.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DataCodeValidationMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Code {0} is invalid!</Value>
-    </Setting>
     <Setting Name="DatatableFilterNoteOne" Type="System.String" Scope="User">
       <Value Profile="(Default)">Specify how you would like to filter data with any of the options below or none.</Value>
     </Setting>
@@ -22,6 +19,21 @@
     </Setting>
     <Setting Name="DatatableFilterIntegerNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)">Enter in the {0} that you would like the data for.</Value>
+    </Setting>
+    <Setting Name="DataCodeValidationMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">"{0}" is not a valid code.</Value>
+    </Setting>
+    <Setting Name="SettingsInValidApiKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Please check your API key.</Value>
+    </Setting>
+    <Setting Name="SettingsIncorrectUsernameOrPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Your username or password is incorrect.</Value>
+    </Setting>
+    <Setting Name="SettingsIncorrectCredentials" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Invalid login credentials.</Value>
+    </Setting>
+    <Setting Name="SettingsSomethingWrongTryLater" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Something went wrong. Please try again later.</Value>
     </Setting>
   </Settings>
 </SettingsFile>
