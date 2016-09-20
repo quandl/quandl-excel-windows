@@ -64,7 +64,6 @@
             // DataGroup
             // 
             this.DataGroup.Items.Add(this.udf_builder);
-            this.DataGroup.Label = "Data";
             this.DataGroup.Name = "DataGroup";
             // 
             // udf_builder
@@ -81,7 +80,6 @@
             this.group1.Items.Add(this.refreshMulti);
             this.group1.Items.Add(this.btnStopAll);
             this.group1.Items.Add(this.btnExecutionToggle);
-            this.group1.Label = "Control";
             this.group1.Name = "group1";
             // 
             // refreshMulti
