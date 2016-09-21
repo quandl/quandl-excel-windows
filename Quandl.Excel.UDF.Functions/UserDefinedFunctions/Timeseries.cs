@@ -75,7 +75,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
                 // Assume the first column is date column
                 string dateColumn = results.Headers.Select(s => s.ToUpper()).ToList()[0];
-                
+
                 // Sort out the data and place it in the cells
                 var sortedResults = new ResultsData(results.SortedData(dateColumn, orderAsc), results.Headers);
                 var reorderColumns = sortedResults.ExpandAndReorderColumns(SanitizeColumnNames(quandlCodeColumns), dateColumn, includeDates);
@@ -93,17 +93,24 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             catch (Exception e)
             {
                 Common.StatusBar.AddMessage(Locale.English.UdfCompleteError);
-                return Common.HandlePotentialQuandlError(e, true, new Dictionary<string, string>() {
-                    { "UDF", "QSERIES" },
-                    { "Columns", Utilities.ObjectToHumanString(rawQuandlCodeColumns) },
-                    { "Dates", Utilities.ObjectToHumanString(rawDates) },
-                    { "Collapse", Utilities.ObjectToHumanString(rawCollapse) },
-                    { "Order", Utilities.ObjectToHumanString(rawOrder) },
-                    { "Transformation", Utilities.ObjectToHumanString(rawTransformation) },
-                    { "Limit", Utilities.ObjectToHumanString(rawLimit) },
-                    { "Header", Utilities.ObjectToHumanString(rawHeader) },
-                    { "Dates", Utilities.ObjectToHumanString(rawDateColumn) },
-                });
+                if (e.InnerException != null && e.InnerException is Shared.Errors.QuandlErrorBase)
+                {
+                    return e.InnerException.Message;
+                }
+                else
+                {
+                    return Common.HandlePotentialQuandlError(e, true, new Dictionary<string, string>() {
+                        { "UDF", "QSERIES" },
+                        { "Columns", Utilities.ObjectToHumanString(rawQuandlCodeColumns) },
+                        { "Dates", Utilities.ObjectToHumanString(rawDates) },
+                        { "Collapse", Utilities.ObjectToHumanString(rawCollapse) },
+                        { "Order", Utilities.ObjectToHumanString(rawOrder) },
+                        { "Transformation", Utilities.ObjectToHumanString(rawTransformation) },
+                        { "Limit", Utilities.ObjectToHumanString(rawLimit) },
+                        { "Header", Utilities.ObjectToHumanString(rawHeader) },
+                        { "Dates", Utilities.ObjectToHumanString(rawDateColumn) },
+                    });
+                }
             }
         }
 
