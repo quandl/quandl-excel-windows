@@ -44,9 +44,10 @@ namespace Quandl.Excel.Addin.UI.Settings
                 // save this to config
                 if (!string.IsNullOrWhiteSpace(apiKey.Text))
                 {
-                    if (await QuandlConfig.ApiKeyValid(apiKey.Text))
+                    var key = apiKey.Text.Trim();
+                    if (await QuandlConfig.ApiKeyValid(key))
                     {
-                        QuandlConfig.ApiKey = apiKey.Text;
+                        QuandlConfig.ApiKey = key;
                     }
                     else
                     {
@@ -55,7 +56,7 @@ namespace Quandl.Excel.Addin.UI.Settings
                 }
                 else if (!string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(password.Password))
                 {
-                    QuandlConfig.AuthenticateWithCredentials(new Web(), email.Text, password.Password);
+                    QuandlConfig.AuthenticateWithCredentials(new Web(), email.Text.Trim(), password.Password.Trim());
                 }
                 else
                 {

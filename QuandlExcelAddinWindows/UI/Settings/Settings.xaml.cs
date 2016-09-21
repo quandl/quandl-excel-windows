@@ -43,7 +43,7 @@ namespace Quandl.Excel.Addin.UI.Settings
 
         private void SaveSettings()
         {
-            QuandlConfig.ApiKey = ApiKeyTextBox.Text;
+            QuandlConfig.ApiKey = ApiKeyTextBox.Text.Trim();
             QuandlConfig.AutoUpdateFrequency = (QuandlConfig.AutoUpdateFrequencies)AutoUpdateComboBox.SelectedValue;
             QuandlConfig.LongRunningQueryWarning = (bool)LongRunningWarningTextBox.IsChecked;
             QuandlConfig.OverwriteDataWarning = (bool)OverwriteWarningTextBox.IsChecked;
