@@ -39,16 +39,15 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             ConditionBox.SelectedValuePath = "Value";
         }
 
-        public Filter[] Value
+        public Filter Filter
         {
             get
             {
                 var input = DateBox.SelectedDate == null ? "" : String.Format("{0:yyyy-MM-dd}", DateBox.SelectedDate);
-                return new Filter[1] { new Filter
-                {
-                    Name = $"{Identifier}.{ConditionBox.SelectedValue}",
-                    Value = $"\"{input}\""
-                }};
+                return  new Filter {
+                                        Name = $"{Identifier}.{ConditionBox.SelectedValue}",
+                                        Value = $"\"{input}\""
+                                    };
             }
         }
 
@@ -75,10 +74,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     throw;
                 }
             }
-            if (!Value[0].Value.Replace("\"", "").Equals(""))
-            {
-                FilterHelper.PropertyChanged(Value);
-            }
+            FilterHelper.PropertyChanged(Filter);
         }
 
         private void ConditionBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
