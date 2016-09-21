@@ -104,12 +104,31 @@ namespace Quandl.Excel.Console
             return keys;
         }
 
+        private static void ClearSettings()
+        {
+            string RegistrySubKey = @"SOFTWARE";
+            var appKeyPath = Registry.CurrentUser.CreateSubKey(RegistrySubKey);
+            try
+            {
+                appKeyPath.DeleteSubKeyTree("Quandl");
+            }
+            catch (System.ArgumentException e)
+            {
+                // Catch exceptiont that the key does not exist, do nothing
+            }
+            finally
+            {
+                appKeyPath.Close();
+            }
+        }
+
         public static void UnRegisterExcelAddin()
         {
             foreach (var subKey in AddinRegisterKeys())
             {
                 RemoveAvailableOpenOption(subKey);
             }
+            ClearSettings();
         }
 
         private enum KeySearchResult
