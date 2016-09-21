@@ -56,7 +56,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             {
                 // Parse out all the parameters specified in the UDF.
                 var quandlCode = Tools.GetStringValue(rawQuandlCode);
-                var columns = Tools.GetArrayOfValues(rawColumns).Select(s => ((string)s).ToUpper()).ToList();
+                var columns = Tools.GetArrayOfValues(rawColumns).Select(s => ((string)s).ToLower()).ToList();
 
                 // Add all the query parameters
                 if (!string.IsNullOrEmpty(QuandlConfig.ApiKey))
