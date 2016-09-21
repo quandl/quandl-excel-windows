@@ -75,6 +75,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 prevButton.IsEnabled = true;
                 nextButton.Visibility = Visibility.Visible;
                 insertButton.Visibility = Visibility.Collapsed;
+                nextButton.IsDefault = true;
 
                 // Determine which buttons to show/hide and make visible
                 if (stepNumber == 0)
@@ -86,6 +87,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 {
                     nextButton.Visibility = Visibility.Collapsed;
                     insertButton.Visibility = Visibility.Visible;
+                    insertButton.IsDefault = true;
                 }
                 else
                 {
@@ -113,6 +115,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             _shownStep--;
             ShowStep(_shownStep);
+            nextButton.Focus();
         }
 
         private void ShowLoadingState()
