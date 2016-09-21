@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Controls;
 using PropertyChanged;
 using Quandl.Shared.Models;
 using Quandl.Excel.Addin.UI.UDF_Builder.Filters;
@@ -101,7 +102,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public ObservableCollection<DataHolderDefinition> AvailableDataHolders { get; internal set; } =
             new ObservableCollection<DataHolderDefinition>();
 
+        public String PreviousDataHolderCode { get; set; }
+
         public ObservableCollection<DataColumn> Columns { get; } = new ObservableCollection<DataColumn>();
+
+        public StackPanel FiltersGroup { get; set; } = null;
 
         // Dataset Filters
         public DateTime? StartDate { get; set; }
