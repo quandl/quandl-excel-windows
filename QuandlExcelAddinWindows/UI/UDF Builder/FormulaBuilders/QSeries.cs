@@ -192,7 +192,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.FormulaBuilders
                 case StateControl.TimeSeriesFilterCollapse.Week:
                     return "weekly";
                 case StateControl.TimeSeriesFilterCollapse.Month:
-                    return "monthly ";
+                    return "monthly";
                 case StateControl.TimeSeriesFilterCollapse.Quarter:
                     return "quarterly";
                 case StateControl.TimeSeriesFilterCollapse.Annual:
