@@ -65,7 +65,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             else
             {
                 Datatable dt = AvailableDataHolders[0] as Datatable;
-                return dt.Code != PreviousDataHolderCode ||
+                return StateControl.Instance.DatatableFilters.Count == 0 || 
+                        dt.Code != PreviousDataHolderCode ||
                         filterGroup == null ||
                         filterGroup.Children.Count == _preLoadElement;
             }

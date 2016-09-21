@@ -16,8 +16,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
     /// </summary>
     public partial class DateFilter : UserControl
     {
-        private DateConditionSelection DateFrom = null;
-        private DateConditionSelection DateTo = null;
+        private DateConditionSelection _dateFrom = null;
+        private DateConditionSelection _dateTo = null;
 
         public DateFilter(string identifier, FilterHelper filterHelper)
         {
@@ -34,18 +34,19 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
 
         private void PopulateDateCondition()
         {
-            DateFrom = new DateConditionSelection(Identifier, new FilterHelper());
-            DateFrom.HorizontalAlignment = HorizontalAlignment.Left;
-            DateFrom.Margin = new Thickness(10,0,10,30);
-     
-            DateTo = new DateConditionSelection(Identifier, new FilterHelper());
-            DateTo.HorizontalAlignment = HorizontalAlignment.Left;
-            DateTo.Margin = new Thickness(180, 0, 10, 30);
-            DateTo.IsEnabled = false;
-            DateTo.SelectedDateChanged += new EventHander(DateTo_OnSelectedDateChanged);
+            _dateFrom = new DateConditionSelection(Identifier, new FilterHelper());
+            _dateFrom.HorizontalAlignment = HorizontalAlignment.Left;
+            _dateFrom.Margin = new Thickness(10,0,10,30);
+            _dateFrom.SelectedDateChanged += Date_OnSelectedDateChanged;
 
-            DateRangeGroup.Children.Add(DateFrom);
-            DateRangeGroup.Children.Add(DateTo);
+            _dateTo = new DateConditionSelection(Identifier, new FilterHelper());
+            _dateTo.HorizontalAlignment = HorizontalAlignment.Left;
+            _dateTo.Margin = new Thickness(180, 0, 10, 30);
+            _dateTo.IsEnabled = false;
+            _dateTo.SelectedDateChanged += Date_OnSelectedDateChanged;
+
+            DateRangeGroup.Children.Add(_dateFrom);
+            DateRangeGroup.Children.Add(_dateTo);
         }
 
         private void DateTypeSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,49 +55,78 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
             if (selectedText == "Single Date")
             {
                 CleanValidationMessage();
-                DateTo.IsEnabled = false;
+                _dateTo.IsEnabled = false;
             }
             else if (selectedText == "Period Range")
             {
-                DateTo.IsEnabled = true;
+                _dateTo.IsEnabled = true;
             } 
         }
 
-        private void DateTo_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void Date_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            ValidateDate(DateFrom, DateTo);
+            if (!ValidateDate(_dateFrom, _dateTo))
+            {
+                ClearDates();
+            }
+            else if(_dateFrom.DateBox.Text != "" && _dateTo.DateBox.Text != "")
+            {
+                CleanValidationMessage();
+            }
         }
 
-        private void ValidateDate(DateConditionSelection dateFrom, DateConditionSelection dateTo)
+        private bool ValidateDate(DateConditionSelection dateFrom, DateConditionSelection dateTo)
         {
             try
             {
-                string dateFromString = DateFrom.Value[0].Value.Replace("\"", "");
-                string dateToString = DateTo.Value[0].Value.Replace("\"", "");
+                string dateFromComparator = dateFrom.ConditionBox.Text;
+                string dateToComparator = dateTo.ConditionBox.Text;
+                string dateFromString = dateFrom.Filter.Value.Replace("\"", "");
+                string dateToString = dateTo.Filter.Value.Replace("\"", "");
                 if (dateFromString.Equals("") || dateToString.Equals(("")))
                 {
-                    throw new QuandlDateCanNotBlankException();
+                    return true;
                 }
                 
                 DateTime df = Convert.ToDateTime(dateFromString);
                 DateTime dt = Convert.ToDateTime(dateToString);
-
-                if (df.CompareTo(dt) <= 0)
+                
+                if (df.CompareTo(dt) >= 0)
                 {
-                    CleanValidationMessage();
+                    string tempStr = dateFromComparator;
+                    dateFromComparator = dateToComparator;
+                    dateToComparator = tempStr;
                 }
-                else
+                if (dateFromComparator == "<" && dateToComparator == ">")
                 {
                     throw new QuandlFromDateIsGreaterThanEndDateException();
                 }
-                
             }
             catch (Exception exception)
             {
                 ValidationMessage.Content = exception.Message;
-                throw;
+                return false;
             }
-   
+            return true;
+        }
+
+        private void ClearDates()
+        {
+            _dateFrom.DateBox.Text = "";
+            _dateTo.DateBox.Text = "";
+        }
+
+        private void CheckDateFiltersEmpty()
+        {
+            var datatabelFilters = StateControl.Instance.DatatableFilters;
+            if (_dateFrom.DateBox.Text.Equals(""))
+            {
+                datatabelFilters.Remove(_dateFrom.FilterHelper.Id);
+            }
+            if (_dateTo.DateBox.Text.Equals(""))
+            {
+                datatabelFilters.Remove(_dateTo.FilterHelper.Id);
+            }
         }
 
         private void CleanValidationMessage()

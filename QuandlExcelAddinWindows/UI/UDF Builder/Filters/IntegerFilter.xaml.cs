@@ -29,22 +29,22 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
             e.Handled = !regex.IsMatch(e.Text);
         }
 
-        public Filter[] Value
+        public Filter Filter
         {
             get
             {
                 string input = IntegerFilterInput.Text.ToString();
-                return new Filter[1] { new Filter
+                return  new Filter
                 {
                     Name = Identifier,
                     Value = $"{input}"
-                }};
+                };
             }
         }
 
         private void IntegerFilterInput_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            FilterHelper.PropertyChanged(Value);
+            FilterHelper.PropertyChanged(Filter);
         }
     }
 }
