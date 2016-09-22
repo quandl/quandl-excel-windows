@@ -170,9 +170,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             AllDatabaseList.ItemsSource = null;
             PremiumDatabaseList.ItemsSource = null;
             FreeDatabaseList.ItemsSource = null;
+            _allItems = null;
             TabControl.SelectedIndex = 0;
             DatabaseCodeBox.Text = string.Empty;
-            _allItems = null;
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
