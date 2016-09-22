@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MoreLinq;
@@ -74,7 +75,8 @@ namespace Quandl.Shared.Models
             return Enumerable.Repeat(default(T), capacity).ToList();
         }
 
-        public ResultsData ExpandAndReorderColumns(List<string> quandlCodeColumns, string dateColumn, bool insertDateColumn)
+        public ResultsData ExpandAndReorderColumns(List<string> quandlCodeColumns, string dateColumn,
+            bool insertDateColumn)
         {
             // Expand the column header names
             var expandedHeaders = quandlCodeColumns.Select(qcc =>
@@ -85,18 +87,7 @@ namespace Quandl.Shared.Models
                     : Headers.FindAll(x => x.StartsWith(qcc)).ToList();
             }).SelectMany(i => i).ToList();
 
-            //var dateColumnName = expandedHeaders.Select(s => s.ToUpper()).ToList()[0].Split(Convert.ToChar("/")).Last();
-            var length = dateColumn.Length;
-
-            if (insertDateColumn)
-            {
-                // Add a `DATE` field in if the user has not specified one already.
-                expandedHeaders = expandedHeaders.Select(s => s.Length - length >= 0 && s.Substring(s.Length - length, length) == dateColumn ? dateColumn : s).ToList();
-                if (expandedHeaders.Where(s => s.Length - length >= 0 ? s.Substring(s.Length - length, length) == dateColumn : false).Count() == 0)
-                {
-                    expandedHeaders.Insert(0, Headers.First());
-                }
-            }
+            expandedHeaders = SanitizeHeaders(expandedHeaders, dateColumn, insertDateColumn);
 
             // Re-order the columns appropriately
             var shuffledData = new List<List<object>>();
@@ -105,14 +96,8 @@ namespace Quandl.Shared.Models
 
             foreach (var header in expandedHeaders)
             {
+                //string h = IsDateHeader(header, dateColumn) ? dateColumn : header;
                 var columnIndex = Headers.IndexOf(header);
-
-                // Handle the case when any dataset which first column is not DATE
-                if (columnIndex != 0 && Headers.Count >= 2 && Headers[1] == expandedHeaders[0] && insertDateColumn)
-                {
-                    columnIndex--;
-                }
-
                 for (var r = 0; r < Data.Count; r++)
                 {
                     shuffledData[r].Add(Data[r][columnIndex]);
@@ -120,6 +105,55 @@ namespace Quandl.Shared.Models
             }
 
             return new ResultsData(shuffledData, expandedHeaders);
+        }
+
+        private ArrayList GetDateColumnIndexes(List<string> expandedHeaders, string dateColumn)
+        {
+            ArrayList result = new ArrayList();
+            int i = 0;
+            foreach (var header in expandedHeaders)
+            {
+                if (IsDateHeader(header, dateColumn))
+                    result.Add(i);
+                i++;
+            }
+            return result;
+        }
+
+        private bool IsDateHeader(string header, string dateColumn)
+        {
+            var columnName = header.ToUpper().Split(Convert.ToChar("/")).Last();
+            return dateColumn.Equals(columnName);
+        }
+
+        private List<string> SanitizeHeaders(List<string> expandedHeaders, string dateColumn, bool insertDateColumn)
+        {
+            // Add a `DATE` field in if the user has not specified one already.
+
+            if (Headers.Count >= 2 && Headers[0] == Headers[1] && Headers[0] == dateColumn)
+                Headers.RemoveAt(0);
+
+            var index = GetDateColumnIndexes(expandedHeaders, dateColumn);
+            if (index.Count == 0)
+            {
+                if (insertDateColumn)
+                    expandedHeaders.Insert(0, Headers.First());
+            }
+            else
+            {
+                foreach (int i in index)
+                {
+                    if (!insertDateColumn)
+                    {
+                        expandedHeaders.RemoveAt(i);
+                    }
+                    else
+                    {
+                        expandedHeaders[i] = dateColumn;
+                    }
+                }
+            }
+            return expandedHeaders;
         }
     }
 }
