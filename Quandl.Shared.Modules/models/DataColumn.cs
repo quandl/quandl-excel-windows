@@ -7,6 +7,7 @@ namespace Quandl.Shared.Models
     {
         public string Name { get; set; }
         public string Code => Name.ToUpper();
+        public string Content { get; set; }
         public DataHolderDefinition Parent { get; set; }
         public ProviderType ProviderType { get; set; }
         public string Type { get; set; }

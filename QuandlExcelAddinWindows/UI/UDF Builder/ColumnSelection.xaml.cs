@@ -24,6 +24,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             foreach (var dh in StateControl.Instance.AvailableDataHolders)
                 foreach (var column in dh.Columns)
                 {
+                    column.Content = UseMnemonics(column.Name);
                     column.Parent = dh;
                     column.SetValue(CheckedItemHelper.ParentProperty, dh);
                 }
@@ -37,6 +38,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         public string GetShortTitle()
         {
             return "Columns";
+        }
+
+        // http://stackoverflow.com/questions/7861699/cannot-see-underscore-in-wpf-content
+        private string UseMnemonics(string name)
+        {
+            return name.Replace("_", "__");
         }
 
         private void ButtonAddAll_Click(object sender, RoutedEventArgs e)
@@ -61,7 +68,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             {
                 foreach (var column in ddc.Columns)
                 {
-                    var chkd = (bool) CheckedItemHelper.GetIsChecked(column);
+                    var chkd = (bool)CheckedItemHelper.GetIsChecked(column);
                     if (chkd && !StateControl.Instance.Columns.Contains(column))
                     {
                         StateControl.Instance.Columns.Add(column);
