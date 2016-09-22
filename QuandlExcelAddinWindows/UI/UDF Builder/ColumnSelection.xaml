@@ -43,7 +43,7 @@
                     </CheckBox>
                 </HierarchicalDataTemplate>
                 <DataTemplate DataType="{x:Type models:DataColumn}">
-                    <CheckBox Content="{Binding Name}" AutomationProperties.AutomationId="{Binding Name}"
+                    <CheckBox Content="{Binding Content}" AutomationProperties.AutomationId="{Binding Name}"
                               IsChecked="{Binding Path=(helpers:CheckedItemHelper.IsChecked), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <CheckBox.Style>
                             <Style TargetType="{x:Type CheckBox}">
