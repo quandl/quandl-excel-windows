@@ -225,7 +225,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     return TimeSeriesTransformationFilter !=
                            TimeSeriesFilterTransformations.Default || TimeseriesFilterAfter("transformation");
                 case "transformation":
-                    return !(TimeSeriesLimitFilter == null || TimeSeriesLimitFilter <= 0) ||
+                    return !(TimeSeriesLimitFilter == null || TimeSeriesLimitFilter < 0) ||
                            TimeseriesFilterAfter("limit");
                 case "limit":
                     return !IncludeHeaders ||
