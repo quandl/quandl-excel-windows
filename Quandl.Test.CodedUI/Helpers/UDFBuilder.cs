@@ -42,6 +42,13 @@ namespace Quandl.Test.CodedUI.Helpers
             UIMap.ClickNextButton();
         }
 
+        public static void CompleteBrowseStep1(Dictionary<string, string> browseOptions)
+        {
+            UIMap.SelectBrowseCategory(browseOptions["data type"], browseOptions["region"], browseOptions["category"]);
+            UIMap.SelectDatabase(browseOptions["database"]);
+            UIMap.ClickNextButton();
+        }
+
         public static void CompleteStep2(DataHolderDefinition dataHolder, string filterText = null)
         {
             if (filterText != null)
@@ -66,11 +73,13 @@ namespace Quandl.Test.CodedUI.Helpers
         {
             if (filters["frequency"] != null)
             {
-                UIMap.SelectDatasetDateRangeFilter(filters["frequency"], filters["frequency code"]);
+                UIMap.SelectFrequencyFilter(filters["frequency"], filters["frequency code"]);
             }
-            if (filters["date_range"] != null)
+            if (filters["date from"] != null)
             {
-                UIMap.SelectFrequencyFilter(filters["date_range"], filters["date_range"]);
+                UIMap.SelectDatasetDateRangeFilter("Period Range", "Range");
+                UIMap.SelectDatasetDateFromFilter(filters["date from"]);
+                UIMap.SelectDatasetDateToFilter(filters["date to"]);
             }
             if (filters["transformation"] != null)
             {

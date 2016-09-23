@@ -281,7 +281,33 @@ namespace Quandl.Test.CodedUI
             // Click 'next' button
             Mouse.Click(uINextButton, new Point(60, 28));
         }
+        
+        /// <summary>
+        /// RecordedMethod2
+        /// </summary>
+        public void RecordedMethod2()
+        {
+            #region Variable Declarations
+            WinButton uIGetDataButton = this.UIBook2ExcelWindow.UIItemWindow.UIItemToolBar.UIGetDataButton;
+            #endregion
 
+            // Click 'Get Data' button
+            Mouse.Click(uIGetDataButton, new Point(57, 83));
+        }
+        
+        /// <summary>
+        /// RecordedMethod3 - Use 'RecordedMethod3Params' to pass parameters into this method.
+        /// </summary>
+        public void RecordedMethod3()
+        {
+            #region Variable Declarations
+            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
+            #endregion
+
+            // Clear 'Include headers' check box
+            uIIncludeheadersCheckBox.Checked = this.RecordedMethod3Params.UIIncludeheadersCheckBoxChecked;
+        }
+        
         /// <summary>
         /// ClickInsert
         /// </summary>
@@ -307,7 +333,45 @@ namespace Quandl.Test.CodedUI
             // Clear 'Include headers' check box
             uIIncludeheadersCheckBox.Checked = this.SelectIncludeHeadersParams.UIIncludeheadersCheckBoxChecked;
         }
+        
+        /// <summary>
+        /// RecordedMethod4 - Use 'RecordedMethod4Params' to pass parameters into this method.
+        /// </summary>
+        public void RecordedMethod4()
+        {
+            #region Variable Declarations
+            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
+            #endregion
 
+            // Select 'Include headers' check box
+            uIIncludeheadersCheckBox.Checked = this.RecordedMethod4Params.UIIncludeheadersCheckBoxChecked;
+        }
+        
+        /// <summary>
+        /// SelectDatabaseFromTree - Use 'SelectDatabaseFromTreeParams' to pass parameters into this method.
+        /// </summary>
+        public void SelectDatabaseFromTree()
+        {
+            #region Variable Declarations
+            WpfTreeItem uIFuturesDataTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIFuturesDataTreeItem;
+            WpfTreeItem uIStockDataTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIStockDataTreeItem;
+            WpfTreeItem uIStockPricesEndofDayCTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIStockDataTreeItem.UIUnitedStatesTreeItem.UIStockPricesEndofDayCTreeItem;
+            WpfList uIAllDatabaseListList = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
+            #endregion
+
+            // Click 'Futures Data' tree item
+            Mouse.Click(uIFuturesDataTreeItem, new Point(50, 4));
+
+            // Click 'Stock Data' tree item
+            Mouse.Click(uIStockDataTreeItem, new Point(72, 29));
+
+            // Click 'Stock Data' -> 'United States' -> 'Stock Prices End of Day, Current and Historical' tree item
+            Mouse.Click(uIStockPricesEndofDayCTreeItem, new Point(68, 14));
+
+            // Select 'Free WIKI Wiki EOD Stock Prices' in 'AllDatabaseList' list box
+            uIAllDatabaseListList.SelectedItemsAsString = this.SelectDatabaseFromTreeParams.UIAllDatabaseListListSelectedItemsAsString;
+        }
+        
         #region Properties
         public virtual AssertColumnSelectedExpectedValues AssertColumnSelectedExpectedValues
         {
@@ -476,20 +540,56 @@ namespace Quandl.Test.CodedUI
                 return this.mRecordedFiltersParams;
             }
         }
-
-         public virtual SelectIncludeHeadersParams SelectIncludeHeadersParams
-         {
-             get
-             {
-                 if ((this.mSelectIncludeHeadersParams == null))
-                 {
-                     this.mSelectIncludeHeadersParams = new SelectIncludeHeadersParams();
-                 }
-                 return this.mSelectIncludeHeadersParams;
-             }
-         }
-
-public UIExcelWindow UIExcelWindow
+        
+        public virtual RecordedMethod3Params RecordedMethod3Params
+        {
+            get
+            {
+                if ((this.mRecordedMethod3Params == null))
+                {
+                    this.mRecordedMethod3Params = new RecordedMethod3Params();
+                }
+                return this.mRecordedMethod3Params;
+            }
+        }
+        
+        public virtual SelectIncludeHeadersParams SelectIncludeHeadersParams
+        {
+            get
+            {
+                if ((this.mSelectIncludeHeadersParams == null))
+                {
+                    this.mSelectIncludeHeadersParams = new SelectIncludeHeadersParams();
+                }
+                return this.mSelectIncludeHeadersParams;
+            }
+        }
+        
+        public virtual RecordedMethod4Params RecordedMethod4Params
+        {
+            get
+            {
+                if ((this.mRecordedMethod4Params == null))
+                {
+                    this.mRecordedMethod4Params = new RecordedMethod4Params();
+                }
+                return this.mRecordedMethod4Params;
+            }
+        }
+        
+        public virtual SelectDatabaseFromTreeParams SelectDatabaseFromTreeParams
+        {
+            get
+            {
+                if ((this.mSelectDatabaseFromTreeParams == null))
+                {
+                    this.mSelectDatabaseFromTreeParams = new SelectDatabaseFromTreeParams();
+                }
+                return this.mSelectDatabaseFromTreeParams;
+            }
+        }
+        
+        public UIExcelWindow UIExcelWindow
         {
             get
             {
@@ -584,6 +684,18 @@ public UIExcelWindow UIExcelWindow
                 return this.mUIItemWindow1;
             }
         }
+        
+        public UIBook2ExcelWindow UIBook2ExcelWindow
+        {
+            get
+            {
+                if ((this.mUIBook2ExcelWindow == null))
+                {
+                    this.mUIBook2ExcelWindow = new UIBook2ExcelWindow();
+                }
+                return this.mUIBook2ExcelWindow;
+            }
+        }
         #endregion
         
         #region Fields
@@ -614,10 +726,15 @@ public UIExcelWindow UIExcelWindow
         private RecordedMethod1Params mRecordedMethod1Params;
         
         private RecordedFiltersParams mRecordedFiltersParams;
-
+        
+        private RecordedMethod3Params mRecordedMethod3Params;
+        
         private SelectIncludeHeadersParams mSelectIncludeHeadersParams;
-
-
+        
+        private RecordedMethod4Params mRecordedMethod4Params;
+        
+        private SelectDatabaseFromTreeParams mSelectDatabaseFromTreeParams;
+        
         private UIExcelWindow mUIExcelWindow;
         
         private UIUntitledNotepadWindow mUIUntitledNotepadWindow;
@@ -633,6 +750,8 @@ public UIExcelWindow UIExcelWindow
         private UIQuandlFormulaBuilderWindow1 mUIQuandlFormulaBuilderWindow1;
         
         private UIItemWindow11 mUIItemWindow1;
+        
+        private UIBook2ExcelWindow mUIBook2ExcelWindow;
         #endregion
     }
     
@@ -855,24 +974,68 @@ public UIExcelWindow UIExcelWindow
         public string UITransformationFilterComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
         #endregion
     }
-
-     /// <summary>
-     /// Parameters to be passed into 'SelectIncludeHeaders'
-     /// </summary>
-     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
-     public class SelectIncludeHeadersParams
-     {
-
-         #region Fields
-         /// <summary>
-         /// Clear 'Include headers' check box
-         /// </summary>
-         public bool UIIncludeheadersCheckBoxChecked = false;
-         #endregion
-     }
-
+    
+    /// <summary>
+    /// Parameters to be passed into 'RecordedMethod3'
+    /// </summary>
     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
-
+    public class RecordedMethod3Params
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Clear 'Include headers' check box
+        /// </summary>
+        public bool UIIncludeheadersCheckBoxChecked = false;
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'SelectIncludeHeaders'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class SelectIncludeHeadersParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Clear 'Include headers' check box
+        /// </summary>
+        public bool UIIncludeheadersCheckBoxChecked = false;
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'RecordedMethod4'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class RecordedMethod4Params
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select 'Include headers' check box
+        /// </summary>
+        public bool UIIncludeheadersCheckBoxChecked = true;
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'SelectDatabaseFromTree'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class SelectDatabaseFromTreeParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select 'Free WIKI Wiki EOD Stock Prices' in 'AllDatabaseList' list box
+        /// </summary>
+        public string UIAllDatabaseListListSelectedItemsAsString = "Free WIKI Wiki EOD Stock Prices";
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
     public class UIExcelWindow : WinWindow
     {
         
@@ -2603,6 +2766,22 @@ public UIExcelWindow UIExcelWindow
                 return this.mUIStockDataTreeItem;
             }
         }
+        
+        public WpfTreeItem UIFuturesDataTreeItem
+        {
+            get
+            {
+                if ((this.mUIFuturesDataTreeItem == null))
+                {
+                    this.mUIFuturesDataTreeItem = new WpfTreeItem(this);
+                    #region Search Criteria
+                    this.mUIFuturesDataTreeItem.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Futures Data";
+                    this.mUIFuturesDataTreeItem.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIFuturesDataTreeItem;
+            }
+        }
         #endregion
         
         #region Fields
@@ -2611,6 +2790,8 @@ public UIExcelWindow UIExcelWindow
         private UIItemTreeItem11 mUIItemTreeItem1;
         
         private UIStockDataTreeItem mUIStockDataTreeItem;
+        
+        private WpfTreeItem mUIFuturesDataTreeItem;
         #endregion
     }
     
@@ -4989,6 +5170,106 @@ public UIExcelWindow UIExcelWindow
         
         #region Fields
         private WinToolBar mUIQuandlFormulaBuilderToolBar;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIBook2ExcelWindow : WinWindow
+    {
+        
+        public UIBook2ExcelWindow()
+        {
+            #region Search Criteria
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Book2 - Excel";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "XLMAIN";
+            this.WindowTitles.Add("Book2 - Excel");
+            #endregion
+        }
+        
+        #region Properties
+        public UIItemWindow4 UIItemWindow
+        {
+            get
+            {
+                if ((this.mUIItemWindow == null))
+                {
+                    this.mUIItemWindow = new UIItemWindow4(this);
+                }
+                return this.mUIItemWindow;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIItemWindow4 mUIItemWindow;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIItemWindow4 : WinWindow
+    {
+        
+        public UIItemWindow4(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Ribbon";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "NetUIHWND";
+            this.WindowTitles.Add("Book2 - Excel");
+            #endregion
+        }
+        
+        #region Properties
+        public UIItemToolBar UIItemToolBar
+        {
+            get
+            {
+                if ((this.mUIItemToolBar == null))
+                {
+                    this.mUIItemToolBar = new UIItemToolBar(this);
+                }
+                return this.mUIItemToolBar;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIItemToolBar mUIItemToolBar;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIItemToolBar : WinToolBar
+    {
+        
+        public UIItemToolBar(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.WindowTitles.Add("Book2 - Excel");
+            #endregion
+        }
+        
+        #region Properties
+        public WinButton UIGetDataButton
+        {
+            get
+            {
+                if ((this.mUIGetDataButton == null))
+                {
+                    this.mUIGetDataButton = new WinButton(this);
+                    #region Search Criteria
+                    this.mUIGetDataButton.SearchProperties[WinButton.PropertyNames.Name] = "Get Data";
+                    this.mUIGetDataButton.WindowTitles.Add("Book2 - Excel");
+                    #endregion
+                }
+                return this.mUIGetDataButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WinButton mUIGetDataButton;
         #endregion
     }
 }

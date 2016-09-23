@@ -96,6 +96,8 @@
     <Compile Include="UIMap.Designer.cs">
       <DependentUpon>UIMap.uitest</DependentUpon>
     </Compile>
+    <Compile Include="UI\UDF Builder\ScenarioThree.cs" />
+    <Compile Include="UI\UDF Builder\ScenarioTwo.cs" />
     <Compile Include="UI\UDF Builder\ScenarioOne.cs" />
     <Compile Include="UI\UDF Builder\TimeSeriesFiltersTest.cs" />
     <Compile Include="UI\UDF Builder\ColumnSelectionTest.cs" />

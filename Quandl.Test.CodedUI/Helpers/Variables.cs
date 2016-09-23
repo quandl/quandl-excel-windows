@@ -58,6 +58,7 @@ namespace Quandl.Test.CodedUI.Helpers
             return _datatable;
         }
 
+
         public static List<DataColumn> SampleDatasetColumns()
         {
             if (_datasetColumns == null)
@@ -67,6 +68,24 @@ namespace Quandl.Test.CodedUI.Helpers
                     new DataColumn() { Name = "Volume", Parent = _dataset },
                     new DataColumn() { Name = "Open",   Parent = _dataset },
                     new DataColumn() { Name = "Close",  Parent = _dataset }
+                };
+            }
+
+            return _datasetColumns;
+        }
+
+        public static List<DataColumn> DateOpenHighLowCloseExDividendDatasetColumns()
+        {
+            if (_datasetColumns == null)
+            {
+                _datasetColumns = new List<DataColumn>
+                {
+                    new DataColumn() { Name = "Date", Parent = _dataset },
+                    new DataColumn() { Name = "Open",   Parent = _dataset },
+                    new DataColumn() { Name = "High", Parent = _dataset },
+                    new DataColumn() { Name = "Low",   Parent = _dataset },
+                    new DataColumn() { Name = "Close",   Parent = _dataset },
+                    new DataColumn() { Name = "Ex-Dividend",  Parent = _dataset }
                 };
             }
 
@@ -91,13 +110,49 @@ namespace Quandl.Test.CodedUI.Helpers
         public static Dictionary<string, string> filtersAllHistRdiff()
         {
             var filterOptions = new Dictionary<string, string>();
-            filterOptions.Add("date_range", null);
+            filterOptions.Add("date from", null);
             filterOptions.Add("transformation", "Row-on-row % change (rdiff)");
             filterOptions.Add("transformation code", "RDiff");
             filterOptions.Add("frequency", null);
             filterOptions.Add("sort", null);
             filterOptions.Add("limit", null);
             return filterOptions;
+        }
+
+        public static Dictionary<string, string> filtersAllHistQuarterlyDiff()
+        {
+            var filterOptions = new Dictionary<string, string>();
+            filterOptions.Add("date from", null);
+            filterOptions.Add("transformation", "Row-on-row change (diff)");
+            filterOptions.Add("transformation code", "Diff");
+            filterOptions.Add("frequency", "Quarterly");
+            filterOptions.Add("frequency code", "Quarter");
+            filterOptions.Add("sort", null);
+            filterOptions.Add("limit", null);
+            return filterOptions;
+        }
+        public static Dictionary<string, string> filtersDateRangetMonthlyDiff()
+        {
+
+            var filterOptions = new Dictionary<string, string>();
+            filterOptions.Add("date from", "2016, 1, 1");
+            filterOptions.Add("date to", "2016, 2, 1");
+            filterOptions.Add("transformation", "Row-on-row change (diff)");
+            filterOptions.Add("transformation code", "Diff");
+            filterOptions.Add("frequency", "Monthly");
+            filterOptions.Add("frequency code", "Month");
+            filterOptions.Add("sort", null);
+            filterOptions.Add("limit", null);
+            return filterOptions;
+        }
+        public static Dictionary<string, string> selectStockUsMfOne()
+        {
+            var browseOptions = new Dictionary<string, string>();
+            browseOptions.Add("data type", "Stock Data");
+            browseOptions.Add("region", "United States");
+            browseOptions.Add("category", "Stock Prices End of Day, Current and Historical");
+            browseOptions.Add("database", "Free WIKI Wiki EOD Stock Prices");
+            return browseOptions;
         }
     }
 }
