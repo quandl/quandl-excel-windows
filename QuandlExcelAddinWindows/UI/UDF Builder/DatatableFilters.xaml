@@ -7,16 +7,18 @@
              xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Quandl.Excel.Addin.UI.UDF_Builder.DatatableFilters"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel x:Name="FiltersGroup">
-        <Label x:Name="DatatableFilterNoteOne" Content="{DynamicResource DatatableFilterNoteOneFilter}" HorizontalAlignment="Left" Margin="5,0" VerticalAlignment="Top">
-            <Label.Resources>
-                <System:String x:Key="DatatableFilterNoteOneFilter">Specify how you would like to filter data with any of the options below or none.</System:String>
-            </Label.Resources>
-        </Label>
-        <Label x:Name="DatatableFilterNoteTwo" Content="{DynamicResource DatatableFilterNoteTwoFilter}" HorizontalAlignment="Left" Margin="5,0" VerticalAlignment="Top">
-            <Label.Resources>
-                <System:String x:Key="DatatableFilterNoteTwoFilter">If you skip this step, then you will receive all of the data for the for the columns you have selected previously.</System:String>
-            </Label.Resources>
-        </Label>
-    </StackPanel>
+    <ScrollViewer>
+        <StackPanel x:Name="FiltersGroup">
+            <Label x:Name="DatatableFilterNoteOne" Content="{DynamicResource DatatableFilterNoteOneFilter}" HorizontalAlignment="Left" Margin="5,0" VerticalAlignment="Top">
+                <Label.Resources>
+                    <System:String x:Key="DatatableFilterNoteOneFilter">Specify how you would like to filter data with any of the options below or none.</System:String>
+                </Label.Resources>
+            </Label>
+            <Label x:Name="DatatableFilterNoteTwo" Content="{DynamicResource DatatableFilterNoteTwoFilter}" HorizontalAlignment="Left" Margin="5,0" VerticalAlignment="Top">
+                <Label.Resources>
+                    <System:String x:Key="DatatableFilterNoteTwoFilter">If you skip this step, then you will receive all of the data for the for the columns you have selected previously.</System:String>
+                </Label.Resources>
+            </Label>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
