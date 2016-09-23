@@ -39,7 +39,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
                 return  new Filter
                 {
                     Name = Identifier,
-                    Value = $"{input}"
+                    Value = $"\"{input}\""
                 };
             }
         }
