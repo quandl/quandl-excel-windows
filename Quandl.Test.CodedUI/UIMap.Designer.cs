@@ -126,19 +126,6 @@ namespace Quandl.Test.CodedUI
         }
         
         /// <summary>
-        /// Click the next button
-        /// </summary>
-        public void ClickNextButton()
-        {
-            #region Variable Declarations
-            WpfButton uINextButton = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UINextButton;
-            #endregion
-
-            // Click 'next' button
-            Mouse.Click(uINextButton, new Point(20, 14));
-        }
-        
-        /// <summary>
         /// InputDatabaseCode - Use 'InputDatabaseCodeParams' to pass parameters into this method.
         /// </summary>
         public void InputDatabaseCode()
@@ -222,6 +209,167 @@ namespace Quandl.Test.CodedUI
 
             // Select 'Carbo Ceramics Inc. (CRR) Stock Prices\, Dividends and Splits' in 'DatasetsDatatablesListView' list box
             uIDatasetsDatatablesLiList.SelectedItemsAsString = this.SelectDatasetDatatableParams.UIDatasetsDatatablesLiListSelectedItemsAsString;
+        }
+        
+        /// <summary>
+        /// SelectTransformationFilter - Use 'SelectTransformationFilterParams' to pass parameters into this method.
+        /// </summary>
+        public void SelectTransformationFilter()
+        {
+            #region Variable Declarations
+            WpfComboBox uIComboBoxFrequencyComboBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIComboBoxFrequencyComboBox;
+            WpfComboBox uIComboBoxTransformatiComboBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIComboBoxTransformatiComboBox;
+            #endregion
+
+            // Select '{ Description = None (default), value = Default }' in 'ComboBoxFrequency' combo box
+            uIComboBoxFrequencyComboBox.SelectedItem = this.SelectTransformationFilterParams.UIComboBoxFrequencyComboBoxSelectedItem;
+
+            // Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
+            uIComboBoxTransformatiComboBox.SelectedItem = this.SelectTransformationFilterParams.UIComboBoxTransformatiComboBoxSelectedItem;
+        }
+        
+        /// <summary>
+        /// testMethod - Use 'testMethodParams' to pass parameters into this method.
+        /// </summary>
+        public void testMethod()
+        {
+            #region Variable Declarations
+            WpfComboBox uIComboBoxFrequencyComboBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIComboBoxFrequencyComboBox;
+            WpfCustom uIItemCustom = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIItemCustom;
+            WpfComboBox uIComboBoxTransformatiComboBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIComboBoxTransformatiComboBox;
+            #endregion
+
+            // Click 'ComboBoxFrequency' combo box
+            Mouse.Click(uIComboBoxFrequencyComboBox, new Point(103, 25));
+
+            // Click custom control
+            Mouse.Click(uIItemCustom, new Point(527, 229));
+
+            // Click custom control
+            Mouse.Click(uIItemCustom, new Point(527, 229));
+
+            // Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
+            uIComboBoxTransformatiComboBox.SelectedItem = this.testMethodParams.UIComboBoxTransformatiComboBoxSelectedItem;
+        }
+        
+        /// <summary>
+        /// RecordedMethod1 - Use 'RecordedMethod1Params' to pass parameters into this method.
+        /// </summary>
+        public void RecordedMethod1()
+        {
+            #region Variable Declarations
+            WpfComboBox uIComboBoxTransformatiComboBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIComboBoxTransformatiComboBox;
+            #endregion
+
+            // Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
+            uIComboBoxTransformatiComboBox.SelectedItem = this.RecordedMethod1Params.UIComboBoxTransformatiComboBoxSelectedItem;
+        }
+        
+        /// <summary>
+        /// RecordedFilters - Use 'RecordedFiltersParams' to pass parameters into this method.
+        /// </summary>
+        public void RecordedFilters()
+        {
+            #region Variable Declarations
+            WpfComboBox uITransformationFilterComboBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UITransformationFilterComboBox;
+            WpfButton uINextButton = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UINextButton;
+            #endregion
+
+            // Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'TransformationFilter' combo box
+            uITransformationFilterComboBox.SelectedItem = this.RecordedFiltersParams.UITransformationFilterComboBoxSelectedItem;
+
+            // Click 'next' button
+            Mouse.Click(uINextButton, new Point(60, 28));
+        }
+        
+        /// <summary>
+        /// RecordedMethod2
+        /// </summary>
+        public void RecordedMethod2()
+        {
+            #region Variable Declarations
+            WinButton uIGetDataButton = this.UIBook2ExcelWindow.UIItemWindow.UIItemToolBar.UIGetDataButton;
+            #endregion
+
+            // Click 'Get Data' button
+            Mouse.Click(uIGetDataButton, new Point(57, 83));
+        }
+        
+        /// <summary>
+        /// RecordedMethod3 - Use 'RecordedMethod3Params' to pass parameters into this method.
+        /// </summary>
+        public void RecordedMethod3()
+        {
+            #region Variable Declarations
+            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
+            #endregion
+
+            // Clear 'Include headers' check box
+            uIIncludeheadersCheckBox.Checked = this.RecordedMethod3Params.UIIncludeheadersCheckBoxChecked;
+        }
+        
+        /// <summary>
+        /// ClickInsert
+        /// </summary>
+        public void ClickInsert()
+        {
+            #region Variable Declarations
+            WpfButton uIInsertButton = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIInsertButton;
+            #endregion
+
+            // Click 'insert' button
+            Mouse.Click(uIInsertButton, new Point(6, 27));
+        }
+        
+        /// <summary>
+        /// SelectIncludeHeaders - Use 'SelectIncludeHeadersParams' to pass parameters into this method.
+        /// </summary>
+        public void SelectIncludeHeaders()
+        {
+            #region Variable Declarations
+            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
+            #endregion
+
+            // Clear 'Include headers' check box
+            uIIncludeheadersCheckBox.Checked = this.SelectIncludeHeadersParams.UIIncludeheadersCheckBoxChecked;
+        }
+        
+        /// <summary>
+        /// RecordedMethod4 - Use 'RecordedMethod4Params' to pass parameters into this method.
+        /// </summary>
+        public void RecordedMethod4()
+        {
+            #region Variable Declarations
+            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
+            #endregion
+
+            // Select 'Include headers' check box
+            uIIncludeheadersCheckBox.Checked = this.RecordedMethod4Params.UIIncludeheadersCheckBoxChecked;
+        }
+        
+        /// <summary>
+        /// SelectDatabaseFromTree - Use 'SelectDatabaseFromTreeParams' to pass parameters into this method.
+        /// </summary>
+        public void SelectDatabaseFromTree()
+        {
+            #region Variable Declarations
+            WpfTreeItem uIFuturesDataTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIFuturesDataTreeItem;
+            WpfTreeItem uIStockDataTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIStockDataTreeItem;
+            WpfTreeItem uIStockPricesEndofDayCTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIStockDataTreeItem.UIUnitedStatesTreeItem.UIStockPricesEndofDayCTreeItem;
+            WpfList uIAllDatabaseListList = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
+            #endregion
+
+            // Click 'Futures Data' tree item
+            Mouse.Click(uIFuturesDataTreeItem, new Point(50, 4));
+
+            // Click 'Stock Data' tree item
+            Mouse.Click(uIStockDataTreeItem, new Point(72, 29));
+
+            // Click 'Stock Data' -> 'United States' -> 'Stock Prices End of Day, Current and Historical' tree item
+            Mouse.Click(uIStockPricesEndofDayCTreeItem, new Point(68, 14));
+
+            // Select 'Free WIKI Wiki EOD Stock Prices' in 'AllDatabaseList' list box
+            uIAllDatabaseListList.SelectedItemsAsString = this.SelectDatabaseFromTreeParams.UIAllDatabaseListListSelectedItemsAsString;
         }
         
         #region Properties
@@ -345,6 +493,102 @@ namespace Quandl.Test.CodedUI
             }
         }
         
+        public virtual SelectTransformationFilterParams SelectTransformationFilterParams
+        {
+            get
+            {
+                if ((this.mSelectTransformationFilterParams == null))
+                {
+                    this.mSelectTransformationFilterParams = new SelectTransformationFilterParams();
+                }
+                return this.mSelectTransformationFilterParams;
+            }
+        }
+        
+        public virtual testMethodParams testMethodParams
+        {
+            get
+            {
+                if ((this.mtestMethodParams == null))
+                {
+                    this.mtestMethodParams = new testMethodParams();
+                }
+                return this.mtestMethodParams;
+            }
+        }
+        
+        public virtual RecordedMethod1Params RecordedMethod1Params
+        {
+            get
+            {
+                if ((this.mRecordedMethod1Params == null))
+                {
+                    this.mRecordedMethod1Params = new RecordedMethod1Params();
+                }
+                return this.mRecordedMethod1Params;
+            }
+        }
+        
+        public virtual RecordedFiltersParams RecordedFiltersParams
+        {
+            get
+            {
+                if ((this.mRecordedFiltersParams == null))
+                {
+                    this.mRecordedFiltersParams = new RecordedFiltersParams();
+                }
+                return this.mRecordedFiltersParams;
+            }
+        }
+        
+        public virtual RecordedMethod3Params RecordedMethod3Params
+        {
+            get
+            {
+                if ((this.mRecordedMethod3Params == null))
+                {
+                    this.mRecordedMethod3Params = new RecordedMethod3Params();
+                }
+                return this.mRecordedMethod3Params;
+            }
+        }
+        
+        public virtual SelectIncludeHeadersParams SelectIncludeHeadersParams
+        {
+            get
+            {
+                if ((this.mSelectIncludeHeadersParams == null))
+                {
+                    this.mSelectIncludeHeadersParams = new SelectIncludeHeadersParams();
+                }
+                return this.mSelectIncludeHeadersParams;
+            }
+        }
+        
+        public virtual RecordedMethod4Params RecordedMethod4Params
+        {
+            get
+            {
+                if ((this.mRecordedMethod4Params == null))
+                {
+                    this.mRecordedMethod4Params = new RecordedMethod4Params();
+                }
+                return this.mRecordedMethod4Params;
+            }
+        }
+        
+        public virtual SelectDatabaseFromTreeParams SelectDatabaseFromTreeParams
+        {
+            get
+            {
+                if ((this.mSelectDatabaseFromTreeParams == null))
+                {
+                    this.mSelectDatabaseFromTreeParams = new SelectDatabaseFromTreeParams();
+                }
+                return this.mSelectDatabaseFromTreeParams;
+            }
+        }
+        
         public UIExcelWindow UIExcelWindow
         {
             get
@@ -440,6 +684,18 @@ namespace Quandl.Test.CodedUI
                 return this.mUIItemWindow1;
             }
         }
+        
+        public UIBook2ExcelWindow UIBook2ExcelWindow
+        {
+            get
+            {
+                if ((this.mUIBook2ExcelWindow == null))
+                {
+                    this.mUIBook2ExcelWindow = new UIBook2ExcelWindow();
+                }
+                return this.mUIBook2ExcelWindow;
+            }
+        }
         #endregion
         
         #region Fields
@@ -463,6 +719,22 @@ namespace Quandl.Test.CodedUI
         
         private SelectDatasetDatatableParams mSelectDatasetDatatableParams;
         
+        private SelectTransformationFilterParams mSelectTransformationFilterParams;
+        
+        private testMethodParams mtestMethodParams;
+        
+        private RecordedMethod1Params mRecordedMethod1Params;
+        
+        private RecordedFiltersParams mRecordedFiltersParams;
+        
+        private RecordedMethod3Params mRecordedMethod3Params;
+        
+        private SelectIncludeHeadersParams mSelectIncludeHeadersParams;
+        
+        private RecordedMethod4Params mRecordedMethod4Params;
+        
+        private SelectDatabaseFromTreeParams mSelectDatabaseFromTreeParams;
+        
         private UIExcelWindow mUIExcelWindow;
         
         private UIUntitledNotepadWindow mUIUntitledNotepadWindow;
@@ -478,6 +750,8 @@ namespace Quandl.Test.CodedUI
         private UIQuandlFormulaBuilderWindow1 mUIQuandlFormulaBuilderWindow1;
         
         private UIItemWindow11 mUIItemWindow1;
+        
+        private UIBook2ExcelWindow mUIBook2ExcelWindow;
         #endregion
     }
     
@@ -633,6 +907,131 @@ namespace Quandl.Test.CodedUI
         /// Select 'Carbo Ceramics Inc. (CRR) Stock Prices\, Dividends and Splits' in 'DatasetsDatatablesListView' list box
         /// </summary>
         public string UIDatasetsDatatablesLiListSelectedItemsAsString = "Carbo Ceramics Inc. (CRR) Stock Prices\\, Dividends and Splits";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'SelectTransformationFilter'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class SelectTransformationFilterParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select '{ Description = None (default), value = Default }' in 'ComboBoxFrequency' combo box
+        /// </summary>
+        public string UIComboBoxFrequencyComboBoxSelectedItem = "{ Description = None (default), value = Default }";
+        
+        /// <summary>
+        /// Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
+        /// </summary>
+        public string UIComboBoxTransformatiComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'testMethod'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class testMethodParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
+        /// </summary>
+        public string UIComboBoxTransformatiComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'RecordedMethod1'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class RecordedMethod1Params
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
+        /// </summary>
+        public string UIComboBoxTransformatiComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'RecordedFilters'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class RecordedFiltersParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'TransformationFilter' combo box
+        /// </summary>
+        public string UITransformationFilterComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'RecordedMethod3'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class RecordedMethod3Params
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Clear 'Include headers' check box
+        /// </summary>
+        public bool UIIncludeheadersCheckBoxChecked = false;
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'SelectIncludeHeaders'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class SelectIncludeHeadersParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Clear 'Include headers' check box
+        /// </summary>
+        public bool UIIncludeheadersCheckBoxChecked = false;
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'RecordedMethod4'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class RecordedMethod4Params
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select 'Include headers' check box
+        /// </summary>
+        public bool UIIncludeheadersCheckBoxChecked = true;
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'SelectDatabaseFromTree'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class SelectDatabaseFromTreeParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select 'Free WIKI Wiki EOD Stock Prices' in 'AllDatabaseList' list box
+        /// </summary>
+        public string UIAllDatabaseListListSelectedItemsAsString = "Free WIKI Wiki EOD Stock Prices";
         #endregion
     }
     
@@ -1664,6 +2063,18 @@ namespace Quandl.Test.CodedUI
                 return this.mUIQuandlExcelAddincompPane;
             }
         }
+        
+        public UIItemCustom111 UIItemCustom11
+        {
+            get
+            {
+                if ((this.mUIItemCustom11 == null))
+                {
+                    this.mUIItemCustom11 = new UIItemCustom111(this);
+                }
+                return this.mUIItemCustom11;
+            }
+        }
         #endregion
         
         #region Fields
@@ -1686,6 +2097,8 @@ namespace Quandl.Test.CodedUI
         private UIStepThreePaneCustom mUIStepThreePaneCustom;
         
         private UIQuandlExcelAddincompPane2 mUIQuandlExcelAddincompPane;
+        
+        private UIItemCustom111 mUIItemCustom11;
         #endregion
     }
     
@@ -2111,6 +2524,86 @@ namespace Quandl.Test.CodedUI
                 return this.mUIItemButton3;
             }
         }
+        
+        public WpfComboBox UIDateRangeTypeFilterComboBox
+        {
+            get
+            {
+                if ((this.mUIDateRangeTypeFilterComboBox == null))
+                {
+                    this.mUIDateRangeTypeFilterComboBox = new WpfComboBox(this);
+                    #region Search Criteria
+                    this.mUIDateRangeTypeFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "DateRangeTypeFilter";
+                    this.mUIDateRangeTypeFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDateRangeTypeFilterComboBox;
+            }
+        }
+        
+        public WpfComboBox UIFrequencyFilterComboBox
+        {
+            get
+            {
+                if ((this.mUIFrequencyFilterComboBox == null))
+                {
+                    this.mUIFrequencyFilterComboBox = new WpfComboBox(this);
+                    #region Search Criteria
+                    this.mUIFrequencyFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "FrequencyFilter";
+                    this.mUIFrequencyFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIFrequencyFilterComboBox;
+            }
+        }
+        
+        public WpfComboBox UITransformationFilterComboBox
+        {
+            get
+            {
+                if ((this.mUITransformationFilterComboBox == null))
+                {
+                    this.mUITransformationFilterComboBox = new WpfComboBox(this);
+                    #region Search Criteria
+                    this.mUITransformationFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "TransformationFilter";
+                    this.mUITransformationFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUITransformationFilterComboBox;
+            }
+        }
+        
+        public WpfComboBox UISortFilterComboBox
+        {
+            get
+            {
+                if ((this.mUISortFilterComboBox == null))
+                {
+                    this.mUISortFilterComboBox = new WpfComboBox(this);
+                    #region Search Criteria
+                    this.mUISortFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "SortFilter";
+                    this.mUISortFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUISortFilterComboBox;
+            }
+        }
+        
+        public WpfCheckBox UIIncludeheadersCheckBox
+        {
+            get
+            {
+                if ((this.mUIIncludeheadersCheckBox == null))
+                {
+                    this.mUIIncludeheadersCheckBox = new WpfCheckBox(this);
+                    #region Search Criteria
+                    this.mUIIncludeheadersCheckBox.SearchProperties[WpfCheckBox.PropertyNames.AutomationId] = "IncludeHeaders";
+                    this.mUIIncludeheadersCheckBox.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIIncludeheadersCheckBox;
+            }
+        }
         #endregion
         
         #region Fields
@@ -2151,6 +2644,16 @@ namespace Quandl.Test.CodedUI
         private WpfButton mUIItemButton2;
         
         private WpfButton mUIItemButton3;
+        
+        private WpfComboBox mUIDateRangeTypeFilterComboBox;
+        
+        private WpfComboBox mUIFrequencyFilterComboBox;
+        
+        private WpfComboBox mUITransformationFilterComboBox;
+        
+        private WpfComboBox mUISortFilterComboBox;
+        
+        private WpfCheckBox mUIIncludeheadersCheckBox;
         #endregion
     }
     
@@ -2263,6 +2766,22 @@ namespace Quandl.Test.CodedUI
                 return this.mUIStockDataTreeItem;
             }
         }
+        
+        public WpfTreeItem UIFuturesDataTreeItem
+        {
+            get
+            {
+                if ((this.mUIFuturesDataTreeItem == null))
+                {
+                    this.mUIFuturesDataTreeItem = new WpfTreeItem(this);
+                    #region Search Criteria
+                    this.mUIFuturesDataTreeItem.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Futures Data";
+                    this.mUIFuturesDataTreeItem.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIFuturesDataTreeItem;
+            }
+        }
         #endregion
         
         #region Fields
@@ -2271,6 +2790,8 @@ namespace Quandl.Test.CodedUI
         private UIItemTreeItem11 mUIItemTreeItem1;
         
         private UIStockDataTreeItem mUIStockDataTreeItem;
+        
+        private WpfTreeItem mUIFuturesDataTreeItem;
         #endregion
     }
     
@@ -3803,6 +4324,42 @@ namespace Quandl.Test.CodedUI
     }
     
     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIItemCustom111 : WpfCustom
+    {
+        
+        public UIItemCustom111(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.TimeSeriesFilters";
+            this.WindowTitles.Add("Quandl Formula Builder");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfDatePicker UIDateFromFilterDatePicker
+        {
+            get
+            {
+                if ((this.mUIDateFromFilterDatePicker == null))
+                {
+                    this.mUIDateFromFilterDatePicker = new WpfDatePicker(this);
+                    #region Search Criteria
+                    this.mUIDateFromFilterDatePicker.SearchProperties[WpfDatePicker.PropertyNames.AutomationId] = "DateFromFilter";
+                    this.mUIDateFromFilterDatePicker.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDateFromFilterDatePicker;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfDatePicker mUIDateFromFilterDatePicker;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
     public class UIQuandlFormulaBuilderWindow1 : WinWindow
     {
         
@@ -4365,12 +4922,30 @@ namespace Quandl.Test.CodedUI
                 return this.mUITxtFilterResultsEdit;
             }
         }
+        
+        public WpfDatePicker UIDateToFilterDatePicker
+        {
+            get
+            {
+                if ((this.mUIDateToFilterDatePicker == null))
+                {
+                    this.mUIDateToFilterDatePicker = new WpfDatePicker(this);
+                    #region Search Criteria
+                    this.mUIDateToFilterDatePicker.SearchProperties[WpfDatePicker.PropertyNames.AutomationId] = "DateToFilter";
+                    this.mUIDateToFilterDatePicker.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIDateToFilterDatePicker;
+            }
+        }
         #endregion
         
         #region Fields
         private WpfList mUILvDatasetsList;
         
         private WpfEdit mUITxtFilterResultsEdit;
+        
+        private WpfDatePicker mUIDateToFilterDatePicker;
         #endregion
     }
     
@@ -4595,6 +5170,106 @@ namespace Quandl.Test.CodedUI
         
         #region Fields
         private WinToolBar mUIQuandlFormulaBuilderToolBar;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIBook2ExcelWindow : WinWindow
+    {
+        
+        public UIBook2ExcelWindow()
+        {
+            #region Search Criteria
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Book2 - Excel";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "XLMAIN";
+            this.WindowTitles.Add("Book2 - Excel");
+            #endregion
+        }
+        
+        #region Properties
+        public UIItemWindow4 UIItemWindow
+        {
+            get
+            {
+                if ((this.mUIItemWindow == null))
+                {
+                    this.mUIItemWindow = new UIItemWindow4(this);
+                }
+                return this.mUIItemWindow;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIItemWindow4 mUIItemWindow;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIItemWindow4 : WinWindow
+    {
+        
+        public UIItemWindow4(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WinWindow.PropertyNames.AccessibleName] = "Ribbon";
+            this.SearchProperties[WinWindow.PropertyNames.ClassName] = "NetUIHWND";
+            this.WindowTitles.Add("Book2 - Excel");
+            #endregion
+        }
+        
+        #region Properties
+        public UIItemToolBar UIItemToolBar
+        {
+            get
+            {
+                if ((this.mUIItemToolBar == null))
+                {
+                    this.mUIItemToolBar = new UIItemToolBar(this);
+                }
+                return this.mUIItemToolBar;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIItemToolBar mUIItemToolBar;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class UIItemToolBar : WinToolBar
+    {
+        
+        public UIItemToolBar(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.WindowTitles.Add("Book2 - Excel");
+            #endregion
+        }
+        
+        #region Properties
+        public WinButton UIGetDataButton
+        {
+            get
+            {
+                if ((this.mUIGetDataButton == null))
+                {
+                    this.mUIGetDataButton = new WinButton(this);
+                    #region Search Criteria
+                    this.mUIGetDataButton.SearchProperties[WinButton.PropertyNames.Name] = "Get Data";
+                    this.mUIGetDataButton.WindowTitles.Add("Book2 - Excel");
+                    #endregion
+                }
+                return this.mUIGetDataButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WinButton mUIGetDataButton;
         #endregion
     }
 }
