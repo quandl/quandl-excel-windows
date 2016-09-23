@@ -19,7 +19,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     /// </summary>
     public partial class DatabaseSelection : UserControl, WizardUIBase
     {
-        private static readonly int VALIDATION_DELAY = 1200;
+        private static readonly int VALIDATION_DELAY = 600;
         private List<ViewData> _allItems;
         private Timer _timer;
         private static Provider Provider => StateControl.Instance.Provider;
@@ -262,7 +262,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 return;
 
             // disable next button, since input is not done yet
-            StateControl.Instance.Provider = null;
+            StateControl.Instance.Reset();
 
             DisposeTimer();
             _timer = new Timer(TimerElapsed, origin.Text, VALIDATION_DELAY, VALIDATION_DELAY);
@@ -287,6 +287,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
                 if (!isDatatableExist && !isDatabaseExist)
                 {
+                    StateControl.Instance.Reset();
                     ShowValidationError(code);
                 }
                 else
