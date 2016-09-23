@@ -3,33 +3,23 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Quandl.Shared.Models;
 using System.Linq;
 using System.Collections.Generic;
+using Quandl.Test.CodedUI.Helpers;
 
 namespace Quandl.Test.CodedUI.UI.UDF_Builder
 {
     [CodedUITest]
     public class ColumnSelectionTest
     {
-        public UIMap UIMap => map ?? (map = new UIMap());
-        private UIMap map;
+        private UIMap UIMap;
 
-        private Dataset dataset;
-        private Datatable datatable;
+        private Dataset _dataset;
+        private Datatable _datatable;
 
         public ColumnSelectionTest()
         {
-            dataset = new Dataset
-            {
-                DatabaseCode = "EOD",
-                DatasetCode = "AAPL",
-                Name = "Apple Inc. (AAPL) Stock Prices, Dividends and Splits"
-            };
-
-            datatable = new Datatable
-            {
-                VendorCode = "ZACKS",
-                DatatableCode = "CP",
-                Name = "Zacks Company Profiles"
-            };
+            UIMap = CodedUITestHelpers.UIMap;
+            _dataset = CodedUITestHelpers.SampleDataset();
+            _datatable = CodedUITestHelpers.SampleDatatable();
         }
 
         #region Additional test attributes
@@ -37,44 +27,16 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            Playback.PlaybackSettings.DelayBetweenActions = 10;
-            UIMap.ClearRegistryApiKey();
-            UIMap.OpenExcelAndWorksheet();
-            UIMap.OpenLoginPage();
-            UIMap.LoginWithApiKey();
+            CodedUITestHelpers.SetupCodedUITest();
         }
 
         [TestCleanup()]
         public void MyTestCleanup()
         {
-            UIMap.ClearRegistryApiKey();
+            CodedUITestHelpers.CompleteCodedUITest();
         }
 
         #endregion
-
-        private void CompleteStep1(string databaseCode)
-        {
-            UIMap.InputDatabaseCode(databaseCode);
-            UIMap.NextButton().WaitForControlEnabled();
-            UIMap.ClickNextButton();
-        }
-
-        private void CompleteStep2(DataHolderDefinition dataHolder, string filterText = null)
-        {
-            if (filterText != null)
-            {
-                UIMap.FilterDatasetsDatatables(filterText);
-            }
-            UIMap.SelectDatasetOrDatatableByName(dataHolder.Name.Replace(",", "\\,"));
-            UIMap.NextButton().WaitForControlEnabled();
-            UIMap.ClickNextButton();
-        }
-
-        private string convertListToUDFArray(List<string> content)
-        {
-            string temp = string.Join("\",\"", content);
-            return $"{{\"{temp}\"}}";
-        }
 
         private string datasetUDF(string datasetCode, List<DataColumn> columns = null)
         {
@@ -88,8 +50,8 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
             }
             else
             {
-                var columnNames = columns.Select(column => $"{dataset.Code}/{column.Name.ToUpper()}").ToList();
-                return $"=QSERIES({convertListToUDFArray(columnNames)})";
+                var columnNames = columns.Select(column => $"{_dataset.Code}/{column.Name.ToUpper()}").ToList();
+                return $"=QSERIES({CodedUITestHelpers.convertListToUDFArray(columnNames)})";
             }
         }
 
@@ -106,23 +68,17 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
             else
             {
                 var columnNames = columns.Select(column => column.Name).ToList();
-                return $"=QTABLE(\"{datatableCode}\",{convertListToUDFArray(columnNames)})";
+                return $"=QTABLE(\"{datatableCode}\",{CodedUITestHelpers.convertListToUDFArray(columnNames)})";
             }
         }
 
         [TestMethod]
         public void SelectDatasetColumns()
         {
-            CompleteStep1(dataset.DatabaseCode);
-            CompleteStep2(dataset, dataset.Name);
+            CodedUITestHelpers.CompleteStep1(_dataset.DatabaseCode);
+            CodedUITestHelpers.CompleteStep2(_dataset, _dataset.Name);
 
-            List<DataColumn> columns = new List<DataColumn>
-            {
-                new DataColumn() { Name = "Volume", Parent = dataset },
-                new DataColumn() { Name = "Open",   Parent = dataset },
-                new DataColumn() { Name = "Close",  Parent = dataset }
-            };
-
+            var columns = CodedUITestHelpers.SampleDatasetColumns();
             columns.ForEach(delegate (DataColumn column)
             {
                 UIMap.SelectColumn(column);
@@ -130,42 +86,35 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
             });
 
             UIMap.AssertNumberOfColumnsSelected(columns.Count);
-            UIMap.AssertCorrectUDFSignature(datasetUDF(dataset.Code, columns));
+            UIMap.AssertCorrectUDFSignature(datasetUDF(_dataset.Code, columns));
         }
 
         [TestMethod]
         public void SelectDatatableColumns()
         {
-            CompleteStep1("ZCP");
-            CompleteStep2(datatable);
+            CodedUITestHelpers.CompleteStep1("ZCP");
+            CodedUITestHelpers.CompleteStep2(_datatable);
 
-            List<DataColumn> columns = new List<DataColumn>
-            {
-                new DataColumn() { Name = "ticker",         Parent = datatable },
-                new DataColumn() { Name = "exchange",       Parent = datatable },
-                new DataColumn() { Name = "address_line_1", Parent = datatable },
-                new DataColumn() { Name = "city",           Parent = datatable }
-            };
-
+            var columns = CodedUITestHelpers.SampleDatatableColumns();
             for (int n = 0; n < columns.Count; n++)
             {
                 UIMap.SelectColumn(columns[n]);
                 UIMap.AssertColumnAddedToSelection(columns[n]);
-                UIMap.AssertCorrectUDFSignature(datatableUDF(datatable.Code, columns.GetRange(0, n + 1)));
+                UIMap.AssertCorrectUDFSignature(datatableUDF(_datatable.Code, columns.GetRange(0, n + 1)));
             };
 
             UIMap.AssertNumberOfColumnsSelected(columns.Count);
-            UIMap.AssertCorrectUDFSignature(datatableUDF(datatable.Code, columns));
+            UIMap.AssertCorrectUDFSignature(datatableUDF(_datatable.Code, columns));
         }
 
         [TestMethod]
         public void SelectAddAllColumns()
         {
-            CompleteStep1(dataset.DatabaseCode);
-            CompleteStep2(dataset, dataset.Name);
+            CodedUITestHelpers.CompleteStep1(_dataset.DatabaseCode);
+            CodedUITestHelpers.CompleteStep2(_dataset, _dataset.Name);
 
             var allAvailableColumns  = UIMap.GetAllAvailableColumns();
-            var expectedUDFSignature = datasetUDF(dataset.Code, allAvailableColumns);
+            var expectedUDFSignature = datasetUDF(_dataset.Code, allAvailableColumns);
 
             UIMap.AssertNumberOfColumnsSelected(0);
             UIMap.ClickAddAllColumnsButton();
@@ -176,29 +125,24 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
         [TestMethod]
         public void RemoveAllColumnsFromSelection()
         {
-            CompleteStep1(dataset.DatabaseCode);
-            CompleteStep2(dataset, dataset.Name);
+            CodedUITestHelpers.CompleteStep1(_dataset.DatabaseCode);
+            CodedUITestHelpers.CompleteStep2(_dataset, _dataset.Name);
 
-            List<DataColumn> columns = new List<DataColumn>
-            {
-                new DataColumn() { Name = "Volume", Parent = dataset },
-                new DataColumn() { Name = "Open",   Parent = dataset },
-                new DataColumn() { Name = "Close",  Parent = dataset }
-            };
+            var columns = CodedUITestHelpers.SampleDatasetColumns();
 
             UIMap.AssertNumberOfColumnsSelected(0);
-            UIMap.AssertCorrectUDFSignature(datasetUDF(dataset.Code));
+            UIMap.AssertCorrectUDFSignature(datasetUDF(_dataset.Code));
 
             for (int n = 0; n < columns.Count; n++)
             {
                 UIMap.SelectColumn(columns[n]);
                 UIMap.AssertNumberOfColumnsSelected(n + 1);
-                UIMap.AssertCorrectUDFSignature(datasetUDF(dataset.Code, columns.GetRange(0, n + 1)));
+                UIMap.AssertCorrectUDFSignature(datasetUDF(_dataset.Code, columns.GetRange(0, n + 1)));
             }
 
             UIMap.ClickRemoveAllColumnsButton();
             UIMap.AssertNumberOfColumnsSelected(0);
-            UIMap.AssertCorrectUDFSignature(datasetUDF(dataset.Code));
+            UIMap.AssertCorrectUDFSignature(datasetUDF(_dataset.Code));
         }
     }
 }
