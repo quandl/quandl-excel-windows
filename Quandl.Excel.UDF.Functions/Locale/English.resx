@@ -139,7 +139,7 @@
     <value>Invalid transformation parameter given : {transformation}</value>
   </data>
   <data name="DatasetParamsLimitZeroOrBelow" xml:space="preserve">
-    <value>Limit must be above zero or not specified.</value>
+    <value>Limit must be above zero for data to be returned.</value>
   </data>
   <data name="DatatableParamInvalid" xml:space="preserve">
     <value>'{key}' cannot be used directly as a query parameter.</value>
