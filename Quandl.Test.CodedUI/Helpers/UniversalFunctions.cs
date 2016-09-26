@@ -1,7 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITest.Extension;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Quandl.Shared.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using ExcelApp = Microsoft.Office.Interop.Excel;
 
 namespace Quandl.Test.CodedUI.Helpers
 {
@@ -15,6 +18,23 @@ namespace Quandl.Test.CodedUI.Helpers
             Playback.PlaybackSettings.SmartMatchOptions = SmartMatchOptions.None;
             Playback.PlaybackSettings.WaitForReadyLevel = WaitForReadyLevel.Disabled;
         }
+
+        public static List<object> PrepareTest()
+        {
+            var returnList = new List<object>();
+            Playback.PlaybackSettings.DelayBetweenActions = 10;
+            UIMap.ClearRegistryApiKey();
+            var excelApp = new ExcelApp.Application();
+            excelApp.Workbooks.Add();
+            excelApp.Visible = true;
+            string path = Path.Combine(@"C:\Users\", Environment.UserName, @"AppData\Roaming\Quandl\Quandl.Excel.UDF.Functions-AddIn.xll");
+            var myAddin = excelApp.AddIns.Add(path);
+            myAddin.Installed = true;
+            returnList.Add(excelApp);
+            returnList.Add(excelApp.ActiveSheet);
+            return returnList;
+        }
+
 
         private static void OpenExcelAndLogin()
         {

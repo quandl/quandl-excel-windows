@@ -143,6 +143,13 @@
             Assert.AreEqual(signature, txtUDFSignature.Text, "Generated QSERIES function not correct");
         }
 
+        public void AssertCorrectCellValue(string expectedCell, string actualCell)
+        {
+
+            Assert.AreEqual(expectedCell, actualCell, "Cell dose not match expected value");
+        }
+
+
         public void AssertSelectedDatabaseCode(string databaseCode)
         {
             var txtDatabaseCode = ExcelClient1().UIQuandlExcelAddincompPane.UIDatabaseCodeBoxEdit;
