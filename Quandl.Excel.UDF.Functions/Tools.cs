@@ -146,7 +146,7 @@ namespace Quandl.Excel.UDF.Functions
 
         public static string GetValueFromSingleCell(ExcelReference excelReference)
         {
-            return (string)excelReference.GetValue();
+            return excelReference.GetValue().ToString();
         }
 
         public static DateTime? GetDateValueFromPrimitive(object date)
