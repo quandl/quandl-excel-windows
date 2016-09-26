@@ -124,7 +124,7 @@ namespace Quandl.Excel.UDF.Functions.Locale {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Limit must be above zero or not specified..
+        ///   Looks up a localized string similar to Limit must be above zero for data to be returned..
         /// </summary>
         internal static string DatasetParamsLimitZeroOrBelow {
             get {
