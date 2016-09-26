@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ExcelDna.Integration;
 using Microsoft.Office.Interop.Excel;
 using Quandl.Shared;
+using Quandl.Shared.Errors;
 using Quandl.Shared.Models;
 using Quandl.Shared.Excel;
 
@@ -95,7 +96,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 Common.StatusBar.AddMessage(Locale.English.UdfCompleteError);
                 if (e.InnerException != null && e.InnerException is Shared.Errors.QuandlErrorBase)
                 {
-                    return e.InnerException.Message;
+                    return Common.HandlePotentialQuandlError(e, false);
                 }
                 else
                 {
