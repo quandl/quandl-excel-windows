@@ -29,7 +29,7 @@
                   SelectedValuePath="value"
                   SelectedValue="shared:QuandlConfig.AutoUpdateFrequency" />
         
-        <Label Content="Api Key" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Right"
+        <Label Content="API Key" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Right"
                VerticalAlignment="Center" />
         <TextBox x:Name="ApiKeyTextBox" Grid.Column="1" Grid.Row="1" Margin="10,10,0,10" Height="25"
                  VerticalContentAlignment="Center" ToolTip="The API key that will be used to fetch data." />
@@ -54,9 +54,8 @@
 
         <StackPanel Grid.Column="1" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                     Orientation="Horizontal">
-            <Image x:Name="SaveStatus" Height="23" Margin="0,0,10,0"
-                   Source="/Quandl.Excel.Addin;component/Resources/FileSave.png" Visibility="Hidden" />
-            <Button x:Name="SaveButton" Content="Save" Padding="5" Click="SaveButton_Click" IsDefault="True" />
+            <Button x:Name="CancelButton" Content="Cancel" Padding="5" Margin="10"  Click="CandelButton_Click" IsDefault="True" />
+            <Button x:Name="SaveButton" Content="Save" Padding="5" Margin="10"  Click="SaveButton_Click" />
         </StackPanel>
     </Grid>
 </UserControl>

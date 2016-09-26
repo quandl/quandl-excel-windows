@@ -11,7 +11,7 @@ using CustomTaskPane = Microsoft.Office.Tools.CustomTaskPane;
 
 namespace Quandl.Excel.Addin.UI
 {
-    internal class TaskPaneControl
+    public class TaskPaneControl
     {
         private readonly UserControl control;
         private readonly System.Windows.Controls.UserControl userControl;
@@ -30,6 +30,12 @@ namespace Quandl.Excel.Addin.UI
         {
             var controlHost = new TaskPaneWpfControlHost();
             this.userControl = userControl;
+            if (userControl.GetType().Name.Equals("Settings"))
+            {
+                var control = userControl as UI.Settings.Settings;
+                control.ParentControl = this;
+            }
+
             controlHost.WpfElementHost.HostContainer.Children.Add(userControl);
             control = controlHost;
             this.name = name;

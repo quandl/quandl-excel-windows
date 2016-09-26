@@ -127,7 +127,7 @@
     <value>Stopping all Quandl data downloads.</value>
   </data>
   <data name="OverwriteExistingDataPopupDesc" xml:space="preserve">
-    <value>The cells you are trying to update may contain data in the location that the Quandl formula wants to write to. Would you like to continue?</value>
+    <value>The cells you are trying to update may contain data already. Do you want to continue?</value>
   </data>
   <data name="OverwriteExistingDataPopupTitle" xml:space="preserve">
     <value>Overwrite Data?</value>

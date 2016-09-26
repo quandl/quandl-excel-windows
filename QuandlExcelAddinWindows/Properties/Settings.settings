@@ -35,5 +35,11 @@
     <Setting Name="SettingsSomethingWrongTryLater" Type="System.String" Scope="User">
       <Value Profile="(Default)">Something went wrong. Please try again later.</Value>
     </Setting>
+    <Setting Name="SettingsSaveWarning" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Are you sure you want to save?</Value>
+    </Setting>
+    <Setting Name="SettingsSaveConfirmation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Save Confirmation</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
