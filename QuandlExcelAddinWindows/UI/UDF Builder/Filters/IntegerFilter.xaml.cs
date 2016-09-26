@@ -25,7 +25,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
 
         private void IntegerFilterInput_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"^\d$");
+            Regex regex = new Regex(@"^[\d,]$");
             e.Handled = !regex.IsMatch(e.Text);
         }
 
