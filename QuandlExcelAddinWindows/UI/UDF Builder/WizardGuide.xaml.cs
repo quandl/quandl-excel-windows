@@ -63,6 +63,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 {
                     AllowMovementToNextStep(currentStep);
                 }
+                if (e.PropertyName == "CurrentStep" && _shownStep == 0)
+                {
+                    ShowStep(_shownStep);
+                }
             };
         }
 

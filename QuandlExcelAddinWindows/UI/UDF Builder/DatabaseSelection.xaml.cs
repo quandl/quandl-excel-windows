@@ -289,11 +289,13 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 {
                     StateControl.Instance.Reset();
                     ShowValidationError(code);
+                    return;
                 }
                 else
                 {
                     CleanValidationError();
                 }
+                StateControl.Instance.CurrentStep = 0;
             });
         }
 
