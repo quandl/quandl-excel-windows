@@ -112,7 +112,7 @@ namespace Quandl.Excel.Console
             {
                 appKeyPath.DeleteSubKeyTree("Quandl");
             }
-            catch (System.ArgumentException e)
+            catch (System.ArgumentException)
             {
                 // Catch exceptiont that the key does not exist, do nothing
             }

@@ -156,5 +156,29 @@ namespace Quandl.Excel.Addin.Properties {
                 this["SettingsSomethingWrongTryLater"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Are you sure you want to save?")]
+        public string SettingsSaveWarning {
+            get {
+                return ((string)(this["SettingsSaveWarning"]));
+            }
+            set {
+                this["SettingsSaveWarning"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Save Confirmation")]
+        public string SettingsSaveConfirmation {
+            get {
+                return ((string)(this["SettingsSaveConfirmation"]));
+            }
+            set {
+                this["SettingsSaveConfirmation"] = value;
+            }
+        }
     }
 }

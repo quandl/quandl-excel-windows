@@ -88,7 +88,7 @@ namespace Quandl.Shared.Locale {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The cells you are trying to update may contain data in the location that the Quandl formula wants to write to. Would you like to continue?.
+        ///   Looks up a localized string similar to The cells you are trying to update may contain data already. Do you want to continue?.
         /// </summary>
         internal static string OverwriteExistingDataPopupDesc {
             get {

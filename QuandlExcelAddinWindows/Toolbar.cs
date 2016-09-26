@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿using System.Drawing;
+using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Ribbon;
 using Quandl.Excel.Addin.Controls;
 using Quandl.Excel.Addin.UI;
@@ -6,7 +7,7 @@ using Quandl.Excel.Addin.UI.Settings;
 using Quandl.Excel.Addin.UI.UDF_Builder;
 using Quandl.Shared;
 using Quandl.Shared.Errors;
-using System.Windows.Media;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace Quandl.Excel.Addin
 {
@@ -48,20 +49,33 @@ namespace Quandl.Excel.Addin
             _builderPane.Show();
         }
 
-        private void refreshWorkbook_Click(object sender, RibbonControlEventArgs e)
+        private void btnStopAll_Click(object sender, RibbonControlEventArgs e)
         {
-            var activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
-            try
+            QuandlConfig.StopCurrentExecution = true;
+        }
+
+        public void SetExecutionToggleIcon()
+        {
+            if (QuandlConfig.PreventCurrentExecution)
             {
-                FunctionUpdater.RecalculateQuandlFunctions(activeWorkBook);
+                btnFormulaToggleSplit.Image = Quandl.Excel.Addin.Properties.Resources.formulas_disabled;
+                btnEnableFormula.Enabled = true;
+                btnDisableFormula.Enabled = false;
             }
-            catch (MissingFormulaException ex)
+            else
             {
-                Globals.ThisAddIn.UpdateStatusBar(ex);
+                btnFormulaToggleSplit.Image = Quandl.Excel.Addin.Properties.Resources.formulas_enabled;
+                btnEnableFormula.Enabled = false;
+                btnDisableFormula.Enabled = true;
             }
         }
 
-        private void refreshWorksheet_Click(object sender, RibbonControlEventArgs e)
+        public void CloseBuilder()
+        {
+            _builderPane.Close();
+        }
+
+        private void btnRefreshWorkSheet_Click(object sender, RibbonControlEventArgs e)
         {
             var activeSheet = Globals.ThisAddIn.Application.ActiveSheet;
 
@@ -75,41 +89,29 @@ namespace Quandl.Excel.Addin
             }
         }
 
-        private void refreshMulti_Click(object sender, RibbonControlEventArgs e)
+        private void btnRefreshWorkbook_Click(object sender, RibbonControlEventArgs e)
         {
-            refreshWorksheet_Click(sender, e);
+            var activeWorkBook = Globals.ThisAddIn.Application.ActiveWorkbook;
+            try
+            {
+                FunctionUpdater.RecalculateQuandlFunctions(activeWorkBook);
+            }
+            catch (MissingFormulaException ex)
+            {
+                Globals.ThisAddIn.UpdateStatusBar(ex);
+            }
         }
 
-        private void btnStopAll_Click(object sender, RibbonControlEventArgs e)
-        {
-            QuandlConfig.StopCurrentExecution = true;
-        }
-
-        private void btnExecutionToggle_Click(object sender, RibbonControlEventArgs e)
+        private void btnEnableFormula_Click(object sender, RibbonControlEventArgs e)
         {
             QuandlConfig.PreventCurrentExecution = !QuandlConfig.PreventCurrentExecution;
             SetExecutionToggleIcon();
         }
 
-        public void SetExecutionToggleIcon()
+        private void btnDisableFormula_Click(object sender, RibbonControlEventArgs e)
         {
-            if (QuandlConfig.PreventCurrentExecution)
-            {
-                btnExecutionToggle.OfficeImageId = "FileStartWorkflow";
-                btnExecutionToggle.Label = "Enable Formulas";
-                refreshMulti.Enabled = false;
-            }
-            else
-            {
-                btnExecutionToggle.OfficeImageId = "SkipOccurrence";
-                btnExecutionToggle.Label = "Disable Formulas";
-                refreshMulti.Enabled = true;
-            }
-        }
-
-        public void CloseBuilder()
-        {
-            _builderPane.Close();
+            QuandlConfig.PreventCurrentExecution = !QuandlConfig.PreventCurrentExecution;
+            SetExecutionToggleIcon();
         }
     }
 }
