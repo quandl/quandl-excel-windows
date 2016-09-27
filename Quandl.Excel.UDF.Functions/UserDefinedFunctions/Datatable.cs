@@ -1,22 +1,22 @@
 ﻿using ExcelDna.Integration;
 using Microsoft.Office.Interop.Excel;
-using Quandl.Shared.Models;
-using System.Linq;
-using System;
-using System.Collections.Generic;
 using Quandl.Shared;
-using System.Threading;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using Quandl.Shared.Excel;
+using Quandl.Shared.Models;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
     public static class Datatable
     {
         private const int RowPullCountMax = 1000;
-
 
         [ExcelFunction("Pull in Quandl data via the API", Name = "QTABLE", IsMacroType = true, Category = "Financial")]
         public static string Qtable(
@@ -50,6 +50,18 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             return Process(currentFormulaCell, rawQuandlCode, rawColumns, argName1, argValue1, argName2, argValue2, argName3, argValue3, argName4, argValue4, argName5, argValue5, argName6, argValue6);
         }
 
+        /// <summary>
+        ///   Converts a filter value from a list of objects to a list of string values
+        /// </summary>
+        /// <param name="filter"></param>
+        private static void CreateFilterValue(ref object filter)
+        {
+            if (filter is ExcelReference || filter is ExcelMissing || filter is string || filter == null) return;
+
+            IEnumerable enumerableFilterValues = filter as IEnumerable;
+            filter = enumerableFilterValues.Cast<string>().ToList();
+        }
+
         private static string Process(Range currentFormulaCell, object rawQuandlCode, object rawColumns, object argName1, object argValue1, object argName2, object argValue2, object argName3, object argValue3, object argName4, object argValue4, object argName5, object argValue5, object argName6, object argValue6)
         {
             Common.StatusBar.AddMessage(Locale.English.UdfRetrievingData);
@@ -69,6 +81,13 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 {
                     queryParams.AddInternalParam("qopts.columns", columns);
                 }
+
+                CreateFilterValue(ref argValue1);
+                CreateFilterValue(ref argValue2);
+                CreateFilterValue(ref argValue3);
+                CreateFilterValue(ref argValue4);
+                CreateFilterValue(ref argValue5);
+                CreateFilterValue(ref argValue6);
 
                 // The user query or additional qopts params
                 queryParams.AddParam(Tools.GetStringValue(argName1), Tools.GetStringValue(argValue1));
