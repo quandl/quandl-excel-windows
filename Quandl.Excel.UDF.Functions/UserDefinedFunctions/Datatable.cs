@@ -35,6 +35,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             [ExcelArgument("(optional) The name of filter 6", AllowReference = true)] object argName6,
             [ExcelArgument("(optional) The value of filter 6", AllowReference = true)] object argValue6)
         {
+            // turn off volitility so that excel does not refresh function when any cell is changed
+            Common.SetCellVolatile(false);
             // Get the current cell formula.
             var reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
             Range currentFormulaCell = Tools.ReferenceToRange(reference);
