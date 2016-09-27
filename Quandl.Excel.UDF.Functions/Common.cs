@@ -33,6 +33,14 @@ namespace Quandl.Excel.UDF.Functions
             throw e;
         }
 
+        public static void CheckNoApiKey(string errorCode)
+        {
+            if ((errorCode == "QEPx05" || errorCode == "QEPx04") && QuandlConfig.ApiKey == "")
+            {
+                System.Windows.Forms.MessageBox.Show(Locale.English.MessageBoxText, Locale.English.MessageBoxTitle);
+            }
+        }
+
         public static string HandlePotentialQuandlError(Exception e, bool reThrow = true, Dictionary<string, string> additionalData = null)
         {
 
@@ -45,6 +53,8 @@ namespace Quandl.Excel.UDF.Functions
             var innerException = e.InnerException;
             if (innerException != null && innerException.GetType() == typeof(QuandlErrorBase))
             {
+                QuandlErrorBase exBase = (QuandlErrorBase)e.InnerException.GetBaseException();
+                CheckNoApiKey(exBase.ErrorCode);
                 return HandleQuandlError((QuandlErrorBase)innerException, reThrow, additionalData);
             }
 
