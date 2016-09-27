@@ -69,12 +69,12 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 }
 
                 // The user query or additional qopts params
-                queryParams.AddParam(Tools.GetStringValue(argName1), argValue1);
-                queryParams.AddParam(Tools.GetStringValue(argName2), argValue2);
-                queryParams.AddParam(Tools.GetStringValue(argName3), argValue3);
-                queryParams.AddParam(Tools.GetStringValue(argName4), argValue4);
-                queryParams.AddParam(Tools.GetStringValue(argName5), argValue5);
-                queryParams.AddParam(Tools.GetStringValue(argName6), argValue6);
+                queryParams.AddParam(Tools.GetStringValue(argName1), Tools.GetStringValue(argValue1));
+                queryParams.AddParam(Tools.GetStringValue(argName2), Tools.GetStringValue(argValue2));
+                queryParams.AddParam(Tools.GetStringValue(argName3), Tools.GetStringValue(argValue3));
+                queryParams.AddParam(Tools.GetStringValue(argName4), Tools.GetStringValue(argValue4));
+                queryParams.AddParam(Tools.GetStringValue(argName5), Tools.GetStringValue(argValue5));
+                queryParams.AddParam(Tools.GetStringValue(argName6), Tools.GetStringValue(argValue6));
 
                 // If the user has not added in any query parameters warn them that its probably not a good idea to continue forward.
                 if (!ShouldContinueWithoutParams(queryParams.UserParamsGiven))
