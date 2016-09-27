@@ -35,11 +35,28 @@ namespace Quandl.Excel.UDF.Functions
             {
                 return referenceOrString.ToString();
             }
-            if (referenceOrString is ExcelReference)
+            else if (referenceOrString is List<string>)
             {
-                return GetValueFromSingleCell((ExcelReference)referenceOrString);
+                return string.Join(",", (List<string>)referenceOrString);
             }
-            return null;
+            else if (referenceOrString is ExcelReference)
+            {
+                bool isSingleCell = IsSingleCell((ExcelReference)referenceOrString);
+
+                if (isSingleCell)
+                {
+                    return GetValueFromSingleCell((ExcelReference)referenceOrString);
+                }
+                else
+                {
+                    List<string> rangeOfCells = GetValuesFromCellRange((ExcelReference)referenceOrString).ConvertAll(obj => obj.ToString());
+                    return string.Join(",", rangeOfCells);
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static dynamic ReferenceToRange(ExcelReference xlref)
@@ -52,17 +69,14 @@ namespace Quandl.Excel.UDF.Functions
         public static List<object> GetArrayOfValues(object referenceOrString)
         {
             if (referenceOrString is object[,])
-            {
                 return GetValuesFromObjectArray((object[,])referenceOrString);
-            }
+
             if (referenceOrString is string)
-            {
                 return Utilities.GetValuesFromString((string)referenceOrString).Select(s => (object)s).ToList();
-            }
+
             if (referenceOrString is ExcelReference)
-            {
                 return GetValuesFromCellRange((ExcelReference)referenceOrString);
-            }
+
             return new List<object>();
         }
 
