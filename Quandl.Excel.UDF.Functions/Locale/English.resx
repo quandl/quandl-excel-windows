@@ -150,6 +150,12 @@
   <data name="DatatableParamWithoutKey" xml:space="preserve">
     <value>'{value}' has been specified without a key.</value>
   </data>
+  <data name="MessageBoxText" xml:space="preserve">
+    <value>Please save your API key under Settings to access premium data.</value>
+  </data>
+  <data name="MessageBoxTitle" xml:space="preserve">
+    <value>No API Key Set!</value>
+  </data>
   <data name="UdfCompleteError" xml:space="preserve">
     <value>The formula did not fully complete.</value>
   </data>

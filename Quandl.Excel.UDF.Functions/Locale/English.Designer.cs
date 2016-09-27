@@ -160,6 +160,24 @@ namespace Quandl.Excel.UDF.Functions.Locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please save your API key under Settings to access premium data..
+        /// </summary>
+        internal static string MessageBoxText {
+            get {
+                return ResourceManager.GetString("MessageBoxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No API Key Set!.
+        /// </summary>
+        internal static string MessageBoxTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The formula did not fully complete..
         /// </summary>
         internal static string UdfCompleteError {
