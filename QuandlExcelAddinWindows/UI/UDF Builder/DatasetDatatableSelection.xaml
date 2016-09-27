@@ -50,7 +50,7 @@
         <ScrollViewer Grid.Row="1" Grid.Column="0" Padding="0,0,0,26" Background="White" BorderBrush="#FFABADB3"
                       BorderThickness="1" AutomationProperties.AutomationId="DatasetsDatatablesScrollViewer"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch"
-                      VerticalContentAlignment="Stretch" x:Name="ListViewScrollViewerWrapper">
+                      VerticalContentAlignment="Stretch" x:Name="ListViewScrollViewerWrapper" PreviewMouseWheel="ListViewScrollViewerWrapper_PreviewMouseWheel">
             <ListView x:Name="lvDatasetsDatatables" Margin="0" Padding="0" BorderThickness="0" BorderBrush="{x:Null}" SelectionMode="Single"
                       HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" AutomationProperties.AutomationId="DatasetsDatatablesListView"
                       SelectionChanged="lvDatasetsDatatables_SelectionChanged">
