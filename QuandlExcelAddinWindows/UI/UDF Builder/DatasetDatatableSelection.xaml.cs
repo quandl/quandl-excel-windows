@@ -231,5 +231,18 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             DebounceSearchFilter();
             DisplaySelectedCodes();
         }
+
+        /// <summary>
+        /// Fixes the issue with the scrollable section of datasets/datatables not scrolling when using a trackpad
+        /// scroll motion while the cursor is over the listview.
+        /// 
+        /// http://stackoverflow.com/a/16235785/5034313
+        /// </summary>
+        private void ListViewScrollViewerWrapper_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            ScrollViewer scrollViewer = (ScrollViewer)sender;
+            scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
     }
 }
