@@ -86,5 +86,10 @@ namespace Quandl.Excel.UDF.Functions
                 return new NullStatusBar();
             }
         }
+        
+        public static void SetCellVolatile(bool value)
+        {
+            XlCall.Excel(XlCall.xlfVolatile, value);
+        }
     }
 }

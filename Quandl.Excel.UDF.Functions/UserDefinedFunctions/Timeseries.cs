@@ -45,6 +45,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
             try
             {
+                // turn off volitility so that excel does not refresh function when any cell is changed
+                Common.SetCellVolatile(false);
                 // Parse out all the parameters specified in the UDF.
                 var quandlCodeColumns = Tools.GetArrayOfValues(rawQuandlCodeColumns).Select(s => ((string)s).ToUpper()).ToList();
                 var dates = Tools.GetArrayOfDates(rawDates);
