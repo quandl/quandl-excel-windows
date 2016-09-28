@@ -202,7 +202,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 }
 
                 // Step button
-                var stepLink = new System.Windows.Controls.Button();
+                var stepLink = new Button();
                 stepLink.Content = stepObject.GetShortTitle();
                 stepLink.Padding = new Thickness(10);
                 stepLink.Margin = new Thickness(0, 0, 2, 0);
@@ -224,8 +224,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
 
             // Add in the title
-            var titleBox = new System.Windows.Controls.TextBox();
-            titleBox.Text = title;
+            var titleBox = new Label();
+            titleBox.Content = title;
             titleBox.BorderThickness = new Thickness(0);
             titleBox.Background = Brushes.Transparent;
             titleBox.HorizontalContentAlignment = HorizontalAlignment.Right;
