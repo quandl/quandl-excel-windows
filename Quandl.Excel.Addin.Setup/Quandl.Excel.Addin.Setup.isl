@@ -225,7 +225,6 @@
 	<table name="AppSearch">
 		<col key="yes" def="s72">Property</col>
 		<col key="yes" def="s72">Signature_</col>
-		<row><td>DOTNETVERSION45FULL</td><td>DotNet45Full</td></row>
 	</table>
 
 	<table name="BBControl">
@@ -2683,7 +2682,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-1398530514</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-458983573</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-576475283</td></row>
@@ -3789,11 +3788,11 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.QuandlInc.com</td><td>0</td><td/><td>-1398530514</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-1398530514</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.QuandlInc.com</td><td>0</td><td/><td>-458983573</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-458983573</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>connect@quandl.com</td><td>0</td><td/><td>1151655368</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>https://www.quandl.com</td><td>0</td><td/><td>1705204843</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>http://help.quandl.com/</td><td>0</td><td/><td>-1398530514</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>http://help.quandl.com/</td><td>0</td><td/><td>-458983573</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>UNINST|Uninstall Quandl-Excell-Addin</td><td>1033</td><td>UNINST~1|Uninstall Quandl Excel Addin</td><td>0</td><td/><td>1705190923</td></row>
 	</table>
@@ -4111,7 +4110,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 	<table name="LaunchCondition">
 		<col key="yes" def="s255">Condition</col>
 		<col def="l255">Description</col>
-		<row><td>DOTNETVERSION45FULL&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL##</td></row>
 	</table>
 
 	<table name="ListBox">
@@ -4443,7 +4441,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;ISFOUNDNEWERPRODUCTVERSION;ISACTIONPROP1</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;ISFOUNDNEWERPRODUCTVERSION;ISACTIONPROP1</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{5E31829B-2176-41EB-88FC-FE5BEA8538E0}</td><td/></row>
@@ -4488,7 +4486,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s255">Key</col>
 		<col def="S255">Name</col>
 		<col def="I2">Type</col>
-		<row><td>DotNet45Full</td><td>2</td><td>SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</td><td>Version</td><td>2</td></row>
 	</table>
 
 	<table name="Registry">
