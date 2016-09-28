@@ -2648,8 +2648,8 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_1283F0D7_9E9C_413E_85D1_92A19E30C646_</td><td>Microsoft .NET Framework 4.6 Web.prq</td><td/><td>2</td><td/></row>
 		<row><td>_B0F2CE7D_A073_4F36_AFFB_5BD6A54BB01A_</td><td>Microsoft VSTO 2010 Runtime.prq</td><td/><td>2</td><td/></row>
+		<row><td>_EDE2CE8E_69BA_427B_9FEF_3D9E5969F00F_</td><td>Microsoft .NET Framework 4.6.1 Web.prq</td><td/><td/><td/></row>
 	</table>
 
 	<table name="ISSetupType">
@@ -4429,9 +4429,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{2C50B857-00E9-47E0-A1CD-60378D6C08B3}</td><td/></row>
+		<row><td>ProductCode</td><td>{226ACAB3-100C-4370-B443-8B6194EB945B}</td><td/></row>
 		<row><td>ProductName</td><td>Quandl Excel Addin</td><td/></row>
-		<row><td>ProductVersion</td><td>3.32.0000</td><td/></row>
+		<row><td>ProductVersion</td><td>3.33.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
