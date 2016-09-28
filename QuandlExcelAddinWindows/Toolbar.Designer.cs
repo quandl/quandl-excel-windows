@@ -103,6 +103,7 @@
             this.btnRefreshWorkbook.Name = "btnRefreshWorkbook";
             this.btnRefreshWorkbook.OfficeImageId = "InkDeleteAllInk";
             this.btnRefreshWorkbook.ShowImage = true;
+            this.btnRefreshWorkbook.Visible = false;
             this.btnRefreshWorkbook.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnRefreshWorkbook_Click);
             // 
             // btnStopAll
