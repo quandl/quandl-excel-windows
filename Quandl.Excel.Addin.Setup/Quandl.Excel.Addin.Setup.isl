@@ -2682,7 +2682,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-458983573</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-458972884</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-576475283</td></row>
@@ -3788,11 +3788,11 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.QuandlInc.com</td><td>0</td><td/><td>-458983573</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-458983573</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.QuandlInc.com</td><td>0</td><td/><td>-458972884</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-458972884</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>connect@quandl.com</td><td>0</td><td/><td>1151655368</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>https://www.quandl.com</td><td>0</td><td/><td>1705204843</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>http://help.quandl.com/</td><td>0</td><td/><td>-458983573</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>http://help.quandl.com/</td><td>0</td><td/><td>-458972884</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>UNINST|Uninstall Quandl-Excell-Addin</td><td>1033</td><td>UNINST~1|Uninstall Quandl Excel Addin</td><td>0</td><td/><td>1705190923</td></row>
 	</table>
@@ -4427,9 +4427,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{F3A37188-5E55-4C0D-BA30-6837A7E62BD8}</td><td/></row>
+		<row><td>ProductCode</td><td>{83B72AB4-A43F-45C2-8D83-D7B1135D045A}</td><td/></row>
 		<row><td>ProductName</td><td>Quandl Excel Addin</td><td/></row>
-		<row><td>ProductVersion</td><td>3.34.0000</td><td/></row>
+		<row><td>ProductVersion</td><td>3.35.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
