@@ -21,9 +21,9 @@ namespace Quandl.Shared
                 // No quandl formula cells were found
                 if (ex.HResult == -2146827284)
                 {
-                    throw new MissingFormulaException("No Quandl formula's were found to update.");
+                    return false;
                 }
-                throw;
+                throw ex;
             }
 
             foreach (Range c in range.Cells)
@@ -80,11 +80,18 @@ namespace Quandl.Shared
 
         public static void RecalculateQuandlFunctions(Workbook wb)
         {
+            bool foundFormulas = false;
             var worksheets = wb.Worksheets;
             foreach (Worksheet worksheet in worksheets)
             {
-                RecalculateQuandlFunctions(worksheet);
+                if (HasQuandlFormulaInWorkSheet(worksheet))
+                {
+                    foundFormulas = true;
+                    RecalculateQuandlFunctionsInWorkSheet(worksheet);
+                }
+                
             }
+            if (!foundFormulas) throw new MissingFormulaException("No Quandl formula's were found to update.");
         }
 
         public static void RecalculateQuandlFunctions(Worksheet ws)
@@ -92,6 +99,10 @@ namespace Quandl.Shared
             if (HasQuandlFormulaInWorkSheet(ws))
             {
                 RecalculateQuandlFunctionsInWorkSheet(ws);
+            }
+            else
+            {
+                throw new MissingFormulaException("No Quandl formula's were found to update.");
             }
         }
     }
