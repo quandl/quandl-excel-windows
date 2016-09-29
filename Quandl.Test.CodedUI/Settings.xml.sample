@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestSettings>
+  <User>
+    <Username><!-- Username --></Username>
+    <Password><!-- Password --></Password>
+    <ApiKey><!-- API Key --></ApiKey>
+  </User>
+</TestSettings>

@@ -226,3 +226,9 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+# Coded UI Tests
+Quandl.Test.CodedUI/Settings.xml
+
+# Certificates
+*.pfx

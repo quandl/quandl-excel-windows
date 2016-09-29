@@ -126,6 +126,19 @@ namespace Quandl.Test.CodedUI
         }
         
         /// <summary>
+        /// ClickInsert
+        /// </summary>
+        public void ClickInsert()
+        {
+            #region Variable Declarations
+            WpfButton uIInsertButton = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIInsertButton;
+            #endregion
+
+            // Click 'insert' button
+            Mouse.Click(uIInsertButton, new Point(6, 27));
+        }
+        
+        /// <summary>
         /// InputDatabaseCode - Use 'InputDatabaseCodeParams' to pass parameters into this method.
         /// </summary>
         public void InputDatabaseCode()
@@ -139,20 +152,72 @@ namespace Quandl.Test.CodedUI
         }
         
         /// <summary>
-        /// Login with an api key
+        /// RecordedFilters - Use 'RecordedFiltersParams' to pass parameters into this method.
         /// </summary>
-        public void LoginWithApiKey()
+        public void RecordedFilters()
         {
             #region Variable Declarations
-            WpfEdit uIApiKeyEdit = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIApiKeyEdit;
-            WpfButton uILoginButton = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UILoginButton;
+            WpfComboBox uITransformationFilterComboBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UITransformationFilterComboBox;
+            WpfButton uINextButton = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UINextButton;
             #endregion
 
-            // Type 'R7Tb5usNpL7xCbTRP3Qd' in 'apiKey' text box
-            uIApiKeyEdit.Text = this.LoginWithApiKeyParams.UIApiKeyEditText;
+            // Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'TransformationFilter' combo box
+            uITransformationFilterComboBox.SelectedItem = this.RecordedFiltersParams.UITransformationFilterComboBoxSelectedItem;
 
-            // Click 'Login' button
-            Mouse.Click(uILoginButton, new Point(20, 18));
+            // Click 'next' button
+            Mouse.Click(uINextButton, new Point(60, 28));
+        }
+        
+        /// <summary>
+        /// RecordedMethod1 - Use 'RecordedMethod1Params' to pass parameters into this method.
+        /// </summary>
+        public void RecordedMethod1()
+        {
+            #region Variable Declarations
+            WpfComboBox uIComboBoxTransformatiComboBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIComboBoxTransformatiComboBox;
+            #endregion
+
+            // Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
+            uIComboBoxTransformatiComboBox.SelectedItem = this.RecordedMethod1Params.UIComboBoxTransformatiComboBoxSelectedItem;
+        }
+        
+        /// <summary>
+        /// RecordedMethod2
+        /// </summary>
+        public void RecordedMethod2()
+        {
+            #region Variable Declarations
+            WinButton uIGetDataButton = this.UIBook2ExcelWindow.UIItemWindow.UIItemToolBar.UIGetDataButton;
+            #endregion
+
+            // Click 'Get Data' button
+            Mouse.Click(uIGetDataButton, new Point(57, 83));
+        }
+        
+        /// <summary>
+        /// RecordedMethod3 - Use 'RecordedMethod3Params' to pass parameters into this method.
+        /// </summary>
+        public void RecordedMethod3()
+        {
+            #region Variable Declarations
+            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
+            #endregion
+
+            // Clear 'Include headers' check box
+            uIIncludeheadersCheckBox.Checked = this.RecordedMethod3Params.UIIncludeheadersCheckBoxChecked;
+        }
+        
+        /// <summary>
+        /// RecordedMethod4 - Use 'RecordedMethod4Params' to pass parameters into this method.
+        /// </summary>
+        public void RecordedMethod4()
+        {
+            #region Variable Declarations
+            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
+            #endregion
+
+            // Select 'Include headers' check box
+            uIIncludeheadersCheckBox.Checked = this.RecordedMethod4Params.UIIncludeheadersCheckBoxChecked;
         }
         
         /// <summary>
@@ -199,6 +264,31 @@ namespace Quandl.Test.CodedUI
         }
         
         /// <summary>
+        /// SelectDatabaseFromTree - Use 'SelectDatabaseFromTreeParams' to pass parameters into this method.
+        /// </summary>
+        public void SelectDatabaseFromTree()
+        {
+            #region Variable Declarations
+            WpfTreeItem uIFuturesDataTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIFuturesDataTreeItem;
+            WpfTreeItem uIStockDataTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIStockDataTreeItem;
+            WpfTreeItem uIStockPricesEndofDayCTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIStockDataTreeItem.UIUnitedStatesTreeItem.UIStockPricesEndofDayCTreeItem;
+            WpfList uIAllDatabaseListList = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
+            #endregion
+
+            // Click 'Futures Data' tree item
+            Mouse.Click(uIFuturesDataTreeItem, new Point(50, 4));
+
+            // Click 'Stock Data' tree item
+            Mouse.Click(uIStockDataTreeItem, new Point(72, 29));
+
+            // Click 'Stock Data' -> 'United States' -> 'Stock Prices End of Day, Current and Historical' tree item
+            Mouse.Click(uIStockPricesEndofDayCTreeItem, new Point(68, 14));
+
+            // Select 'Free WIKI Wiki EOD Stock Prices' in 'AllDatabaseList' list box
+            uIAllDatabaseListList.SelectedItemsAsString = this.SelectDatabaseFromTreeParams.UIAllDatabaseListListSelectedItemsAsString;
+        }
+        
+        /// <summary>
         /// SelectDatasetDatatable - Use 'SelectDatasetDatatableParams' to pass parameters into this method.
         /// </summary>
         public void SelectDatasetDatatable()
@@ -209,6 +299,19 @@ namespace Quandl.Test.CodedUI
 
             // Select 'Carbo Ceramics Inc. (CRR) Stock Prices\, Dividends and Splits' in 'DatasetsDatatablesListView' list box
             uIDatasetsDatatablesLiList.SelectedItemsAsString = this.SelectDatasetDatatableParams.UIDatasetsDatatablesLiListSelectedItemsAsString;
+        }
+        
+        /// <summary>
+        /// SelectIncludeHeaders - Use 'SelectIncludeHeadersParams' to pass parameters into this method.
+        /// </summary>
+        public void SelectIncludeHeaders()
+        {
+            #region Variable Declarations
+            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
+            #endregion
+
+            // Clear 'Include headers' check box
+            uIIncludeheadersCheckBox.Checked = this.SelectIncludeHeadersParams.UIIncludeheadersCheckBoxChecked;
         }
         
         /// <summary>
@@ -250,126 +353,6 @@ namespace Quandl.Test.CodedUI
 
             // Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
             uIComboBoxTransformatiComboBox.SelectedItem = this.testMethodParams.UIComboBoxTransformatiComboBoxSelectedItem;
-        }
-        
-        /// <summary>
-        /// RecordedMethod1 - Use 'RecordedMethod1Params' to pass parameters into this method.
-        /// </summary>
-        public void RecordedMethod1()
-        {
-            #region Variable Declarations
-            WpfComboBox uIComboBoxTransformatiComboBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIComboBoxTransformatiComboBox;
-            #endregion
-
-            // Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
-            uIComboBoxTransformatiComboBox.SelectedItem = this.RecordedMethod1Params.UIComboBoxTransformatiComboBoxSelectedItem;
-        }
-        
-        /// <summary>
-        /// RecordedFilters - Use 'RecordedFiltersParams' to pass parameters into this method.
-        /// </summary>
-        public void RecordedFilters()
-        {
-            #region Variable Declarations
-            WpfComboBox uITransformationFilterComboBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UITransformationFilterComboBox;
-            WpfButton uINextButton = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UINextButton;
-            #endregion
-
-            // Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'TransformationFilter' combo box
-            uITransformationFilterComboBox.SelectedItem = this.RecordedFiltersParams.UITransformationFilterComboBoxSelectedItem;
-
-            // Click 'next' button
-            Mouse.Click(uINextButton, new Point(60, 28));
-        }
-        
-        /// <summary>
-        /// RecordedMethod2
-        /// </summary>
-        public void RecordedMethod2()
-        {
-            #region Variable Declarations
-            WinButton uIGetDataButton = this.UIBook2ExcelWindow.UIItemWindow.UIItemToolBar.UIGetDataButton;
-            #endregion
-
-            // Click 'Get Data' button
-            Mouse.Click(uIGetDataButton, new Point(57, 83));
-        }
-        
-        /// <summary>
-        /// RecordedMethod3 - Use 'RecordedMethod3Params' to pass parameters into this method.
-        /// </summary>
-        public void RecordedMethod3()
-        {
-            #region Variable Declarations
-            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
-            #endregion
-
-            // Clear 'Include headers' check box
-            uIIncludeheadersCheckBox.Checked = this.RecordedMethod3Params.UIIncludeheadersCheckBoxChecked;
-        }
-        
-        /// <summary>
-        /// ClickInsert
-        /// </summary>
-        public void ClickInsert()
-        {
-            #region Variable Declarations
-            WpfButton uIInsertButton = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIInsertButton;
-            #endregion
-
-            // Click 'insert' button
-            Mouse.Click(uIInsertButton, new Point(6, 27));
-        }
-        
-        /// <summary>
-        /// SelectIncludeHeaders - Use 'SelectIncludeHeadersParams' to pass parameters into this method.
-        /// </summary>
-        public void SelectIncludeHeaders()
-        {
-            #region Variable Declarations
-            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
-            #endregion
-
-            // Clear 'Include headers' check box
-            uIIncludeheadersCheckBox.Checked = this.SelectIncludeHeadersParams.UIIncludeheadersCheckBoxChecked;
-        }
-        
-        /// <summary>
-        /// RecordedMethod4 - Use 'RecordedMethod4Params' to pass parameters into this method.
-        /// </summary>
-        public void RecordedMethod4()
-        {
-            #region Variable Declarations
-            WpfCheckBox uIIncludeheadersCheckBox = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIIncludeheadersCheckBox;
-            #endregion
-
-            // Select 'Include headers' check box
-            uIIncludeheadersCheckBox.Checked = this.RecordedMethod4Params.UIIncludeheadersCheckBoxChecked;
-        }
-        
-        /// <summary>
-        /// SelectDatabaseFromTree - Use 'SelectDatabaseFromTreeParams' to pass parameters into this method.
-        /// </summary>
-        public void SelectDatabaseFromTree()
-        {
-            #region Variable Declarations
-            WpfTreeItem uIFuturesDataTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIFuturesDataTreeItem;
-            WpfTreeItem uIStockDataTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIStockDataTreeItem;
-            WpfTreeItem uIStockPricesEndofDayCTreeItem = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UIBrowseDataTree.UIStockDataTreeItem.UIUnitedStatesTreeItem.UIStockPricesEndofDayCTreeItem;
-            WpfList uIAllDatabaseListList = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1.UITabControlTabList.UIAllTabPage.UIAllDatabaseListList;
-            #endregion
-
-            // Click 'Futures Data' tree item
-            Mouse.Click(uIFuturesDataTreeItem, new Point(50, 4));
-
-            // Click 'Stock Data' tree item
-            Mouse.Click(uIStockDataTreeItem, new Point(72, 29));
-
-            // Click 'Stock Data' -> 'United States' -> 'Stock Prices End of Day, Current and Historical' tree item
-            Mouse.Click(uIStockPricesEndofDayCTreeItem, new Point(68, 14));
-
-            // Select 'Free WIKI Wiki EOD Stock Prices' in 'AllDatabaseList' list box
-            uIAllDatabaseListList.SelectedItemsAsString = this.SelectDatabaseFromTreeParams.UIAllDatabaseListListSelectedItemsAsString;
         }
         
         /// <summary>
@@ -486,51 +469,15 @@ namespace Quandl.Test.CodedUI
             }
         }
         
-        public virtual LoginWithApiKeyParams LoginWithApiKeyParams
+        public virtual RecordedFiltersParams RecordedFiltersParams
         {
             get
             {
-                if ((this.mLoginWithApiKeyParams == null))
+                if ((this.mRecordedFiltersParams == null))
                 {
-                    this.mLoginWithApiKeyParams = new LoginWithApiKeyParams();
+                    this.mRecordedFiltersParams = new RecordedFiltersParams();
                 }
-                return this.mLoginWithApiKeyParams;
-            }
-        }
-        
-        public virtual SelectDatasetDatatableParams SelectDatasetDatatableParams
-        {
-            get
-            {
-                if ((this.mSelectDatasetDatatableParams == null))
-                {
-                    this.mSelectDatasetDatatableParams = new SelectDatasetDatatableParams();
-                }
-                return this.mSelectDatasetDatatableParams;
-            }
-        }
-        
-        public virtual SelectTransformationFilterParams SelectTransformationFilterParams
-        {
-            get
-            {
-                if ((this.mSelectTransformationFilterParams == null))
-                {
-                    this.mSelectTransformationFilterParams = new SelectTransformationFilterParams();
-                }
-                return this.mSelectTransformationFilterParams;
-            }
-        }
-        
-        public virtual testMethodParams testMethodParams
-        {
-            get
-            {
-                if ((this.mtestMethodParams == null))
-                {
-                    this.mtestMethodParams = new testMethodParams();
-                }
-                return this.mtestMethodParams;
+                return this.mRecordedFiltersParams;
             }
         }
         
@@ -546,18 +493,6 @@ namespace Quandl.Test.CodedUI
             }
         }
         
-        public virtual RecordedFiltersParams RecordedFiltersParams
-        {
-            get
-            {
-                if ((this.mRecordedFiltersParams == null))
-                {
-                    this.mRecordedFiltersParams = new RecordedFiltersParams();
-                }
-                return this.mRecordedFiltersParams;
-            }
-        }
-        
         public virtual RecordedMethod3Params RecordedMethod3Params
         {
             get
@@ -567,18 +502,6 @@ namespace Quandl.Test.CodedUI
                     this.mRecordedMethod3Params = new RecordedMethod3Params();
                 }
                 return this.mRecordedMethod3Params;
-            }
-        }
-        
-        public virtual SelectIncludeHeadersParams SelectIncludeHeadersParams
-        {
-            get
-            {
-                if ((this.mSelectIncludeHeadersParams == null))
-                {
-                    this.mSelectIncludeHeadersParams = new SelectIncludeHeadersParams();
-                }
-                return this.mSelectIncludeHeadersParams;
             }
         }
         
@@ -603,6 +526,54 @@ namespace Quandl.Test.CodedUI
                     this.mSelectDatabaseFromTreeParams = new SelectDatabaseFromTreeParams();
                 }
                 return this.mSelectDatabaseFromTreeParams;
+            }
+        }
+        
+        public virtual SelectDatasetDatatableParams SelectDatasetDatatableParams
+        {
+            get
+            {
+                if ((this.mSelectDatasetDatatableParams == null))
+                {
+                    this.mSelectDatasetDatatableParams = new SelectDatasetDatatableParams();
+                }
+                return this.mSelectDatasetDatatableParams;
+            }
+        }
+        
+        public virtual SelectIncludeHeadersParams SelectIncludeHeadersParams
+        {
+            get
+            {
+                if ((this.mSelectIncludeHeadersParams == null))
+                {
+                    this.mSelectIncludeHeadersParams = new SelectIncludeHeadersParams();
+                }
+                return this.mSelectIncludeHeadersParams;
+            }
+        }
+        
+        public virtual SelectTransformationFilterParams SelectTransformationFilterParams
+        {
+            get
+            {
+                if ((this.mSelectTransformationFilterParams == null))
+                {
+                    this.mSelectTransformationFilterParams = new SelectTransformationFilterParams();
+                }
+                return this.mSelectTransformationFilterParams;
+            }
+        }
+        
+        public virtual testMethodParams testMethodParams
+        {
+            get
+            {
+                if ((this.mtestMethodParams == null))
+                {
+                    this.mtestMethodParams = new testMethodParams();
+                }
+                return this.mtestMethodParams;
             }
         }
         
@@ -744,25 +715,23 @@ namespace Quandl.Test.CodedUI
         
         private InputDatabaseCodeParams mInputDatabaseCodeParams;
         
-        private LoginWithApiKeyParams mLoginWithApiKeyParams;
-        
-        private SelectDatasetDatatableParams mSelectDatasetDatatableParams;
-        
-        private SelectTransformationFilterParams mSelectTransformationFilterParams;
-        
-        private testMethodParams mtestMethodParams;
+        private RecordedFiltersParams mRecordedFiltersParams;
         
         private RecordedMethod1Params mRecordedMethod1Params;
         
-        private RecordedFiltersParams mRecordedFiltersParams;
-        
         private RecordedMethod3Params mRecordedMethod3Params;
-        
-        private SelectIncludeHeadersParams mSelectIncludeHeadersParams;
         
         private RecordedMethod4Params mRecordedMethod4Params;
         
         private SelectDatabaseFromTreeParams mSelectDatabaseFromTreeParams;
+        
+        private SelectDatasetDatatableParams mSelectDatasetDatatableParams;
+        
+        private SelectIncludeHeadersParams mSelectIncludeHeadersParams;
+        
+        private SelectTransformationFilterParams mSelectTransformationFilterParams;
+        
+        private testMethodParams mtestMethodParams;
         
         private EnterTickerDatatableFiltersParams mEnterTickerDatatableFiltersParams;
         
@@ -912,67 +881,17 @@ namespace Quandl.Test.CodedUI
     }
     
     /// <summary>
-    /// Parameters to be passed into 'LoginWithApiKey'
+    /// Parameters to be passed into 'RecordedFilters'
     /// </summary>
     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
-    public class LoginWithApiKeyParams
+    public class RecordedFiltersParams
     {
         
         #region Fields
         /// <summary>
-        /// Type 'R7Tb5usNpL7xCbTRP3Qd' in 'apiKey' text box
+        /// Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'TransformationFilter' combo box
         /// </summary>
-        public string UIApiKeyEditText = "R7Tb5usNpL7xCbTRP3Qd";
-        #endregion
-    }
-    
-    /// <summary>
-    /// Parameters to be passed into 'SelectDatasetDatatable'
-    /// </summary>
-    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
-    public class SelectDatasetDatatableParams
-    {
-        
-        #region Fields
-        /// <summary>
-        /// Select 'Carbo Ceramics Inc. (CRR) Stock Prices\, Dividends and Splits' in 'DatasetsDatatablesListView' list box
-        /// </summary>
-        public string UIDatasetsDatatablesLiListSelectedItemsAsString = "Carbo Ceramics Inc. (CRR) Stock Prices\\, Dividends and Splits";
-        #endregion
-    }
-    
-    /// <summary>
-    /// Parameters to be passed into 'SelectTransformationFilter'
-    /// </summary>
-    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
-    public class SelectTransformationFilterParams
-    {
-        
-        #region Fields
-        /// <summary>
-        /// Select '{ Description = None (default), value = Default }' in 'ComboBoxFrequency' combo box
-        /// </summary>
-        public string UIComboBoxFrequencyComboBoxSelectedItem = "{ Description = None (default), value = Default }";
-        
-        /// <summary>
-        /// Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
-        /// </summary>
-        public string UIComboBoxTransformatiComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
-        #endregion
-    }
-    
-    /// <summary>
-    /// Parameters to be passed into 'testMethod'
-    /// </summary>
-    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
-    public class testMethodParams
-    {
-        
-        #region Fields
-        /// <summary>
-        /// Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
-        /// </summary>
-        public string UIComboBoxTransformatiComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
+        public string UITransformationFilterComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
         #endregion
     }
     
@@ -992,40 +911,10 @@ namespace Quandl.Test.CodedUI
     }
     
     /// <summary>
-    /// Parameters to be passed into 'RecordedFilters'
-    /// </summary>
-    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
-    public class RecordedFiltersParams
-    {
-        
-        #region Fields
-        /// <summary>
-        /// Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'TransformationFilter' combo box
-        /// </summary>
-        public string UITransformationFilterComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
-        #endregion
-    }
-    
-    /// <summary>
     /// Parameters to be passed into 'RecordedMethod3'
     /// </summary>
     [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
     public class RecordedMethod3Params
-    {
-        
-        #region Fields
-        /// <summary>
-        /// Clear 'Include headers' check box
-        /// </summary>
-        public bool UIIncludeheadersCheckBoxChecked = false;
-        #endregion
-    }
-    
-    /// <summary>
-    /// Parameters to be passed into 'SelectIncludeHeaders'
-    /// </summary>
-    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
-    public class SelectIncludeHeadersParams
     {
         
         #region Fields
@@ -1063,6 +952,71 @@ namespace Quandl.Test.CodedUI
         /// Select 'Free WIKI Wiki EOD Stock Prices' in 'AllDatabaseList' list box
         /// </summary>
         public string UIAllDatabaseListListSelectedItemsAsString = "Free WIKI Wiki EOD Stock Prices";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'SelectDatasetDatatable'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class SelectDatasetDatatableParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select 'Carbo Ceramics Inc. (CRR) Stock Prices\, Dividends and Splits' in 'DatasetsDatatablesListView' list box
+        /// </summary>
+        public string UIDatasetsDatatablesLiListSelectedItemsAsString = "Carbo Ceramics Inc. (CRR) Stock Prices\\, Dividends and Splits";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'SelectIncludeHeaders'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class SelectIncludeHeadersParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Clear 'Include headers' check box
+        /// </summary>
+        public bool UIIncludeheadersCheckBoxChecked = false;
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'SelectTransformationFilter'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class SelectTransformationFilterParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select '{ Description = None (default), value = Default }' in 'ComboBoxFrequency' combo box
+        /// </summary>
+        public string UIComboBoxFrequencyComboBoxSelectedItem = "{ Description = None (default), value = Default }";
+        
+        /// <summary>
+        /// Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
+        /// </summary>
+        public string UIComboBoxTransformatiComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'testMethod'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class testMethodParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Select '{ Description = Row-on-row % change (rdiff), value = RDiff }' in 'ComboBoxTransformation' combo box
+        /// </summary>
+        public string UIComboBoxTransformatiComboBoxSelectedItem = "{ Description = Row-on-row % change (rdiff), value = RDiff }";
         #endregion
     }
     

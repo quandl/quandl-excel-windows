@@ -9,6 +9,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Xml;
     using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
 
     public partial class UIMap
@@ -48,6 +49,40 @@
         public UIItemCustom12 ExcelClient6()
         {
             return UIQuandlFormulaBuilderWindow1.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom1;
+        }
+
+        private static XmlDocument _testSettings = null;
+        public static XmlDocument TestSettings
+        {
+            get
+            {
+                if (_testSettings == null)
+                {
+                    _testSettings = new XmlDocument();
+                    _testSettings.Load(@"..\..\..\Quandl.Test.CodedUI\Settings.xml");
+                }
+                return _testSettings;
+            }
+        }
+
+        private string RetrieveSetting(string settingName)
+        {
+            return TestSettings.DocumentElement.SelectSingleNode($"/TestSettings/{settingName}").InnerText;
+        }
+
+        public string TestUsername()
+        {
+            return RetrieveSetting("User/Username");
+        }
+
+        public string TestPassword()
+        {
+            return RetrieveSetting("User/Password");
+        }
+
+        public string TestApiKey()
+        {
+            return RetrieveSetting("User/ApiKey");
         }
 
         public WpfButton NextButton()
@@ -122,17 +157,18 @@
             Mouse.Click(uiDownloadButton);
         }
 
-        public void LoginWithUsername()
+        public void LoginWithUsernameAndPassword(string username = "", string password = "")
         {
             var txtEmailAddress = ExcelClient1().UIQuandlExcelAddincompPane.UIEmailEdit;
             var txtPassword = ExcelClient1().UIQuandlExcelAddincompPane.UIPasswordEdit;
             var btnLogin = ExcelClient1().UIQuandlExcelAddincompPane.UILoginButton;
 
-            string username = "qa_admin@quandl.com";
-            string password = "***REMOVED***";
+            username = string.IsNullOrEmpty(username) ? TestUsername() : username;
+            password = string.IsNullOrEmpty(password) ? TestPassword() : password;
 
             txtEmailAddress.Text = username;
             txtPassword.Text = password;
+
             Mouse.Click(btnLogin);
         }
 
@@ -494,6 +530,16 @@
             var transformationComboBox = ExcelClient().UIItemCustom.UIQuandlExcelAddincompPane.UITransformationFilterComboBox;
 
             transformationComboBox.SelectedItem = $"{{ Description = {description}, value = {value} }}";
+        }
+
+        public void LoginWithApiKey(string api_key = "")
+        {
+            var txtApiKey = ExcelClient().UIItemCustom.UIQuandlExcelAddincompPane.UIApiKeyEdit;
+            var btnLogin  = ExcelClient().UIItemCustom.UIQuandlExcelAddincompPane.UILoginButton;
+
+            txtApiKey.Text = string.IsNullOrEmpty(api_key) ? TestApiKey() : api_key;
+
+            Mouse.Click(btnLogin);
         }
     }
 

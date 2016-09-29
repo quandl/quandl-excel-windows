@@ -12,6 +12,14 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
 
         #region Additional test attributes
 
+        [ClassInitialize]
+        public static void TestClassInitialize(TestContext context)
+        {
+            string username = context.Properties["username"].ToString();
+            string password = context.Properties["password"].ToString();
+            string api_key  = context.Properties["api_key"].ToString();
+        }
+
         [TestInitialize()]
         public void MyTestInitialize()
         {

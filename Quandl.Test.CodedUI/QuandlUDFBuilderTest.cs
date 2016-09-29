@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Xml;
 
 namespace Quandl.Test.CodedUI
 {
@@ -10,6 +11,13 @@ namespace Quandl.Test.CodedUI
     public class QuandlUDFBuilderTest
     {
         #region Additional test attributes
+
+        [TestInitialize()]
+        public void MyTestInitialize()
+        {
+            UIMap.OpenExcelAndWorksheet();
+            UIMap.OpenLoginPage();
+        }
 
         [TestCleanup()]
         public void MyTestCleanup()
@@ -25,18 +33,14 @@ namespace Quandl.Test.CodedUI
         [TestMethod]
         public void LoginWithAPIKey()
         {
-            UIMap.OpenExcelAndWorksheet();
-            UIMap.OpenLoginPage();
             UIMap.LoginWithApiKey();
             UIMap.AssertLoggedIn();
         }
 
         [TestMethod]
-        public void LoginWithUsername()
+        public void LoginWithUsernameAndPassword()
         {
-            UIMap.OpenExcelAndWorksheet();
-            UIMap.OpenLoginPage();
-            UIMap.LoginWithUsername();
+            UIMap.LoginWithUsernameAndPassword();
             UIMap.AssertLoggedIn();
         }
     }
