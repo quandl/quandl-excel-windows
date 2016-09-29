@@ -32,20 +32,21 @@ A few things that will make your excel development experience much easier:
 ## Building a Release package
 
 1. Follow the instructions list in `Development` section above to setup the project and its basic dependencies.
-2. Download and place the key `QuandlDigitCertCodeSign.pfx` from lastpass in the root of the projects missing it.
+2. Copy this file [Microsoft .NET Framework 4.6.1 Web.prq](Microsoft .NET Framework 4.6.1 Web.prq) to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
+3. Download and place the key `QuandlDigitCertCodeSign.pfx` from lastpass in the root of the projects missing it.
   * The output of each project needs to be signed individually
   * Additionally the installer needs to be signed as well
   * The QuandlDigitCertCodeSign.pfx file has been password protected and will need the decryption key to be used. See [Password Protect Digital Certificate](#password-protect-digital-certificate)
-3. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
-4. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information` 
+4. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
+5. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information` 
   1. Change the product code (use the helper - `{...}`)
   2. Bump the version number.
     * Be sure to leave the upgrade code untouched.
-5. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
-5. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
-6. Switch your `Run Mode` to `release` instead of `debug`
-7. Right click solution file and select `Rebuild Solution`
-8. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
+6. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
+7. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
+8. Switch your `Run Mode` to `release` instead of `debug`
+9. Right click solution file and select `Rebuild Solution`
+10. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
 
 Things to note:
 
