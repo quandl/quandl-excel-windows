@@ -78,10 +78,10 @@ namespace Quandl.Excel.Addin
         private void btnRefreshWorkSheet_Click(object sender, RibbonControlEventArgs e)
         {
             var activeSheet = Globals.ThisAddIn.Application.ActiveSheet;
-
             try
             {
                 FunctionUpdater.RecalculateQuandlFunctions(activeSheet);
+                FunctionUpdater.RefreshConfirmation = null;
             }
             catch (MissingFormulaException ex)
             {
@@ -95,6 +95,7 @@ namespace Quandl.Excel.Addin
             try
             {
                 FunctionUpdater.RecalculateQuandlFunctions(activeWorkBook);
+                FunctionUpdater.RefreshConfirmation = null;
             }
             catch (MissingFormulaException ex)
             {

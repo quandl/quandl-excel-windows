@@ -7,6 +7,7 @@ namespace Quandl.Shared
     public class FunctionUpdater
     {
         public static readonly string[] UserDefinedFunctions = {"QSERIES", "QTABLE"};
+        public static bool? RefreshConfirmation = null;
 
         public static bool HasQuandlFormulaInWorkSheet(Worksheet worksheet)
         {

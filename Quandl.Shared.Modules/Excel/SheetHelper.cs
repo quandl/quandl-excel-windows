@@ -190,16 +190,20 @@ namespace Quandl.Shared.Excel
 
         private bool CanWriteData()
         {
+            if (FunctionUpdater.RefreshConfirmation != null)
+                return FunctionUpdater.RefreshConfirmation == true;
+
             if (ConfirmedOverwrite != true && QuandlConfig.OverwriteDataWarning)
             {
                 var result = System.Windows.Forms.MessageBox.Show(
-                        Locale.English.OverwriteExistingDataPopupDesc,
-                        Locale.English.OverwriteExistingDataPopupTitle,
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Warning
-                    );
+                    Locale.English.OverwriteExistingDataPopupDesc,
+                    Locale.English.OverwriteExistingDataPopupTitle,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
 
                 ConfirmedOverwrite = (result == DialogResult.Yes);
+                FunctionUpdater.RefreshConfirmation = (result == DialogResult.Yes);
                 return ConfirmedOverwrite == true;
             }
 
