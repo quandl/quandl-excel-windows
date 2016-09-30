@@ -46,6 +46,7 @@ namespace Quandl.Excel.Addin
         {
             ActiveCells = Application.ActiveCell;
 
+            Utilities.ExcelVersionNumber = Application.Version;
             Application.WorkbookOpen += CheckWorkbookForFormulaUpdates;
             Application.WorkbookActivate += Workbook_Activate;
             Application.SheetSelectionChange += Workbook_SheetSelectionChange;

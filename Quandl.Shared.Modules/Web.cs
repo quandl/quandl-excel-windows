@@ -133,7 +133,7 @@ namespace Quandl.Shared
                     [HttpRequestHeader.ContentType] = "application/json",
                     [HttpRequestHeader.UserAgent] = UserAgent(CallTypes.Search),
                     ["Request-Source"] = Utilities.ReleaseSource,
-                    ["Request-Platform"] = Utilities.GetExcelVersionNumber,
+                    ["Request-Platform"] = Utilities.ExcelVersionNumber,
                     ["Request-Version"] = Utilities.ReleaseVersion
                 }
             };
@@ -170,7 +170,7 @@ namespace Quandl.Shared
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.UserAgent.Clear();
                 client.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent(callType));
-                client.DefaultRequestHeaders.Add("Request-Platform", Utilities.GetExcelVersionNumber);
+                client.DefaultRequestHeaders.Add("Request-Platform", Utilities.ExcelVersionNumber);
                 client.DefaultRequestHeaders.Add("Request-Version", Utilities.ReleaseVersion);
                 client.DefaultRequestHeaders.Add("Request-Source", Utilities.ReleaseSource);
 

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Quandl.Shared
 {
@@ -20,25 +21,9 @@ namespace Quandl.Shared
         public const string DateFormat = "yyyy-MM-dd";
         private const bool ENABLE_SENTRY_LOG = true;
 
-        private static string excelVersion;
         private const int WinDefaultDpi = 96;
 
-        public static string GetExcelVersionNumber
-        {
-            get
-            {
-                if (excelVersion != null)
-                {
-                    return excelVersion;
-                }
-
-                // This is expensive so only call it once.
-                var appVersion = new Application();
-                appVersion.Visible = false;
-                excelVersion = appVersion.Version;
-                return excelVersion;
-            }
-        }
+        public static string ExcelVersionNumber { get; set; }
 
         public static async void LogToSentry(System.Exception exception, Dictionary<string, string> additionalData = null)
         {
@@ -46,7 +31,7 @@ namespace Quandl.Shared
 
             if (ENABLE_SENTRY_LOG)
             {
-                SetSentryData(exception, "Excel-Version", Utilities.GetExcelVersionNumber);
+                SetSentryData(exception, "Excel-Version", Utilities.ExcelVersionNumber);
                 SetSentryData(exception, "Addin-Release-Version", Utilities.ReleaseVersion);
                 SetSentryData(exception, "X-API-Token", QuandlConfig.ApiKey);
                 if (additionalData != null)
