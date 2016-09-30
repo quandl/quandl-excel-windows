@@ -372,6 +372,23 @@ namespace Quandl.Test.CodedUI
             uIAllDatabaseListList.SelectedItemsAsString = this.SelectDatabaseFromTreeParams.UIAllDatabaseListListSelectedItemsAsString;
         }
         
+        /// <summary>
+        /// EnterTickerDatatableFilters - Use 'EnterTickerDatatableFiltersParams' to pass parameters into this method.
+        /// </summary>
+        public void EnterTickerDatatableFilters()
+        {
+            #region Variable Declarations
+            WpfText uIEnterinthetickerthatText = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIEnterinthetickerthatText;
+            WpfEdit uIStringFilterInputEdit = this.UIQuandlFormulaBuilderWindow.UIWpfElementHostWindow.UIWpfElementHostClient.UIItemPane.UIItemCustom.UIQuandlExcelAddincompPane.UIStringFilterInputEdit;
+            #endregion
+
+            // Click 'Enter in the ticker that you would like the data f...' label
+            Mouse.Click(uIEnterinthetickerthatText, new Point(166, 54));
+
+            // Type 'm_ticker' in 'StringFilterInput' text box
+            uIStringFilterInputEdit.Text = this.EnterTickerDatatableFiltersParams.UIStringFilterInputEditText;
+        }
+        
         #region Properties
         public virtual AssertColumnSelectedExpectedValues AssertColumnSelectedExpectedValues
         {
@@ -589,6 +606,18 @@ namespace Quandl.Test.CodedUI
             }
         }
         
+        public virtual EnterTickerDatatableFiltersParams EnterTickerDatatableFiltersParams
+        {
+            get
+            {
+                if ((this.mEnterTickerDatatableFiltersParams == null))
+                {
+                    this.mEnterTickerDatatableFiltersParams = new EnterTickerDatatableFiltersParams();
+                }
+                return this.mEnterTickerDatatableFiltersParams;
+            }
+        }
+        
         public UIExcelWindow UIExcelWindow
         {
             get
@@ -734,6 +763,8 @@ namespace Quandl.Test.CodedUI
         private RecordedMethod4Params mRecordedMethod4Params;
         
         private SelectDatabaseFromTreeParams mSelectDatabaseFromTreeParams;
+        
+        private EnterTickerDatatableFiltersParams mEnterTickerDatatableFiltersParams;
         
         private UIExcelWindow mUIExcelWindow;
         
@@ -1032,6 +1063,21 @@ namespace Quandl.Test.CodedUI
         /// Select 'Free WIKI Wiki EOD Stock Prices' in 'AllDatabaseList' list box
         /// </summary>
         public string UIAllDatabaseListListSelectedItemsAsString = "Free WIKI Wiki EOD Stock Prices";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'EnterTickerDatatableFilters'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "14.0.23107.0")]
+    public class EnterTickerDatatableFiltersParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type 'm_ticker' in 'StringFilterInput' text box
+        /// </summary>
+        public string UIStringFilterInputEditText = "m_ticker";
         #endregion
     }
     
@@ -2604,6 +2650,38 @@ namespace Quandl.Test.CodedUI
                 return this.mUIIncludeheadersCheckBox;
             }
         }
+        
+        public WpfText UIEnterinthetickerthatText
+        {
+            get
+            {
+                if ((this.mUIEnterinthetickerthatText == null))
+                {
+                    this.mUIEnterinthetickerthatText = new WpfText(this);
+                    #region Search Criteria
+                    this.mUIEnterinthetickerthatText.SearchProperties[WpfText.PropertyNames.AutomationId] = "Filterlabel";
+                    this.mUIEnterinthetickerthatText.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIEnterinthetickerthatText;
+            }
+        }
+        
+        public WpfEdit UIStringFilterInputEdit
+        {
+            get
+            {
+                if ((this.mUIStringFilterInputEdit == null))
+                {
+                    this.mUIStringFilterInputEdit = new WpfEdit(this);
+                    #region Search Criteria
+                    this.mUIStringFilterInputEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "StringFilterInput";
+                    this.mUIStringFilterInputEdit.WindowTitles.Add("Quandl Formula Builder");
+                    #endregion
+                }
+                return this.mUIStringFilterInputEdit;
+            }
+        }
         #endregion
         
         #region Fields
@@ -2654,6 +2732,10 @@ namespace Quandl.Test.CodedUI
         private WpfComboBox mUISortFilterComboBox;
         
         private WpfCheckBox mUIIncludeheadersCheckBox;
+        
+        private WpfText mUIEnterinthetickerthatText;
+        
+        private WpfEdit mUIStringFilterInputEdit;
         #endregion
     }
     

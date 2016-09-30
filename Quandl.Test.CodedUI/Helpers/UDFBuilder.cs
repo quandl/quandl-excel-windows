@@ -69,33 +69,42 @@ namespace Quandl.Test.CodedUI.Helpers
 
             UIMap.ClickNextButton();
         }
-        public static void CompleteStep4(Dictionary<string, string> filters)
+        public static void CompleteStep4(Dictionary<string, string> filters, bool filter = true)
         {
-            if (filters["frequency"] != null)
+            if (filter == true)
             {
-                UIMap.SelectFrequencyFilter(filters["frequency"], filters["frequency code"]);
+                if (filters["frequency"] != null)
+                {
+                    UIMap.SelectFrequencyFilter(filters["frequency"], filters["frequency code"]);
+                }
+                if (filters["date from"] != null)
+                {
+                    UIMap.SelectDatasetDateRangeFilter("Period Range", "Range");
+                    UIMap.SelectDatasetDateFromFilter(filters["date from"]);
+                    UIMap.SelectDatasetDateToFilter(filters["date to"]);
+                }
+                if (filters["single date"] != null)
+                {
+                    UIMap.SelectDatasetDateRangeFilter("Single Date", "Single");
+                    UIMap.SelectDatasetDateFromFilter(filters["single date"]);
+                }
+                if (filters["transformation"] != null)
+                {
+                    UIMap.SelectTransformationFilter(filters["transformation"], filters["transformation code"]);
+                }
+                if (filters["sort"] != null)
+                {
+                    UIMap.SelectSortFilter(filters["sort"], filters["sort code"]);
+                }
+                if (filters["limit"] != null)
+                {
+                    UIMap.SelectSortFilter(filters["sort"], filters["sort code"]);
+                }
             }
-            if (filters["date from"] != null)
-            {
-                UIMap.SelectDatasetDateRangeFilter("Period Range", "Range");
-                UIMap.SelectDatasetDateFromFilter(filters["date from"]);
-                UIMap.SelectDatasetDateToFilter(filters["date to"]);
-            }
-            if (filters["transformation"] != null)
-            {
-                UIMap.SelectTransformationFilter(filters["transformation"], filters["transformation code"]);
-            }
-            if (filters["sort"] != null)
-            {
-                UIMap.SelectSortFilter(filters["sort"], filters["sort code"]);
-            }
-            if (filters["limit"] != null)
-            {
-                UIMap.SelectSortFilter(filters["sort"], filters["sort code"]);
-            }
+
             UIMap.ClickNextButton();
         }
-
+ 
         public static void CompleteStep5(bool includeHeaders)
         {
             if (includeHeaders == true)

@@ -221,6 +221,13 @@
             Assert.AreEqual(AssertNextButtonEnabledExpectedValues.UINextButtonEnabled, NextButton().Enabled, "Next button not enabled");
         }
 
+        public void EnterMtickerDatatableFilters(string tickerCode)
+        {
+            var txtTickerCode = ExcelClient1().UIQuandlExcelAddincompPane.UIStringFilterInputEdit;
+
+            txtTickerCode.Text = tickerCode;
+        }
+
         public void AssertInvalidDatabaseCode(string code)
         {
             var uINextButton = NextButton();

@@ -10,17 +10,17 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
     /// Scenario one in the Excel Test Case Sheet
     /// </summary
     ///<remarks>
-    ///Page 1 - Database(Step 1): look for wiki using browse.
-    ///Page 2 - Data(step 2): Search for FMC Corp. (FMC) Prices, Dividends, Splits and Trading Volume and select it.
-    ///Page 3 - Columns(step 3): Select the following columns Date Open High Low Close Ex-Dividend.
-    ///Page 4 - Filters(step 4): Select these filteres: All historical , Transformation: row-on-row change, frequency quarterly.
+    ///Page 1 - Database(Step 1): look for sf1 using browse.
+    ///Page 2 - Data(step 2): SYPRIS SOLUTIONS INC (NASDAQ:SYPR) - Current Ratio (Most Recent - Quarterly.
+    ///Page 3 - Columns(step 3): Select the following columns Date, Value.
+    ///Page 4 - Filters(step 4): Select these filteres: All historical , Transformation: row-on-row %change.
     ///Page 5 - Placement(step 5): include headers.
-    ///Verify UDF signature: =QSERIES({\"WIKI/FMC/DATE\",\"WIKI/FMC/OPEN\",\"WIKI/FMC/HIGH\",\"WIKI/FMC/LOW\",\"WIKI/FMC/CLOSE\",\"WIKI/FMC/EX-DIVIDEND\"},,\"quarterly\",,\"diff\")
+    ///Verify UDF signature: =QSERIES({\"SF1/SYPR_CURRENTRATIO_MRQ/DATE\",\"SF1/SYPR_CURRENTRATIO_MRQ/VALUE\"},,,,\"rdiff\")
     ///Click insert.
     ///</remarks>
 
     [CodedUITest]
-    public class ScenarioTwo
+    public class DatasetScenarioFour
     {
         public UIMap UIMap => map ?? (map = new UIMap());
         private UIMap map;
@@ -47,13 +47,13 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
 
         #endregion  
         [TestMethod]
-        public void TestCases2()
+        public void DatasetTestCases4()
         {
-            var browseOptions = CodedUITestHelpers.selectStockUsMfOne();
-            _dataset = CodedUITestHelpers.FreeDataset();
-            _datasetColumns = CodedUITestHelpers.DateOpenHighLowCloseExDividendDatasetColumns();
-            var filters = CodedUITestHelpers.filtersAllHistQuarterlyDiff();
-            var expectedUDF = "=QSERIES({\"WIKI/FMC/DATE\",\"WIKI/FMC/OPEN\",\"WIKI/FMC/HIGH\",\"WIKI/FMC/LOW\",\"WIKI/FMC/CLOSE\",\"WIKI/FMC/EX-DIVIDEND\"},,\"quarterly\",,\"diff\")";
+            var browseOptions = CodedUITestHelpers.selectStockUsSfone();
+            _dataset = CodedUITestHelpers.PremiumDataset();
+            _datasetColumns = CodedUITestHelpers.DateValueColumns();
+            var filters = CodedUITestHelpers.filtersAllHistRdiff();
+            var expectedUDF = "=QSERIES({\"SF1/SYPR_CURRENTRATIO_MRQ/DATE\",\"SF1/SYPR_CURRENTRATIO_MRQ/VALUE\"},,,,\"rdiff\")";
             CodedUITestHelpers.CompleteBrowseStep1(browseOptions);
             CodedUITestHelpers.CompleteStep2(_dataset, _dataset.Name);
             CodedUITestHelpers.CompleteStep3(_datasetColumns);
@@ -64,3 +64,4 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
         }
     }
 }
+

@@ -19,7 +19,7 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
     ///</remarks>
 
     [CodedUITest]
-    public class ScenarioOne
+    public class DatasetScenarioOne
     {
         public UIMap UIMap => map ?? (map = new UIMap());
         private UIMap map;
@@ -45,7 +45,7 @@ namespace Quandl.Test.CodedUI.UI.UDF_Builder
 
         #endregion  
         [TestMethod]
-        public void TestCases1()
+        public void DatasetTestCases1()
         {
             _dataset = CodedUITestHelpers.FreeDataset();
             var filters = CodedUITestHelpers.filtersAllHistRdiff();
