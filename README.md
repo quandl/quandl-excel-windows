@@ -1,8 +1,5 @@
 # Quandl Excel Add-in for Windows
 
-> I wanna be the very best
-> Like no one ever was
-
 The Quandl Excel Add-In allows you to search through, find and download any of Quandl's millions of datasets directly from within Microsoft Excel. It's completely free; usage is unlimited and unrestricted. Currently this Add-in is limited to windows only as it uses features and functions which are only available on the windows version of excel.
 
 ## Development
@@ -15,42 +12,39 @@ A few things that will make your excel development experience much easier:
 
 ### Setup
 
-1. Download and install `file:///C:/Program%20Files%20(x86)/Microsoft%20Visual%20Studio%2014.0/Common7/IDE/Extensions/InstallShield/InstallShieldProject/1033/InstallShield_ult.html`
- * Open Solution -> right click solution -> add -> new project -> other project type -> InstallShield
- * Walk through the steps on the side to download and install InstallShield (Make note of your install key)
-3. Restart `Visual Studio` and enter in your install key
-4. Right click solution file and select `Manage NuGet Packages for Solution`
+1. Download and install InstallSheild Limited Edition [here](http://learn.flexerasoftware.com/content/IS-EVAL-InstallShield-Limited-Edition-Visual-Studio)
+2. Right click solution file and select `Manage NuGet Packages for Solution`
 (If you don't have NuGet, please install it at [https://dist.nuget.org/index.html](https://dist.nuget.org/index.html))
-5. Select `Nowtonsoft.Json` packages and install the latest stable version
-6. Select `Excel-DNA` packages and install the lastest stable version to QuandlFunctions project
-7. Delete file `quandl-excel-windows_TemporaryKey.pfx`
-8. Go to the project properties for `Quandl.Excel.Addin`
-9. Click on signing tab
-10. Click `Create Test Certificate` without a password
-11. You should now be able to build the project.
+3. Select `Newtonsoft.Json` packages and install the latest stable version
+4. Select `Excel-DNA` packages and install the lastest stable version to QuandlFunctions project
+5. Go to the project properties for `Quandl.Excel.Addin`
+6. Click on signing tab
+7. Click `Create Test Certificate` without a password
+8. Do steps 5-7 for `Quandleild.Excel.Console`
+9. Go to the project properties for `Quandl.Excel.UDF.Functions`
+10. Under `Debug` change the `Start Action` from `Start Project` to `Start External Program`
+11. Fill in the path to your chosen version of Excel in the Textbox
+12. Under `Start Options` in the `Command Line Arguments` text field enter `Quandl.Excel.UDF.Functions-AddIn.xll`
+13. You should now be able to build the project.
 
 ## Building a Release package
 
 1. Follow the instructions list in `Development` section above to setup the project and its basic dependencies.
 2. Copy this file [Microsoft .NET Framework 4.6.1 Web.prq](Microsoft .NET Framework 4.6.1 Web.prq) to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
-3. Download and place the key `QuandlDigitCertCodeSign.pfx` from lastpass in the root of the projects missing it.
-  * The output of each project needs to be signed individually
-  * Additionally the installer needs to be signed as well
-  * The QuandlDigitCertCodeSign.pfx file has been password protected and will need the decryption key to be used. See [Password Protect Digital Certificate](#password-protect-digital-certificate)
-4. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
-5. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information` 
+3. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
+4. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information`
   1. Change the product code (use the helper - `{...}`)
   2. Bump the version number.
     * Be sure to leave the upgrade code untouched.
-6. This step is for 64 bit release build only: 
-  * Given package Excel-Dna 0.33.9 is installed, go to folder VSSolutionFolder\packages\ExcelDna.AddIn.0.33.9\tools
-  * Make a copy of ExcelDna64.xll and rename it as Quandl.Excel.UDF.Functions-AddIn.xll
-  * Navigate to the `Application Files`, on the right side add this file to replace existing Quandl.Excel.UDF.Functions-AddIn.xll
-7. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
-8. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
-9. Switch your `Run Mode` to `release` instead of `debug`
-10. Right click solution file and select `Rebuild Solution`
-11. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
+5. This step is for 64 bit release build only:
+	* Given package Excel-Dna 0.33.9 is installed, go to folder VSSolutionFolder\packages\ExcelDna.AddIn.0.33.9\tools
+	* Make a copy of ExcelDna64.xll and rename it as Quandl.Excel.UDF.Functions-AddIn.xll
+	* Navigate to the Application Files, on the right side add this file to replace existing Quandl.Excel.UDF.Functions-AddIn.xll
+6. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
+7. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
+8. Switch your `Run Mode` to `release` instead of `debug`
+9. Right click solution file and select `Rebuild Solution`
+10. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
 
 Things to note:
 
@@ -58,13 +52,6 @@ Things to note:
 * Be sure to bump the version AND change your product code number under `Organize Your Setup` => `General Information`. This is necessary for a seemless upgrade.
 * Allow of our dependencies have been listed as `web` dependencies to keep our installer small. 
   * Should you need to install them locally you can do that navigating to `Quandl.Excel.Addin.Setup -> 2 Specify Application Data => Redistributables`. You will need to do this in Visual Studio as an admin.
-
-### Password Protect Digital Certificate
-
-1. Right click on each project with a digital certificate
-2. Select Properties -> Signing -> Select From File
-3. Select the Digital Certificate
-4. Enter password (found in lastpass) and Save
 
 ## Unit testing
 
