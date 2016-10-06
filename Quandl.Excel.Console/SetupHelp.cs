@@ -99,7 +99,8 @@ namespace Quandl.Excel.Console
             if (openSubKey == null) return new List<string>();
             var excelInstallations = openSubKey.GetSubKeyNames();
             var keys = new List<string>(excelInstallations);
-            keys = keys.Where(k => Regex.IsMatch(k, "^\\d+.\\d+$")).Where(k => double.Parse(k) >= 14)
+            keys = keys.Where(k => Regex.IsMatch(k, "^\\d+.\\d+$"))
+                .Where(k => Convert.ToDouble(k, System.Globalization.CultureInfo.InvariantCulture) >= 14)
                 .Select(k => $@"SOFTWARE\Microsoft\Office\{k}\Excel\Options").ToList();
             return keys;
         }
