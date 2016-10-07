@@ -42,11 +42,15 @@ A few things that will make your excel development experience much easier:
   1. Change the product code (use the helper - `{...}`)
   2. Bump the version number.
     * Be sure to leave the upgrade code untouched.
-6. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
-7. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
-8. Switch your `Run Mode` to `release` instead of `debug`
-9. Right click solution file and select `Rebuild Solution`
-10. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
+6. This step is for 64 bit release build only: 
+  * Given package Excel-Dna 0.33.9 is installed, go to folder VSSolutionFolder\packages\ExcelDna.AddIn.0.33.9\tools
+  * Make a copy of ExcelDna64.xll and rename it as Quandl.Excel.UDF.Functions-AddIn.xll
+  * Navigate to the `Application Files`, on the right side add this file to replace existing Quandl.Excel.UDF.Functions-AddIn.xll
+7. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
+8. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
+9. Switch your `Run Mode` to `release` instead of `debug`
+10. Right click solution file and select `Rebuild Solution`
+11. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
 
 Things to note:
 
