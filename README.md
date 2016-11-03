@@ -77,5 +77,5 @@ This could be a number of things but generally means that our implementation has
 
 ## License
 
-MIT License
+See [LICENCE](LICENCE.md) file for licence rights and limitations (MIT)
  
