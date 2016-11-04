@@ -75,6 +75,10 @@ This could be a number of things but generally means that our implementation has
 * Excel request deadlock - This can occur when excel is busy and we try to make another request to it from a different thread.
 * Unhandled server error response - Our server is having issues and after a few retries our code simply gives up.
 
+## Code signing
+
+See [SIGNING](SIGNING.md)
+
 ## License
 
 See [LICENCE](LICENCE.md) file for licence rights and limitations (MIT)

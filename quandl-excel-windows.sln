@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8C37DE7D-90DD-452B-9B44-B8B787B7321B}"
 	ProjectSection(SolutionItems) = preProject
 		ERRORS.md = ERRORS.md
+		LICENCE.md = LICENCE.md
 		Microsoft .NET Framework 4.6.1 Web.prq = Microsoft .NET Framework 4.6.1 Web.prq
 		PULL_REQUEST_TEMPLATE.md = PULL_REQUEST_TEMPLATE.md
 		README.md = README.md
