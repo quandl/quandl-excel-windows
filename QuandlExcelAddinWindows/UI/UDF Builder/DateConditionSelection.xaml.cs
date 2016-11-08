@@ -29,11 +29,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private void InitList()
         {
             List<Operator> listData = new List<Operator>();
-            listData.Add(new Operator {Value = "lt", Label = "<"});
+            listData.Add(new Operator { Value = "eq", Label = "=" });
+            listData.Add(new Operator { Value = "lt", Label = "<"});
             listData.Add(new Operator { Value = "lte", Label = "<=" });
             listData.Add(new Operator { Value = "gt", Label = ">" });
             listData.Add(new Operator { Value = "gte", Label = ">=" });
-            ConditionBox.SelectedValue = "lt";
+            ConditionBox.SelectedValue = "eq";
             ConditionBox.ItemsSource = listData;
             ConditionBox.DisplayMemberPath = "Label";
             ConditionBox.SelectedValuePath = "Value";
@@ -44,8 +45,17 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             get
             {
                 var input = DateBox.SelectedDate == null ? "" : String.Format("{0:yyyy-MM-dd}", DateBox.SelectedDate);
+                string filterName = "";
+                if((string)ConditionBox.SelectedValue == "eq")
+                {
+                    filterName = "date";
+                }
+                else
+                {
+                    filterName = $"{Identifier}.{ConditionBox.SelectedValue}";
+                }
                 return  new Filter {
-                                        Name = $"{Identifier}.{ConditionBox.SelectedValue}",
+                                        Name = filterName,
                                         Value = $"\"{input}\""
                                     };
             }
