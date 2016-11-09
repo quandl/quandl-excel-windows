@@ -35,7 +35,10 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 AllowReference = true)] string rawHeader = null,
             [ExcelArgument(Name = "dates",
                 Description = "(optional) Default: true - Whether the resulting data will include a dates column",
-                AllowReference = true)] string rawDateColumn = null
+                AllowReference = true)] string rawDateColumn = null,
+            [ExcelArgument(Name = "transpose",
+                Description = "(optional) Default: false - Transpose the resulting data matrix, dates will be displayed in one row rather than a column",
+                AllowReference = true)] string rawTranspose = null
             )
         {
             // Prevent the formula from running should it be blocked.
@@ -57,6 +60,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 var limit = Tools.GetIntValue(rawLimit);
                 var includeHeader = string.IsNullOrEmpty(rawHeader) || Tools.GetBoolValue(rawHeader);
                 var includeDates = string.IsNullOrEmpty(rawDateColumn) || Tools.GetBoolValue(rawDateColumn);
+                var transpose = !string.IsNullOrEmpty(rawTranspose) || Tools.GetBoolValue(rawTranspose);
 
                 // Get the current cell formula.
                 var reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
@@ -82,7 +86,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 // Sort out the data and place it in the cells
                 var sortedResults = new ResultsData(results.SortedData(dateColumn, orderAsc), results.Headers);
                 var reorderColumns = sortedResults.ExpandAndReorderColumns(SanitizeColumnNames(quandlCodeColumns), dateColumn, includeDates);
-                var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader, true);
+                var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader, true, false, transpose);
 
                 if (excelWriter.ConfirmedOverwrite == false)
                 {

@@ -33,5 +33,11 @@
         <CheckBox x:Name="IncludeHeaders" Content="Include headers"
                   ToolTip="Whether the resulting formula will output data with headers." Margin="0,10,0,0"
                   IsChecked="{Binding IncludeHeaders}" />
+        <CheckBox x:Name="Dates" Content="Include dates"
+                  ToolTip="Whether the resulting formula will output data with dates." Margin="0,10,0,0"
+                  IsChecked="{Binding IncludeDates}" />
+        <CheckBox x:Name="Transpose" Content="Show dates across columns"
+                  ToolTip="Transpose results" Margin="0,10,0,0"
+                  IsChecked="{Binding TransposeResult}" />
     </StackPanel>
 </UserControl>
