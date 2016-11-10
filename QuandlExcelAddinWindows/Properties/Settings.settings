@@ -41,5 +41,29 @@
     <Setting Name="SettingsSaveConfirmation" Type="System.String" Scope="User">
       <Value Profile="(Default)">Save Confirmation</Value>
     </Setting>
+    <Setting Name="CheckUpdateDownloadLink" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://s3.amazonaws.com/quandl-software/excel-add-in/Quandl-Excel-Addin-latest.exe</Value>
+    </Setting>
+    <Setting Name="CheckUpdateDownloadComplete" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Installation package download is completed!</Value>
+    </Setting>
+    <Setting Name="CheckUpdateNewUpatateAvailable" Type="System.String" Scope="User">
+      <Value Profile="(Default)">New version available for download</Value>
+    </Setting>
+    <Setting Name="CheckUpdateNoUpatateAvailable" Type="System.String" Scope="User">
+      <Value Profile="(Default)">No update available for download</Value>
+    </Setting>
+    <Setting Name="CheckUpdatesReleaseUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://github.com/quandl/quandl-python/releases</Value>
+    </Setting>
+    <Setting Name="CheckUpdatesDownloadConfirmationTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Download confirmation</Value>
+    </Setting>
+    <Setting Name="CheckUpdatesDownloadConfirmation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">New version available for download, are you sure you want to download it?</Value>
+    </Setting>
+    <Setting Name="CheckUpdatesReleaseNoteTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Release Note for {0}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

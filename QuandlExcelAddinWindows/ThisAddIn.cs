@@ -44,6 +44,7 @@ namespace Quandl.Excel.Addin
 
         private void ThisAddIn_Startup(object sender, EventArgs e)
         {
+            Utilities.Application = Application;
             ActiveCells = Application.ActiveCell;
 
             Utilities.ExcelVersionNumber = Application.Version;

@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using Quandl.Shared.Errors;
 using System.Linq;
+using System.Security.RightsManagement;
 
 namespace Quandl.Shared
 {
@@ -60,6 +61,15 @@ namespace Quandl.Shared
             set
             {
                 SetRegistryKeyValue("OverwriteDataWarning", value, RegistryValueKind.DWord);
+            }
+        }
+
+        public static bool CheckUpdateAtStart
+        {
+            get { return RegistryKeyExists("CheckUpdateAtStart") ? GetRegistry<bool>("CheckUpdateAtStart") : true; }
+            set
+            {
+                SetRegistryKeyValue("CheckUpdateAtStar", value, RegistryValueKind.DWord);
             }
         }
 

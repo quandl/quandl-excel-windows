@@ -19,16 +19,17 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        
+
         <Label Content="Auto Update" Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Right"
                VerticalAlignment="Center" />
         <ComboBox x:Name="AutoUpdateComboBox" Grid.Column="1" Grid.Row="0" Margin="10,10,0,10"
                   DisplayMemberPath="Description"
                   SelectedValuePath="value"
                   SelectedValue="shared:QuandlConfig.AutoUpdateFrequency" />
-        
+
         <Label Content="API Key" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Right"
                VerticalAlignment="Center" />
         <TextBox x:Name="ApiKeyTextBox" Grid.Column="1" Grid.Row="1" Margin="10,10,0,10" Height="25"
@@ -38,7 +39,7 @@
                VerticalAlignment="Center" />
         <CheckBox x:Name="ScollEnabledCheckBox" Grid.Column="1" Grid.Row="2" Margin="10,10,0,10" Height="25"
                  VerticalContentAlignment="Center" ToolTip="While data is being inserted scroll to the first column of the last row."/>
-        
+
         <Label Content="Warnings" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="0" Grid.Row="4" Margin="0,5,0,0" />
         <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Vertical" ToolTip="If set a warning message will display for Quandl formulas that may be potentially long running and have a potential to crash Excel.">
             <StackPanel Orientation="Horizontal">
@@ -52,7 +53,15 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+        <Label Content="Package update" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="0" Grid.Row="5" Margin="0,5,0,0" />
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Vertical" ToolTip="Check Quandl excel addin updates at start">
+            <StackPanel Orientation="Horizontal" ToolTip="Check Quandl excel addin updates at start">
+                <CheckBox x:Name="CheckUpdatBox" Margin="10,10,0,10" />
+                <Label Content="Check update at start" VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                     Orientation="Horizontal">
             <Button x:Name="CancelButton" Content="Cancel" Padding="5" Margin="10"  Click="CandelButton_Click" IsDefault="True" />
             <Button x:Name="SaveButton" Content="Save" Padding="5" Margin="10"  Click="SaveButton_Click" />

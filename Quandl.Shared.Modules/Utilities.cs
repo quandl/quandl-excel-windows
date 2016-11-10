@@ -1,21 +1,22 @@
-﻿using Microsoft.Office.Interop.Excel;
-using MoreLinq;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Microsoft.Office.Interop.Excel;
 using Quandl.Shared.Properties;
 using SharpRaven;
 using SharpRaven.Data;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using MoreLinq;
+using System.Drawing;
 
 namespace Quandl.Shared
 {
     public class Utilities
     {
         public const string ReleaseVersion = "Beta 1.0 v3.50";
+        public const int GithubReleaseId = 111;
         public const string ReleaseSource = "excel";
         public const string DateFormat = "yyyy-MM-dd";
         public enum UserRoles
@@ -28,6 +29,9 @@ namespace Quandl.Shared
 
         private const bool ENABLE_SENTRY_LOG = true;
         private const int WinDefaultDpi = 96;
+
+        public static Application Application { get; set; }
+        //Microsoft.Office.Interop.Excel.Application
         public static string ExcelVersionNumber { get; set; }
 
         public static async void LogToSentry(System.Exception exception, Dictionary<string, string> additionalData = null)
@@ -149,16 +153,16 @@ namespace Quandl.Shared
         }
 
         /*
-         * g is a graphics object in a window. We just need to get the 
+         * g is a graphics object in a window. We just need to get the
          * current windows dpi settings so any window will do.
          * http://stackoverflow.com/questions/5977445/how-to-get-windows-display-settings
-         * 
+         *
          * 96(WinDefaultDpi) is the default dpi for Windows
          * https://blogs.msdn.microsoft.com/fontblog/2005/11/08/where-does-96-dpi-come-from-in-windows/
-         * 
+         *
          * According to https://msdn.microsoft.com/en-us/library/system.drawing.graphics.fromhwnd(v=vs.110).aspx
          * you should .Dispose of the graphics object when you are done with it.
-         * 
+         *
          */
         public static float WindowsScalingFactor()
         {

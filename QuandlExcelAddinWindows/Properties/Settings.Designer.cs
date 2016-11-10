@@ -180,5 +180,102 @@ namespace Quandl.Excel.Addin.Properties {
                 this["SettingsSaveConfirmation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://s3.amazonaws.com/quandl-software/excel-add-in/Quandl-Excel-Addin-latest.e" +
+            "xe")]
+        public string CheckUpdateDownloadLink {
+            get {
+                return ((string)(this["CheckUpdateDownloadLink"]));
+            }
+            set {
+                this["CheckUpdateDownloadLink"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Installation package download is completed!")]
+        public string CheckUpdateDownloadComplete {
+            get {
+                return ((string)(this["CheckUpdateDownloadComplete"]));
+            }
+            set {
+                this["CheckUpdateDownloadComplete"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("New version available for download")]
+        public string CheckUpdateNewUpatateAvailable {
+            get {
+                return ((string)(this["CheckUpdateNewUpatateAvailable"]));
+            }
+            set {
+                this["CheckUpdateNewUpatateAvailable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No update available for download")]
+        public string CheckUpdateNoUpatateAvailable {
+            get {
+                return ((string)(this["CheckUpdateNoUpatateAvailable"]));
+            }
+            set {
+                this["CheckUpdateNoUpatateAvailable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/quandl/quandl-python/releases")]
+        public string CheckUpdatesReleaseUrl {
+            get {
+                return ((string)(this["CheckUpdatesReleaseUrl"]));
+            }
+            set {
+                this["CheckUpdatesReleaseUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Download confirmation")]
+        public string CheckUpdatesDownloadConfirmationTitle {
+            get {
+                return ((string)(this["CheckUpdatesDownloadConfirmationTitle"]));
+            }
+            set {
+                this["CheckUpdatesDownloadConfirmationTitle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("New version available for download, are you sure you want to download it?")]
+        public string CheckUpdatesDownloadConfirmation {
+            get {
+                return ((string)(this["CheckUpdatesDownloadConfirmation"]));
+            }
+            set {
+                this["CheckUpdatesDownloadConfirmation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Release Note for {0}")]
+        public string CheckUpdatesReleaseNoteTitle {
+            get {
+                return ((string)(this["CheckUpdatesReleaseNoteTitle"]));
+            }
+            set {
+                this["CheckUpdatesReleaseNoteTitle"] = value;
+            }
+        }
     }
 }
