@@ -33,7 +33,6 @@ namespace Quandl.Excel.Addin.UI.Settings
             OverwriteWarningTextBox.IsChecked = QuandlConfig.OverwriteDataWarning;
             AutoUpdateComboBox.SelectedValue = QuandlConfig.AutoUpdateFrequency;
             ScollEnabledCheckBox.IsChecked = QuandlConfig.ScrollOnInsert;
-            CheckUpdatBox.IsChecked = QuandlConfig.CheckUpdateAtStart;
         }
 
         private void SaveSettings()
@@ -43,7 +42,6 @@ namespace Quandl.Excel.Addin.UI.Settings
             QuandlConfig.LongRunningQueryWarning = (bool)LongRunningWarningTextBox.IsChecked;
             QuandlConfig.OverwriteDataWarning = (bool)OverwriteWarningTextBox.IsChecked;
             QuandlConfig.ScrollOnInsert = ScollEnabledCheckBox.IsChecked.Value;
-            QuandlConfig.CheckUpdateAtStart = CheckUpdatBox.IsChecked.Value;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)

@@ -44,10 +44,11 @@ namespace Quandl.Excel.Addin
 
         private void ThisAddIn_Startup(object sender, EventArgs e)
         {
-            Utilities.Application = Application;
             ActiveCells = Application.ActiveCell;
+            
+            var word = System.Runtime.InteropServices.Marshal.SizeOf(Application.HinstancePtr);
+            Utilities.ExcelVersionNumber = Application.Version + "" + word*8;
 
-            Utilities.ExcelVersionNumber = Application.Version;
             Application.WorkbookOpen += CheckWorkbookForFormulaUpdates;
             Application.WorkbookActivate += Workbook_Activate;
             Application.SheetSelectionChange += Workbook_SheetSelectionChange;

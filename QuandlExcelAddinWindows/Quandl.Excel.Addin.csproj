@@ -140,6 +140,10 @@
       <HintPath>..\packages\gong-wpf-dragdrop.1.0.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Markdown.Xaml, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Markdown.XAML\build\Markdown.Xaml\Release\Markdown.Xaml.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -148,8 +152,8 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Octokit, Version=0.22.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Octokit.0.22.0\lib\net45\Octokit.dll</HintPath>
+    <Reference Include="Octokit, Version=0.23.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Octokit.0.23.0\lib\net45\Octokit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Office">
@@ -214,6 +218,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ChangeLog.xaml.cs">
+      <DependentUpon>ChangeLog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Helpers\BindingHelper.cs" />
     <Compile Include="UI\Settings\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -274,6 +284,9 @@
     <Compile Include="UI\UDF Builder\DatabaseSelection.xaml.cs">
       <DependentUpon>DatabaseSelection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Update.xaml.cs">
+      <DependentUpon>Update.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Controls\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -327,6 +340,14 @@
     <EmbeddedResource Include="Ribbon.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ChangeLog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Settings\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -387,6 +408,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Update.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml">
@@ -398,8 +423,6 @@
     <Content Include="Resources\enable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\update_available.png" />
-    <Content Include="Resources\update_check.png" />
     <Resource Include="Resources\FileSave.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -448,10 +471,11 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Quandl.Excel.Addin_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>309CB9E4B6CE80E1597DB86DFB6B5543FD675913</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>020C2790F2E2EFA9471BAF91DB56664C8443251C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>

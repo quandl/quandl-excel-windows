@@ -19,7 +19,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
@@ -52,16 +51,11 @@
                 <Label Content="Overwrite existing data" VerticalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
-
-        <Label Content="Package update" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="0" Grid.Row="5" Margin="0,5,0,0" />
         <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Vertical" ToolTip="Check Quandl excel addin updates at start">
-            <StackPanel Orientation="Horizontal" ToolTip="Check Quandl excel addin updates at start">
-                <CheckBox x:Name="CheckUpdatBox" Margin="10,10,0,10" />
-                <Label Content="Check update at start" VerticalAlignment="Center"/>
-            </StackPanel>
+            <StackPanel Orientation="Horizontal" ToolTip="Check Quandl excel addin updates at start"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+        <StackPanel Grid.Column="1" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                     Orientation="Horizontal">
             <Button x:Name="CancelButton" Content="Cancel" Padding="5" Margin="10"  Click="CandelButton_Click" IsDefault="True" />
             <Button x:Name="SaveButton" Content="Save" Padding="5" Margin="10"  Click="SaveButton_Click" />

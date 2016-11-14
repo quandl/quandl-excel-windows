@@ -54,13 +54,17 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Octokit, Version=0.22.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Octokit.0.22.0\lib\net45\Octokit.dll</HintPath>
+    <Reference Include="Octokit, Version=0.23.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Octokit.0.23.0\lib\net45\Octokit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="SharpRaven, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpRaven.2.1.0\lib\net45\SharpRaven.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syroot.Windows.IO.KnownFolders, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syroot.Windows.IO.KnownFolders.1.0.2\lib\net40\Syroot.Windows.IO.KnownFolders.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -90,6 +94,7 @@
     <Compile Include="Excel\ThreadedStatusBar.cs" />
     <Compile Include="FunctionUpdater.cs" />
     <Compile Include="Helpers\CheckedItemHelper.cs" />
+    <Compile Include="Helpers\Updater.cs" />
     <Compile Include="Locale\English.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

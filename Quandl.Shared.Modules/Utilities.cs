@@ -16,7 +16,7 @@ namespace Quandl.Shared
     public class Utilities
     {
         public const string ReleaseVersion = "Beta 1.0 v3.50";
-        public const int GithubReleaseId = 111;
+        public const int GithubReleaseId = 4691412;
         public const string ReleaseSource = "excel";
         public const string DateFormat = "yyyy-MM-dd";
         public enum UserRoles
@@ -30,8 +30,6 @@ namespace Quandl.Shared
         private const bool ENABLE_SENTRY_LOG = true;
         private const int WinDefaultDpi = 96;
 
-        public static Application Application { get; set; }
-        //Microsoft.Office.Interop.Excel.Application
         public static string ExcelVersionNumber { get; set; }
 
         public static async void LogToSentry(System.Exception exception, Dictionary<string, string> additionalData = null)
