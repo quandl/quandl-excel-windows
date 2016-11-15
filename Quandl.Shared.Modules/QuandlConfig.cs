@@ -72,7 +72,7 @@ namespace Quandl.Shared
             }
         }
 
-        public static bool PreventCurrentExecution 
+        public static bool PreventCurrentExecution
         {
             get { return GetRegistry<bool>("PreventExecution"); }
             set
@@ -107,13 +107,23 @@ namespace Quandl.Shared
             }
         }
 
+        private string userRole
+        {
+            get { return GetRegistry<string>("UserRole"); }
+            set
+            {
+                SetRegistryKeyValue("UserRole", value);
+                OnLoginChanged();
+            }
+        }
+
         public static string ApiKey
         {
             get { return Instance.apiKey; }
             set { Instance.apiKey = value; }
         }
 
-        private static bool RegistryKeyExists(string key) 
+        private static bool RegistryKeyExists(string key)
         {
             var quandlRootKey = Registry.CurrentUser.OpenSubKey(RegistrySubKey);
             return quandlRootKey != null && quandlRootKey.GetValueNames().Contains(key);
@@ -155,6 +165,12 @@ namespace Quandl.Shared
             var payload = JsonConvert.SerializeObject(obj);
             var res = web.Authenticate(payload);
             Instance.apiKey = res["user"]["api_key"].ToObject<string>();
+            Instance.userRole = Utilities.GetUserRole(res["user"]);
+        }
+
+        public bool IsOnlyUser()
+        {
+            return Instance.apiKey == null || instance.userRole == Utilities.UserRoles.User.ToString();
         }
 
         public static void Reset()
