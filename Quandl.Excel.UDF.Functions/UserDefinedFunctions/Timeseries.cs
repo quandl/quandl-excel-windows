@@ -173,7 +173,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             Dataset[] fetchTaskCollection = new Dataset[] { };
             var tasks = datasets.Select(dsp => new Web().GetDatasetData(dsp.Value.Code, dsp.Value.QueryParams));
             int numberOfTasksForEachBatch = QuandlConfig.Instance.IsOnlyUser() ? 1 : 8;
-
             foreach (var batchTask in tasks.Batch(numberOfTasksForEachBatch))
             {
                 var fetchTask = Task.WhenAll(batchTask);
