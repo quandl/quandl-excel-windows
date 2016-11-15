@@ -192,7 +192,6 @@ namespace Quandl.Shared
             return userRole.ToString();
         }
 
-
         private static ArrayList PrependToList(ArrayList list, string item)
         {
             var result = new ArrayList();
