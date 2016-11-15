@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-using MoreLinq;
+﻿using MoreLinq;
 using Quandl.Shared.Properties;
 using SharpRaven;
 using SharpRaven.Data;
@@ -9,7 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
+using Newtonsoft.Json.Linq;
 
 namespace Quandl.Shared
 {
@@ -17,12 +16,17 @@ namespace Quandl.Shared
     {
         public const string ReleaseVersion = "3.0 Beta 1.0";
         public const string ReleaseSource = "excel";
-
         public const string DateFormat = "yyyy-MM-dd";
+        public enum UserRoles
+        {
+            User,
+            Admin,
+            Platinum,
+            Customer
+        };
+
         private const bool ENABLE_SENTRY_LOG = true;
-
         private const int WinDefaultDpi = 96;
-
         public static string ExcelVersionNumber { get; set; }
 
         public static async void LogToSentry(System.Exception exception, Dictionary<string, string> additionalData = null)
@@ -158,9 +162,34 @@ namespace Quandl.Shared
         public static float WindowsScalingFactor()
         {
             Graphics g = Graphics.FromHwnd(IntPtr.Zero);
-            float factor = g.DpiX/WinDefaultDpi;
+            float factor = g.DpiX / WinDefaultDpi;
             g.Dispose();
             return factor;
+        }
+
+        public static string GetUserRole(JToken user)
+        {
+            UserRoles userRole;
+            string userRoleStr = user["user_role"].ToString().ToLower();
+            switch (userRoleStr)
+            {
+                case "user":
+                    userRole = UserRoles.Admin;
+                    break;
+                case "customer":
+                    userRole = UserRoles.Customer;
+                    break;
+                case "premium":
+                    userRole = UserRoles.Platinum;
+                    break;
+                case "admin":
+                    userRole = UserRoles.Admin;
+                    break;
+                default:
+                    userRole = UserRoles.User;
+                    break;
+            }
+            return userRole.ToString();
         }
 
         private static ArrayList PrependToList(ArrayList list, string item)

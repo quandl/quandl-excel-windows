@@ -18,18 +18,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<!-- The ProjectReference items refer to any Visual Studio solutions you want to automatically probe for Project Output Groups.  -->
-	</ItemGroup>
-	<ItemGroup>
-		<!-- The TaggedOutputs items allow you to explicitly add extra files to output groups. Each item must include both Name and OutputGroup, as well as TargetPath metadata values. -->
-		<!--<TaggedOutputs Include="C:\My Test Exe.exe">
-			<Name>My Test Project</Name>
-			<OutputGroup>Primary output</OutputGroup>
-			<TargetPath>My Test Exe.exe</TargetPath>
-		</TaggedOutputs> -->
-	</ItemGroup>
-	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2015Express\InstallShield.targets"/>
-	<ItemGroup/>
-	<ItemGroup>
 		<ProjectReference Include="..\QuandlExcelAddinWindows\Quandl.Excel.Addin.csproj">
 			<Name>Quandl.Excel.Addin</Name>
 			<Project>{46DC729E-5083-4F4B-BF2E-E20611D3C14E}</Project>
@@ -43,4 +31,13 @@
 			<Project>{6AC4706D-5BC0-45DC-B517-683D19C57970}</Project>
 		</ProjectReference>
 	</ItemGroup>
+	<ItemGroup>
+		<!-- The TaggedOutputs items allow you to explicitly add extra files to output groups. Each item must include both Name and OutputGroup, as well as TargetPath metadata values. -->
+		<!--<TaggedOutputs Include="C:\My Test Exe.exe">
+			<Name>My Test Project</Name>
+			<OutputGroup>Primary output</OutputGroup>
+			<TargetPath>My Test Exe.exe</TargetPath>
+		</TaggedOutputs> -->
+	</ItemGroup>
+	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2015Limited\InstallShield.targets"/>
 </Project>

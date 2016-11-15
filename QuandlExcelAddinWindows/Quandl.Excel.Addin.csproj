@@ -445,7 +445,7 @@
     </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>38E36DF207C45B7B0AF70113EE56FE7489F1E61D</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>020C2790F2E2EFA9471BAF91DB56664C8443251C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>

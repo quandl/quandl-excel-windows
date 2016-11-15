@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExcelDna.Integration;
+using MoreLinq;
 using Microsoft.Office.Interop.Excel;
 using Quandl.Shared;
-using Quandl.Shared.Errors;
 using Quandl.Shared.Models;
 using Quandl.Shared.Excel;
 
@@ -169,14 +169,21 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             // If any datasets without columns have been specified remove any customized columns that users specified to ensure all columns are pulled.
             datasetsWithoutColumns.ForEach(qc => datasets[qc].Columns.Clear());
 
-            // Fetch all the data at the same time.
+            // Fetch data based on batch settings or in once based on user roles
+            Dataset[] fetchTaskCollection = new Dataset[] { };
             var tasks = datasets.Select(dsp => new Web().GetDatasetData(dsp.Value.Code, dsp.Value.QueryParams));
-            var fetchTask = Task.WhenAll(tasks);
-            fetchTask.Wait();
+            int numberOfTasksForEachBatch = QuandlConfig.Instance.IsOnlyUser() ? 1 : 8;
+            foreach (var batchTask in tasks.Batch(numberOfTasksForEachBatch))
+            {
+                var fetchTask = Task.WhenAll(batchTask);
+                fetchTask.Wait();
+                var result = fetchTask.Result;
+                fetchTaskCollection = fetchTaskCollection.Concat(result).ToArray();
+            }
 
             // Create a bunch of results which we can combine to one giant table
             var combinedResults = new ResultsData(new List<List<object>>(), new List<string>());
-            foreach (var qcc in fetchTask.Result.Select((x, i) => new { Value = x, Index = i }))
+            foreach (var qcc in fetchTaskCollection.Select((x, i) => new { Value = x, Index = i }))
             {
                 var dataset = qcc.Value;
                 var columns = dataset.Columns.Select(c => c.Code.ToUpper() == dataset.Columns[0].Code
