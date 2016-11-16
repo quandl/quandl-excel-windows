@@ -1,4 +1,5 @@
-﻿using MoreLinq;
+﻿using Microsoft.Office.Interop.Excel;
+using MoreLinq;
 using Quandl.Shared.Properties;
 using SharpRaven;
 using SharpRaven.Data;
@@ -162,7 +163,7 @@ namespace Quandl.Shared
         public static float WindowsScalingFactor()
         {
             Graphics g = Graphics.FromHwnd(IntPtr.Zero);
-            float factor = g.DpiX / WinDefaultDpi;
+            float factor = g.DpiX/WinDefaultDpi;
             g.Dispose();
             return factor;
         }
