@@ -1,4 +1,5 @@
-﻿using MoreLinq;
+﻿using Microsoft.Office.Interop.Excel;
+using MoreLinq;
 using Quandl.Shared.Properties;
 using SharpRaven;
 using SharpRaven.Data;
