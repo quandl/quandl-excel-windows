@@ -163,7 +163,7 @@ namespace Quandl.Shared
         public static float WindowsScalingFactor()
         {
             Graphics g = Graphics.FromHwnd(IntPtr.Zero);
-            float factor = g.DpiX/WinDefaultDpi;
+            float factor = g.DpiX / WinDefaultDpi;
             g.Dispose();
             return factor;
         }
