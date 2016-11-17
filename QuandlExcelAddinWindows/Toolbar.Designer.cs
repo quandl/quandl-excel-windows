@@ -13,7 +13,7 @@
             InitializeComponent();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -52,23 +52,23 @@
             this.group1.SuspendLayout();
             this.SettingsGroup.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // QuandlTab
-            // 
+            //
             this.QuandlTab.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
             this.QuandlTab.Groups.Add(this.DataGroup);
             this.QuandlTab.Groups.Add(this.group1);
             this.QuandlTab.Groups.Add(this.SettingsGroup);
             this.QuandlTab.Label = "Quandl";
             this.QuandlTab.Name = "QuandlTab";
-            // 
+            //
             // DataGroup
-            // 
+            //
             this.DataGroup.Items.Add(this.udf_builder);
             this.DataGroup.Name = "DataGroup";
-            // 
+            //
             // udf_builder
-            // 
+            //
             this.udf_builder.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.udf_builder.Image = global::Quandl.Excel.Addin.Properties.Resources.get_data;
             this.udf_builder.Label = "Get Data";
@@ -76,17 +76,17 @@
             this.udf_builder.OfficeImageId = "ChartShowData";
             this.udf_builder.ShowImage = true;
             this.udf_builder.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.udfBuilder_Click);
-            // 
+            //
             // group1
-            // 
+            //
             this.group1.Items.Add(this.btnRefreshSheet);
             this.group1.Items.Add(this.btnRefreshWorkbook);
             this.group1.Items.Add(this.btnStopAll);
             this.group1.Items.Add(this.btnFormulaToggleSplit);
             this.group1.Name = "group1";
-            // 
+            //
             // btnRefreshSheet
-            // 
+            //
             this.btnRefreshSheet.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnRefreshSheet.Image = global::Quandl.Excel.Addin.Properties.Resources.refresh_sheet;
             this.btnRefreshSheet.Label = "Refresh Sheet";
@@ -94,19 +94,19 @@
             this.btnRefreshSheet.OfficeImageId = "InkDeleteAllInk";
             this.btnRefreshSheet.ShowImage = true;
             this.btnRefreshSheet.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnRefreshWorkSheet_Click);
-            // 
+            //
             // btnRefreshWorkbook
-            // 
+            //
             this.btnRefreshWorkbook.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnRefreshWorkbook.Image = global::Quandl.Excel.Addin.Properties.Resources.refresh_workbook;
             this.btnRefreshWorkbook.Label = "Refresh Workbook";
             this.btnRefreshWorkbook.Name = "btnRefreshWorkbook";
             this.btnRefreshWorkbook.OfficeImageId = "InkDeleteAllInk";
-            this.btnRefreshWorkbook.ShowImage = true;
+            this.btnRefreshWorkbook.ShowImage = false;
             this.btnRefreshWorkbook.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnRefreshWorkbook_Click);
-            // 
+            //
             // btnStopAll
-            // 
+            //
             this.btnStopAll.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnStopAll.Image = global::Quandl.Excel.Addin.Properties.Resources.stop;
             this.btnStopAll.Label = "Stop";
@@ -114,9 +114,9 @@
             this.btnStopAll.OfficeImageId = "InkDeleteAllInk";
             this.btnStopAll.ShowImage = true;
             this.btnStopAll.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnStopAll_Click);
-            // 
+            //
             // btnFormulaToggleSplit
-            // 
+            //
             this.btnFormulaToggleSplit.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnFormulaToggleSplit.Image = global::Quandl.Excel.Addin.Properties.Resources.formulas_enabled;
             this.btnFormulaToggleSplit.Items.Add(this.btnEnableFormula);
@@ -124,31 +124,31 @@
             this.btnFormulaToggleSplit.Label = "Formulas";
             this.btnFormulaToggleSplit.Name = "btnFormulaToggleSplit";
             this.btnFormulaToggleSplit.OfficeImageId = "Refresh";
-            // 
+            //
             // btnEnableFormula
-            // 
+            //
             this.btnEnableFormula.Image = global::Quandl.Excel.Addin.Properties.Resources.enable;
             this.btnEnableFormula.Label = "Enable";
             this.btnEnableFormula.Name = "btnEnableFormula";
             this.btnEnableFormula.ShowImage = true;
             this.btnEnableFormula.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnEnableFormula_Click);
-            // 
+            //
             // btnDisableFormula
-            // 
+            //
             this.btnDisableFormula.Image = global::Quandl.Excel.Addin.Properties.Resources.disable;
             this.btnDisableFormula.Label = "Disable";
             this.btnDisableFormula.Name = "btnDisableFormula";
             this.btnDisableFormula.ShowImage = true;
             this.btnDisableFormula.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDisableFormula_Click);
-            // 
+            //
             // SettingsGroup
-            // 
+            //
             this.SettingsGroup.Items.Add(this.openQuandlSettings);
             this.SettingsGroup.Items.Add(this.AboutButton);
             this.SettingsGroup.Name = "SettingsGroup";
-            // 
+            //
             // openQuandlSettings
-            // 
+            //
             this.openQuandlSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.openQuandlSettings.Image = global::Quandl.Excel.Addin.Properties.Resources.settings;
             this.openQuandlSettings.Label = "Settings";
@@ -156,18 +156,18 @@
             this.openQuandlSettings.OfficeImageId = "TableSharePointListsModifyColumnsAndSettings";
             this.openQuandlSettings.ShowImage = true;
             this.openQuandlSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.openQuandlSettings_Click);
-            // 
+            //
             // AboutButton
-            // 
+            //
             this.AboutButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.AboutButton.Image = global::Quandl.Excel.Addin.Properties.Resources.quandl;
             this.AboutButton.Label = "About";
             this.AboutButton.Name = "AboutButton";
             this.AboutButton.ShowImage = true;
             this.AboutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AboutButton_Click);
-            // 
+            //
             // Toolbar
-            // 
+            //
             this.Name = "Toolbar";
             this.RibbonType = "Microsoft.Excel.Workbook";
             this.Tabs.Add(this.QuandlTab);
