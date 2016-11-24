@@ -21,6 +21,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.FormulaBuilders
 
         private bool IncludeHeaders => _stateControl.IncludeHeaders;
 
+        private bool IncludeDates => _stateControl.IncludeDates;
+
+        private bool TransposeResult => _stateControl.TransposeResult;
+
         private StateControl.TimeSeriesFilterTypes DateTypeFilter => _stateControl.DateTypeFilter;
 
         public QSeries(StateControl stateControl) : base(stateControl)
@@ -38,6 +42,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.FormulaBuilders
             AddTransformationFilters(formulaComponents);
             AddLimitFilters(formulaComponents);
             AddHeaderOptions(formulaComponents);
+            AddDateOptions(formulaComponents);
+            AddTransposeOptions(formulaComponents);
 
             // Close off the formula
             return $"=QSERIES({string.Join(",", formulaComponents.Select(n => n.ToString()).ToArray()).TrimEnd(',')})";
@@ -161,6 +167,31 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.FormulaBuilders
             if (!IncludeHeaders)
             {
                 formulaComponents.Add(false.ToString());
+            }
+            else if (_stateControl.TimeseriesFilterAfter("headers"))
+            {
+                formulaComponents.Add("");
+            }
+        }
+
+        private void AddDateOptions(List<string> formulaComponents)
+        {
+            if (!IncludeDates)
+            {
+                formulaComponents.Add(false.ToString());
+            }
+            else if (_stateControl.TimeseriesFilterAfter("dates"))
+            {
+                formulaComponents.Add("");
+            }
+        }
+
+        private void AddTransposeOptions(List<string> formulaComponents)
+        {
+            // Add limit
+            if (TransposeResult)
+            {
+                formulaComponents.Add(true.ToString());
             }
         }
 

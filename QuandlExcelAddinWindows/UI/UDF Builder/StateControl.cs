@@ -124,6 +124,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         // Generic Options
         public bool IncludeHeaders { get; set; }
 
+        public bool IncludeDates { get; set; }
+
+        public bool TransposeResult { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -147,6 +151,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 Provider = null;
             }
             IncludeHeaders = true;
+            IncludeDates = true;
+            TransposeResult = false;
 
             // Reset Dataset Filters
             StartDate = null;
@@ -230,6 +236,11 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 case "limit":
                     return !IncludeHeaders ||
                            TimeseriesFilterAfter("headers");
+                case "headers":
+                    return !IncludeDates || TimeseriesFilterAfter("dates");
+                case "dates":
+                    return TransposeResult ||
+                           TimeseriesFilterAfter("transpose");
                 default:
                     return false;
             }

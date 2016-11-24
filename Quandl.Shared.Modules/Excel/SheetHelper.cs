@@ -27,6 +27,7 @@ namespace Quandl.Shared.Excel
         private readonly ResultsData _results;
         private readonly bool _threaded;
         private readonly bool _firstRow;
+        private readonly bool _transpose;
 
         // Helpers
         private Worksheet _currentWorksheet => _currentFormulaCell.Worksheet;
@@ -34,13 +35,14 @@ namespace Quandl.Shared.Excel
 
         public bool? ConfirmedOverwrite = null;
 
-        public SheetHelper(Range currentFormulaCell, ResultsData results, bool includeHeader, bool firstRow = false, bool threaded = false)
+        public SheetHelper(Range currentFormulaCell, ResultsData results, bool includeHeader, bool firstRow = false, bool threaded = false, bool transpose = false)
         {
             _currentFormulaCell = currentFormulaCell;
             _results = results;
             _includeHeader = includeHeader;
             _threaded = threaded;
             _firstRow = firstRow;
+            _transpose = transpose;
         }
 
         public string PopulateData()
@@ -105,11 +107,21 @@ namespace Quandl.Shared.Excel
             // Populate data handling the first row separately if data is on the header row.
             var data = _results.Data;
 
+            if (_transpose) data = Transpose(data);
+
             // The first row contains headers and the original UDF formula.
             if (_firstRow && _includeHeader)
             {
                 PopulateHeader();
-                PopulateGrid(data, 1);
+                if (_transpose)
+                {
+                    PopulateGrid(data, 0, 1);
+                }
+                else
+                {
+                    PopulateGrid(data, 1);
+                }
+                
             }
             // The first row contains data (no headers) and the original UDF formula.
             else if (_firstRow && data.Count >= 1)
@@ -130,18 +142,19 @@ namespace Quandl.Shared.Excel
             if (ConfirmedOverwrite == false) return;
 
             var dataArray = new List<List<object>>() { _remainingHeaders.Select(d => (object)d).ToList() };
-            var rowStart = _currentFormulaCell.Row;
-            var columnStart = _currentFormulaCell.Column + 1;
+            if (_transpose) dataArray = Transpose(dataArray);
+            var rowStart = _currentFormulaCell.Row + +(_transpose ? 1 : 0);
+            var columnStart = _currentFormulaCell.Column + (_transpose ? 0 : 1);
             var startCell = (Range)_currentWorksheet.Cells[rowStart, columnStart];
             WriteDataToGrid(dataArray, startCell);
         }
 
-        private void PopulateGrid(List<List<object>> dataArray, int rowOffset = 0)
+        private void PopulateGrid(List<List<object>> dataArray, int rowOffset = 0, int colOffset = 0)
         {
             if (ConfirmedOverwrite == false) return;
 
             var rowStart = rowOffset + _currentFormulaCell.Row;
-            var columnStart = _currentFormulaCell.Column;
+            var columnStart = colOffset + _currentFormulaCell.Column;
             var startCell = (Range)_currentWorksheet.Cells[rowStart, columnStart];
             WriteDataToGrid(dataArray, startCell);
         }
@@ -204,6 +217,19 @@ namespace Quandl.Shared.Excel
             }
 
             return true;
+        }
+
+        // http://stackoverflow.com/questions/13586524/how-to-transpose-a-list-of-lists-filling-blanks-with-defaultt
+        private List<List<T>> Transpose<T>(List<List<T>> lists)
+        {
+            var longest = lists.Any() ? lists.Max(l => l.Count) : 0;
+            List<List<T>> outer = new List<List<T>>(longest);
+            for (int i = 0; i < longest; i++)
+                outer.Add(new List<T>(lists.Count));
+            for (int j = 0; j < lists.Count; j++)
+                for (int i = 0; i < longest; i++)
+                    outer[i].Add(lists[j].Count > i ? lists[j][i] : default(T));
+            return outer;
         }
     }
 }
