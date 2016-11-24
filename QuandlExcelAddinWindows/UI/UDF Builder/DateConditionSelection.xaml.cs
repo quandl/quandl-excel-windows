@@ -13,29 +13,42 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
     /// </summary>
     public partial class DateConditionSelection : UserControl
     {
+
+        private List<Operator> listData = new List<Operator> { new Operator { Value = "lt", Label = "<" },
+                                                               new Operator { Value = "lte", Label = "<=" },
+                                                               new Operator { Value = "gt", Label = ">" },
+                                                               new Operator { Value = "gte", Label = ">=" } };
+
         public DateConditionSelection(string identifier, FilterHelper filterHelper)
         {
             InitializeComponent();
       
             Identifier = identifier;
             FilterHelper = filterHelper;
-            InitList();
+            dateSingleSelector();
+            
         }
 
         public FilterHelper FilterHelper { get; set; }
 
         public string Identifier { get; set; }
 
-        private void InitList()
+        public void dateRangeSelector()
         {
-            List<Operator> listData = new List<Operator>();
-            listData.Add(new Operator { Value = "eq", Label = "=" });
-            listData.Add(new Operator { Value = "lt", Label = "<"});
-            listData.Add(new Operator { Value = "lte", Label = "<=" });
-            listData.Add(new Operator { Value = "gt", Label = ">" });
-            listData.Add(new Operator { Value = "gte", Label = ">=" });
-            ConditionBox.SelectedValue = "eq";
+            setComboboxList(listData, "lt");
+        }
+
+        public void dateSingleSelector()
+        {
+            List<Operator> listPlusEquals = new List<Operator> { new Operator { Value = "eq", Label = "=" } };
+            listPlusEquals.AddRange(listData);
+            setComboboxList(listPlusEquals, "eq");
+        }
+
+        private void setComboboxList(List<Operator> listData, string selected)
+        {
             ConditionBox.ItemsSource = listData;
+            ConditionBox.SelectedValue = selected;
             ConditionBox.DisplayMemberPath = "Label";
             ConditionBox.SelectedValuePath = "Value";
         }
@@ -48,7 +61,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 string filterName = "";
                 if((string)ConditionBox.SelectedValue == "eq")
                 {
-                    filterName = "date";
+                    filterName = $"{Identifier}";
                 }
                 else
                 {
