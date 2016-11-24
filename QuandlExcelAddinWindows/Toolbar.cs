@@ -1,6 +1,13 @@
-﻿using System.Drawing;
-using Microsoft.Office.Interop.Excel;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
+using System.Threading;
+using System.Windows;
+using System.Windows.Forms;
 using Microsoft.Office.Tools.Ribbon;
+using Octokit;
 using Quandl.Excel.Addin.Controls;
 using Quandl.Excel.Addin.UI;
 using Quandl.Excel.Addin.UI.Settings;
@@ -8,6 +15,7 @@ using Quandl.Excel.Addin.UI.UDF_Builder;
 using Quandl.Shared;
 using Quandl.Shared.Errors;
 using Brushes = System.Windows.Media.Brushes;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Quandl.Excel.Addin
 {
@@ -16,6 +24,7 @@ namespace Quandl.Excel.Addin
         private readonly WizardGuide _guideChild = new WizardGuide();
         private TaskPaneControl _builderPane;
         private TaskPaneControl _settingsPane;
+        private Shared.Helpers.Updater _updater = new Shared.Helpers.Updater();
 
         private void Ribbon2_Load(object sender, RibbonUIEventArgs e)
         {
@@ -24,7 +33,7 @@ namespace Quandl.Excel.Addin
 
         private void AboutButton_Click(object sender, RibbonControlEventArgs e)
         {
-            new AboutForm().Show();
+            new TaskPaneControl(new About(), "About").Show();
         }
 
         private void openQuandlSettings_Click(object sender, RibbonControlEventArgs e)
@@ -44,8 +53,8 @@ namespace Quandl.Excel.Addin
             }
             _guideChild.Reset();
             _guideChild.Background = Brushes.White;
-            _guideChild.Margin = new System.Windows.Thickness(0);
-            _guideChild.Padding = new System.Windows.Thickness(0);
+            _guideChild.Margin = new Thickness(0);
+            _guideChild.Padding = new Thickness(0);
             _builderPane.Show();
         }
 
@@ -58,16 +67,18 @@ namespace Quandl.Excel.Addin
         {
             if (QuandlConfig.PreventCurrentExecution)
             {
-                btnFormulaToggleSplit.Image = Quandl.Excel.Addin.Properties.Resources.formulas_disabled;
+                btnFormulaToggleSplit.Image = Properties.Resources.formulas_disabled;
                 btnEnableFormula.Enabled = true;
                 btnDisableFormula.Enabled = false;
             }
             else
             {
-                btnFormulaToggleSplit.Image = Quandl.Excel.Addin.Properties.Resources.formulas_enabled;
+                btnFormulaToggleSplit.Image = Properties.Resources.formulas_enabled;
                 btnEnableFormula.Enabled = false;
                 btnDisableFormula.Enabled = true;
             }
+            if (QuandlConfig.CheckUpdateAtStart)
+                CheckUpdate();
         }
 
         public void CloseBuilder()
@@ -112,6 +123,19 @@ namespace Quandl.Excel.Addin
         {
             QuandlConfig.PreventCurrentExecution = !QuandlConfig.PreventCurrentExecution;
             SetExecutionToggleIcon();
+        }
+
+        private void btnCheckUpdate_Click(object sender, RibbonControlEventArgs e)
+        {
+            new TaskPaneControl(new Update(_updater), "New Updates Available!").Show();
+        }
+
+        private void CheckUpdate()
+        {
+            if (_updater.UpdateAvailable)
+            {
+                btnCheckUpdate.Visible = true;
+            }
         }
     }
 }

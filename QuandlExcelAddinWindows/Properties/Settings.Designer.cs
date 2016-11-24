@@ -180,5 +180,41 @@ namespace Quandl.Excel.Addin.Properties {
                 this["SettingsSaveConfirmation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("New version available for download")]
+        public string CheckUpdateNewUpatateAvailable {
+            get {
+                return ((string)(this["CheckUpdateNewUpatateAvailable"]));
+            }
+            set {
+                this["CheckUpdateNewUpatateAvailable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No update available for download")]
+        public string CheckUpdateNoUpatateAvailable {
+            get {
+                return ((string)(this["CheckUpdateNoUpatateAvailable"]));
+            }
+            set {
+                this["CheckUpdateNoUpatateAvailable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Release Note for {0}")]
+        public string CheckUpdatesReleaseNoteTitle {
+            get {
+                return ((string)(this["CheckUpdatesReleaseNoteTitle"]));
+            }
+            set {
+                this["CheckUpdatesReleaseNoteTitle"] = value;
+            }
+        }
     }
 }

@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Quandl.Excel.Addin.UI.Update"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Quandl.Excel.Addin.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="640">
+    <Grid>
+        <Border BorderThickness="1" BorderBrush="#C5D1D8" Background="#FFF2F2F2"/>
+        <StackPanel>
+            <Label Content="Release Notes:" FontSize="16" Margin="10,5,0,0"/>
+            <FlowDocumentScrollViewer MinHeight="350" Margin="10,5,10,5" BorderThickness="1" BorderBrush="LightGray"  Name="DocFlow" Background="White"/>
+            <Label Margin="10,0,0,0">
+                <Hyperlink NavigateUri="http://github.com/quandl/quandl-excel-windows" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">Link to Repo</Hyperlink>
+            </Label>
+            <Button Name="DownloadButton" Width="225" Height="30" Margin="10" Content="Download new version" FontSize="14" Click="Button_Click"/>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

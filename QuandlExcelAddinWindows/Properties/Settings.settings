@@ -41,5 +41,14 @@
     <Setting Name="SettingsSaveConfirmation" Type="System.String" Scope="User">
       <Value Profile="(Default)">Save Confirmation</Value>
     </Setting>
+    <Setting Name="CheckUpdateNewUpatateAvailable" Type="System.String" Scope="User">
+      <Value Profile="(Default)">New version available for download</Value>
+    </Setting>
+    <Setting Name="CheckUpdateNoUpatateAvailable" Type="System.String" Scope="User">
+      <Value Profile="(Default)">No update available for download</Value>
+    </Setting>
+    <Setting Name="CheckUpdatesReleaseNoteTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Release Note for {0}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -52,6 +52,7 @@ Things to note:
 * Be sure to bump the version AND change your product code number under `Organize Your Setup` => `General Information`. This is necessary for a seemless upgrade.
 * Allow of our dependencies have been listed as `web` dependencies to keep our installer small. 
   * Should you need to install them locally you can do that navigating to `Quandl.Excel.Addin.Setup -> 2 Specify Application Data => Redistributables`. You will need to do this in Visual Studio as an admin.
+* we are using [Markdown.XAML](https://github.com/theunrepentantgeek/Markdown.XAML) to generate the flowdocument from the github markup. For more info check out the github page.
 
 ## Unit testing
 
