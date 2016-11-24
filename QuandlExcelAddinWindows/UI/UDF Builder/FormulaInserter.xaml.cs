@@ -22,7 +22,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                         delegate(Range target) { DisplayRangeSelection(target); };
                     if (StateControl.Instance.ChainType != StateControl.ChainTypes.TimeSeries)
                     {
-                        IncludeHeaders.Visibility = System.Windows.Visibility.Collapsed; 
+                        IncludeHeaders.Visibility = System.Windows.Visibility.Collapsed;
+                        Dates.Visibility = System.Windows.Visibility.Collapsed;
+                        Transpose.Visibility = System.Windows.Visibility.Collapsed;
                     }
                 };
         }
