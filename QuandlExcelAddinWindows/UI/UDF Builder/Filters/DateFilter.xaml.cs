@@ -40,6 +40,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
             _dateFrom.SelectedDateChanged += Date_OnSelectedDateChanged;
 
             _dateTo = new DateConditionSelection(Identifier, new FilterHelper());
+            _dateTo.dateRangeSelector();
             _dateTo.HorizontalAlignment = HorizontalAlignment.Left;
             _dateTo.Margin = new Thickness(180, 0, 10, 30);
             _dateTo.IsEnabled = false;
@@ -56,10 +57,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
             {
                 CleanValidationMessage();
                 _dateTo.IsEnabled = false;
+                _dateFrom.dateSingleSelector();
             }
             else if (selectedText == "Period Range")
             {
                 _dateTo.IsEnabled = true;
+                _dateFrom.dateRangeSelector();
             } 
         }
 
