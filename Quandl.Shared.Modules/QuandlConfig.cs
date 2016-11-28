@@ -123,7 +123,6 @@ namespace Quandl.Shared
             set
             {
                 SetRegistryKeyValue("UserRole", value);
-                OnLoginChanged();
             }
         }
 
@@ -163,7 +162,7 @@ namespace Quandl.Shared
             try
             {
                 var user = await new Web().WhoAmI(apiKey);
-                var isValid = user != null && user.ApiKey == apiKey;
+                var isValid = (user != null) && (user.ApiKey == apiKey);
                 Instance.userRole = isValid ? user.UserRole : "";
                 return isValid;
             }
