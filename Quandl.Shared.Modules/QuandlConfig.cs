@@ -133,6 +133,12 @@ namespace Quandl.Shared
             set { Instance.apiKey = value; }
         }
 
+        public static string UserRole
+        {
+            get { return Instance.userRole; }
+            set { Instance.userRole = value; }
+        }
+
         private static bool RegistryKeyExists(string key)
         {
             var quandlRootKey = Registry.CurrentUser.OpenSubKey(RegistrySubKey);
@@ -157,7 +163,9 @@ namespace Quandl.Shared
             try
             {
                 var user = await new Web().WhoAmI(apiKey);
-                return user != null && user.ApiKey == apiKey;
+                var isValid = user != null && user.ApiKey == apiKey;
+                Instance.userRole = isValid ? user.UserRole : "";
+                return isValid;
             }
             catch (QuandlErrorBase exp)
             {
@@ -180,7 +188,10 @@ namespace Quandl.Shared
 
         public bool IsOnlyUser()
         {
-            return Instance.apiKey == null || instance.userRole == Utilities.UserRoles.User.ToString();
+            return Instance.apiKey == null ||
+                   Instance.apiKey.Trim().Equals("") ||
+                   Instance.userRole == null ||
+                   Instance.userRole == Utilities.UserRoles.User.ToString();
         }
 
         public static void Reset()

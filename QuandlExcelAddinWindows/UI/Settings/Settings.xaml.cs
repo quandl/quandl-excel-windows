@@ -42,6 +42,8 @@ namespace Quandl.Excel.Addin.UI.Settings
             QuandlConfig.LongRunningQueryWarning = (bool)LongRunningWarningTextBox.IsChecked;
             QuandlConfig.OverwriteDataWarning = (bool)OverwriteWarningTextBox.IsChecked;
             QuandlConfig.ScrollOnInsert = ScollEnabledCheckBox.IsChecked.Value;
+            if (QuandlConfig.ApiKey.Equals(""))
+                QuandlConfig.UserRole = "";
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
