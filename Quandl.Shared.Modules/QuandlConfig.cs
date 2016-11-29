@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Win32;
@@ -123,7 +124,6 @@ namespace Quandl.Shared
             set
             {
                 SetRegistryKeyValue("UserRole", value);
-                OnLoginChanged();
             }
         }
 
@@ -131,6 +131,12 @@ namespace Quandl.Shared
         {
             get { return Instance.apiKey; }
             set { Instance.apiKey = value; }
+        }
+
+        public static string UserRole
+        {
+            get { return Instance.userRole; }
+            set { Instance.userRole = value; }
         }
 
         private static bool RegistryKeyExists(string key)
@@ -157,7 +163,9 @@ namespace Quandl.Shared
             try
             {
                 var user = await new Web().WhoAmI(apiKey);
-                return user != null && user.ApiKey == apiKey;
+                var isValid = (user != null) && (user.ApiKey == apiKey);
+                Instance.userRole = isValid ? user.UserRole : "";
+                return isValid;
             }
             catch (QuandlErrorBase exp)
             {
@@ -180,7 +188,10 @@ namespace Quandl.Shared
 
         public bool IsOnlyUser()
         {
-            return Instance.apiKey == null || instance.userRole == Utilities.UserRoles.User.ToString();
+            return Instance.apiKey == null ||
+                   Instance.apiKey.Trim().Equals("") ||
+                   Instance.userRole == null ||
+                   string.Equals(Instance.userRole, Utilities.UserRoles.User.ToString(), StringComparison.CurrentCultureIgnoreCase);
         }
 
         public static void Reset()

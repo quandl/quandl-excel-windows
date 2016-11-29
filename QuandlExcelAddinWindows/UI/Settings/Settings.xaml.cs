@@ -37,7 +37,12 @@ namespace Quandl.Excel.Addin.UI.Settings
 
         private void SaveSettings()
         {
-            QuandlConfig.ApiKey = ApiKeyTextBox.Text.Trim();
+            var keyInput = ApiKeyTextBox.Text.Trim();
+            if (QuandlConfig.ApiKey != keyInput)
+            {
+                QuandlConfig.Instance.LoginChanged += ValideKey;
+                QuandlConfig.ApiKey = keyInput;
+            }
             QuandlConfig.AutoUpdateFrequency = (QuandlConfig.AutoUpdateFrequencies)AutoUpdateComboBox.SelectedValue;
             QuandlConfig.LongRunningQueryWarning = (bool)LongRunningWarningTextBox.IsChecked;
             QuandlConfig.OverwriteDataWarning = (bool)OverwriteWarningTextBox.IsChecked;
@@ -70,5 +75,19 @@ namespace Quandl.Excel.Addin.UI.Settings
         {
             if (ParentControl != null) ParentControl.Close();
         }
+
+        private async void ValideKey()
+        {
+            try
+            {
+                await QuandlConfig.ApiKeyValid();
+            }
+            catch (Exception exp)
+            {
+                Globals.ThisAddIn.UpdateStatusBar(exp);
+                Utilities.LogToSentry(exp);
+            }
+        }
+
     }
 }

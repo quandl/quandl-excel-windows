@@ -4427,9 +4427,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{FD936B2E-9593-43F4-A604-B060B9066D11}</td><td/></row>
+		<row><td>ProductCode</td><td>{35C0A55A-21AC-4E6B-9987-509814FDBCEC}</td><td/></row>
 		<row><td>ProductName</td><td>Quandl Excel Addin</td><td/></row>
-		<row><td>ProductVersion</td><td>3.60.0000</td><td/></row>
+		<row><td>ProductVersion</td><td>3.70.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
