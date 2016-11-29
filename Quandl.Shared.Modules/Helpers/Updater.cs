@@ -64,7 +64,7 @@ namespace Quandl.Shared.Helpers
 
                 _updateAvailable = latestRelease.Id > Utilities.GithubReleaseId && !latestRelease.Prerelease && !latestRelease.Draft;
             }
-        catch(Exception e)
+            catch(Exception)
             {
                 return;
             }           

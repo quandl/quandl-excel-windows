@@ -75,5 +75,19 @@ namespace Quandl.Excel.Addin.UI.Settings
         {
             if (ParentControl != null) ParentControl.Close();
         }
+
+        private async void ValideKey()
+        {
+            try
+            {
+                await QuandlConfig.ApiKeyValid();
+            }
+            catch (Exception exp)
+            {
+                Globals.ThisAddIn.UpdateStatusBar(exp);
+                Utilities.LogToSentry(exp);
+            }
+        }
+
     }
 }
