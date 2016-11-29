@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Win32;
@@ -190,7 +191,7 @@ namespace Quandl.Shared
             return Instance.apiKey == null ||
                    Instance.apiKey.Trim().Equals("") ||
                    Instance.userRole == null ||
-                   Instance.userRole == Utilities.UserRoles.User.ToString();
+                   string.Equals(Instance.userRole, Utilities.UserRoles.User.ToString(), StringComparison.CurrentCultureIgnoreCase);
         }
 
         public static void Reset()
