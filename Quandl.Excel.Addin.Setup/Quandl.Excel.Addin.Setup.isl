@@ -348,6 +348,8 @@
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{33BE9A1E-C970-4D69-B5B6-64E41F8933EE}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{92CFCBA5-C954-442B-8890-64F00820DCBE}</td><td>LocalAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{B9113AA8-E292-472B-80A2-64089A3FED92}</td><td>ProgramFiles64Folder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{349E99A8-5879-4F19-B13B-CDE23AD48935}</td><td>_4BIT</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT4</td><td>{D7B75ACE-7048-41FE-9133-38DA6A11825C}</td><td>_4BIT</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>IS_ININSTALL_SHORTCUT</td><td>{CCAC810B-8420-4846-AFF9-A97353666B32}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Quandl.Excel.Addin.Content_Files</td><td>{59F8F669-0C2C-4B6D-8207-8B4F78E12F33}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.addin.content_f</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Quandl.Excel.Addin.Primary_output</td><td>{F28B3C27-3BC1-42CE-83CA-359EA5A11738}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.addin.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1065,6 +1067,8 @@
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 		<row><td>INSTALLDIR</td><td>IS_ININSTALL_SHORTCUT</td></row>
 		<row><td>INSTALLDIR</td><td>Quandl.Excel.Addin.Content_Files</td></row>
 		<row><td>INSTALLDIR</td><td>Quandl.Excel.Addin.Primary_output</td></row>
@@ -1073,6 +1077,8 @@
 		<row><td>INSTALLDIR</td><td>Quandl.Excel.UDF.Functions_AddIn.dna</td></row>
 		<row><td>INSTALLDIR</td><td>Quandl.Excel.UDF.Functions_AddIn.xll</td></row>
 		<row><td>SUPPORTDIR</td><td>Quandl.Excel.Console.Primary_output</td></row>
+		<row><td>_4BIT</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>_4BIT</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1180,6 +1186,7 @@
 		<row><td>NEW_DIRECTORY3</td><td>TARGETDIR</td><td>NEW_DIRECTORY3</td><td/><td>0</td><td/></row>
 		<row><td>NEW_DIRECTORY4</td><td>TARGETDIR</td><td>NEW_DIRECTORY4</td><td/><td>0</td><td/></row>
 		<row><td>NEW_DIRECTORY5</td><td>TARGETDIR</td><td>NEW_DIRECTORY5</td><td/><td>0</td><td/></row>
+		<row><td>NEW_FOLDER_1</td><td>TARGETDIR</td><td>NEW_FOLDER_1</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
 		<row><td>PrimaryVolumePath</td><td>TARGETDIR</td><td>.:Primar~1|PrimaryVolumePath</td><td/><td>0</td><td/></row>
@@ -1203,6 +1210,7 @@
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
+		<row><td>_4BIT</td><td>INSTALLDIR</td><td>64bit</td><td/><td>0</td><td/></row>
 		<row><td>quandl_1_quandl_excel_addin</td><td>quandl_1_quandl_inc</td><td>QUANDL~1|Quandl Excel Addin</td><td/><td>1</td><td/></row>
 		<row><td>quandl_1_quandl_inc</td><td>ProgramMenuFolder</td><td>QUANDL~1|Quandl Inc</td><td/><td>1</td><td/></row>
 		<row><td>quandl_excell_addin</td><td>quandl_1_quandl_inc</td><td>EXCELA~1|Excel Addin</td><td/><td>1</td><td/></row>
@@ -1900,6 +1908,8 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 		<row><td>AlwaysInstall</td><td>IS_ININSTALL_SHORTCUT</td></row>
 		<row><td>AlwaysInstall</td><td>Quandl.Excel.Addin.Content_Files</td></row>
 		<row><td>AlwaysInstall</td><td>Quandl.Excel.Addin.Primary_output</td></row>
@@ -1929,6 +1939,8 @@
 		<row><td>quandl.excel.udf.functions.p</td><td>Quandl.Excel.UDF.Functions.Primary_output</td><td>Quandl.Excel.UDF.Functions.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.UDF.Functions1&gt;|Built</td><td>3</td><td/></row>
 		<row><td>quandl.excel.udf.functions_a</td><td>Quandl.Excel.UDF.Functions_AddIn.dna</td><td>QUANDL~1.DNA|Quandl.Excel.UDF.Functions-AddIn.dna</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.dna</td><td>1</td><td/></row>
 		<row><td>quandl.excel.udf.functions_a1</td><td>Quandl.Excel.UDF.Functions_AddIn.xll</td><td>QUANDL~1.XLL|Quandl.Excel.UDF.Functions-AddIn.xll</td><td>0</td><td/><td/><td>0</td><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.xll</td><td>1</td><td/></row>
+		<row><td>quandl.excel.udf.functions_a2</td><td>ISX_DEFAULTCOMPONENT4</td><td>QUANDL~1.DNA|Quandl.Excel.UDF.Functions-AddIn.dna</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.UDF.Functions-AddIn.dna</td><td>1</td><td/></row>
+		<row><td>quandl.excel.udf.functions_a3</td><td>ISX_DEFAULTCOMPONENT4</td><td>QUANDL~1.XLL|Quandl.Excel.UDF.Functions-AddIn.xll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\Lib\Quandl.Excel.UDF.Functions-AddIn.xll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2075,6 +2087,8 @@
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_85509560_FC87_4BCC_A6CA_4C9C4763ED2A_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_6EF04747_1ABE_4BFF_81ED_69C2DBE97390_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_612F5ACB_790C_487F_BE1A_79BC7262E4DC_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_793853D2_33AE_4001_971F_ABB2475D2A5D_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT4</td><td/><td/><td>_EB187FD8_7EC3_46BE_996E_777465E1FCFC_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>IS_ININSTALL_SHORTCUT</td><td/><td/><td>_A707A2C6_6E5E_4F70_B91A_F6C3DC6E1377_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Quandl.Excel.Addin.Content_Files</td><td/><td/><td>_F04DBC2D_4CC5_4221_AED8_F7881B8E7094_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Quandl.Excel.Addin.Primary_output</td><td/><td/><td>_B0040B69_DBC0_4D8E_BC6A_BAD7AA4F46A3_FILTER</td><td/><td/><td/><td/></row>
