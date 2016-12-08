@@ -21,7 +21,7 @@ namespace Quandl.Shared.Helpers
         private GitHubClient GetClient {
             get
             {
-                if (_client != null)
+                if (_client == null)
                 {
                     _client = new GitHubClient(new ProductHeaderValue("Quandl-Excel-Addin"));
                 }
@@ -33,8 +33,7 @@ namespace Quandl.Shared.Helpers
 
         public void GetLastestUpdate()
         {
-            var version = Utilities.ExcelVersionNumber.Contains("64");
-            string requestPath = latestRelease.Assets[version ? 1:0].BrowserDownloadUrl;
+            string requestPath = latestRelease.Assets[0].BrowserDownloadUrl;
 
             string fullFile = Syroot.Windows.IO.KnownFolders.Downloads.Path + "\\" + GetFileNameFrom(new Uri(requestPath));
 
