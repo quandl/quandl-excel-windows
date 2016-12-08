@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -9,9 +10,7 @@ namespace Quandl.Excel.Console
     public class SetupHelp
     {
         private const string AddinPartialPackageString = "Quandl";
-        private const string AddinPackageString = "Quandl.Excel.UDF.Functions-AddIn.xll";
-
-        private static readonly string OpenValue = $@"/R ""{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\Quandl\Quandl.Excel.UDF.Functions-AddIn.xll""";
+        private static string OpenValue;
 
         public static string ValueKeyName { get; } = "OPEN";
 
@@ -19,9 +18,27 @@ namespace Quandl.Excel.Console
         {
             foreach (var subKey in AddinRegisterKeys())
             {
-                RemoveAvailableOpenOption(subKey); // Remove any existing old keys
-                SetAvailableOpenOption(subKey); // Add in any new keys
+                SetOpenValue(subKey["key"].ToString());
+                var option = subKey["option"].ToString();
+                RemoveAvailableOpenOption(option); // Remove any existing old keys
+                SetAvailableOpenOption(option); // Add in any new keys
             }
+        }
+        public static void UnRegisterExcelAddin()
+        {
+            foreach (var subKey in AddinRegisterKeys())
+            {
+                SetOpenValue(subKey["key"].ToString());
+                var option = subKey["option"].ToString();
+                RemoveAvailableOpenOption(option);
+            }
+            ClearSettings();
+        }
+
+        private static void SetOpenValue(string excelVersion)
+        {
+            var version = new Version(excelVersion);
+            OpenValue = version.OpenValue;
         }
 
         // For any existing excel add-ins, if they are selected then option of corresponding OPEN options will be used
@@ -93,16 +110,21 @@ namespace Quandl.Excel.Console
             return keys;
         }
 
-        private static IEnumerable<string> AddinRegisterKeys()
+        private static IEnumerable<Hashtable> AddinRegisterKeys()
         {
             var openSubKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Office");
-            if (openSubKey == null) return new List<string>();
+            if (openSubKey == null) return new List<Hashtable>();
             var excelInstallations = openSubKey.GetSubKeyNames();
             var keys = new List<string>(excelInstallations);
-            keys = keys.Where(k => Regex.IsMatch(k, "^\\d+.\\d+$"))
+            var finalKeys = keys.Where(k => Regex.IsMatch(k, "^\\d+.\\d+$"))
                 .Where(k => Convert.ToDouble(k, System.Globalization.CultureInfo.InvariantCulture) >= 14)
-                .Select(k => $@"SOFTWARE\Microsoft\Office\{k}\Excel\Options").ToList();
-            return keys;
+                .Select(k => new Hashtable()
+                {
+                    {"key", $@"{k}" },
+                    { "option", $@"SOFTWARE\Microsoft\Office\{k}\Excel\Options"}
+                } 
+                ).ToList();
+            return finalKeys;
         }
 
         private static void ClearSettings()
@@ -121,15 +143,6 @@ namespace Quandl.Excel.Console
             {
                 appKeyPath.Close();
             }
-        }
-
-        public static void UnRegisterExcelAddin()
-        {
-            foreach (var subKey in AddinRegisterKeys())
-            {
-                RemoveAvailableOpenOption(subKey);
-            }
-            ClearSettings();
         }
 
         private enum KeySearchResult
