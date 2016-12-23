@@ -1,4 +1,5 @@
 ﻿using Quandl.Shared;
+using Quandl.Shared.Helpers;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -26,7 +27,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             // Wait for the UI thread to become idle before rendering. Not this can have disastrous performance implications if used incorrectly.
             Dispatcher.Invoke(new System.Action(() => { }), DispatcherPriority.ContextIdle, null);
 
-            // Async check that the user is logged in our not
+            // async check that the user is logged in our not
             Loaded += async delegate
             {
                 PrepareFormEvents();
@@ -38,7 +39,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 catch (Exception exp)
                 {
                     Globals.ThisAddIn.UpdateStatusBar(exp);
-                    Utilities.LogToSentry(exp);
+                    Logger.log(exp);
                 }
             };
         }
@@ -161,7 +162,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             catch (Exception exp)
             {
                 Globals.ThisAddIn.UpdateStatusBar(exp);
-                Utilities.LogToSentry(exp);
+                Logger.log(exp);
             }
         }
 
@@ -254,7 +255,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             catch (COMException ex)
             {
                 // Ignore no cells being selected error.
-                if (ex.HResult == -2146827864)
+                if (ex.HResult == Quandl.Shared.Excel.Exception.BAD_REFERENCE)
                 {
                     Trace.WriteLine(ex.Message);
                     return;

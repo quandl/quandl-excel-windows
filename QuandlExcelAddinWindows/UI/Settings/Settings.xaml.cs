@@ -5,6 +5,7 @@ using System.Windows.Interop;
 using GongSolutions.Wpf.DragDrop.Utilities;
 using Quandl.Excel.Addin.UI.Helpers;
 using Quandl.Shared;
+using Quandl.Shared.Helpers;
 
 namespace Quandl.Excel.Addin.UI.Settings
 {
@@ -85,7 +86,7 @@ namespace Quandl.Excel.Addin.UI.Settings
             catch (Exception exp)
             {
                 Globals.ThisAddIn.UpdateStatusBar(exp);
-                Utilities.LogToSentry(exp);
+                Logger.log(exp);
             }
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
+using System.IO;
 
 namespace Quandl.Excel.Console
 {
@@ -33,6 +34,7 @@ namespace Quandl.Excel.Console
                 RemoveAvailableOpenOption(option);
             }
             ClearSettings();
+            CleanLogs();
         }
 
         private static void SetAddinPath(string excelVersion)
@@ -145,6 +147,13 @@ namespace Quandl.Excel.Console
             }
         }
 
+        private static void CleanLogs()
+        {
+            var documentsPath = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents", "Quandl");
+            Directory.Delete(documentsPath, true);
+        }
+
+        
         private enum KeySearchResult
         {
             Exist,

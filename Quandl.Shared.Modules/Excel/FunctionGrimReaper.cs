@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using Quandl.Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,10 +109,10 @@ namespace Quandl.Shared.Excel
                 // Add a message to indicate the formula's have stopped.
                 StatusBar.AddMessage(Locale.English.DownloadStopped);
             }
-            catch(Exception e)
+            catch(System.Exception e)
             {
                 StatusBar.AddException(e);
-                Utilities.LogToSentry(e);
+                Logger.log(e);
                 return false;
             }
             finally

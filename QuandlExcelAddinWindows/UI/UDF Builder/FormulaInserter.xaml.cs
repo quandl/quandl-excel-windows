@@ -2,6 +2,7 @@
 using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using Quandl.Shared.Excel;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -53,7 +54,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             catch (COMException ex)
             {
                 // Ignore no cells being selected error.
-                if (ex.HResult == -2146827864)
+                if (ex.HResult == Exception.BAD_REFERENCE)
                 {
                     Trace.WriteLine(ex.Message);
                     return;

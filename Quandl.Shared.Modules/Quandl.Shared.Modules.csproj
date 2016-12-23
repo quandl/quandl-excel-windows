@@ -46,8 +46,8 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Visual Studio Tools for Office\PIA\Office15\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
-    <Reference Include="MoreLinq, Version=2.0.19309.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\packages\morelinq.2.0.0-beta04\lib\net35\MoreLinq.dll</HintPath>
+    <Reference Include="MoreLinq, Version=2.0.20029.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.2.0.0\lib\net35\MoreLinq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -86,14 +86,15 @@
   <ItemGroup>
     <Compile Include="Errors\MissingFormulaException.cs" />
     <Compile Include="Errors\QuandlErrorBase.cs" />
+    <Compile Include="Excel\Exception.cs" />
     <Compile Include="Excel\FunctionGrimReaper.cs" />
     <Compile Include="Excel\IStatusBar.cs" />
     <Compile Include="Excel\NullStatusBar.cs" />
-    <Compile Include="Excel\SheetHelper.cs" />
     <Compile Include="Excel\StatusBar.cs" />
     <Compile Include="Excel\ThreadedStatusBar.cs" />
     <Compile Include="FunctionUpdater.cs" />
     <Compile Include="Helpers\CheckedItemHelper.cs" />
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\Updater.cs" />
     <Compile Include="Locale\English.Designer.cs">
       <AutoGen>True</AutoGen>

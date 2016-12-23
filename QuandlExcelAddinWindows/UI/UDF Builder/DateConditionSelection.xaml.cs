@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using Quandl.Excel.Addin.UI.Helpers;
 using Quandl.Excel.Addin.UI.UDF_Builder.Filters;
 using Quandl.Shared;
+using Quandl.Shared.Helpers;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -93,7 +94,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 if (!(exception is QuandlFromDateIsGreaterThanEndDateException ||
                     exception is QuandlDateCanNotBlankException))
                 {
-                    Utilities.LogToSentry(exception);
+                    Logger.log(exception);
                     throw;
                 }
             }

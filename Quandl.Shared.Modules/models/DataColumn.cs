@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Quandl.Excel.Addin.UI.Helpers;
+using Quandl.Shared.Helpers;
 
 namespace Quandl.Shared.Models
 {

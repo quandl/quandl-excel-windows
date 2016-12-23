@@ -3,6 +3,7 @@ using Microsoft.Office.Interop.Excel;
 using Quandl.Shared;
 using Quandl.Shared.Excel;
 using Quandl.Shared.Models;
+using Quandl.Excel.UDF.Functions.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Quandl.Shared.Helpers;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
@@ -18,7 +20,22 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
     {
         private const int RowPullCountMax = 1000;
 
-        [ExcelFunction("Pull in Quandl data via the API", Name = "QTABLE", IsMacroType = true, Category = "Financial")]
+        /**
+         * The following is a very tricky setup. To avoid cells being re-calculated over and over again we need to mark a UDF as non-volatile. Due to the way
+         * in which non-volatility works just marking it as non-volatile off the bat is not enough. We need to mark it on each run. Furthermore to make that
+         * type of call can only be done from a Macro UDF. Therefore to achieve the desired scenario we do the following:
+         * 
+         * 1. Mark the UDF as a Macro and Volatile to begin with.
+         * 2. When UDF runs immediately mark it as non-volatile
+         * 3. When outputting the data run this in a Queued macro function so that it does not influence the running calculation thread. 
+         */
+        [ExcelFunction("Pull in Quandl data via the API",
+            Name = "QTABLE",
+            Category = "Financial",
+            IsMacroType = true,
+            IsExceptionSafe = false,
+            IsThreadSafe = false,
+            IsVolatile = true)]
         public static string Qtable(
             [ExcelArgument("A single Quandl code", Name = "Quandl Code", AllowReference = true)] object rawQuandlCode,
             [ExcelArgument("(optional) A list of columns to fetch", Name = "Columns", AllowReference = true)] object rawColumns,
@@ -35,11 +52,11 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             [ExcelArgument("(optional) The name of filter 6", AllowReference = true)] object argName6,
             [ExcelArgument("(optional) The value of filter 6", AllowReference = true)] object argValue6)
         {
-            // turn off volitility so that excel does not refresh function when any cell is changed
-            Common.SetCellVolatile(false);
+            // Need to reset cell volatility on each run-through
+            Tools.SetCellVolatile(false);
+
             // Get the current cell formula.
             var reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
-            Range currentFormulaCell = Tools.ReferenceToRange(reference);
 
             // Prevent the formula from running should it be blocked.
             if (QuandlConfig.PreventCurrentExecution)
@@ -47,7 +64,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 return Locale.English.AutoDownloadTurnedOff;
             }
 
-            return Process(currentFormulaCell, rawQuandlCode, rawColumns, argName1, argValue1, argName2, argValue2, argName3, argValue3, argName4, argValue4, argName5, argValue5, argName6, argValue6);
+            return Process(reference, rawQuandlCode, rawColumns, argName1, argValue1, argName2, argValue2, argName3, argValue3, argName4, argValue4, argName5, argValue5, argName6, argValue6);
         }
 
         /// <summary>
@@ -62,7 +79,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             filter = enumerableFilterValues.Cast<string>().ToList();
         }
 
-        private static string Process(Range currentFormulaCell, object rawQuandlCode, object rawColumns, object argName1, object argValue1, object argName2, object argValue2, object argName3, object argValue3, object argName4, object argValue4, object argName5, object argValue5, object argName6, object argValue6)
+        private static string Process(ExcelReference currentFormulaCellReference, object rawQuandlCode, object rawColumns, object argName1, object argValue1, object argName2, object argValue2, object argName3, object argValue3, object argName4, object argValue4, object argName5, object argValue5, object argName6, object argValue6)
         {
             Common.StatusBar.AddMessage(Locale.English.UdfRetrievingData);
             var queryParams = new DatatableParams();
@@ -114,23 +131,24 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 queryParams.AddInternalParam("qopts.per_page", RowPullCountMax);
 
                 // Pull the data
-                var retriever = new RetrieveAndWriteData(quandlCode, queryParams, (Range)currentFormulaCell);
+                var retriever = new RetrieveAndWriteData(quandlCode, queryParams, currentFormulaCellReference);
                 var thready = new Thread(retriever.fetchData);
                 thready.Priority = ThreadPriority.Normal;
                 thready.IsBackground = true;
                 thready.Start();
 
                 // Begin the reaping thread. This is necessary to kill off and formula that are functioning for a long time.
-                FunctionGrimReaper.AddNewThread(thready, currentFormulaCell.Application); 
+                var range = Tools.ReferenceToRange(currentFormulaCellReference);
+                FunctionGrimReaper.AddNewThread(thready, range.Application);
 
                 return Utilities.ValidateEmptyData(firstCellString);
             }
             catch (DatatableParamError e)
             {
-                Utilities.LogToSentry(e, AdditionalInfo(queryParams));
+                Logger.log(e, AdditionalInfo(queryParams));
                 return e.Message;
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 return Common.HandlePotentialQuandlError(e, true, AdditionalInfo(queryParams));
             }
@@ -168,15 +186,15 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
         internal class RetrieveAndWriteData
         {
-            private string quandlCode;
-            private DatatableParams datatableParams;
-            private Range currentRange;
+            private string _quandlCode;
+            private DatatableParams _datatableParams;
+            private Range _currentCellRange;
 
-            public RetrieveAndWriteData(string quandlCode, DatatableParams datatableParams, Range currentRange)
+            public RetrieveAndWriteData(string quandlCode, DatatableParams datatableParams, ExcelReference currentCellReference)
             {
-                this.quandlCode = quandlCode;
-                this.datatableParams = datatableParams;
-                this.currentRange = currentRange;
+                this._quandlCode = quandlCode;
+                this._datatableParams = datatableParams;
+                this._currentCellRange = Tools.ReferenceToRange(currentCellReference);
             }
 
             public void fetchData()
@@ -190,7 +208,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     do
                     {
                         // Fetch rows
-                        var task = new Web().GetDatatableData(quandlCode, datatableParams.QueryParams);
+                        var task = new Web().GetDatatableData(_quandlCode, _datatableParams.QueryParams);
                         task.Wait();
                         var results = task.Result;
 
@@ -202,10 +220,10 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         var processedData = new ResultsData(results.Data.DataPoints, results.Columns.Select(c => c.Code).ToList());
 
                         // Write fetch rows out to the sheet. If this is the first iteration save the value to display in the formula cell.
-                        SheetHelper excelWriter = new SheetHelper(currentRange, processedData, false, false, true);
+                        SheetHelper excelWriter = new SheetHelper(processedData, false, false, true);
                         if (nextCursorId == null)
                         {
-                            excelWriter = new SheetHelper(currentRange, processedData, true, true, true);
+                            excelWriter = new SheetHelper(processedData, true, true, true);
                         }
 
                         // Bail out if the worksheet no longer exists.
@@ -218,7 +236,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         excelWriter.ConfirmedOverwrite = confirmedOverwrite;
 
                         // Write data and save state of whether to continue overwriting.
-                        excelWriter.PopulateData();
+                        excelWriter.PopulateData(_currentCellRange);
 
                         // Bail out if the user said no to overwriting data;
                         confirmedOverwrite = excelWriter.ConfirmedOverwrite;
@@ -238,10 +256,9 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                             }
 
                             nextCursorId = results.Data.Cursor;
-                            datatableParams.AddInternalParam("qopts.cursor_id", results.Data.Cursor);
+                            _datatableParams.AddInternalParam("qopts.cursor_id", results.Data.Cursor);
 
-                            var worksheet = currentRange.Worksheet;
-                            currentRange = (Range)worksheet.Cells[currentRange.Row + headerOffset + results.Data.DataPoints.Count, currentRange.Column];
+                            _currentCellRange = _currentCellRange.Worksheet.Cells[_currentCellRange.Row + headerOffset + results.Data.DataPoints.Count, _currentCellRange.Column];
                         }
                         else
                         {
@@ -249,33 +266,34 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         }
                     } while (!string.IsNullOrWhiteSpace(nextCursorId));
 
-                    Common.StatusBar.AddMessage(Locale.English.UdfCompleteSuccess);
+                    Common.StatusBar.AddMessage(Locale.English.UdfDataRetrievalSuccess);
+                    Common.StatusBar.AddMessage(Locale.English.UdfDataWritingSuccess);
                 }
                 catch (COMException e)
                 {
                     // Most likely the worksheet no longer exists so bail out. These two codes seem to occur during those scenarios.
-                    if (e.HResult == -2146827864 || e.HResult == -2146777998)
+                    if (e.HResult == Shared.Excel.Exception.BAD_REFERENCE || e.HResult == Shared.Excel.Exception.VBA_E_IGNORE)
                     {
                         return;
                     }
 
-                    Common.HandlePotentialQuandlError(e, false, AdditionalInfo(datatableParams));
+                    Common.HandlePotentialQuandlError(e, false, AdditionalInfo(_datatableParams));
                     Common.StatusBar.AddMessage(Locale.English.UdfCompleteError);
                 }
                 catch (ThreadAbortException)
                 {
                     return; // Safe to ignore aborting threads. Assume user forcibly stopped the UDF.
                 }
-                catch (Exception e)
+                catch (System.Exception e)
                 {
-                    Common.HandlePotentialQuandlError(e, false, AdditionalInfo(datatableParams));
+                    Common.HandlePotentialQuandlError(e, false, AdditionalInfo(_datatableParams));
                     Common.StatusBar.AddMessage(Locale.English.UdfCompleteError);
                 }
             }
 
             private bool WorksheetStillExists()
             {
-                return !(currentRange == null || currentRange.Worksheet == null);
+                return !(_currentCellRange == null || _currentCellRange.Worksheet == null);
             }
         }
 
