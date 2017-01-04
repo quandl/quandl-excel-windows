@@ -34,6 +34,7 @@ namespace Quandl.Excel.Console
                 RemoveAvailableOpenOption(option);
             }
             ClearSettings();
+            CleanLogs();
         }
 
         private static void SetAddinPath(string excelVersion)
@@ -150,16 +151,6 @@ namespace Quandl.Excel.Console
         {
             var documentsPath = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents", "Quandl");
             Directory.Delete(documentsPath, true);
-        }
-
-        public static void UnRegisterExcelAddin()
-        {
-            foreach (var subKey in AddinRegisterKeys())
-            {
-                RemoveAvailableOpenOption(subKey);
-            }
-            ClearSettings();
-            CleanLogs();
         }
 
         private enum KeySearchResult
