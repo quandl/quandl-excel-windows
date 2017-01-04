@@ -1,4 +1,33 @@
-# Excel COM Errors List
+## Debugging issues
+
+This plugin supports basic logging. When problems arise a log file will be written out to your `Documents/Quandl/Excel/logs` folder. In this folder you can find a trace of the errors that have occurred and can be used for helping to debug issues. 
+
+_There are rare cases when logs files cannot be generated due to security settings or potentially unhandled exceptions._
+
+## Why do things hang/crash?
+
+There are a number of common reasons in the plugin why things hang/crash. They essentially boil down to one of the following:
+
+* Threading - Doing something silly on or with a thread and/or not cleaning up properly
+* Plugin exceptions - Excel and or the COM interface is extremely bad at handling any complex exceptions from our UDFs.
+* Async - Understand that excel often is `busy` and you must wait and then retry if your command does not succeed the first time.
+
+### Threading
+
+Excel is generally single threaded but can use multiple threads for calculations. This can get really complicated if you try to send multiple commands at it from different threads. You can also run into nasty issues with the UDFs constantly triggering other UDFs to update if your not careful. This can lead to an infinite loop which hangs the app.
+
+### Async
+
+Since the main excel thread is single threaded it can only do one thing at a time. That means that if you send a command its going to try and process it to completion/error before running another one. Otherwise it will send you an error immediately. This can really get you into trouble if you are:
+
+* Trying to send excel a command from within some code triggered by another command
+* You expect Excel to respond immediately with success and don't handle errors
+
+In general you need to figure out which exceptions should be retried and which should not.
+
+## Excel COM Errors List
+
+Below is a list of common Excel COM interaction errors that may occur when the plugin is interacting with excel directly.
 
 | CODE | Integer | Name | Meaning |
 | ------------- | ------------- | ------------- | ------------- |

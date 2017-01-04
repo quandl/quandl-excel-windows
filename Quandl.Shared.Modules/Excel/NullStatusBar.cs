@@ -12,7 +12,7 @@ namespace Quandl.Shared.Excel
         {
         }
 
-        public void AddException(Exception e)
+        public void AddException(System.Exception e)
         {
         }
     }

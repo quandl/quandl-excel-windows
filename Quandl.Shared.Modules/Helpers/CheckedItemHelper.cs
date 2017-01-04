@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using Quandl.Shared.Models;
 
-namespace Quandl.Excel.Addin.UI.Helpers
+namespace Quandl.Shared.Helpers
 {
     // http://stackoverflow.com/questions/2251260/how-to-develop-treeview-with-checkboxes-in-wpf
     public class CheckedItemHelper : DependencyObject

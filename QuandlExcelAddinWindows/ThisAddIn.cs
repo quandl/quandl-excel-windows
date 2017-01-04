@@ -37,7 +37,7 @@ namespace Quandl.Excel.Addin
             return CustomTaskPanes.Add(userControl, name);
         }
 
-        public void UpdateStatusBar(Exception error)
+        public void UpdateStatusBar(System.Exception error)
         {
             (new Shared.Excel.StatusBar()).AddException(error);
         }

@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Office.Interop.Excel;
-using Quandl.Shared.Properties;
-using SharpRaven;
-using SharpRaven.Data;
-using System.Diagnostics;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using MoreLinq;
 using System.Drawing;
 
 namespace Quandl.Shared
@@ -27,33 +21,9 @@ namespace Quandl.Shared
             Customer
         };
 
-        private const bool ENABLE_SENTRY_LOG = true;
         private const int WinDefaultDpi = 96;
 
         public static string ExcelVersionNumber { get; set; }
-
-        public static async void LogToSentry(System.Exception exception, Dictionary<string, string> additionalData = null)
-        {
-            Trace.WriteLine(exception.Message);
-
-            if (ENABLE_SENTRY_LOG)
-            {
-                SetSentryData(exception, "Excel-Version", Utilities.ExcelVersionNumber);
-                SetSentryData(exception, "Addin-Release-Version", Utilities.ReleaseVersion);
-                SetSentryData(exception, "X-API-Token", QuandlConfig.ApiKey);
-                if (additionalData != null)
-                {
-                    additionalData.ForEach(k => SetSentryData(exception, k.Key, k.Value));
-                }
-                var ravenClient = new RavenClient(Settings.Default.SentryUrl);
-                await ravenClient.CaptureAsync(new SentryEvent(exception));
-            }
-        }
-
-        public static void LogToSentry(Exception exception)
-        {
-            LogToSentry(exception, null);
-        }
 
         public static ArrayList GetMatchedListByOrder(ArrayList columnNames, ArrayList columnNamesList,
             ArrayList dataList)
@@ -201,12 +171,6 @@ namespace Quandl.Shared
             result.Add(item);
             result.AddRange(list);
             return result;
-        }
-
-        private static void SetSentryData(Exception exception, string key, string value)
-        {
-            if (key != null && !exception.Data.Contains(key))
-                exception.Data.Add(key, value);
         }
     }
 }

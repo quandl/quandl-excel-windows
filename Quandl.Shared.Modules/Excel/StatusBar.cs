@@ -1,14 +1,14 @@
-﻿using System;
-using Microsoft.Office.Interop.Excel;
+﻿using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Collections.Generic;
+using Quandl.Shared.Helpers;
 
 namespace Quandl.Shared.Excel
 {
     public class StatusBar : IStatusBar
     {
-        private const int RetryWaitTimeMs = 1000;
+        private const int RetryWaitTimeMs = 500;
         private const int MaximumRetries = 10;
 
         private Application _application;
@@ -17,12 +17,19 @@ namespace Quandl.Shared.Excel
         {
             try
             {
-                // There is a potential issue where this will get the `background` excel if one is running. In which case you may not see status messages display.
-                _application = (Application)Marshal.GetActiveObject("Excel.Application");
+                try
+                {
+                    // There is a potential issue where this will get the `background` excel if one is running. In which case you may not see status messages display.
+                    _application = (Application)Marshal.GetActiveObject("Excel.Application");
+                }
+                catch (COMException)
+                {
+                    _application = new Application();
+                }
             }
-            catch (COMException)
+            catch (System.Exception e)
             {
-                _application = new Application();
+                Logger.log(e, null, Logger.LogType.NOSENTRY);
             }
         }
 
@@ -32,15 +39,23 @@ namespace Quandl.Shared.Excel
             _application = null;
         }
 
+        public void AddException(System.Exception error)
+        {
+            AddMessage("⚠ Error : " + error.Message);
+        }
+
         // Thread the status bar updates to prevent the main application thread from locking waiting to update the status bar.
         public void AddMessage(string msg)
         {
-            AddMessageWithoutThreading(msg);
-        }
-
-        public void AddException(Exception error)
-        {
-            AddMessage("⚠ Error : " + error.Message);
+            try
+            {
+                Logger.log(msg, null, Logger.LogType.STATUS);
+                AddMessageWithoutThreading(msg);
+            } 
+            catch (System.Exception e)
+            {
+                Logger.log(e, null, Logger.LogType.NOSENTRY);
+            }
         }
 
         private void AddMessageWithoutThreading(string msg, int retryCount = MaximumRetries)
@@ -48,10 +63,11 @@ namespace Quandl.Shared.Excel
             // Fail out after maximum retries.
             if (retryCount == 0)
             {
-                Utilities.LogToSentry(new Exception("Could not update status bar."), new Dictionary<string, string> { { "Message", msg }, { "Retries", MaximumRetries.ToString() } });
+                Logger.log(new System.Exception("Could not update status bar."), new Dictionary<string, string> { { "Message", msg }, { "Retries", MaximumRetries.ToString() } });
                 return;
             }
 
+            // Try to display the message otherwise retry or just fail out.
             try
             {
                 _application.StatusBar = msg;
@@ -59,17 +75,13 @@ namespace Quandl.Shared.Excel
             catch (COMException e)
             {
                 // Excel is locked atm. Need to wait till its free
-                if (e.HResult == -2147417846 || e.HResult == -2146777998 || e.HResult == -2146827284)
+                if (e.HResult == Exception.RPC_E_SERVERCALL_RETRYLATER || e.HResult == Exception.VBA_E_IGNORE || e.HResult == Exception.UNSPECIFIED_1)
                 {
                     Thread.Sleep(RetryWaitTimeMs);
                     AddMessageWithoutThreading(msg, retryCount - 1);
                     return;
                 }
                 throw;
-            }
-            catch (NullReferenceException e)
-            {
-                Utilities.LogToSentry(e);
             }
         }
     }

@@ -126,10 +126,4 @@
   <data name="DownloadStopping" xml:space="preserve">
     <value>Stopping all Quandl data downloads.</value>
   </data>
-  <data name="OverwriteExistingDataPopupDesc" xml:space="preserve">
-    <value>The cells you are trying to update may contain data already. Do you want to continue?</value>
-  </data>
-  <data name="OverwriteExistingDataPopupTitle" xml:space="preserve">
-    <value>Overwrite Data?</value>
-  </data>
 </root>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
+using System.IO;
 
 namespace Quandl.Excel.Console
 {
@@ -143,6 +144,22 @@ namespace Quandl.Excel.Console
             {
                 appKeyPath.Close();
             }
+        }
+
+        private static void CleanLogs()
+        {
+            var documentsPath = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents", "Quandl");
+            Directory.Delete(documentsPath, true);
+        }
+
+        public static void UnRegisterExcelAddin()
+        {
+            foreach (var subKey in AddinRegisterKeys())
+            {
+                RemoveAvailableOpenOption(subKey);
+            }
+            ClearSettings();
+            CleanLogs();
         }
 
         private enum KeySearchResult

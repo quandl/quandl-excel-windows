@@ -1,14 +1,12 @@
-﻿using ExcelDna.Integration;
-using Quandl.Shared;
+﻿using Quandl.Shared;
 using Quandl.Shared.Errors;
 using Quandl.Shared.Excel;
-using System;
+using Quandl.Shared.Helpers;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace Quandl.Excel.UDF.Functions
+namespace Quandl.Excel.UDF.Functions.Helpers
 {
     public class Common
     {
@@ -17,20 +15,25 @@ namespace Quandl.Excel.UDF.Functions
         private const int MaximumRetries = 20;
 
         public static IStatusBar StatusBar => StatusBarInstance();
+        private static IStatusBar _StatusInstance = null;
 
         public static string HandleQuandlError(QuandlErrorBase e, bool reThrow = true, Dictionary<string, string> additionalData = null)
         {
             if (!string.IsNullOrWhiteSpace((e).ErrorCode))
-                {
+            {
                 StatusBar.AddException(e);
                 return e.Message;
             }
 
-            // We couldn't figure out how to handle it. Log and explode.
-            Trace.WriteLine(e.Message);
-            Shared.Utilities.LogToSentry(e, additionalData);
+            // We couldn't figure out how to handle it. Log it.
+            Logger.log(e, additionalData);
 
-            throw e;
+            if (reThrow)
+            {
+                throw e;
+            }
+
+            return null;
         }
 
         public static void CheckNoApiKey(string errorCode)
@@ -41,7 +44,7 @@ namespace Quandl.Excel.UDF.Functions
             }
         }
 
-        public static string HandlePotentialQuandlError(Exception e, bool reThrow = true, Dictionary<string, string> additionalData = null)
+        public static string HandlePotentialQuandlError(System.Exception e, bool reThrow = true, Dictionary<string, string> additionalData = null)
         {
 
             // If it's detected as a quandl error handle it but don't send out sentry message.
@@ -59,9 +62,8 @@ namespace Quandl.Excel.UDF.Functions
             }
 
             // We couldn't figure out how to handle it. Log and explode.
-            Trace.WriteLine(e.Message);
-            Shared.Utilities.LogToSentry(e, additionalData);
-            
+            Logger.log(e, additionalData);
+
             if (reThrow)
             {
                 throw e;
@@ -72,34 +74,44 @@ namespace Quandl.Excel.UDF.Functions
         // Try really hard to get the instance of the status bar from the application.
         public static IStatusBar StatusBarInstance(int retryCount = MaximumRetries)
         {
-            // Ran out of retries
-            if (retryCount == 0)
+            if (_StatusInstance != null)
             {
-                return new NullStatusBar();
+                return _StatusInstance;
             }
 
-            // Normal status bar access
             try
             {
-                return new StatusBar();
-            }
-            catch (COMException e)
-            {
-                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER)
-                if (e.HResult == -2147417846 || e.HResult == -2146777998)
+                // Ran out of retries
+                if (retryCount == 0)
                 {
-                    Thread.Sleep(RetryWaitTimeMs);
-                    return StatusBarInstance(retryCount - 1);
+                    return new NullStatusBar();
                 }
 
-                Utilities.LogToSentry(e);
+                // Normal status bar access
+                try
+                {
+                    _StatusInstance = new StatusBar();
+                    return _StatusInstance;
+                }
+                catch (COMException e)
+                {
+                    // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER)
+                    if (e.HResult == Shared.Excel.Exception.RPC_E_SERVERCALL_RETRYLATER || e.HResult == Shared.Excel.Exception.VBA_E_IGNORE)
+                    {
+                        Thread.Sleep(RetryWaitTimeMs);
+                        _StatusInstance = StatusBarInstance(retryCount - 1);
+                        return _StatusInstance;
+                    }
+
+                    Logger.log(e, null, Logger.LogType.NOSENTRY);
+                    return new NullStatusBar();
+                }
+            }
+            catch (System.Exception e)
+            {
+                Logger.log(e, null, Logger.LogType.NOSENTRY);
                 return new NullStatusBar();
             }
-        }
-        
-        public static void SetCellVolatile(bool value)
-        {
-            XlCall.Excel(XlCall.xlfVolatile, value);
         }
     }
 }

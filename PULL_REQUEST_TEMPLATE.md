@@ -1,7 +1,3 @@
-## Tracker Ticket
-
-* 
-
 ## Description
 
 * 

@@ -56,10 +56,9 @@ Things to note:
 
 See [Unit Testing Guide](UNIT_TEST_GUIDE.md)
 
-
 ## FAQ
 
-For a list of excel COM exceptions and what they mean please see: [Errors](./ERRORS.md)
+For a list of excel exceptions and how to debug them please see: [Errors](./ERRORS.md)
 
 ### The VSTO Add-in and or UDF excel plugin is listed but not displaying/activating
 

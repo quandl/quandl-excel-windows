@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace Quandl.Shared.Excel
+﻿namespace Quandl.Shared.Excel
 {
     public interface IStatusBar
     {
         void AddMessage(string message);
 
-        void AddException(Exception e);
+        void AddException(System.Exception e);
     }
 }
