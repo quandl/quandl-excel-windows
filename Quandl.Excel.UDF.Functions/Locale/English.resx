@@ -156,11 +156,23 @@
   <data name="MessageBoxTitle" xml:space="preserve">
     <value>No API Key Set!</value>
   </data>
+  <data name="NoDataReturned" xml:space="preserve">
+    <value>No data was returned.</value>
+  </data>
+  <data name="OverwriteExistingDataPopupDesc" xml:space="preserve">
+    <value>The cells you are trying to update may contain data already. Do you want to continue?</value>
+  </data>
+  <data name="OverwriteExistingDataPopupTitle" xml:space="preserve">
+    <value>Overwrite Data?</value>
+  </data>
   <data name="UdfCompleteError" xml:space="preserve">
     <value>The formula did not fully complete.</value>
   </data>
-  <data name="UdfCompleteSuccess" xml:space="preserve">
-    <value>All data retrieved successfully</value>
+  <data name="UdfDataRetrievalSuccess" xml:space="preserve">
+    <value>Data retrieved successfully</value>
+  </data>
+  <data name="UdfDataWritingSuccess" xml:space="preserve">
+    <value>Data successfully written to worksheet.</value>
   </data>
   <data name="UdfRequiresAPIKey" xml:space="preserve">
     <value>Please enter your api key to begin pulling data.</value>

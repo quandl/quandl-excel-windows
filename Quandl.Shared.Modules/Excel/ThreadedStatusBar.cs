@@ -3,10 +3,11 @@ using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Collections.Generic;
+using Quandl.Shared.Helpers;
 
 namespace Quandl.Shared.Excel
 {
-    public class ThreadedStatusBar : IStatusBar
+    public class DelayedStatusBar : IStatusBar
     {
         private const int MsgAutoRemovalTimerMs = 30000;
         private const int RetryWaitTimeMs = 1000;
@@ -15,7 +16,7 @@ namespace Quandl.Shared.Excel
         private static System.Timers.Timer _statusTimer;
         private Application application;
 
-        public ThreadedStatusBar()
+        public DelayedStatusBar()
         {
             try
             {
@@ -28,7 +29,7 @@ namespace Quandl.Shared.Excel
         }
 
         // Be sure to cleanup any references to excel COM objects that may exist.
-        ~ThreadedStatusBar()
+        ~DelayedStatusBar()
         {
             Cleanup();
         }
@@ -42,7 +43,7 @@ namespace Quandl.Shared.Excel
             addMsgThread.Start();
         }
 
-        public void AddException(Exception error)
+        public void AddException(System.Exception error)
         {
             AddMessage("⚠ Error : " + error.Message);
         }
@@ -58,7 +59,7 @@ namespace Quandl.Shared.Excel
             // Fail out after maximum retries.
             if (retryCount == 0)
             {
-                Utilities.LogToSentry(new Exception("Could not update status bar."), new Dictionary<string, string> { { "Message", msg }, { "Retries", MaximumRetries.ToString() } });
+                Logger.log(new System.Exception("Could not update status bar."), new Dictionary<string, string> { { "Message", msg }, { "Retries", MaximumRetries.ToString() } });
                 return;
             }
 
@@ -78,7 +79,7 @@ namespace Quandl.Shared.Excel
             catch (COMException e)
             {
                 // Excel is locked atm. Need to wait till its free
-                if (e.HResult == -2147417846 || e.HResult == -2146777998)
+                if (e.HResult == Exception.RPC_E_SERVERCALL_RETRYLATER || e.HResult == Quandl.Shared.Excel.Exception.VBA_E_IGNORE)
                 {
                     Thread.Sleep(RetryWaitTimeMs);
                     AddMessageWithoutThreading(msg, retryCount - 1);
@@ -88,7 +89,7 @@ namespace Quandl.Shared.Excel
             }
             catch (NullReferenceException e)
             {
-                Utilities.LogToSentry(e);
+                Logger.log(e);
             }
         }
 
@@ -117,7 +118,7 @@ namespace Quandl.Shared.Excel
             catch (COMException e)
             {
                 // Basically the system is paused due to a user making an update somewhere. Please wait and retry again.
-                if (e.HResult == -2146777998)
+                if (e.HResult == Quandl.Shared.Excel.Exception.VBA_E_IGNORE)
                 {
                     Thread.Sleep(RetryWaitTimeMs);
                     ResetToDefault(retryCount - 1);

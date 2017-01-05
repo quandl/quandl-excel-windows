@@ -6,10 +6,15 @@ using Quandl.Shared;
 using System.Linq;
 using Microsoft.Office.Interop.Excel;
 
-namespace Quandl.Excel.UDF.Functions
+namespace Quandl.Excel.UDF.Functions.Helpers
 {
     public class Tools
     {
+        public static void SetCellVolatile(bool value)
+        {
+            XlCall.Excel(XlCall.xlfVolatile, value);
+        }
+
         public static bool GetBoolValue(object referenceOrString)
         {
             return GetStringValue(referenceOrString).ToLower() == "true";
@@ -62,8 +67,7 @@ namespace Quandl.Excel.UDF.Functions
         public static dynamic ReferenceToRange(ExcelReference xlref)
         {
             dynamic app = ExcelDnaUtil.Application;
-            return app.Range[XlCall.Excel(XlCall.xlfReftext, xlref,
-                true)];
+            return app.Range[XlCall.Excel(XlCall.xlfReftext, xlref, true)];
         }
 
         public static List<object> GetArrayOfValues(object referenceOrString)
@@ -91,11 +95,9 @@ namespace Quandl.Excel.UDF.Functions
                 var reference = (ExcelReference)referenceOrString;
                 if (!IsSingleCell(reference))
                 {
-                    Range currentFormulaCell = Tools.ReferenceToRange(reference);
-                    var startCell = (Range)currentFormulaCell.Cells[1, 1];
-                    var endCell = (Range)currentFormulaCell.Cells[reference.RowLast - reference.RowFirst + 1, reference.ColumnLast - reference.ColumnFirst + 1];
-                    var startDate = GetDateValue(startCell);
-                    var endDate = GetDateValue(endCell);
+                    object[,] dates = (object[,])reference.GetValue();
+                    var startDate = GetDateValue(dates[0, 0]);
+                    var endDate = GetDateValue(dates[dates.GetLength(0) - 1, dates.GetLength(1) - 1]);
                     return new List<DateTime?>() { startDate, endDate };
                 }
                 else

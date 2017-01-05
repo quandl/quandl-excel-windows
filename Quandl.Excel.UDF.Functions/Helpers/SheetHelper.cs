@@ -6,8 +6,11 @@ using System.Threading;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Quandl.Shared;
+using Quandl.Shared.Excel;
+using Quandl.Shared.Helpers;
 
-namespace Quandl.Shared.Excel
+namespace Quandl.Excel.UDF.Functions.Helpers
 {
     public class SheetHelper
     {
@@ -22,7 +25,7 @@ namespace Quandl.Shared.Excel
         public static Mutex DataWriteMutex = new Mutex();
 
         // Some basics for writing data.
-        private readonly Range _currentFormulaCell;
+        private Range _currentFormulaCell;
         private readonly bool _includeHeader;
         private readonly ResultsData _results;
         private readonly bool _threaded;
@@ -35,9 +38,8 @@ namespace Quandl.Shared.Excel
 
         public bool? ConfirmedOverwrite = null;
 
-        public SheetHelper(Range currentFormulaCell, ResultsData results, bool includeHeader, bool firstRow = false, bool threaded = false, bool transpose = false)
+        public SheetHelper(ResultsData results, bool includeHeader, bool firstRow = false, bool threaded = false, bool transpose = false)
         {
-            _currentFormulaCell = currentFormulaCell;
             _results = results;
             _includeHeader = includeHeader;
             _threaded = threaded;
@@ -45,8 +47,10 @@ namespace Quandl.Shared.Excel
             _transpose = transpose;
         }
 
-        public string PopulateData()
+        public void PopulateData(Range currentFormulaCell)
         {
+            _currentFormulaCell = currentFormulaCell;
+
             try
             {
                 // Acquire Mutex to avoid multiple functions writing at the same time.
@@ -59,9 +63,6 @@ namespace Quandl.Shared.Excel
                 }
 
                 Populate();
-
-                // Release Mutex to allow another function to write data.
-                DataWriteMutex.ReleaseMutex();
             }
             catch (COMException e)
             {
@@ -71,17 +72,37 @@ namespace Quandl.Shared.Excel
                 DataWriteMutex.ReleaseMutex();
 
                 // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER or VBA_E_IGNORE)
-                if (e.HResult == -2147417846 || e.HResult == -2146777998)
+                if (e.HResult == Exception.RPC_E_SERVERCALL_RETRYLATER || e.HResult == Exception.VBA_E_IGNORE)
                 {
                     Thread.Sleep(RetryWaitTimeMs);
-                    return PopulateData();
+                    PopulateData(currentFormulaCell);
                 }
 
                 throw;
             }
+            finally
+            {
+                // Release Mutex to allow another function to write data.
+                DataWriteMutex.ReleaseMutex();
+            }
+        }
 
-            // Determine the value present in the first cell.
-            return _includeHeader ? _results.Headers[0] : _results.Data[0][0].ToString();
+        // Determine the value present in the first cell depending on the user options and the data returned.
+        public string firstCellValue()
+        {
+            if (_includeHeader)
+            {
+                return _results.Headers[0];
+            }
+
+            if (_results.Data.Count > 0 && _results.Data[0].Count > 0)
+            {
+                return _results.Data[0][0].ToString();
+            }
+            else
+            {
+                return Locale.English.NoDataReturned;
+            }
         }
 
         // Wait for the calculations to be done or force adding data to sheet when they are not.
@@ -98,7 +119,7 @@ namespace Quandl.Shared.Excel
 
             if (iterations >= MaxCalculationWaitIntervals)
             {
-                Trace.WriteLine("Max wait calculations iterations exceeded.");
+                Logger.log("Max wait calculations iterations exceeded.");
             }
         }
 
@@ -107,6 +128,7 @@ namespace Quandl.Shared.Excel
             // Populate data handling the first row separately if data is on the header row.
             var data = _results.Data;
 
+            // Transpose the data is it needs transposing.
             if (_transpose) data = Transpose(data);
 
             // The first row contains headers and the original UDF formula.
@@ -121,7 +143,7 @@ namespace Quandl.Shared.Excel
                 {
                     PopulateGrid(data, 1);
                 }
-                
+
             }
             // The first row contains data (no headers) and the original UDF formula.
             else if (_firstRow && data.Count >= 1)
@@ -143,7 +165,7 @@ namespace Quandl.Shared.Excel
 
             var dataArray = new List<List<object>>() { _remainingHeaders.Select(d => (object)d).ToList() };
             if (_transpose) dataArray = Transpose(dataArray);
-            var rowStart = _currentFormulaCell.Row + +(_transpose ? 1 : 0);
+            var rowStart = _currentFormulaCell.Row + (_transpose ? 1 : 0);
             var columnStart = _currentFormulaCell.Column + (_transpose ? 0 : 1);
             var startCell = (Range)_currentWorksheet.Cells[rowStart, columnStart];
             WriteDataToGrid(dataArray, startCell);
@@ -187,7 +209,7 @@ namespace Quandl.Shared.Excel
             }
             catch (COMException e)
             {
-                Trace.WriteLine(e.Message);
+                Logger.log(e);
                 throw;
             }
         }
@@ -205,7 +227,7 @@ namespace Quandl.Shared.Excel
         {
             if (ConfirmedOverwrite != true && QuandlConfig.OverwriteDataWarning)
             {
-                var result = System.Windows.Forms.MessageBox.Show(
+                var result = MessageBox.Show(
                         Locale.English.OverwriteExistingDataPopupDesc,
                         Locale.English.OverwriteExistingDataPopupTitle,
                         MessageBoxButtons.YesNo,

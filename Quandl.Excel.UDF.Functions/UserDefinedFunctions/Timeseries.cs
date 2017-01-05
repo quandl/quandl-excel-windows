@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExcelDna.Integration;
-using MoreLinq;
-using Microsoft.Office.Interop.Excel;
 using Quandl.Shared;
 using Quandl.Shared.Models;
-using Quandl.Shared.Excel;
+using Quandl.Excel.UDF.Functions.Helpers;
+using MoreLinq;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
@@ -15,9 +14,23 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
     {
         private static Dictionary<string, DatasetMeta> datasetMetadata = new Dictionary<string, DatasetMeta>();
 
-        [ExcelFunction("Pull time series data from the Quandl time series API", Name = "QSERIES", IsMacroType = true,
-            Category = "Financial")]
-        public static string Qseries(
+        /**
+         * The following is a very tricky setup. To avoid cells being re-calculated over and over again we need to mark a UDF as non-volatile. Due to the way
+         * in which non-volatility works just marking it as non-volatile off the bat is not enough. We need to mark it on each run. Furthermore to make that
+         * type of call can only be done from a Macro UDF. Therefore to achieve the desired scenario we do the following:
+         * 
+         * 1. Mark the UDF as a Macro and Volatile to begin with.
+         * 2. When UDF runs immediately mark it as non-volatile
+         * 3. When outputting the data run this in a Queued macro function so that it does not influence the running calculation thread. 
+         */
+        [ExcelFunction("Pull time series data from the Quandl time series API",
+            Name = "QSERIES",
+            Category = "Financial",
+            IsMacroType = true,
+            IsExceptionSafe = false,
+            IsThreadSafe = false,
+            IsVolatile = true)]
+        public static string QSERIES(
             [ExcelArgument(Name = "quandlCode",
                 Description = "Single or multiple Quandl codes with optional columns references", AllowReference = true)
             ] object rawQuandlCodeColumns,
@@ -41,18 +54,20 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 AllowReference = true)] string rawTranspose = null
             )
         {
-            // Prevent the formula from running should it be blocked.
-            if (QuandlConfig.PreventCurrentExecution)
-            {
-                return Locale.English.AutoDownloadTurnedOff;
-            }
-
             try
             {
-                // turn off volitility so that excel does not refresh function when any cell is changed
-                Common.SetCellVolatile(false);
-                // Parse out all the parameters specified in the UDF.
-                var quandlCodeColumns = Tools.GetArrayOfValues(rawQuandlCodeColumns).Select(s => ((string)s).ToUpper()).ToList();
+                // Need to reset cell volatility on each run-through
+                Tools.SetCellVolatile(false);
+
+                // Prevent the formula from running should it be turned off.
+                if (QuandlConfig.PreventCurrentExecution)
+                {
+                    return Locale.English.AutoDownloadTurnedOff;
+                }
+
+                // Parse out all the parameters specified in the UDF as well as the calling cell.
+                var reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
+                var quandlCodeColumns = Tools.GetArrayOfValues(rawQuandlCodeColumns).Select(s => s.ToString().ToUpper()).ToList();
                 var dates = Tools.GetArrayOfDates(rawDates);
                 var collapse = Tools.GetStringValue(rawCollapse);
                 var orderAsc = Tools.GetStringValue(rawOrder).ToLower() == "asc";
@@ -62,14 +77,10 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 var includeDates = string.IsNullOrEmpty(rawDateColumn) || Tools.GetBoolValue(rawDateColumn);
                 var transpose = !string.IsNullOrEmpty(rawTranspose) || Tools.GetBoolValue(rawTranspose);
 
-                // Get the current cell formula.
-                var reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
-                Range currentFormulaCell = Tools.ReferenceToRange(reference);
+                // Update status bar so the user knows which function is currently running.
+                Common.StatusBar.AddMessage($"{Locale.English.UdfRetrievingData} QSERIES({{{string.Join(", ", quandlCodeColumns)}}}, {{{string.Join(", ", dates)}}}, {collapse}, {orderAsc}, {transformation}, {limit}, {includeHeader}, {includeDates}, {transpose})");
 
-                // Update status
-                Common.StatusBar.AddMessage(Locale.English.UdfRetrievingData);
-
-                // Pull the data
+                // Pull the data from the server
                 ResultsData results = null;
                 try
                 {
@@ -79,6 +90,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 {
                     return e.Message;
                 }
+                Common.StatusBar.AddMessage(Locale.English.UdfDataRetrievalSuccess);
 
                 // Assume the first column is date column
                 string dateColumn = results.Headers.Select(s => s.ToUpper()).ToList()[0];
@@ -86,27 +98,25 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 // Sort out the data and place it in the cells
                 var sortedResults = new ResultsData(results.SortedData(dateColumn, orderAsc), results.Headers);
                 var reorderColumns = sortedResults.ExpandAndReorderColumns(SanitizeColumnNames(quandlCodeColumns), dateColumn, includeDates);
-                var excelWriter = new SheetHelper(currentFormulaCell, reorderColumns, includeHeader, true, false, transpose);
 
-                if (excelWriter.ConfirmedOverwrite == false)
-                {
-                    Common.StatusBar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
-                }
+                // Enqueue the data to be written out to the sheet when excel is ready to run macro's
+                SheetHelper excelWriter = new SheetHelper(reorderColumns, includeHeader, true, false, transpose);
+                WriteData(excelWriter, reference);
 
-                var firstCellMsg = Utilities.ValidateEmptyData(excelWriter.PopulateData());
-                Common.StatusBar.AddMessage(Locale.English.UdfCompleteSuccess);
-                return firstCellMsg;
+                // Return the first cell value
+                return Utilities.ValidateEmptyData(excelWriter.firstCellValue());
             }
             catch (Exception e)
             {
-                Common.StatusBar.AddMessage(Locale.English.UdfCompleteError);
+                string msg = null;
+
                 if (e.InnerException != null && e.InnerException is Shared.Errors.QuandlErrorBase)
                 {
-                    return Common.HandlePotentialQuandlError(e, false);
+                    msg = Common.HandlePotentialQuandlError(e, false);
                 }
                 else
                 {
-                    return Common.HandlePotentialQuandlError(e, true, new Dictionary<string, string>() {
+                    msg = Common.HandlePotentialQuandlError(e, false, new Dictionary<string, string>() {
                         { "UDF", "QSERIES" },
                         { "Columns", Utilities.ObjectToHumanString(rawQuandlCodeColumns) },
                         { "Dates", Utilities.ObjectToHumanString(rawDates) },
@@ -115,12 +125,43 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         { "Transformation", Utilities.ObjectToHumanString(rawTransformation) },
                         { "Limit", Utilities.ObjectToHumanString(rawLimit) },
                         { "Header", Utilities.ObjectToHumanString(rawHeader) },
-                        { "Dates", Utilities.ObjectToHumanString(rawDateColumn) },
+                        { "DateColumn", Utilities.ObjectToHumanString(rawDateColumn) }
                     });
                 }
+
+                if (msg == null)
+                {
+                    msg = Locale.English.UdfCompleteError;
+                }
+
+                return msg;
             }
         }
 
+        private static void WriteData(SheetHelper excelWriter, ExcelReference reference)
+        {
+            try
+            {
+                if (excelWriter.ConfirmedOverwrite == false)
+                {
+                    Common.StatusBar.AddMessage(Locale.English.WarningOverwriteNotAccepted);
+                }
+                else
+                {
+                    var range = Tools.ReferenceToRange(reference);
+                    ExcelAsyncUtil.QueueAsMacro(() =>
+                    {
+                        excelWriter.PopulateData(range);
+                        Common.StatusBar.AddMessage(Locale.English.UdfDataWritingSuccess);
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                Common.StatusBar.AddMessage(Locale.English.UdfCompleteError);
+                Common.HandlePotentialQuandlError(e, false);
+            }
+        }
 
         private static ResultsData RetrieveData(List<string> quandlCodeColumns,
             List<DateTime?> dates, string collapse, string transformation, int? limit,

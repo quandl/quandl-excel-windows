@@ -178,6 +178,33 @@ namespace Quandl.Excel.UDF.Functions.Locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No data was returned..
+        /// </summary>
+        internal static string NoDataReturned {
+            get {
+                return ResourceManager.GetString("NoDataReturned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The cells you are trying to update may contain data already. Do you want to continue?.
+        /// </summary>
+        internal static string OverwriteExistingDataPopupDesc {
+            get {
+                return ResourceManager.GetString("OverwriteExistingDataPopupDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite Data?.
+        /// </summary>
+        internal static string OverwriteExistingDataPopupTitle {
+            get {
+                return ResourceManager.GetString("OverwriteExistingDataPopupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The formula did not fully complete..
         /// </summary>
         internal static string UdfCompleteError {
@@ -187,11 +214,20 @@ namespace Quandl.Excel.UDF.Functions.Locale {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All data retrieved successfully.
+        ///   Looks up a localized string similar to Data retrieved successfully.
         /// </summary>
-        internal static string UdfCompleteSuccess {
+        internal static string UdfDataRetrievalSuccess {
             get {
-                return ResourceManager.GetString("UdfCompleteSuccess", resourceCulture);
+                return ResourceManager.GetString("UdfDataRetrievalSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data successfully written to worksheet..
+        /// </summary>
+        internal static string UdfDataWritingSuccess {
+            get {
+                return ResourceManager.GetString("UdfDataWritingSuccess", resourceCulture);
             }
         }
         

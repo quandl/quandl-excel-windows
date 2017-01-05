@@ -14,6 +14,7 @@ using Quandl.Shared.Models;
 using Quandl.Shared.Models.Browse;
 using Quandl.Shared.Properties;
 using System.Windows;
+using Quandl.Shared.Helpers;
 
 namespace Quandl.Shared
 {
@@ -224,7 +225,7 @@ namespace Quandl.Shared
                 var data2 = await resp.Content.ReadAsStringAsync();
                 var errorData =  JsonConvert.DeserializeObject<QuandlError>(data2, JsonSettings());
                 var error = new QuandlErrorBase(resp.StatusCode, errorData.Code, errorData.Message);
-                Utilities.LogToSentry(error, 
+                Logger.log(error, 
                     new Dictionary<string, string>(){ { "APIKey", QuandlConfig.ApiKey }, {  "RequestUrl", relativeUrl } }
                 );
                 MessageBox.Show(Locale.English.ApiExperiencingIssues);

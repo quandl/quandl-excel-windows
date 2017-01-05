@@ -1,12 +1,16 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Excel;
 using Quandl.Shared.Errors;
+using Quandl.Shared.Excel;
+using System;
+using System.Threading;
 
 namespace Quandl.Shared
 {
     public class FunctionUpdater
     {
-        public static readonly string[] UserDefinedFunctions = {"QSERIES", "QTABLE"};
+        private static readonly string[] UserDefinedFunctions = {"QSERIES", "QTABLE"};
+        private const int RetryWaitTimeMs = 500;
 
         public static bool HasQuandlFormulaInWorkSheet(Worksheet worksheet)
         {
@@ -18,7 +22,7 @@ namespace Quandl.Shared
             catch (COMException ex)
             {
                 // No quandl formula cells were found
-                if (ex.HResult == -2146827284)
+                if (ex.HResult == Quandl.Shared.Excel.Exception.UNSPECIFIED_1)
                 {
                     return false;
                 }
@@ -55,12 +59,7 @@ namespace Quandl.Shared
 
         public static void RecalculateQuandlFunctionsInWorkSheet(Worksheet worksheet)
         {
-            // force recalculation of workbook by reseting calculation mode.
-            var oldValue = worksheet.EnableCalculation;
-            worksheet.EnableCalculation = false;
-            //worksheet.Calculate();
-
-            // Find all quandl formula in the worksheet and re-calculate them.
+            // Find all Quandl formula in the worksheet and re-calculate them.
             Range range = worksheet.UsedRange.SpecialCells(XlCellType.xlCellTypeFormulas);
             foreach (Range c in range.Cells)
             {
@@ -70,11 +69,10 @@ namespace Quandl.Shared
                 {
                     if (convertedString.Contains(formulaDefinition))
                     {
-                        c.Calculate();
+                        RecalculateFormulaCell(c);
                     }
                 }
             }
-            worksheet.EnableCalculation = oldValue;
         }
 
         public static void RecalculateQuandlFunctions(Workbook wb)
@@ -102,6 +100,24 @@ namespace Quandl.Shared
             else
             {
                 throw new MissingFormulaException("No Quandl formula's were found to update.");
+            }
+        }
+
+        private static void RecalculateFormulaCell(Range cell)
+        {
+            try
+            {
+                // Force formula re-calculate by resetting it.
+                cell.Formula = cell.Formula;
+            }
+            catch (System.Exception e)
+            {
+                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER or VBA_E_IGNORE)
+                if (e.HResult == Excel.Exception.RPC_E_SERVERCALL_RETRYLATER || e.HResult == Excel.Exception.VBA_E_IGNORE)
+                {
+                    Thread.Sleep(RetryWaitTimeMs);
+                    RecalculateFormulaCell(cell);
+                }
             }
         }
     }

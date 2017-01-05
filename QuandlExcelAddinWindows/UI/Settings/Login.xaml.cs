@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using Quandl.Shared;
 using Quandl.Shared.Errors;
 using System.Windows.Media;
+using Quandl.Shared.Helpers;
 
 namespace Quandl.Excel.Addin.UI.Settings
 {
@@ -80,7 +81,7 @@ namespace Quandl.Excel.Addin.UI.Settings
                 Globals.ThisAddIn.UpdateStatusBar(exp);
                 // For debug purposes only. This should not make it to production.
 
-                Utilities.LogToSentry(exp);
+                Logger.log(exp);
             }
         }
 

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Quandl.Excel.Addin.UI.Helpers;
 using Quandl.Shared.Models;
+using Quandl.Shared.Helpers;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {

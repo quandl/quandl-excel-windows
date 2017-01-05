@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="640">
-    <Grid  Background="#FFF2F2F2">
+    <Grid Background="#FFF2F2F2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" MinWidth="100" />
             <ColumnDefinition Width="3" MinWidth="300"/>
@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Image Source="/Quandl.Excel.Addin;component/Resources/Quandl_Icon_Image.png" Width="75" Height="75"
                   VerticalAlignment="Top" Margin="0,17" Stretch="UniformToFill" Grid.Column="0" Grid.Row="0"/>
-        <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,10">
+        <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,10" HorizontalAlignment="Right" Height="auto" VerticalAlignment="Stretch">
             <Label Content="Quandl Excel Addin"/>
             <Label>Copyright Quandl Inc.</Label>
             <Grid Margin="0,10">
@@ -45,6 +45,7 @@
                     <Hyperlink Name="Email" NavigateUri="mailto:excel@quandl.com?subject=Quandl%20Excel" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">excel@quandl.com</Hyperlink>
                 </Label>
             </Grid>
+            <Button Name="LogButton" Content="Open Logs" Click="LogButton_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,10" />
         </StackPanel>
     </Grid>
 </UserControl>
