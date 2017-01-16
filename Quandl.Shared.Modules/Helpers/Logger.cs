@@ -43,7 +43,7 @@ namespace Quandl.Shared.Helpers
             }
 
             // Write to sentry logging if applicable
-            if (ENABLE_SENTRY_LOG && t != LogType.NOSENTRY)
+            if (ENABLE_SENTRY_LOG && ( t != LogType.NOSENTRY || t != LogType.STATUS ))
             {
                 LogToSentry(e, additionalData);
             }
