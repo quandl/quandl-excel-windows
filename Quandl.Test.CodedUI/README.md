@@ -19,7 +19,7 @@
 
 ## Additional Resources:
 
-1. The following articles are helpful for learning how to test against a collection of child elements residing within a
+- The following articles are helpful for learning how to test against a collection of child elements residing within a
 common parent element.  One example where this can be useful is for running assertions on the total number of children.
   - https://blogs.msdn.microsoft.com/thejs_blog/2014/09/04/findmatchingcontrols-for-wpf-windows/
   - http://executeautomation.com/blog/how-to-identify-all-the-child-elements-within-a-page-in-coded-ui-test-cuit/
