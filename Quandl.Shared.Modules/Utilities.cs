@@ -9,7 +9,7 @@ namespace Quandl.Shared
 {
     public class Utilities
     {
-        public const string ReleaseVersion = "Beta 1.0 v3.80";
+        public const string ReleaseVersion = "Beta 1.0 v3.80.1";
         public const int GithubReleaseId = 4880090;
         public const string ReleaseSource = "excel";
         public const string DateFormat = "yyyy-MM-dd";
