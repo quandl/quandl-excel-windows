@@ -43,7 +43,8 @@ namespace Quandl.Shared.Helpers
             }
 
             // Write to sentry logging if applicable
-            if (ENABLE_SENTRY_LOG && ( t != LogType.NOSENTRY || t != LogType.STATUS ))
+            // TODO it look like in some strange case excel status case exception with normal status info
+            if (ENABLE_SENTRY_LOG && ( t != LogType.NOSENTRY || t != LogType.STATUS || e.Message.ToLower().Contains("successfully") ))
             {
                 LogToSentry(e, additionalData);
             }
