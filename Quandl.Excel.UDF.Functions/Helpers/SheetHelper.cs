@@ -119,7 +119,7 @@ namespace Quandl.Excel.UDF.Functions.Helpers
 
             if (iterations >= MaxCalculationWaitIntervals)
             {
-                Logger.log("Max wait calculations iterations exceeded.");
+                Logger.log("Max wait calculations iterations exceeded.", null, Logger.LogType.NOSENTRY);
             }
         }
 
