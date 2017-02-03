@@ -16,15 +16,16 @@ using Quandl.Shared;
 using Quandl.Shared.Errors;
 using Brushes = System.Windows.Media.Brushes;
 using MessageBox = System.Windows.MessageBox;
+using System.Collections.Generic;
 
 namespace Quandl.Excel.Addin
 {
     public partial class Toolbar
     {
-        private readonly WizardGuide _guideChild = new WizardGuide();
-        private TaskPaneControl _builderPane;
-        private TaskPaneControl _settingsPane;
+        private Dictionary<int, TaskPaneControl> _builderPane = new Dictionary<int, TaskPaneControl>();
+        private Dictionary<int,TaskPaneControl> _settingsPane = new Dictionary<int, TaskPaneControl>();
         private Shared.Helpers.Updater _updater = new Shared.Helpers.Updater();
+        private int winID;
 
         private void Ribbon2_Load(object sender, RibbonUIEventArgs e)
         {
@@ -38,24 +39,29 @@ namespace Quandl.Excel.Addin
 
         private void openQuandlSettings_Click(object sender, RibbonControlEventArgs e)
         {
-            if (_settingsPane == null)
+            winID = Globals.ThisAddIn.Application.Hwnd;
+
+            if (!_settingsPane.ContainsKey(winID))
             {
-                _settingsPane = new TaskPaneControl(new Settings(), "Settings");
+                _settingsPane[winID] = new TaskPaneControl(new Settings(), "Settings");
             }
-            _settingsPane.Show();
+            _settingsPane[winID].Show();
         }
 
         private void udfBuilder_Click(object sender, RibbonControlEventArgs e)
         {
-            if (_builderPane == null)
+            winID = Globals.ThisAddIn.Application.Hwnd;
+            if (!_builderPane.ContainsKey(winID))
             {
-                _builderPane = new TaskPaneControl(_guideChild, "Quandl Formula Builder");
+                WizardGuide _guideChild = new WizardGuide();
+                _builderPane[winID] = new TaskPaneControl(_guideChild, "Quandl Formula Builder");
+                _guideChild.Reset();
+                _guideChild.Background = Brushes.White;
+                _guideChild.Margin = new Thickness(0);
+                _guideChild.Padding = new Thickness(0);
             }
-            _guideChild.Reset();
-            _guideChild.Background = Brushes.White;
-            _guideChild.Margin = new Thickness(0);
-            _guideChild.Padding = new Thickness(0);
-            _builderPane.Show();
+           
+            _builderPane[winID].Show();
         }
 
         private void btnStopAll_Click(object sender, RibbonControlEventArgs e)
@@ -83,7 +89,7 @@ namespace Quandl.Excel.Addin
 
         public void CloseBuilder()
         {
-            _builderPane.Close();
+            _builderPane[winID].Close();
         }
 
         private void btnRefreshWorkSheet_Click(object sender, RibbonControlEventArgs e)
