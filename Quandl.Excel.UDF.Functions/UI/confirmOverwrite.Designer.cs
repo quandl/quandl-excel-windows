@@ -47,6 +47,7 @@
             this.checkShow.TabIndex = 0;
             this.checkShow.Text = "Don\'t show this message again.";
             this.checkShow.UseVisualStyleBackColor = true;
+            this.checkShow.CheckedChanged += new System.EventHandler(this.checkShow_CheckedChanged);
             // 
             // warningPicture
             // 
@@ -69,6 +70,7 @@
             // 
             // yesButton
             // 
+            this.yesButton.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.yesButton.Location = new System.Drawing.Point(255, 30);
             this.yesButton.Name = "yesButton";
             this.yesButton.Size = new System.Drawing.Size(74, 23);

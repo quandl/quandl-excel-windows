@@ -10,5 +10,10 @@ namespace Quandl.Excel.UDF.Functions.UI
             InitializeComponent();
             warningPicture.Image = SystemIcons.Warning.ToBitmap();
         }
+
+        private void checkShow_CheckedChanged(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }
