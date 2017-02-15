@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using Quandl.Shared;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Quandl.Excel.UDF.Functions.UI
@@ -13,7 +14,10 @@ namespace Quandl.Excel.UDF.Functions.UI
 
         private void checkShow_CheckedChanged(object sender, System.EventArgs e)
         {
-
+            if(checkShow.Checked && QuandlConfig.OverwriteDataWarning )
+            {
+                QuandlConfig.OverwriteDataWarning = false;
+            }
         }
     }
 }
