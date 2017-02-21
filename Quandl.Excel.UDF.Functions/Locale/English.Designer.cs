@@ -187,24 +187,6 @@ namespace Quandl.Excel.UDF.Functions.Locale {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The cells you are trying to update may contain data already. Do you want to continue?.
-        /// </summary>
-        internal static string OverwriteExistingDataPopupDesc {
-            get {
-                return ResourceManager.GetString("OverwriteExistingDataPopupDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overwrite Data?.
-        /// </summary>
-        internal static string OverwriteExistingDataPopupTitle {
-            get {
-                return ResourceManager.GetString("OverwriteExistingDataPopupTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The formula did not fully complete..
         /// </summary>
         internal static string UdfCompleteError {

@@ -227,13 +227,8 @@ namespace Quandl.Excel.UDF.Functions.Helpers
         {
             if (ConfirmedOverwrite != true && QuandlConfig.OverwriteDataWarning)
             {
-                var result = MessageBox.Show(
-                        Locale.English.OverwriteExistingDataPopupDesc,
-                        Locale.English.OverwriteExistingDataPopupTitle,
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Warning
-                    );
-
+                var form = new UI.confirmOverwrite();
+                var result = form.ShowDialog();
                 ConfirmedOverwrite = (result == DialogResult.Yes);
                 return ConfirmedOverwrite == true;
             }
