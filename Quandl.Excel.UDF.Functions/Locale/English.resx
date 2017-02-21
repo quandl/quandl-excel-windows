@@ -159,12 +159,6 @@
   <data name="NoDataReturned" xml:space="preserve">
     <value>No data was returned.</value>
   </data>
-  <data name="OverwriteExistingDataPopupDesc" xml:space="preserve">
-    <value>The cells you are trying to update may contain data already. Do you want to continue?</value>
-  </data>
-  <data name="OverwriteExistingDataPopupTitle" xml:space="preserve">
-    <value>Overwrite Data?</value>
-  </data>
   <data name="UdfCompleteError" xml:space="preserve">
     <value>The formula did not fully complete.</value>
   </data>
