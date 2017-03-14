@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using Newtonsoft.Json.Linq;
 using Quandl.Shared;
 using Quandl.Shared.Models;
-using Quandl.Shared.Models.Browse;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Quandl.Excel.Addin.UI.UDF_Builder
 {
@@ -26,6 +25,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private Datatable _selectedDatatable;
         private int _totalNumberOfDisplayedItems;
         private int _totalPageCount = 1;
+        private bool _codeTriggered = false;
 
         private DispatcherTimer _timer = new DispatcherTimer();
 
@@ -40,6 +40,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 {
                     txtFilterResults.Visibility = Visibility.Collapsed;
                     PaginationButtons.Visibility = Visibility.Collapsed;
+                    lvDatasetsDatatables.SelectionMode = SelectionMode.Single;
                 }
             };
 
@@ -129,6 +130,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 _totalNumberOfDisplayedItems = lvDatasetsDatatables.Items.Count;
                 UpdateResultsLabel();
             }
+            RestoreDatasetSelection();
         }
 
         private void UpdateResultsLabel(bool loaded = true)
@@ -143,6 +145,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             var currentText = txtFilterResults.Text;
             if (currentText == _lastFilterText) return;
             _currentPage = 1;
+            _codeTriggered = true;
             GetDatasetsDatatablesFromAPI(currentText);
             _lastFilterText = currentText;
         }
@@ -159,21 +162,18 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void lvDatasetsDatatables_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lvDatasetsDatatables.SelectedItem == null)
+            // if this event is triggered by code, then don't need to update data in the following.
+            if (_codeTriggered)
             {
+                _codeTriggered = false;
                 return;
             }
 
-            // Reset state for step 2 but keep Provider which chose by step 1
-            StateControl.Instance.Reset(2);
-
-            var selectedDataset = new Dataset();
             if (StateControl.Instance.ChainType == StateControl.ChainTypes.TimeSeries)
             {
                 Dispatcher.Invoke(() =>
                 {
-                    selectedDataset = (Dataset)lvDatasetsDatatables.SelectedItem;
-                    AvailableDataHolders.Add(selectedDataset);
+                    UpdateDataHolders();
                 });
             }
             else
@@ -182,6 +182,50 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
 
             Dispatcher.Invoke(DisplaySelectedCodes);
+        }
+
+        private void UpdateDataHolders()
+        {
+            // Using Set operations to get all un-selected items and selected items
+            string[] dataCodeHolders = GetStringListFromCollection(AvailableDataHolders);
+            IEnumerable<string> items = GetStringListFromCollection(lvDatasetsDatatables.Items);
+            IEnumerable<string> selectedItems = GetStringListFromCollection(lvDatasetsDatatables.SelectedItems);
+            IEnumerable<string> unSelectedItems = items.Except(selectedItems);
+            IEnumerable<string> removedItems = dataCodeHolders.Intersect(unSelectedItems);
+
+            // Clean all items which is un-selected
+            foreach (var code in removedItems)
+            {
+                RemoveDataHolder(code);
+            }
+
+            // Select all items which is selected
+            foreach (Dataset d in lvDatasetsDatatables.SelectedItems)
+            {
+                if (!dataCodeHolders.Contains(d.Code))
+                {
+                    AvailableDataHolders.Add(d);
+                }
+            }
+        }
+
+        private string[] GetStringListFromCollection(IEnumerable e)
+        {
+            var list = new ArrayList();
+            foreach (Dataset d in e)
+            {
+                list.Add(d.Code);
+            }
+            return list.ToArray(typeof(string)) as string[];
+        }
+
+        private void RemoveDataHolder(string code)
+        {
+            var d = AvailableDataHolders.SingleOrDefault(x => ((Dataset)x).Code.Equals(code));
+            if ( d != null)
+            {
+                AvailableDataHolders.Remove(d);
+            }       
         }
 
         private void PopulateDatatableList()
@@ -195,6 +239,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void btnNextPage_Click(object sender, RoutedEventArgs e)
         {
+            _codeTriggered = true;
             if (_currentPage < _totalPageCount)
             {
                 _currentPage++;
@@ -204,6 +249,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void btnPrevPage_Click(object sender, RoutedEventArgs e)
         {
+            _codeTriggered = true;
             if (_currentPage > 1)
             {
                 _currentPage--;
@@ -213,6 +259,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void btnFirstPage_Click(object sender, RoutedEventArgs e)
         {
+            _codeTriggered = true;
             // this button no longer goes to the first page.  instead, it will jump back 'x' number of pages.
             _currentPage = _currentPage <= pageSteps ? 1 : _currentPage - pageSteps;
             GetDatasetsDatatablesFromAPI();
@@ -220,6 +267,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void btnLastPage_Click(object sender, RoutedEventArgs e)
         {
+            _codeTriggered = true;
             // this button no longer goes to the first page.  instead, it will jump forward 'x' number of pages.
             _currentPage = _currentPage >= _totalPageCount - pageSteps ? _totalPageCount : _currentPage + pageSteps;
             GetDatasetsDatatablesFromAPI();
@@ -243,6 +291,26 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             ScrollViewer scrollViewer = (ScrollViewer)sender;
             scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta);
             e.Handled = true;
+        }
+
+        private void RestoreDatasetSelection()
+        {
+            if (AvailableDataHolders.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var item in lvDatasetsDatatables.Items)
+            {
+                foreach (var data in AvailableDataHolders)
+                {
+                    if (((Dataset)data).Code == ((Dataset)item).Code)
+                    {
+                        _codeTriggered = true;
+                        lvDatasetsDatatables.SelectedItems.Add(item);
+                    }
+                }
+            }
         }
     }
 }
