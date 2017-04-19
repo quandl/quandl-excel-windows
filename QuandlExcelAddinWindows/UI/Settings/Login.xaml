@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.Settings"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d">
     <Grid VerticalAlignment="Center" x:Name="loginForm">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -16,8 +15,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" HorizontalAlignment="Center">
-            <Image Source="/Quandl.Excel.Addin;component/Resources/Quandl_Icon_Image.png" Width="75" Height="75"
-                   Margin="0,0,0,10" Stretch="UniformToFill" />
+            <Image Source="/Quandl.Excel.Addin;component/Resources/quandl_hq_sqr.png" Width="100" Height="100"
+                   Margin="0,0,0,10" Stretch="UniformToFill" Panel.ZIndex="3" />
             <Label x:Name="errorLabel" HorizontalContentAlignment="Center" Padding="0" Margin="10,0,10,0"
                    Visibility="Hidden" Foreground="Red" />
             <TextBox x:Name="email" DockPanel.Dock="Left" Margin="10" Width="200" Padding="5">

@@ -18,9 +18,21 @@
 	</ItemGroup>
 	<ItemGroup>
 		<!-- The ProjectReference items refer to any Visual Studio solutions you want to automatically probe for Project Output Groups.  -->
+		<ProjectReference Include="..\QuandlExcelAddinWindows\Quandl.Excel.Addin.csproj">
+			<Name>Quandl.Excel.Addin</Name>
+			<Project>{46DC729E-5083-4F4B-BF2E-E20611D3C14E}</Project>
+		</ProjectReference>
 		<ProjectReference Include="..\Quandl.Excel.Console\Quandl.Excel.Console.csproj">
 			<Name>Quandl.Excel.Console</Name>
 			<Project>{45DEE8E4-7F86-4747-A6F4-D6E3671A2A42}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Quandl.Excel.UDF.Functions\Quandl.Excel.UDF.Functions.csproj">
+			<Name>Quandl.Excel.UDF.Functions</Name>
+			<Project>{6AC4706D-5BC0-45DC-B517-683D19C57970}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Quandl.Shared.Modules\Quandl.Shared.Modules.csproj">
+			<Name>Quandl.Shared.Modules</Name>
+			<Project>{C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C}</Project>
 		</ProjectReference>
 	</ItemGroup>
 	<ItemGroup>

@@ -1,4 +1,4 @@
-###Signing
+# Signing
 
 1. Download and place the a certificate in the root of `Quandl.Excel.Addin` and `Quandl.Excel.Console`.
   * The output of each project needs to be signed individually

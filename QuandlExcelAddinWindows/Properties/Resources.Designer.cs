@@ -121,11 +121,21 @@ namespace Quandl.Excel.Addin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Bitmap quandl {
+        internal static System.Drawing.Icon quandl {
             get {
                 object obj = ResourceManager.GetObject("quandl", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap quandl_hq {
+            get {
+                object obj = ResourceManager.GetObject("quandl_hq", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +143,9 @@ namespace Quandl.Excel.Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Quandl_Icon {
+        internal static System.Drawing.Bitmap quandl_hq_sqr {
             get {
-                object obj = ResourceManager.GetObject("Quandl_Icon", resourceCulture);
+                object obj = ResourceManager.GetObject("quandl_hq_sqr", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +153,9 @@ namespace Quandl.Excel.Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Quandl_Icon_Image {
+        internal static System.Drawing.Bitmap quandl_lq_sqr {
             get {
-                object obj = ResourceManager.GetObject("Quandl_Icon_Image", resourceCulture);
+                object obj = ResourceManager.GetObject("quandl_lq_sqr", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

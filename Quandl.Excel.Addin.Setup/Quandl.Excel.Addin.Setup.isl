@@ -345,11 +345,10 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>ExcelDna.IntelliSense.dll</td><td>{8424E322-B079-4584-9F2B-57DFA3DDF27F}</td><td>_2BIT</td><td>2</td><td/><td>exceldna.intellisense.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ExcelDna.IntelliSense.dll1</td><td>{A304A4B9-C73A-4DF9-8BB2-193B9B4213A9}</td><td>_4BIT</td><td>2</td><td/><td>exceldna.intellisense.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ExcelDna.Registration.dll</td><td>{BF1CF8F7-7830-4C10-B254-FB11BA104244}</td><td>_2BIT</td><td>2</td><td/><td>exceldna.registration.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ExcelDna.Registration.dll1</td><td>{4AB4ACDA-F4F0-463E-88D9-DFC9F20D72A3}</td><td>_4BIT</td><td>2</td><td/><td>exceldna.registration.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>GongSolutions.Wpf.DragDrop.dll</td><td>{27FF1848-0E56-424A-8EA7-A21D324FF16B}</td><td>INSTALLDIR</td><td>2</td><td/><td>gongsolutions.wpf.dragdrop.d</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ExcelDna.IntelliSense.dll</td><td>{DCBC47E2-D364-4829-9C7A-DF9DA432EA6B}</td><td>_2BIT</td><td>2</td><td/><td>exceldna.intellisense.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ExcelDna.IntelliSense.dll2</td><td>{278034B5-AE1B-4791-A8E3-12E6E61339E1}</td><td>_4BIT</td><td>2</td><td/><td>exceldna.intellisense.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ExcelDna.Registration.dll</td><td>{AD319574-A2DF-400D-8DF2-189A7B36819A}</td><td>_2BIT</td><td>2</td><td/><td>exceldna.registration.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ExcelDna.Registration.dll2</td><td>{A7EFE6F1-70EF-40D6-9AEB-A3015B85EB6C}</td><td>_4BIT</td><td>2</td><td/><td>exceldna.registration.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{33BE9A1E-C970-4D69-B5B6-64E41F8933EE}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{92CFCBA5-C954-442B-8890-64F00820DCBE}</td><td>LocalAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{B9113AA8-E292-472B-80A2-64089A3FED92}</td><td>ProgramFiles64Folder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -357,39 +356,35 @@
 		<row><td>ISX_DEFAULTCOMPONENT4</td><td>{16FC246B-9E6C-4A73-858F-6BBC3CC5C639}</td><td>_4BIT</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT8</td><td>{DE42741D-176F-4499-8744-576D5E61042B}</td><td>DATABASEDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>IS_ININSTALL_SHORTCUT</td><td>{CCAC810B-8420-4846-AFF9-A97353666B32}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Interop.UIAutomationClient.dll</td><td>{C129A768-55C9-4848-AC41-692D0CCECB37}</td><td>_2BIT</td><td>2</td><td/><td>interop.uiautomationclient.d</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Interop.UIAutomationClient.dll1</td><td>{7F0E2766-9E02-43D8-A2D4-C40D24FE2953}</td><td>_4BIT</td><td>2</td><td/><td>interop.uiautomationclient.d1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Markdown.Xaml.dll</td><td>{FCBB8CE3-9522-460D-97B7-D90B8F8F6BF0}</td><td>INSTALLDIR</td><td>2</td><td/><td>markdown.xaml.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Office.Tools.Common.dll</td><td>{C6966E7B-DBC6-4A90-9AAA-461EEFB016A1}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.office.tools.commo</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Office.Tools.Common.v4.0.Utilities.dll</td><td>{96980D1E-451C-4C86-8E7E-9B4A7D9E3411}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.office.tools.commo1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Office.Tools.Excel.dll</td><td>{63BFE2F8-AD61-4254-B06A-040FA5C70A78}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.office.tools.excel</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.Office.Tools.dll</td><td>{5F402005-A2B9-44B6-B07F-0B015F67CC58}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.office.tools.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Microsoft.VisualStudio.Tools.Applications.Runtime.dll</td><td>{510A51CB-8EAE-4032-B259-7A0EF5DFACFF}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.visualstudio.tools</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>MoreLinq.dll</td><td>{6B80259D-FD13-4275-8BA9-7A309B03EEA0}</td><td>_2BIT</td><td>2</td><td/><td>morelinq.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>MoreLinq.dll1</td><td>{90A859DB-1F9C-4B32-AD11-1AB6065FF762}</td><td>_4BIT</td><td>2</td><td/><td>morelinq.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>MoreLinq.dll2</td><td>{D3F5A470-BCE9-43BE-ACE2-DDEC62B5F830}</td><td>INSTALLDIR</td><td>2</td><td/><td>morelinq.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Newtonsoft.Json.dll</td><td>{C3BB3A4D-8733-40B6-BEA3-D4A6DA5B8566}</td><td>_2BIT</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Newtonsoft.Json.dll1</td><td>{6155C531-D136-470F-BA4A-89BB3F942F65}</td><td>_4BIT</td><td>2</td><td/><td>newtonsoft.json.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Newtonsoft.Json.dll2</td><td>{2874BD46-1143-4044-94B4-DFF1AB3BDBA5}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Octokit.dll</td><td>{33E80E52-1B2C-4178-AF3C-55411282EF31}</td><td>_2BIT</td><td>2</td><td/><td>octokit.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Octokit.dll1</td><td>{E06338A1-16C6-4C1D-A7AB-9BEAF72AF741}</td><td>_4BIT</td><td>2</td><td/><td>octokit.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Octokit.dll2</td><td>{F2C135AD-D093-4217-97A1-09C3D0F82541}</td><td>INSTALLDIR</td><td>2</td><td/><td>octokit.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Excel.Addin.dll</td><td>{7C590A21-9058-4AE2-8647-E76199744976}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.addin.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Interop.UIAutomationClient.dll</td><td>{1DDB4149-10A8-45AC-B4A4-84924CB2FCFF}</td><td>_2BIT</td><td>2</td><td/><td>interop.uiautomationclient.d</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Interop.UIAutomationClient.dll2</td><td>{37C52FC9-CE99-42A3-8289-96AED43C233D}</td><td>_4BIT</td><td>2</td><td/><td>interop.uiautomationclient.d2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Microsoft.Office.Tools.Common.dll</td><td>{65ADE638-7159-49DD-A6A5-10CE6790C04C}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.office.tools.commo</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Microsoft.Office.Tools.Excel.dll</td><td>{26A5E389-383E-494D-81B2-1A1D9BC3D8DE}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.office.tools.excel</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Microsoft.VisualStudio.Tools.Applications.Runtime.dll</td><td>{9D0AAC66-81A4-4B50-A770-DBB33065518D}</td><td>INSTALLDIR</td><td>2</td><td/><td>microsoft.visualstudio.tools</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>MoreLinq.dll</td><td>{8678C47A-0E98-4B32-A82D-4858CC37F62A}</td><td>_2BIT</td><td>2</td><td/><td>morelinq.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>MoreLinq.dll1</td><td>{3147D888-F78C-4F68-999A-C0AFF5D64D15}</td><td>INSTALLDIR</td><td>2</td><td/><td>morelinq.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>MoreLinq.dll2</td><td>{45951ED9-C097-434C-9802-74EFD334D6BA}</td><td>_4BIT</td><td>2</td><td/><td>morelinq.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Newtonsoft.Json.dll</td><td>{0E201AB1-8B42-47F1-888A-B12261E08090}</td><td>_2BIT</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Newtonsoft.Json.dll1</td><td>{A2B06E53-4AA0-4871-86D3-C60BFB29DAE5}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Newtonsoft.Json.dll2</td><td>{2E0C1AAB-67C4-42FA-B3BC-5B13A755DA78}</td><td>_4BIT</td><td>2</td><td/><td>newtonsoft.json.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Octokit.dll</td><td>{CC118271-7967-4237-B724-A37F09CEBB11}</td><td>_2BIT</td><td>2</td><td/><td>octokit.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Octokit.dll1</td><td>{6C4171A4-F21A-4BC5-B9DA-0154FDB854E6}</td><td>INSTALLDIR</td><td>2</td><td/><td>octokit.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Octokit.dll2</td><td>{3D827B79-E6E5-4361-B931-3558BFCAA17C}</td><td>_4BIT</td><td>2</td><td/><td>octokit.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Excel.Addin.Primary_output</td><td>{CFDA870D-B9B0-4784-97D2-158EE15084FC}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.excel.addin.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Quandl.Excel.Console.Primary_output</td><td>{55828322-B2AC-48C1-B194-ACD92AA4519C}</td><td>DATABASEDIR</td><td>2</td><td/><td>quandl.excel.console.primary</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Excel.UDF.Functions.dll</td><td>{6C9EBCCC-A63A-44D0-8BB2-BC049632B62E}</td><td>_2BIT</td><td>2</td><td/><td>quandl.excel.udf.functions.d</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Excel.UDF.Functions.dll1</td><td>{63993654-7712-483C-8C19-584B6B6B1FB3}</td><td>_4BIT</td><td>2</td><td/><td>quandl.excel.udf.functions.d2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Shared.dll</td><td>{FD8EE1C9-38C2-4D9B-8EB1-E41D7886E487}</td><td>_2BIT</td><td>2</td><td/><td>quandl.shared.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Shared.dll1</td><td>{4B40A4FE-DC66-4046-B839-A30751AF1298}</td><td>_4BIT</td><td>2</td><td/><td>quandl.shared.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Quandl.Shared.dll2</td><td>{454E893D-7FCA-4FFE-B3BA-0A651FA85C1D}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.shared.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>SharpRaven.dll</td><td>{65CDD817-E252-4245-BF08-B514498FAC3B}</td><td>_2BIT</td><td>2</td><td/><td>sharpraven.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>SharpRaven.dll1</td><td>{47BF2A5A-7FB8-473D-8E5F-296D3BCCD71E}</td><td>_4BIT</td><td>2</td><td/><td>sharpraven.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>SharpRaven.dll2</td><td>{F365BC04-CDC2-4A42-95CE-2FC2BBD1F591}</td><td>INSTALLDIR</td><td>2</td><td/><td>sharpraven.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Syroot.Windows.IO.KnownFolders.dll</td><td>{A0EADE6C-CA22-4825-9C96-C1BAB14B6A06}</td><td>_2BIT</td><td>2</td><td/><td>syroot.windows.io.knownfolde</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Syroot.Windows.IO.KnownFolders.dll1</td><td>{C3BD5B13-A16E-43CE-9A7B-1748EC0169BA}</td><td>_4BIT</td><td>2</td><td/><td>syroot.windows.io.knownfolde3</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Syroot.Windows.IO.KnownFolders.dll2</td><td>{62208625-D37F-400F-BDC2-9A1094BE5242}</td><td>INSTALLDIR</td><td>2</td><td/><td>syroot.windows.io.knownfolde6</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>UIAComWrapper.dll</td><td>{D8C52AAD-D933-4850-9A07-1B3D3B8D9F2B}</td><td>_2BIT</td><td>2</td><td/><td>uiacomwrapper.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>UIAComWrapper.dll1</td><td>{9CD2E6C0-B1EF-4985-81B5-B1968AD7ECD2}</td><td>_4BIT</td><td>2</td><td/><td>uiacomwrapper.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Xceed.Wpf.Toolkit.dll</td><td>{E23819DF-0E97-4993-B64B-AC7509965662}</td><td>INSTALLDIR</td><td>2</td><td/><td>xceed.wpf.toolkit.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Excel.UDF.Functions.Primary_output1</td><td>{82C73DC6-2D1D-440C-AF73-FA5D41ADB43F}</td><td>_4BIT</td><td>2</td><td/><td>quandl.excel.udf.functions.p3</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Excel.UDF.Functions.Primary_output2</td><td>{099384FD-5715-47F6-AE51-4474E5ADC922}</td><td>_2BIT</td><td>2</td><td/><td>quandl.excel.udf.functions.p</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Shared.Modules.Primary_output</td><td>{DB400F4A-21A2-42DD-BD70-EB819DD70566}</td><td>_4BIT</td><td>2</td><td/><td>quandl.shared.modules.primar</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Shared.Modules.Primary_output1</td><td>{4ACE3522-C26F-4D2A-B5D3-5A17AA276A56}</td><td>_2BIT</td><td>2</td><td/><td>quandl.shared.modules.primar1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Quandl.Shared.Modules.Primary_output2</td><td>{1D1DA296-3873-4303-9D60-A5A4D7D5CBCE}</td><td>INSTALLDIR</td><td>2</td><td/><td>quandl.shared.modules.primar2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>SharpRaven.dll</td><td>{11EE794E-CB20-4964-AE25-992E9A070318}</td><td>_2BIT</td><td>2</td><td/><td>sharpraven.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>SharpRaven.dll1</td><td>{57CF5E89-74AD-4C66-AC95-79C831CFF472}</td><td>INSTALLDIR</td><td>2</td><td/><td>sharpraven.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>SharpRaven.dll2</td><td>{36317704-2989-4E54-9C4B-C6D4F356444A}</td><td>_4BIT</td><td>2</td><td/><td>sharpraven.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Syroot.Windows.IO.KnownFolders.dll</td><td>{E68B3925-E72C-4DE9-A5D3-94F84B443731}</td><td>_2BIT</td><td>2</td><td/><td>syroot.windows.io.knownfolde</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Syroot.Windows.IO.KnownFolders.dll1</td><td>{7AC549D8-CE31-4206-9A36-97A38184497B}</td><td>INSTALLDIR</td><td>2</td><td/><td>syroot.windows.io.knownfolde1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Syroot.Windows.IO.KnownFolders.dll2</td><td>{263C2F14-8C7E-4571-8928-87F5CC704B16}</td><td>_4BIT</td><td>2</td><td/><td>syroot.windows.io.knownfolde2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>UIAComWrapper.dll</td><td>{12F779B1-2E4B-4E08-940D-8F146980A81C}</td><td>_2BIT</td><td>2</td><td/><td>uiacomwrapper.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>UIAComWrapper.dll2</td><td>{FCB08728-8D26-41D0-BE86-64BF2F7A0EAD}</td><td>_4BIT</td><td>2</td><td/><td>uiacomwrapper.dll2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -600,7 +595,7 @@
 		<row><td>LicenseAgreement</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS__IsLicenseDlg_LicenseAgreement##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>PushButton</td><td>301</td><td>188</td><td>65</td><td>17</td><td>3</td><td/><td>##IDS_PRINT_BUTTON##</td><td>Agree</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>LicenseAgreement</td><td>Memo</td><td>ScrollableText</td><td>8</td><td>55</td><td>358</td><td>130</td><td>7</td><td/><td/><td/><td/><td>0</td><td/><td>&lt;ISProductFolder&gt;\Redist\0409\Eula.rtf</td><td/></row>
+		<row><td>LicenseAgreement</td><td>Memo</td><td>ScrollableText</td><td>8</td><td>55</td><td>358</td><td>130</td><td>7</td><td/><td/><td/><td/><td>0</td><td/><td>&lt;ISProjectFolder&gt;\Eula.rtf</td><td/></row>
 		<row><td>LicenseAgreement</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
@@ -987,7 +982,7 @@
 		<row><td>InstallChangeFolder</td><td>Up</td><td>DirectoryListUp</td><td>0</td><td>1</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Back</td><td>NewDialog</td><td>SplashBitmap</td><td>Display_IsBitmapDlg</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
-		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>LicenseAgreement</td><td>1</td><td>0</td></row>
+		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>DoAction</td><td>ISPrint</td><td>1</td><td>0</td></row>
@@ -1022,7 +1017,7 @@
 		<row><td>ReadmeInformation</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>ReadmeInformation</td><td>Next</td><td>NewDialog</td><td>CustomerInformation</td><td>1</td><td>1</td></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>CustomSetup</td><td>Installed OR _IsSetupTypeMin = "Custom"</td><td>2</td></row>
-		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>LicenseAgreement</td><td>NOT Installed</td><td>1</td></row>
+		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>NOT Installed</td><td>1</td></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>MaintenanceType</td><td>Installed AND _IsMaintenance = "Reinstall"</td><td>3</td></row>
 		<row><td>ReadyToInstall</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>ReadyToInstall</td><td>InstallNow</td><td>EndDialog</td><td>Return</td><td>OutOfNoRbDiskSpace &lt;&gt; 1</td><td>0</td></row>
@@ -1101,22 +1096,18 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>DATABASEDIR</td><td>ISX_DEFAULTCOMPONENT8</td></row>
 		<row><td>INSTALLDIR</td><td>ExcelDna.IntelliSense.dll</td></row>
-		<row><td>INSTALLDIR</td><td>ExcelDna.IntelliSense.dll1</td></row>
+		<row><td>INSTALLDIR</td><td>ExcelDna.IntelliSense.dll2</td></row>
 		<row><td>INSTALLDIR</td><td>ExcelDna.Registration.dll</td></row>
-		<row><td>INSTALLDIR</td><td>ExcelDna.Registration.dll1</td></row>
-		<row><td>INSTALLDIR</td><td>GongSolutions.Wpf.DragDrop.dll</td></row>
+		<row><td>INSTALLDIR</td><td>ExcelDna.Registration.dll2</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT3</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT8</td></row>
 		<row><td>INSTALLDIR</td><td>IS_ININSTALL_SHORTCUT</td></row>
 		<row><td>INSTALLDIR</td><td>Interop.UIAutomationClient.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Interop.UIAutomationClient.dll1</td></row>
-		<row><td>INSTALLDIR</td><td>Markdown.Xaml.dll</td></row>
+		<row><td>INSTALLDIR</td><td>Interop.UIAutomationClient.dll2</td></row>
 		<row><td>INSTALLDIR</td><td>Microsoft.Office.Tools.Common.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.Office.Tools.Common.v4.0.Utilities.dll</td></row>
 		<row><td>INSTALLDIR</td><td>Microsoft.Office.Tools.Excel.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Microsoft.Office.Tools.dll</td></row>
 		<row><td>INSTALLDIR</td><td>Microsoft.VisualStudio.Tools.Applications.Runtime.dll</td></row>
 		<row><td>INSTALLDIR</td><td>MoreLinq.dll</td></row>
 		<row><td>INSTALLDIR</td><td>MoreLinq.dll1</td></row>
@@ -1127,13 +1118,13 @@
 		<row><td>INSTALLDIR</td><td>Octokit.dll</td></row>
 		<row><td>INSTALLDIR</td><td>Octokit.dll1</td></row>
 		<row><td>INSTALLDIR</td><td>Octokit.dll2</td></row>
-		<row><td>INSTALLDIR</td><td>Quandl.Excel.Addin.dll</td></row>
+		<row><td>INSTALLDIR</td><td>Quandl.Excel.Addin.Primary_output</td></row>
 		<row><td>INSTALLDIR</td><td>Quandl.Excel.Console.Primary_output</td></row>
-		<row><td>INSTALLDIR</td><td>Quandl.Excel.UDF.Functions.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Quandl.Excel.UDF.Functions.dll1</td></row>
-		<row><td>INSTALLDIR</td><td>Quandl.Shared.dll</td></row>
-		<row><td>INSTALLDIR</td><td>Quandl.Shared.dll1</td></row>
-		<row><td>INSTALLDIR</td><td>Quandl.Shared.dll2</td></row>
+		<row><td>INSTALLDIR</td><td>Quandl.Excel.UDF.Functions.Primary_output1</td></row>
+		<row><td>INSTALLDIR</td><td>Quandl.Excel.UDF.Functions.Primary_output2</td></row>
+		<row><td>INSTALLDIR</td><td>Quandl.Shared.Modules.Primary_output</td></row>
+		<row><td>INSTALLDIR</td><td>Quandl.Shared.Modules.Primary_output1</td></row>
+		<row><td>INSTALLDIR</td><td>Quandl.Shared.Modules.Primary_output2</td></row>
 		<row><td>INSTALLDIR</td><td>SharpRaven.dll</td></row>
 		<row><td>INSTALLDIR</td><td>SharpRaven.dll1</td></row>
 		<row><td>INSTALLDIR</td><td>SharpRaven.dll2</td></row>
@@ -1141,8 +1132,7 @@
 		<row><td>INSTALLDIR</td><td>Syroot.Windows.IO.KnownFolders.dll1</td></row>
 		<row><td>INSTALLDIR</td><td>Syroot.Windows.IO.KnownFolders.dll2</td></row>
 		<row><td>INSTALLDIR</td><td>UIAComWrapper.dll</td></row>
-		<row><td>INSTALLDIR</td><td>UIAComWrapper.dll1</td></row>
-		<row><td>INSTALLDIR</td><td>Xceed.Wpf.Toolkit.dll</td></row>
+		<row><td>INSTALLDIR</td><td>UIAComWrapper.dll2</td></row>
 		<row><td>SUPPORTDIR</td><td>Quandl.Excel.Console.Primary_output</td></row>
 		<row><td>_2BIT</td><td>ExcelDna.IntelliSense.dll</td></row>
 		<row><td>_2BIT</td><td>ExcelDna.Registration.dll</td></row>
@@ -1151,23 +1141,23 @@
 		<row><td>_2BIT</td><td>MoreLinq.dll</td></row>
 		<row><td>_2BIT</td><td>Newtonsoft.Json.dll</td></row>
 		<row><td>_2BIT</td><td>Octokit.dll</td></row>
-		<row><td>_2BIT</td><td>Quandl.Excel.UDF.Functions.dll</td></row>
-		<row><td>_2BIT</td><td>Quandl.Shared.dll</td></row>
+		<row><td>_2BIT</td><td>Quandl.Excel.UDF.Functions.Primary_output2</td></row>
+		<row><td>_2BIT</td><td>Quandl.Shared.Modules.Primary_output1</td></row>
 		<row><td>_2BIT</td><td>SharpRaven.dll</td></row>
 		<row><td>_2BIT</td><td>Syroot.Windows.IO.KnownFolders.dll</td></row>
 		<row><td>_2BIT</td><td>UIAComWrapper.dll</td></row>
-		<row><td>_4BIT</td><td>ExcelDna.IntelliSense.dll1</td></row>
-		<row><td>_4BIT</td><td>ExcelDna.Registration.dll1</td></row>
+		<row><td>_4BIT</td><td>ExcelDna.IntelliSense.dll2</td></row>
+		<row><td>_4BIT</td><td>ExcelDna.Registration.dll2</td></row>
 		<row><td>_4BIT</td><td>ISX_DEFAULTCOMPONENT4</td></row>
-		<row><td>_4BIT</td><td>Interop.UIAutomationClient.dll1</td></row>
-		<row><td>_4BIT</td><td>MoreLinq.dll1</td></row>
-		<row><td>_4BIT</td><td>Newtonsoft.Json.dll1</td></row>
-		<row><td>_4BIT</td><td>Octokit.dll1</td></row>
-		<row><td>_4BIT</td><td>Quandl.Excel.UDF.Functions.dll1</td></row>
-		<row><td>_4BIT</td><td>Quandl.Shared.dll1</td></row>
-		<row><td>_4BIT</td><td>SharpRaven.dll1</td></row>
-		<row><td>_4BIT</td><td>Syroot.Windows.IO.KnownFolders.dll1</td></row>
-		<row><td>_4BIT</td><td>UIAComWrapper.dll1</td></row>
+		<row><td>_4BIT</td><td>Interop.UIAutomationClient.dll2</td></row>
+		<row><td>_4BIT</td><td>MoreLinq.dll2</td></row>
+		<row><td>_4BIT</td><td>Newtonsoft.Json.dll2</td></row>
+		<row><td>_4BIT</td><td>Octokit.dll2</td></row>
+		<row><td>_4BIT</td><td>Quandl.Excel.UDF.Functions.Primary_output1</td></row>
+		<row><td>_4BIT</td><td>Quandl.Shared.Modules.Primary_output</td></row>
+		<row><td>_4BIT</td><td>SharpRaven.dll2</td></row>
+		<row><td>_4BIT</td><td>Syroot.Windows.IO.KnownFolders.dll2</td></row>
+		<row><td>_4BIT</td><td>UIAComWrapper.dll2</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1996,10 +1986,9 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>ExcelDna.IntelliSense.dll</td></row>
-		<row><td>AlwaysInstall</td><td>ExcelDna.IntelliSense.dll1</td></row>
+		<row><td>AlwaysInstall</td><td>ExcelDna.IntelliSense.dll2</td></row>
 		<row><td>AlwaysInstall</td><td>ExcelDna.Registration.dll</td></row>
-		<row><td>AlwaysInstall</td><td>ExcelDna.Registration.dll1</td></row>
-		<row><td>AlwaysInstall</td><td>GongSolutions.Wpf.DragDrop.dll</td></row>
+		<row><td>AlwaysInstall</td><td>ExcelDna.Registration.dll2</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
@@ -2008,12 +1997,9 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT8</td></row>
 		<row><td>AlwaysInstall</td><td>IS_ININSTALL_SHORTCUT</td></row>
 		<row><td>AlwaysInstall</td><td>Interop.UIAutomationClient.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Interop.UIAutomationClient.dll1</td></row>
-		<row><td>AlwaysInstall</td><td>Markdown.Xaml.dll</td></row>
+		<row><td>AlwaysInstall</td><td>Interop.UIAutomationClient.dll2</td></row>
 		<row><td>AlwaysInstall</td><td>Microsoft.Office.Tools.Common.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.Office.Tools.Common.v4.0.Utilities.dll</td></row>
 		<row><td>AlwaysInstall</td><td>Microsoft.Office.Tools.Excel.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Microsoft.Office.Tools.dll</td></row>
 		<row><td>AlwaysInstall</td><td>Microsoft.VisualStudio.Tools.Applications.Runtime.dll</td></row>
 		<row><td>AlwaysInstall</td><td>MoreLinq.dll</td></row>
 		<row><td>AlwaysInstall</td><td>MoreLinq.dll1</td></row>
@@ -2024,13 +2010,13 @@
 		<row><td>AlwaysInstall</td><td>Octokit.dll</td></row>
 		<row><td>AlwaysInstall</td><td>Octokit.dll1</td></row>
 		<row><td>AlwaysInstall</td><td>Octokit.dll2</td></row>
-		<row><td>AlwaysInstall</td><td>Quandl.Excel.Addin.dll</td></row>
+		<row><td>AlwaysInstall</td><td>Quandl.Excel.Addin.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>Quandl.Excel.Console.Primary_output</td></row>
-		<row><td>AlwaysInstall</td><td>Quandl.Excel.UDF.Functions.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Quandl.Excel.UDF.Functions.dll1</td></row>
-		<row><td>AlwaysInstall</td><td>Quandl.Shared.dll</td></row>
-		<row><td>AlwaysInstall</td><td>Quandl.Shared.dll1</td></row>
-		<row><td>AlwaysInstall</td><td>Quandl.Shared.dll2</td></row>
+		<row><td>AlwaysInstall</td><td>Quandl.Excel.UDF.Functions.Primary_output1</td></row>
+		<row><td>AlwaysInstall</td><td>Quandl.Excel.UDF.Functions.Primary_output2</td></row>
+		<row><td>AlwaysInstall</td><td>Quandl.Shared.Modules.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>Quandl.Shared.Modules.Primary_output1</td></row>
+		<row><td>AlwaysInstall</td><td>Quandl.Shared.Modules.Primary_output2</td></row>
 		<row><td>AlwaysInstall</td><td>SharpRaven.dll</td></row>
 		<row><td>AlwaysInstall</td><td>SharpRaven.dll1</td></row>
 		<row><td>AlwaysInstall</td><td>SharpRaven.dll2</td></row>
@@ -2038,8 +2024,7 @@
 		<row><td>AlwaysInstall</td><td>Syroot.Windows.IO.KnownFolders.dll1</td></row>
 		<row><td>AlwaysInstall</td><td>Syroot.Windows.IO.KnownFolders.dll2</td></row>
 		<row><td>AlwaysInstall</td><td>UIAComWrapper.dll</td></row>
-		<row><td>AlwaysInstall</td><td>UIAComWrapper.dll1</td></row>
-		<row><td>AlwaysInstall</td><td>Xceed.Wpf.Toolkit.dll</td></row>
+		<row><td>AlwaysInstall</td><td>UIAComWrapper.dll2</td></row>
 	</table>
 
 	<table name="File">
@@ -2055,91 +2040,44 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>exceldna.intellisense.dll</td><td>ExcelDna.IntelliSense.dll</td><td>EXCELD~1.DLL|ExcelDna.IntelliSense.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\ExcelDna.IntelliSense.dll</td><td>1</td><td/></row>
-		<row><td>exceldna.intellisense.dll1</td><td>ExcelDna.IntelliSense.dll1</td><td>EXCELD~1.DLL|ExcelDna.IntelliSense.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\ExcelDna.IntelliSense.dll</td><td>1</td><td/></row>
+		<row><td>exceldna.intellisense.dll2</td><td>ExcelDna.IntelliSense.dll2</td><td>EXCELD~1.DLL|ExcelDna.IntelliSense.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\ExcelDna.IntelliSense.dll</td><td>1</td><td/></row>
 		<row><td>exceldna.registration.dll</td><td>ExcelDna.Registration.dll</td><td>EXCELD~1.DLL|ExcelDna.Registration.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\ExcelDna.Registration.dll</td><td>1</td><td/></row>
-		<row><td>exceldna.registration.dll1</td><td>ExcelDna.Registration.dll1</td><td>EXCELD~1.DLL|ExcelDna.Registration.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\ExcelDna.Registration.dll</td><td>1</td><td/></row>
-		<row><td>gongsolutions.wpf.dragdrop.d</td><td>GongSolutions.Wpf.DragDrop.dll</td><td>GONGSO~1.DLL|GongSolutions.Wpf.DragDrop.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\GongSolutions.Wpf.DragDrop.dll</td><td>1</td><td/></row>
-		<row><td>gongsolutions.wpf.dragdrop.p</td><td>ISX_DEFAULTCOMPONENT</td><td>GONGSO~1.PDB|GongSolutions.Wpf.DragDrop.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\GongSolutions.Wpf.DragDrop.pdb</td><td>1</td><td/></row>
-		<row><td>gongsolutions.wpf.dragdrop.x</td><td>ISX_DEFAULTCOMPONENT</td><td>GONGSO~1.XML|GongSolutions.Wpf.DragDrop.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\GongSolutions.Wpf.DragDrop.xml</td><td>1</td><td/></row>
+		<row><td>exceldna.registration.dll2</td><td>ExcelDna.Registration.dll2</td><td>EXCELD~1.DLL|ExcelDna.Registration.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\ExcelDna.Registration.dll</td><td>1</td><td/></row>
 		<row><td>interop.uiautomationclient.d</td><td>Interop.UIAutomationClient.dll</td><td>INTERO~1.DLL|Interop.UIAutomationClient.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Interop.UIAutomationClient.dll</td><td>1</td><td/></row>
-		<row><td>interop.uiautomationclient.d1</td><td>Interop.UIAutomationClient.dll1</td><td>INTERO~1.DLL|Interop.UIAutomationClient.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Interop.UIAutomationClient.dll</td><td>1</td><td/></row>
-		<row><td>markdown.xaml.dll</td><td>Markdown.Xaml.dll</td><td>MARKDO~1.DLL|Markdown.Xaml.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Markdown.Xaml.dll</td><td>1</td><td/></row>
+		<row><td>interop.uiautomationclient.d2</td><td>Interop.UIAutomationClient.dll2</td><td>INTERO~1.DLL|Interop.UIAutomationClient.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Interop.UIAutomationClient.dll</td><td>1</td><td/></row>
 		<row><td>microsoft.office.tools.commo</td><td>Microsoft.Office.Tools.Common.dll</td><td>MICROS~1.DLL|Microsoft.Office.Tools.Common.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Microsoft.Office.Tools.Common.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.office.tools.commo1</td><td>Microsoft.Office.Tools.Common.v4.0.Utilities.dll</td><td>MICROS~1.DLL|Microsoft.Office.Tools.Common.v4.0.Utilities.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.office.tools.commo2</td><td>ISX_DEFAULTCOMPONENT</td><td>MICROS~1.XML|Microsoft.Office.Tools.Common.v4.0.Utilities.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.xml</td><td>1</td><td/></row>
-		<row><td>microsoft.office.tools.commo3</td><td>ISX_DEFAULTCOMPONENT</td><td>MICROS~1.XML|Microsoft.Office.Tools.Common.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Microsoft.Office.Tools.Common.xml</td><td>1</td><td/></row>
-		<row><td>microsoft.office.tools.dll</td><td>Microsoft.Office.Tools.dll</td><td>MICROS~1.DLL|Microsoft.Office.Tools.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Microsoft.Office.Tools.dll</td><td>1</td><td/></row>
 		<row><td>microsoft.office.tools.excel</td><td>Microsoft.Office.Tools.Excel.dll</td><td>MICROS~1.DLL|Microsoft.Office.Tools.Excel.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Microsoft.Office.Tools.Excel.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.office.tools.excel1</td><td>ISX_DEFAULTCOMPONENT</td><td>MICROS~1.XML|Microsoft.Office.Tools.Excel.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Microsoft.Office.Tools.Excel.xml</td><td>1</td><td/></row>
 		<row><td>microsoft.visualstudio.tools</td><td>Microsoft.VisualStudio.Tools.Applications.Runtime.dll</td><td>MICROS~1.DLL|Microsoft.VisualStudio.Tools.Applications.Runtime.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Microsoft.VisualStudio.Tools.Applications.Runtime.dll</td><td>1</td><td/></row>
-		<row><td>microsoft.visualstudio.tools1</td><td>ISX_DEFAULTCOMPONENT</td><td>MICROS~1.XML|Microsoft.VisualStudio.Tools.Applications.Runtime.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Microsoft.VisualStudio.Tools.Applications.Runtime.xml</td><td>1</td><td/></row>
 		<row><td>morelinq.dll</td><td>MoreLinq.dll</td><td>MoreLinq.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\MoreLinq.dll</td><td>1</td><td/></row>
-		<row><td>morelinq.dll1</td><td>MoreLinq.dll1</td><td>MoreLinq.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\MoreLinq.dll</td><td>1</td><td/></row>
-		<row><td>morelinq.dll2</td><td>MoreLinq.dll2</td><td>MoreLinq.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\MoreLinq.dll</td><td>1</td><td/></row>
-		<row><td>morelinq.xml</td><td>ISX_DEFAULTCOMPONENT3</td><td>MoreLinq.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\MoreLinq.xml</td><td>1</td><td/></row>
-		<row><td>morelinq.xml1</td><td>ISX_DEFAULTCOMPONENT4</td><td>MoreLinq.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\MoreLinq.xml</td><td>1</td><td/></row>
-		<row><td>morelinq.xml2</td><td>ISX_DEFAULTCOMPONENT</td><td>MoreLinq.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\MoreLinq.xml</td><td>1</td><td/></row>
+		<row><td>morelinq.dll1</td><td>MoreLinq.dll1</td><td>MoreLinq.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\MoreLinq.dll</td><td>1</td><td/></row>
+		<row><td>morelinq.dll2</td><td>MoreLinq.dll2</td><td>MoreLinq.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\MoreLinq.dll</td><td>1</td><td/></row>
 		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.dll1</td><td>Newtonsoft.Json.dll1</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.dll2</td><td>Newtonsoft.Json.dll2</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.xml</td><td>ISX_DEFAULTCOMPONENT3</td><td>NEWTON~1.XML|Newtonsoft.Json.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Newtonsoft.Json.xml</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.xml1</td><td>ISX_DEFAULTCOMPONENT4</td><td>NEWTON~1.XML|Newtonsoft.Json.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Newtonsoft.Json.xml</td><td>1</td><td/></row>
-		<row><td>newtonsoft.json.xml2</td><td>ISX_DEFAULTCOMPONENT</td><td>NEWTON~1.XML|Newtonsoft.Json.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Newtonsoft.Json.xml</td><td>1</td><td/></row>
+		<row><td>newtonsoft.json.dll1</td><td>Newtonsoft.Json.dll1</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
+		<row><td>newtonsoft.json.dll2</td><td>Newtonsoft.Json.dll2</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
 		<row><td>octokit.dll</td><td>Octokit.dll</td><td>Octokit.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Octokit.dll</td><td>1</td><td/></row>
-		<row><td>octokit.dll1</td><td>Octokit.dll1</td><td>Octokit.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Octokit.dll</td><td>1</td><td/></row>
-		<row><td>octokit.dll2</td><td>Octokit.dll2</td><td>Octokit.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Octokit.dll</td><td>1</td><td/></row>
-		<row><td>octokit.pdb</td><td>ISX_DEFAULTCOMPONENT3</td><td>Octokit.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Octokit.pdb</td><td>1</td><td/></row>
-		<row><td>octokit.pdb1</td><td>ISX_DEFAULTCOMPONENT4</td><td>Octokit.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Octokit.pdb</td><td>1</td><td/></row>
-		<row><td>octokit.pdb2</td><td>ISX_DEFAULTCOMPONENT</td><td>Octokit.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Octokit.pdb</td><td>1</td><td/></row>
-		<row><td>octokit.xml</td><td>ISX_DEFAULTCOMPONENT3</td><td>Octokit.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Octokit.xml</td><td>1</td><td/></row>
-		<row><td>octokit.xml1</td><td>ISX_DEFAULTCOMPONENT4</td><td>Octokit.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Octokit.xml</td><td>1</td><td/></row>
-		<row><td>octokit.xml2</td><td>ISX_DEFAULTCOMPONENT</td><td>Octokit.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Octokit.xml</td><td>1</td><td/></row>
-		<row><td>quandl.excel.addin.dll</td><td>Quandl.Excel.Addin.dll</td><td>QUANDL~1.DLL|Quandl.Excel.Addin.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.dll</td><td>1</td><td/></row>
-		<row><td>quandl.excel.addin.dll.confi</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.CON|Quandl.Excel.Addin.dll.config</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.dll.config</td><td>1</td><td/></row>
+		<row><td>octokit.dll1</td><td>Octokit.dll1</td><td>Octokit.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Octokit.dll</td><td>1</td><td/></row>
+		<row><td>octokit.dll2</td><td>Octokit.dll2</td><td>Octokit.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Octokit.dll</td><td>1</td><td/></row>
 		<row><td>quandl.excel.addin.dll.manif</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.MAN|Quandl.Excel.Addin.dll.manifest</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.dll.manifest</td><td>1</td><td/></row>
-		<row><td>quandl.excel.addin.pdb</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.PDB|Quandl.Excel.Addin.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.pdb</td><td>1</td><td/></row>
+		<row><td>quandl.excel.addin.primary_o</td><td>Quandl.Excel.Addin.Primary_output</td><td>Quandl.Excel.Addin.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Addin&gt;|Built</td><td>3</td><td/></row>
 		<row><td>quandl.excel.addin.vsto</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.VST|Quandl.Excel.Addin.vsto</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.vsto</td><td>1</td><td/></row>
 		<row><td>quandl.excel.console.primary</td><td>Quandl.Excel.Console.Primary_output</td><td>Quandl.Excel.Console.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Console&gt;|Built</td><td>3</td><td/></row>
-		<row><td>quandl.excel.udf.functions.d</td><td>Quandl.Excel.UDF.Functions.dll</td><td>QUANDL~1.DLL|Quandl.Excel.UDF.Functions.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions.dll</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions.d1</td><td>ISX_DEFAULTCOMPONENT3</td><td>QUANDL~1.CON|Quandl.Excel.UDF.Functions.dll.config</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions.dll.config</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions.d2</td><td>Quandl.Excel.UDF.Functions.dll1</td><td>QUANDL~1.DLL|Quandl.Excel.UDF.Functions.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions.dll</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions.d3</td><td>ISX_DEFAULTCOMPONENT4</td><td>QUANDL~1.CON|Quandl.Excel.UDF.Functions.dll.config</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions.dll.config</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions.p</td><td>ISX_DEFAULTCOMPONENT3</td><td>QUANDL~1.PDB|Quandl.Excel.UDF.Functions.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions.pdb</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions.p1</td><td>ISX_DEFAULTCOMPONENT4</td><td>QUANDL~1.PDB|Quandl.Excel.UDF.Functions.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions.pdb</td><td>1</td><td/></row>
+		<row><td>quandl.excel.udf.functions.p</td><td>Quandl.Excel.UDF.Functions.Primary_output2</td><td>Quandl.Excel.UDF.Functions.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.UDF.Functions1&gt;|Built</td><td>3</td><td/></row>
+		<row><td>quandl.excel.udf.functions.p3</td><td>Quandl.Excel.UDF.Functions.Primary_output1</td><td>Quandl.Excel.UDF.Functions.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.UDF.Functions1&gt;|Built</td><td>3</td><td/></row>
 		<row><td>quandl.excel.udf.functions_a</td><td>ISX_DEFAULTCOMPONENT3</td><td>QUANDL~1.DNA|Quandl.Excel.UDF.Functions-AddIn.dna</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.dna</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions_a1</td><td>ISX_DEFAULTCOMPONENT3</td><td>QUANDL~1.XLL|Quandl.Excel.UDF.Functions-AddIn.xll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.xll</td><td>1</td><td/></row>
+		<row><td>quandl.excel.udf.functions_a1</td><td>ISX_DEFAULTCOMPONENT3</td><td>QUANDL~1.XLL|Quandl.Excel.UDF.Functions-AddIn.xll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\Lib\32bit\Quandl.Excel.UDF.Functions-AddIn.xll</td><td>1</td><td/></row>
 		<row><td>quandl.excel.udf.functions_a2</td><td>ISX_DEFAULTCOMPONENT4</td><td>QUANDL~1.DNA|Quandl.Excel.UDF.Functions-AddIn.dna</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Excel.UDF.Functions-AddIn.dna</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions_a3</td><td>ISX_DEFAULTCOMPONENT4</td><td>QUANDL~1.XLL|Quandl.Excel.UDF.Functions-AddIn.xll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\Lib\Quandl.Excel.UDF.Functions-AddIn.xll</td><td>1</td><td/></row>
-		<row><td>quandl.excel.udf.functions_a4</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.DNA|Quandl.Excel.UDF.Functions-AddIn.dna</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.UDF.Functions-AddIn.dna</td><td>1</td><td/></row>
-		<row><td>quandl.shared.dll</td><td>Quandl.Shared.dll</td><td>QUANDL~1.DLL|Quandl.Shared.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Shared.dll</td><td>1</td><td/></row>
-		<row><td>quandl.shared.dll1</td><td>Quandl.Shared.dll1</td><td>QUANDL~1.DLL|Quandl.Shared.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Shared.dll</td><td>1</td><td/></row>
-		<row><td>quandl.shared.dll2</td><td>Quandl.Shared.dll2</td><td>QUANDL~1.DLL|Quandl.Shared.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Shared.dll</td><td>1</td><td/></row>
-		<row><td>quandl.shared.pdb</td><td>ISX_DEFAULTCOMPONENT3</td><td>QUANDL~1.PDB|Quandl.Shared.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Shared.pdb</td><td>1</td><td/></row>
-		<row><td>quandl.shared.pdb1</td><td>ISX_DEFAULTCOMPONENT4</td><td>QUANDL~1.PDB|Quandl.Shared.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Quandl.Shared.pdb</td><td>1</td><td/></row>
-		<row><td>quandl.shared.pdb2</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.PDB|Quandl.Shared.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Shared.pdb</td><td>1</td><td/></row>
+		<row><td>quandl.excel.udf.functions_a3</td><td>ISX_DEFAULTCOMPONENT4</td><td>QUANDL~1.XLL|Quandl.Excel.UDF.Functions-AddIn.xll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\Lib\64bit\Quandl.Excel.UDF.Functions-AddIn.xll</td><td>1</td><td/></row>
+		<row><td>quandl.shared.modules.primar</td><td>Quandl.Shared.Modules.Primary_output</td><td>Quandl.Shared.Modules.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Shared.Modules1&gt;|Built</td><td>3</td><td/></row>
+		<row><td>quandl.shared.modules.primar1</td><td>Quandl.Shared.Modules.Primary_output1</td><td>Quandl.Shared.Modules.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Shared.Modules1&gt;|Built</td><td>3</td><td/></row>
+		<row><td>quandl.shared.modules.primar2</td><td>Quandl.Shared.Modules.Primary_output2</td><td>Quandl.Shared.Modules.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Shared.Modules1&gt;|Built</td><td>3</td><td/></row>
 		<row><td>sharpraven.dll</td><td>SharpRaven.dll</td><td>SHARPR~1.DLL|SharpRaven.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\SharpRaven.dll</td><td>1</td><td/></row>
-		<row><td>sharpraven.dll1</td><td>SharpRaven.dll1</td><td>SHARPR~1.DLL|SharpRaven.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\SharpRaven.dll</td><td>1</td><td/></row>
-		<row><td>sharpraven.dll2</td><td>SharpRaven.dll2</td><td>SHARPR~1.DLL|SharpRaven.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\SharpRaven.dll</td><td>1</td><td/></row>
-		<row><td>sharpraven.pdb</td><td>ISX_DEFAULTCOMPONENT3</td><td>SHARPR~1.PDB|SharpRaven.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\SharpRaven.pdb</td><td>1</td><td/></row>
-		<row><td>sharpraven.pdb1</td><td>ISX_DEFAULTCOMPONENT4</td><td>SHARPR~1.PDB|SharpRaven.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\SharpRaven.pdb</td><td>1</td><td/></row>
-		<row><td>sharpraven.pdb2</td><td>ISX_DEFAULTCOMPONENT</td><td>SHARPR~1.PDB|SharpRaven.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\SharpRaven.pdb</td><td>1</td><td/></row>
-		<row><td>sharpraven.xml</td><td>ISX_DEFAULTCOMPONENT3</td><td>SHARPR~1.XML|SharpRaven.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\SharpRaven.xml</td><td>1</td><td/></row>
-		<row><td>sharpraven.xml1</td><td>ISX_DEFAULTCOMPONENT4</td><td>SHARPR~1.XML|SharpRaven.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\SharpRaven.xml</td><td>1</td><td/></row>
-		<row><td>sharpraven.xml2</td><td>ISX_DEFAULTCOMPONENT</td><td>SHARPR~1.XML|SharpRaven.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\SharpRaven.xml</td><td>1</td><td/></row>
+		<row><td>sharpraven.dll1</td><td>SharpRaven.dll1</td><td>SHARPR~1.DLL|SharpRaven.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\SharpRaven.dll</td><td>1</td><td/></row>
+		<row><td>sharpraven.dll2</td><td>SharpRaven.dll2</td><td>SHARPR~1.DLL|SharpRaven.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\SharpRaven.dll</td><td>1</td><td/></row>
 		<row><td>syroot.windows.io.knownfolde</td><td>Syroot.Windows.IO.KnownFolders.dll</td><td>SYROOT~1.DLL|Syroot.Windows.IO.KnownFolders.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Syroot.Windows.IO.KnownFolders.dll</td><td>1</td><td/></row>
-		<row><td>syroot.windows.io.knownfolde1</td><td>ISX_DEFAULTCOMPONENT3</td><td>SYROOT~1.PDB|Syroot.Windows.IO.KnownFolders.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Syroot.Windows.IO.KnownFolders.pdb</td><td>1</td><td/></row>
-		<row><td>syroot.windows.io.knownfolde2</td><td>ISX_DEFAULTCOMPONENT3</td><td>SYROOT~1.XML|Syroot.Windows.IO.KnownFolders.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Syroot.Windows.IO.KnownFolders.xml</td><td>1</td><td/></row>
-		<row><td>syroot.windows.io.knownfolde3</td><td>Syroot.Windows.IO.KnownFolders.dll1</td><td>SYROOT~1.DLL|Syroot.Windows.IO.KnownFolders.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Syroot.Windows.IO.KnownFolders.dll</td><td>1</td><td/></row>
-		<row><td>syroot.windows.io.knownfolde4</td><td>ISX_DEFAULTCOMPONENT4</td><td>SYROOT~1.PDB|Syroot.Windows.IO.KnownFolders.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Syroot.Windows.IO.KnownFolders.pdb</td><td>1</td><td/></row>
-		<row><td>syroot.windows.io.knownfolde5</td><td>ISX_DEFAULTCOMPONENT4</td><td>SYROOT~1.XML|Syroot.Windows.IO.KnownFolders.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Syroot.Windows.IO.KnownFolders.xml</td><td>1</td><td/></row>
-		<row><td>syroot.windows.io.knownfolde6</td><td>Syroot.Windows.IO.KnownFolders.dll2</td><td>SYROOT~1.DLL|Syroot.Windows.IO.KnownFolders.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Syroot.Windows.IO.KnownFolders.dll</td><td>1</td><td/></row>
-		<row><td>syroot.windows.io.knownfolde7</td><td>ISX_DEFAULTCOMPONENT</td><td>SYROOT~1.PDB|Syroot.Windows.IO.KnownFolders.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Syroot.Windows.IO.KnownFolders.pdb</td><td>1</td><td/></row>
-		<row><td>syroot.windows.io.knownfolde8</td><td>ISX_DEFAULTCOMPONENT</td><td>SYROOT~1.XML|Syroot.Windows.IO.KnownFolders.xml</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Syroot.Windows.IO.KnownFolders.xml</td><td>1</td><td/></row>
+		<row><td>syroot.windows.io.knownfolde1</td><td>Syroot.Windows.IO.KnownFolders.dll1</td><td>SYROOT~1.DLL|Syroot.Windows.IO.KnownFolders.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Syroot.Windows.IO.KnownFolders.dll</td><td>1</td><td/></row>
+		<row><td>syroot.windows.io.knownfolde2</td><td>Syroot.Windows.IO.KnownFolders.dll2</td><td>SYROOT~1.DLL|Syroot.Windows.IO.KnownFolders.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\Syroot.Windows.IO.KnownFolders.dll</td><td>1</td><td/></row>
 		<row><td>uiacomwrapper.dll</td><td>UIAComWrapper.dll</td><td>UIACOM~1.DLL|UIAComWrapper.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\UIAComWrapper.dll</td><td>1</td><td/></row>
-		<row><td>uiacomwrapper.dll1</td><td>UIAComWrapper.dll1</td><td>UIACOM~1.DLL|UIAComWrapper.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\UIAComWrapper.dll</td><td>1</td><td/></row>
-		<row><td>uiacomwrapper.pdb</td><td>ISX_DEFAULTCOMPONENT3</td><td>UIACOM~1.PDB|UIAComWrapper.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\UIAComWrapper.pdb</td><td>1</td><td/></row>
-		<row><td>uiacomwrapper.pdb1</td><td>ISX_DEFAULTCOMPONENT4</td><td>UIACOM~1.PDB|UIAComWrapper.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\UIAComWrapper.pdb</td><td>1</td><td/></row>
-		<row><td>xceed.wpf.toolkit.dll</td><td>Xceed.Wpf.Toolkit.dll</td><td>XCEEDW~1.DLL|Xceed.Wpf.Toolkit.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Xceed.Wpf.Toolkit.dll</td><td>1</td><td/></row>
+		<row><td>uiacomwrapper.dll2</td><td>UIAComWrapper.dll2</td><td>UIACOM~1.DLL|UIAComWrapper.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Quandl.Excel.UDF.Functions\bin\Release\UIAComWrapper.dll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2283,11 +2221,10 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>ExcelDna.IntelliSense.dll</td><td/><td/><td>_FB349F14_E167_457C_8F7E_4FB9D333D4E2_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ExcelDna.IntelliSense.dll1</td><td/><td/><td>_F5677088_E09D_4525_87BB_22827C530601_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ExcelDna.Registration.dll</td><td/><td/><td>_A236EB6C_482D_4327_8D77_E12A492C198B_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ExcelDna.Registration.dll1</td><td/><td/><td>_053485E2_FA6C_465C_952E_6969F8326621_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>GongSolutions.Wpf.DragDrop.dll</td><td/><td/><td>_24F7A6E6_B2ED_443B_9302_F49DC4821046_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ExcelDna.IntelliSense.dll</td><td/><td/><td>_88B0444C_2142_40AF_86F5_22F073F7A038_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ExcelDna.IntelliSense.dll2</td><td/><td/><td>_10332BE7_2E0E_460C_8DE9_CC36FEC981BA_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ExcelDna.Registration.dll</td><td/><td/><td>_2B17896D_F98B_4D05_8E98_18B219ABE657_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ExcelDna.Registration.dll2</td><td/><td/><td>_AE0E8D50_A9DD_41EB_A483_F96E7B3F9C95_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_85509560_FC87_4BCC_A6CA_4C9C4763ED2A_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_6EF04747_1ABE_4BFF_81ED_69C2DBE97390_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_612F5ACB_790C_487F_BE1A_79BC7262E4DC_FILTER</td><td/><td/><td/><td/></row>
@@ -2295,39 +2232,35 @@
 		<row><td>ISX_DEFAULTCOMPONENT4</td><td/><td/><td>_14379665_4E4C_497C_8DB0_261A44B0F89A_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT8</td><td/><td/><td>_06452797_5412_439A_B311_219B4B259613_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>IS_ININSTALL_SHORTCUT</td><td/><td/><td>_A707A2C6_6E5E_4F70_B91A_F6C3DC6E1377_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Interop.UIAutomationClient.dll</td><td/><td/><td>_BE28D8FA_8EBA_41F6_BF0F_FFC9952A8E8C_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Interop.UIAutomationClient.dll1</td><td/><td/><td>_5FC073E7_552F_46CE_9C59_24E0704C70A9_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Markdown.Xaml.dll</td><td/><td/><td>_20BDBE7A_494A_48B1_AC80_C1A75D614900_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Office.Tools.Common.dll</td><td/><td/><td>_9125D652_B817_4001_BDDB_22B00362855C_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Office.Tools.Common.v4.0.Utilities.dll</td><td/><td/><td>_E0C3673B_7817_4272_823B_9721BF1DB757_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Office.Tools.Excel.dll</td><td/><td/><td>_7AF8F4DF_A7C1_43BD_B9EB_AF6C6D368D6F_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.Office.Tools.dll</td><td/><td/><td>_6ECD69C5_3A6F_4854_A32C_C129D970DE33_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Microsoft.VisualStudio.Tools.Applications.Runtime.dll</td><td/><td/><td>_66184D32_2CC1_4355_B5D3_FF5CB086B384_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>MoreLinq.dll</td><td/><td/><td>_4BC1444C_1A3F_4504_8744_50CA769AC5A9_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>MoreLinq.dll1</td><td/><td/><td>_057B8D65_DEF8_4055_9679_25E1229AF86D_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>MoreLinq.dll2</td><td/><td/><td>_B2FCB899_BC1B_4A96_97D9_D8B0AC4ED2B3_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_02824C08_1C8D_4A41_8C79_43DAA9366486_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Newtonsoft.Json.dll1</td><td/><td/><td>_2D352F79_9E49_42A6_9924_DA8EEA649C1C_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Newtonsoft.Json.dll2</td><td/><td/><td>_54868CA3_46EE_4C4F_BA86_CD12C6CFEF2D_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Octokit.dll</td><td/><td/><td>_DD35EBB2_FCCC_4DE8_88E5_70995A9AE3BE_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Octokit.dll1</td><td/><td/><td>_0A342087_7F4D_4F6A_96DF_864F26FB6950_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Octokit.dll2</td><td/><td/><td>_269AAEEE_5D3D_4411_96C9_8B4A22289915_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Excel.Addin.dll</td><td/><td/><td>_A82D1E99_06E0_4BB5_AFC0_48F0A91311AA_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Interop.UIAutomationClient.dll</td><td/><td/><td>_F0D33572_9447_4C4B_9CF2_FD2AF0277987_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Interop.UIAutomationClient.dll2</td><td/><td/><td>_D2A01F4D_672B_4D1D_8F18_E6934DD5C8C3_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Microsoft.Office.Tools.Common.dll</td><td/><td/><td>_2E5F495E_37F8_4B61_9E16_1180326F3453_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Microsoft.Office.Tools.Excel.dll</td><td/><td/><td>_5B756501_6944_4AB4_AC5D_83CC55E09750_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Microsoft.VisualStudio.Tools.Applications.Runtime.dll</td><td/><td/><td>_12944A37_F77E_4A34_8BD4_D9CD57130270_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>MoreLinq.dll</td><td/><td/><td>_80B9A89C_978C_43D0_9AB5_14CE5ED4A1EC_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>MoreLinq.dll1</td><td/><td/><td>_A8C331FA_C6CE_4D02_BD24_EF5DA61B8F4B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>MoreLinq.dll2</td><td/><td/><td>_94DBA96B_CD74_4628_BA22_C6AE1B6858C0_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_DB2460E8_34E8_4703_9B0C_EB0F5D89793A_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Newtonsoft.Json.dll1</td><td/><td/><td>_4905F59E_9DE8_4DCD_9FA5_8924B8871AA5_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Newtonsoft.Json.dll2</td><td/><td/><td>_D0B29215_F4D9_44DA_AFB5_0481F6AA9A39_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Octokit.dll</td><td/><td/><td>_31CC9A87_ECE6_4989_BBE3_C87BF0C1F3FE_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Octokit.dll1</td><td/><td/><td>_5612825F_BDB7_4008_9FF4_E7EFD03B2B26_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Octokit.dll2</td><td/><td/><td>_59ECBB6B_5993_48B7_831B_368B7A857C35_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Excel.Addin.Primary_output</td><td/><td/><td>_2A51F5C9_FD7A_4096_AEFE_0F09C4FD6088_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Quandl.Excel.Console.Primary_output</td><td/><td/><td>_89B39ACE_F5DF_4DEB_B401_079E08B728E7_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Excel.UDF.Functions.dll</td><td/><td/><td>_4FD0BC35_C80B_494C_A8E4_E3A29C8C5767_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Excel.UDF.Functions.dll1</td><td/><td/><td>_03A41BB5_1A12_49B8_8A39_61EFEB14AECC_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Shared.dll</td><td/><td/><td>_57DAEC28_36D8_44A8_B4F7_273D5049D50B_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Shared.dll1</td><td/><td/><td>_01A5D934_6458_48C6_96EC_376F098D68A6_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Quandl.Shared.dll2</td><td/><td/><td>_E00BB351_0C86_49C9_ACE9_FEC72AFBCBD5_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>SharpRaven.dll</td><td/><td/><td>_E6CC2EEE_FE18_4E11_863B_F60E80395F2A_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>SharpRaven.dll1</td><td/><td/><td>_2E9FB67B_3C96_4F4B_95FC_3CE990D7D991_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>SharpRaven.dll2</td><td/><td/><td>_34AC4BDF_1D72_41EB_BE84_EE2FF3899AA8_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Syroot.Windows.IO.KnownFolders.dll</td><td/><td/><td>_A3562E25_F45F_44A6_BDC3_0431EA9034C5_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Syroot.Windows.IO.KnownFolders.dll1</td><td/><td/><td>_AB28896C_95FB_4635_BD78_49BB6E74F7DB_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Syroot.Windows.IO.KnownFolders.dll2</td><td/><td/><td>_5F6D690C_125F_4673_9C89_2EE001302663_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>UIAComWrapper.dll</td><td/><td/><td>_D485804D_EFA6_4053_935C_C33B7E855059_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>UIAComWrapper.dll1</td><td/><td/><td>_94D0E3B2_EF87_4876_B7EC_C1497E479956_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Xceed.Wpf.Toolkit.dll</td><td/><td/><td>_D501A8CA_5E24_4538_B4B2_2FCE1389E13A_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Excel.UDF.Functions.Primary_output1</td><td/><td/><td>_0AE6C078_8EFC_4014_A9B3_EB54363A7484_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Excel.UDF.Functions.Primary_output2</td><td/><td/><td>_5BE8578C_7FF7_4D06_B750_EBA511F74969_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Shared.Modules.Primary_output</td><td/><td/><td>_E55F76C6_69A8_4154_A6A4_3E46885ECC2E_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Shared.Modules.Primary_output1</td><td/><td/><td>_F88F2606_07F5_457F_B63F_BABBCE3B855B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Quandl.Shared.Modules.Primary_output2</td><td/><td/><td>_B4D198E3_F3C9_401F_8548_E614D9229550_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>SharpRaven.dll</td><td/><td/><td>_5C201BBD_970E_49E8_A633_4F5C23374A04_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>SharpRaven.dll1</td><td/><td/><td>_F3868099_CC59_40F2_90F6_BD8DF9DDDA95_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>SharpRaven.dll2</td><td/><td/><td>_5F36AE78_A945_4558_9E58_96F6F7A5ABDC_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Syroot.Windows.IO.KnownFolders.dll</td><td/><td/><td>_D425B63A_7711_4C09_B821_F0440CB99A92_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Syroot.Windows.IO.KnownFolders.dll1</td><td/><td/><td>_026A4FE7_BCDE_4B93_B207_C05C0DF8464B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Syroot.Windows.IO.KnownFolders.dll2</td><td/><td/><td>_ADC3C771_3DCB_40BB_AF29_FAD5C5A2C3C2_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>UIAComWrapper.dll</td><td/><td/><td>_7B971616_27F5_4EA8_9B96_621C89511D53_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>UIAComWrapper.dll2</td><td/><td/><td>_67DA8456_65D7_4892_B681_FE060E16EA56_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2682,7 +2615,7 @@
 		<row><td>DVD-18</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>15.83</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-5</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>4.38</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-9</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>7.95</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
-		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1033</td><td>0</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>108573</td><td/><td/><td/><td>3</td></row>
+		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1033</td><td>0</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>536979487</td><td/><td/><td/><td>3</td></row>
 		<row><td>WebDeployment</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>4</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>124941</td><td/><td/><td/><td>3</td></row>
 	</table>
 
@@ -2893,7 +2826,7 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_B0F2CE7D_A073_4F36_AFFB_5BD6A54BB01A_</td><td>Microsoft VSTO 2010 Runtime.prq</td><td/><td>2</td><td/></row>
+		<row><td>_693145BA_AC21_4E37_A380_8BBF65D7ADCD_</td><td>Microsoft VSTO 2010 Runtime.prq</td><td/><td/><td/></row>
 		<row><td>_EDE2CE8E_69BA_427B_9FEF_3D9E5969F00F_</td><td>Microsoft .NET Framework 4.6.1 Web.prq</td><td/><td/><td/></row>
 	</table>
 
@@ -4034,11 +3967,11 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-316459410</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.QuandlInc.com</td><td>0</td><td/><td>-458972884</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>https://www.quandl.com</td><td>0</td><td/><td>-1977235697</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Quandl Inc</td><td>0</td><td/><td>-458972884</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>connect@quandl.com</td><td>0</td><td/><td>1151655368</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>https://www.quandl.com</td><td>0</td><td/><td>1705204843</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>http://help.quandl.com/</td><td>0</td><td/><td>-458972884</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>http://help.quandl.com/</td><td>0</td><td/><td>-1977235697</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-316459410</td></row>
 		<row><td>UNINST|Uninstall Quandl-Excell-Addin</td><td>1033</td><td>UNINST~1|Uninstall Quandl Excel Addin</td><td>0</td><td/><td>1705190923</td></row>
 	</table>
@@ -4153,7 +4086,7 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\Resources\Quandl_Icon.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\Resources\quandl.ico</td><td>0</td></row>
 		<row><td>Quandl.Excel.Conso_4CCCE07A50554807846C2EEB1115026B.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>Quandl.Excel.Conso_5EFD97536D4B43DEB9AB07B3B334DC24.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>Quandl.Excel.Conso_7469EC02DC8943C69407A7FDFC8DF348.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
@@ -4224,7 +4157,7 @@
 		<row><td>PublishFeatures</td><td/><td>6300</td><td>PublishFeatures</td><td/></row>
 		<row><td>PublishProduct</td><td/><td>6400</td><td>PublishProduct</td><td/></row>
 		<row><td>RMCCPSearch</td><td>Not CCP_SUCCESS And CCP_TEST</td><td>600</td><td>RMCCPSearch</td><td/></row>
-		<row><td>RegisterAddin</td><td>Not Installed</td><td>6401</td><td/><td/></row>
+		<row><td>RegisterAddin</td><td>Not Installed</td><td>6405</td><td/><td/></row>
 		<row><td>RegisterClassInfo</td><td/><td>4600</td><td>RegisterClassInfo</td><td/></row>
 		<row><td>RegisterComPlus</td><td/><td>5700</td><td>RegisterComPlus</td><td/></row>
 		<row><td>RegisterExtensionInfo</td><td/><td>4700</td><td>RegisterExtensionInfo</td><td/></row>
@@ -4606,6 +4539,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ARPHELPLINK</td><td>##ID_STRING5##</td><td/></row>
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
 		<row><td>ARPNOMODIFY</td><td>1</td><td/></row>
+		<row><td>ARPNOREMOVE</td><td>1</td><td/></row>
+		<row><td>ARPNOREPAIR</td><td>1</td><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING1##</td><td/></row>
@@ -4673,9 +4608,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{47F99D61-75DD-456E-B774-28E2DE5333E2}</td><td/></row>
+		<row><td>ProductCode</td><td>{39B70F45-CB04-47DB-84A2-03150FF3B78D}</td><td/></row>
 		<row><td>ProductName</td><td>Quandl Excel Addin</td><td/></row>
-		<row><td>ProductVersion</td><td>3.80.1000</td><td/></row>
+		<row><td>ProductVersion</td><td>3.82.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
