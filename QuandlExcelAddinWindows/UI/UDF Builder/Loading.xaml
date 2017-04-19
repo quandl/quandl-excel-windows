@@ -4,11 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.UDF_Builder"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="/Quandl.Excel.Addin;component/Resources/Quandl_Icon_Image.png" Width="64" Margin="0,0,0,10" />
+            <Image Source="/Quandl.Excel.Addin;component/Resources/quandl_hq_sqr.png" Width="100" Margin="0,0,0,10" Height="100" />
             <Label Content="Verifying your connection" HorizontalContentAlignment="Center" />
             <ProgressBar Width="200" Height="23" IsIndeterminate="True" />
         </StackPanel>
