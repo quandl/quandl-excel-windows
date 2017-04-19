@@ -1943,6 +1943,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>quandl.excel.addin.vsto</td><td>ISX_DEFAULTCOMPONENT</td><td>QUANDL~1.VST|Quandl.Excel.Addin.vsto</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\QuandlExcelAddinWindows\bin\Release\Quandl.Excel.Addin.vsto</td><td>1</td><td/></row>
 		<row><td>quandl.excel.addin.primary_o</td><td>Quandl.Excel.Addin.Primary_output</td><td>Quandl.Excel.Addin.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Addin&gt;|Built</td><td>3</td><td/></row>
 		<row><td>quandl.excel.console.primary</td><td>Quandl.Excel.Console.Primary_output</td><td>Quandl.Excel.Console.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.Console&gt;|Built</td><td>3</td><td/></row>
 		<row><td>quandl.excel.udf.functions.p</td><td>Quandl.Excel.UDF.Functions.Primary_output2</td><td>Quandl.Excel.UDF.Functions.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Quandl.Excel.UDF.Functions1&gt;|Built</td><td>3</td><td/></row>
