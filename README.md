@@ -31,18 +31,24 @@ A few things that will make your excel development experience much easier:
 
 Following steps will create a setup package which works for both Microsoft Excel 32 bit and 64 bit.
 
+### Preparation
+
 1. Follow the instructions list in `Development` section above to setup the project and its basic dependencies.
 2. Copy this file [Microsoft .NET Framework 4.6.1 Web.prq](Microsoft .NET Framework 4.6.1 Web.prq) to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
-3. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
-4. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information`
+
+### Releasing
+
+1. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
+  * See [SIGNING](SIGNING.md)
+2. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information`
   1. Change the product code (use the helper - `{...}`)
   2. Bump the version number.
     * Be sure to leave the upgrade code untouched.
-5. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
-6. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
-7. Switch your `Run Mode` to `release` instead of `debug`
-8. Right click solution file and select `Rebuild Solution`
-9. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
+3. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
+4. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
+5. Switch your `Run Mode` to `release` instead of `debug`
+6. Right click solution file and select `Rebuild Solution`
+7. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
 
 Things to note:
 
@@ -73,9 +79,9 @@ This could be a number of things but generally means that our implementation has
 * Excel request deadlock - This can occur when excel is busy and we try to make another request to it from a different thread.
 * Unhandled server error response - Our server is having issues and after a few retries our code simply gives up.
 
-## Code signing
+### InstallShield Limited Edition is not displaying the Redistributables
 
-See [SIGNING](SIGNING.md)
+Double check your installshield limited edition settings. Sometimes it will point to the wrong redistributables folder even after re-installation. In most cases it should be set to `C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites`
 
 ## License
 

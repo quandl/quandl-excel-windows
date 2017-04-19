@@ -1,0 +1,11 @@
+<DnaLibrary RuntimeVersion="v4.0" Language="VB">
+<![CDATA[
+
+	Public Module Module1
+		Function AddThem(x, y)
+			AddThem = x + y
+		End Function	
+	End Module
+
+]]>
+</DnaLibrary>

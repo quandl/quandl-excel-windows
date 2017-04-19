@@ -39,20 +39,20 @@ namespace Quandl.Excel.Addin
         {
             this.QuandlTab = this.Factory.CreateRibbonTab();
             this.DataGroup = this.Factory.CreateRibbonGroup();
-            this.udf_builder = this.Factory.CreateRibbonButton();
             this.group1 = this.Factory.CreateRibbonGroup();
+            this.SettingsGroup = this.Factory.CreateRibbonGroup();
+            this.btnViewChangeLog = this.Factory.CreateRibbonButton();
+            this.btnViewAll = this.Factory.CreateRibbonButton();
+            this.udf_builder = this.Factory.CreateRibbonButton();
             this.btnRefreshSheet = this.Factory.CreateRibbonButton();
             this.btnRefreshWorkbook = this.Factory.CreateRibbonButton();
             this.btnStopAll = this.Factory.CreateRibbonButton();
             this.btnFormulaToggleSplit = this.Factory.CreateRibbonSplitButton();
             this.btnEnableFormula = this.Factory.CreateRibbonButton();
             this.btnDisableFormula = this.Factory.CreateRibbonButton();
-            this.SettingsGroup = this.Factory.CreateRibbonGroup();
             this.openQuandlSettings = this.Factory.CreateRibbonButton();
             this.AboutButton = this.Factory.CreateRibbonButton();
             this.btnCheckUpdate = this.Factory.CreateRibbonButton();
-            this.btnViewChangeLog = this.Factory.CreateRibbonButton();
-            this.btnViewAll = this.Factory.CreateRibbonButton();
             this.QuandlTab.SuspendLayout();
             this.DataGroup.SuspendLayout();
             this.group1.SuspendLayout();
@@ -73,6 +73,31 @@ namespace Quandl.Excel.Addin
             this.DataGroup.Items.Add(this.udf_builder);
             this.DataGroup.Name = "DataGroup";
             // 
+            // group1
+            // 
+            this.group1.Items.Add(this.btnRefreshSheet);
+            this.group1.Items.Add(this.btnRefreshWorkbook);
+            this.group1.Items.Add(this.btnStopAll);
+            this.group1.Items.Add(this.btnFormulaToggleSplit);
+            this.group1.Name = "group1";
+            // 
+            // SettingsGroup
+            // 
+            this.SettingsGroup.Items.Add(this.openQuandlSettings);
+            this.SettingsGroup.Items.Add(this.AboutButton);
+            this.SettingsGroup.Items.Add(this.btnCheckUpdate);
+            this.SettingsGroup.Name = "SettingsGroup";
+            // 
+            // btnViewChangeLog
+            // 
+            this.btnViewChangeLog.Label = "";
+            this.btnViewChangeLog.Name = "btnViewChangeLog";
+            // 
+            // btnViewAll
+            // 
+            this.btnViewAll.Label = "";
+            this.btnViewAll.Name = "btnViewAll";
+            // 
             // udf_builder
             // 
             this.udf_builder.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -82,14 +107,6 @@ namespace Quandl.Excel.Addin
             this.udf_builder.OfficeImageId = "ChartShowData";
             this.udf_builder.ShowImage = true;
             this.udf_builder.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.udfBuilder_Click);
-            // 
-            // group1
-            // 
-            this.group1.Items.Add(this.btnRefreshSheet);
-            this.group1.Items.Add(this.btnRefreshWorkbook);
-            this.group1.Items.Add(this.btnStopAll);
-            this.group1.Items.Add(this.btnFormulaToggleSplit);
-            this.group1.Name = "group1";
             // 
             // btnRefreshSheet
             // 
@@ -147,13 +164,6 @@ namespace Quandl.Excel.Addin
             this.btnDisableFormula.ShowImage = true;
             this.btnDisableFormula.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDisableFormula_Click);
             // 
-            // SettingsGroup
-            // 
-            this.SettingsGroup.Items.Add(this.openQuandlSettings);
-            this.SettingsGroup.Items.Add(this.AboutButton);
-            this.SettingsGroup.Items.Add(this.btnCheckUpdate);
-            this.SettingsGroup.Name = "SettingsGroup";
-            // 
             // openQuandlSettings
             // 
             this.openQuandlSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -167,7 +177,7 @@ namespace Quandl.Excel.Addin
             // AboutButton
             // 
             this.AboutButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.AboutButton.Image = global::Quandl.Excel.Addin.Properties.Resources.quandl;
+            this.AboutButton.Image = global::Quandl.Excel.Addin.Properties.Resources.quandl_lq_sqr;
             this.AboutButton.Label = "About";
             this.AboutButton.Name = "AboutButton";
             this.AboutButton.ShowImage = true;
@@ -183,16 +193,6 @@ namespace Quandl.Excel.Addin
             this.btnCheckUpdate.ShowImage = true;
             this.btnCheckUpdate.Visible = false;
             this.btnCheckUpdate.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnCheckUpdate_Click);
-            // 
-            // btnViewChangeLog
-            // 
-            this.btnViewChangeLog.Label = "";
-            this.btnViewChangeLog.Name = "btnViewChangeLog";
-            // 
-            // btnViewAll
-            // 
-            this.btnViewAll.Label = "";
-            this.btnViewAll.Name = "btnViewAll";
             // 
             // Toolbar
             // 

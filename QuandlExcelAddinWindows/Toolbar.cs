@@ -1,21 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Threading;
-using System.Windows;
-using System.Windows.Forms;
+﻿using System.Windows;
 using Microsoft.Office.Tools.Ribbon;
-using Octokit;
-using Quandl.Excel.Addin.Controls;
 using Quandl.Excel.Addin.UI;
 using Quandl.Excel.Addin.UI.Settings;
 using Quandl.Excel.Addin.UI.UDF_Builder;
 using Quandl.Shared;
 using Quandl.Shared.Errors;
 using Brushes = System.Windows.Media.Brushes;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Quandl.Excel.Addin
 {
