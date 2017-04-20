@@ -32,7 +32,7 @@ namespace Quandl.Excel.Addin
             {
                 _settingsPane = new TaskPaneControl(new Settings(), "Settings");
             }
-            _settingsPane.Show();
+            _settingsPane.Show(400, 600);
         }
 
         private void udfBuilder_Click(object sender, RibbonControlEventArgs e)

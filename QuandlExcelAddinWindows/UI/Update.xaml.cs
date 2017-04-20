@@ -26,11 +26,13 @@ namespace Quandl.Excel.Addin.UI
             DocFlow.Document.Background = Brushes.White;
             DocFlow.Document.PagePadding = new Thickness(5);
             DocFlow.Document.FontFamily = new FontFamily("Arial");
+            DocFlow.Document.FontSize = 14;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _updater.GetLastestUpdate();
+            // _updater.GetLastestUpdate(); // Download the latest update to their computer.
+            Process.Start("https://www.quandl.com/tools/excel");
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -41,7 +43,7 @@ namespace Quandl.Excel.Addin.UI
 
         private void All_Release_Button_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/quandl/quandl-excel-windows/releases");
+            Process.Start("https://github.com/quandl/quandl-excel-windows/releases");
         }
     }
 }
