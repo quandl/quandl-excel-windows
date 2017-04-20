@@ -68,7 +68,12 @@ namespace Quandl.Excel.Addin.UI
 
         public void Show()
         {
-            ShowAsTaskPane();
+            ShowAsTaskPane(540, 700);
+        }
+
+        public void Show(int height, int width)
+        {
+            ShowAsTaskPane(height, width);
         }
 
         public void Close()
@@ -79,7 +84,7 @@ namespace Quandl.Excel.Addin.UI
             }
         }
 
-        private void ShowAsTaskPane()
+        private void ShowAsTaskPane(int height, int width)
         {
             if (taskPane == null)
             {
@@ -91,13 +96,13 @@ namespace Quandl.Excel.Addin.UI
                     timer.AutoReset = false;
                     timer.Elapsed += (sender, e) =>
                     {
-                        if (taskPane.Width < 700)
+                        if (taskPane.Width < width)
                         {
-                            taskPane.Width = 700;
+                            taskPane.Width = width;
                         }
-                        if (taskPane.Height < 540)
+                        if (taskPane.Height < height)
                         {
-                            taskPane.Height = 540;
+                            taskPane.Height = height;
                         }
                     };
                     timer.Start();
@@ -108,8 +113,8 @@ namespace Quandl.Excel.Addin.UI
             {
                 taskPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionFloating;
                 taskPane.DockPositionRestrict = MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoHorizontal;
-                taskPane.Width = (int)(700 * _scalingFactor);
-                taskPane.Height = (int)(540 * _scalingFactor);
+                taskPane.Width = (int)(width * _scalingFactor);
+                taskPane.Height = (int)(height * _scalingFactor);
                 taskPane.Visible = true;
                 if (name == "Settings")
                 {

@@ -1,21 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Threading;
-using System.Windows;
-using System.Windows.Forms;
+﻿using System.Windows;
 using Microsoft.Office.Tools.Ribbon;
-using Octokit;
-using Quandl.Excel.Addin.Controls;
 using Quandl.Excel.Addin.UI;
 using Quandl.Excel.Addin.UI.Settings;
 using Quandl.Excel.Addin.UI.UDF_Builder;
 using Quandl.Shared;
 using Quandl.Shared.Errors;
 using Brushes = System.Windows.Media.Brushes;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Quandl.Excel.Addin
 {
@@ -33,7 +23,7 @@ namespace Quandl.Excel.Addin
 
         private void AboutButton_Click(object sender, RibbonControlEventArgs e)
         {
-            new TaskPaneControl(new About(), "About").Show();
+            new TaskPaneControl(new About(), "About").Show(400, 600);
         }
 
         private void openQuandlSettings_Click(object sender, RibbonControlEventArgs e)
@@ -42,7 +32,7 @@ namespace Quandl.Excel.Addin
             {
                 _settingsPane = new TaskPaneControl(new Settings(), "Settings");
             }
-            _settingsPane.Show();
+            _settingsPane.Show(400, 600);
         }
 
         private void udfBuilder_Click(object sender, RibbonControlEventArgs e)
@@ -127,7 +117,7 @@ namespace Quandl.Excel.Addin
 
         private void btnCheckUpdate_Click(object sender, RibbonControlEventArgs e)
         {
-            new TaskPaneControl(new Update(_updater), "New Updates Available!").Show();
+            new TaskPaneControl(new Update(_updater), "New Updates Available!").Show(450, 640);
         }
 
         private void CheckUpdate()

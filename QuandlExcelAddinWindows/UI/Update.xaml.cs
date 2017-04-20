@@ -20,20 +20,30 @@ namespace Quandl.Excel.Addin.UI
             
             InitializeComponent();
 
-            DocFlow.Document = md.Transform(_updater.latestRelease.Body);
+            var contents = _updater.latestRelease.Name + "\r\n" + _updater.latestRelease.Body;
+
+            DocFlow.Document = md.Transform(contents);
             DocFlow.Document.Background = Brushes.White;
             DocFlow.Document.PagePadding = new Thickness(5);
+            DocFlow.Document.FontFamily = new FontFamily("Arial");
+            DocFlow.Document.FontSize = 14;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _updater.GetLastestUpdate();
+            // _updater.GetLastestUpdate(); // Download the latest update to their computer.
+            Process.Start("https://www.quandl.com/tools/excel");
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private void All_Release_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/quandl/quandl-excel-windows/releases");
         }
     }
 }

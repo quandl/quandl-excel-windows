@@ -58,18 +58,36 @@ namespace Quandl.Shared.Helpers
         {
             try
             {
-                var releases = _client.Repository.Release.GetAll("quandl", "quandl-excel-windows");
-                latestRelease = releases.Result[0];
+                var task = _client.Repository.Release.GetAll("quandl", "quandl-excel-windows");
+                var releases = task.Result;
 
-                _updateAvailable = latestRelease.Id > Utilities.GithubReleaseId && !latestRelease.Prerelease && !latestRelease.Draft;
+                // Figure out what the current release is by finding its equivalent in github.
+                Release currentRelease = null;
+                foreach (var release in releases)
+                {
+                    if (release.Name == Utilities.ReleaseVersion) {
+                        currentRelease = release;
+                        break;
+                    }
+                }
+
+                // Figure out what the latest published release is. The latest release cannot be a draft or Pre-release.
+                foreach (var release in releases)
+                {
+                    if (!release.Prerelease && !release.Draft)
+                    {
+                        latestRelease = release;
+                        break;
+                    }
+                }
+
+                // Only update if there is a latest release and its greater than the currentRelease or we could not identify the current release.
+                _updateAvailable = latestRelease != null && (currentRelease == null || latestRelease.PublishedAt > currentRelease.PublishedAt);
             }
-            catch(Exception)
+            catch (Exception e)
             {
-                return;
-            }           
+                Logger.log(e);
+            }
         }
-
-    }
-
-    
+    }    
 }
