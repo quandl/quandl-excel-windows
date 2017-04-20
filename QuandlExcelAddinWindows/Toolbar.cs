@@ -23,7 +23,7 @@ namespace Quandl.Excel.Addin
 
         private void AboutButton_Click(object sender, RibbonControlEventArgs e)
         {
-            new TaskPaneControl(new About(), "About").Show();
+            new TaskPaneControl(new About(), "About").Show(400, 600);
         }
 
         private void openQuandlSettings_Click(object sender, RibbonControlEventArgs e)
@@ -117,7 +117,7 @@ namespace Quandl.Excel.Addin
 
         private void btnCheckUpdate_Click(object sender, RibbonControlEventArgs e)
         {
-            new TaskPaneControl(new Update(_updater), "New Updates Available!").Show();
+            new TaskPaneControl(new Update(_updater), "New Updates Available!").Show(450, 640);
         }
 
         private void CheckUpdate()
