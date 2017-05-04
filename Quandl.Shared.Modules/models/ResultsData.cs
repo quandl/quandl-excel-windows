@@ -82,9 +82,9 @@ namespace Quandl.Shared.Models
             var expandedHeaders = quandlCodeColumns.Select(qcc =>
             {
                 var splitString = qcc.Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                return splitString.Length == 3
+                return splitString.Length >= 3
                     ? new List<string> {qcc}
-                    : Headers.FindAll(x => x.StartsWith(qcc)).ToList();
+                    : Headers.FindAll(x => x.StartsWith(qcc + '/')).ToList();
             }).SelectMany(i => i).ToList();
 
             expandedHeaders = SanitizeHeaders(expandedHeaders, dateColumn, insertDateColumn);
@@ -96,11 +96,17 @@ namespace Quandl.Shared.Models
 
             foreach (var header in expandedHeaders)
             {
-                //string h = IsDateHeader(header, dateColumn) ? dateColumn : header;
                 var columnIndex = Headers.IndexOf(header);
                 for (var r = 0; r < Data.Count; r++)
                 {
-                    shuffledData[r].Add(Data[r][columnIndex]);
+                    if (columnIndex == -1)
+                    {
+                        shuffledData[r].Add(null);
+                    }
+                    else
+                    {
+                        shuffledData[r].Add(Data[r][columnIndex]);
+                    }
                 }
             }
 
