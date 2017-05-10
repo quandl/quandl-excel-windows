@@ -8,6 +8,7 @@ using Quandl.Shared.Properties;
 using MoreLinq;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Quandl.Shared.Helpers
 {
@@ -22,6 +23,8 @@ namespace Quandl.Shared.Helpers
 
         private const string FullLogPrefix = "quandl";
         private const string StatusLogPrefix = "status";
+
+        private static Mutex mut = new Mutex();
 
         public static void log(string message, Dictionary<string, string> additionalData = null, LogType t = LogType.FULL)
         {
@@ -85,8 +88,10 @@ namespace Quandl.Shared.Helpers
         }
 
         // Attempt to write to disk but if it does not work then continue on.
-        private static async void LogToDisk(Exception exception, Dictionary<string, string> additionalData, LogType t = LogType.FULL)
+        // Use a mutex to only allow writing from one thread at a time.
+        private static void LogToDisk(Exception exception, Dictionary<string, string> additionalData, LogType t = LogType.FULL)
         {
+            mut.WaitOne();
             try
             {
                 var prefix = FullLogPrefix;
@@ -99,11 +104,10 @@ namespace Quandl.Shared.Helpers
                 using (StreamWriter w = File.AppendText($"{LogPath}/{prefix}-{DateTime.UtcNow.ToString("yyyy-MM-ddTHH-00-00Z")}.txt"))
                 {
                     var now = DateTime.UtcNow.ToString("yyyy-MM-ddTHH-mm-ssZ");
-                    await w.WriteLineAsync($"{now} : {exception.Message}");
-                    var tasks = additionalData.ToList().Select((key, val) =>
-                       w.WriteLineAsync($"{now} : {key} {val}")
+                    w.WriteLine($"{now} : {exception.Message}");
+                    additionalData.ToList().ForEach((key, val) =>
+                       w.WriteLine($"{now} : {key} {val}")
                     );
-                    await Task.WhenAll(tasks);
                 }
             }
             catch (Exception e)
@@ -111,6 +115,7 @@ namespace Quandl.Shared.Helpers
                 Trace.WriteLine(e.Message);
                 Trace.WriteLine(e.StackTrace);
             }
+            mut.ReleaseMutex();
         }
     }
 }

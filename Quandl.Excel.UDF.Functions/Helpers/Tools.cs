@@ -162,7 +162,15 @@ namespace Quandl.Excel.UDF.Functions.Helpers
 
         public static string GetValueFromSingleCell(ExcelReference excelReference)
         {
-            return excelReference.GetValue().ToString();
+            // This is a very basic way of detecting date formatted cell. Checking for the existence of a y as most date formats will contain at least one 'y' for the year.
+            if (XlCall.Excel(XlCall.xlfGetCell, 7, excelReference).ToString().Contains("y"))
+            {
+                return GetDateValueFromDouble((double)excelReference.GetValue()).ToString(Utilities.DateFormat);
+            }
+            else
+            {
+                return excelReference.GetValue().ToString();
+            }
         }
 
         public static DateTime? GetDateValueFromPrimitive(object date)
