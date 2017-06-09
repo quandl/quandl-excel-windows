@@ -25,7 +25,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private Datatable _selectedDatatable;
         private int _totalNumberOfDisplayedItems;
         private int _totalPageCount = 1;
-        private bool _codeTriggered = false;
+        private bool _selectionCodeTriggered = false;
 
         private DispatcherTimer _timer = new DispatcherTimer();
 
@@ -99,6 +99,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         {
             var code = StateControl.Instance.Provider.Code;
 
+            _selectionCodeTriggered = true;
+
             Dispatcher.Invoke(() =>
             {
                 UpdateResultsLabel(false);
@@ -130,7 +132,9 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 _totalNumberOfDisplayedItems = lvDatasetsDatatables.Items.Count;
                 UpdateResultsLabel();
             }
+
             RestoreDatasetSelection();
+            _selectionCodeTriggered = false;
         }
 
         private void UpdateResultsLabel(bool loaded = true)
@@ -145,7 +149,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             var currentText = txtFilterResults.Text;
             if (currentText == _lastFilterText) return;
             _currentPage = 1;
-            _codeTriggered = true;
             GetDatasetsDatatablesFromAPI(currentText);
             _lastFilterText = currentText;
         }
@@ -163,9 +166,8 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
         private void lvDatasetsDatatables_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // if this event is triggered by code, then don't need to update data in the following.
-            if (_codeTriggered)
+            if (_selectionCodeTriggered)
             {
-                _codeTriggered = false;
                 return;
             }
 
@@ -239,7 +241,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void btnNextPage_Click(object sender, RoutedEventArgs e)
         {
-            _codeTriggered = true;
             if (_currentPage < _totalPageCount)
             {
                 _currentPage++;
@@ -249,7 +250,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void btnPrevPage_Click(object sender, RoutedEventArgs e)
         {
-            _codeTriggered = true;
             if (_currentPage > 1)
             {
                 _currentPage--;
@@ -259,7 +259,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void btnFirstPage_Click(object sender, RoutedEventArgs e)
         {
-            _codeTriggered = true;
             // this button no longer goes to the first page.  instead, it will jump back 'x' number of pages.
             _currentPage = _currentPage <= pageSteps ? 1 : _currentPage - pageSteps;
             GetDatasetsDatatablesFromAPI();
@@ -267,7 +266,6 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void btnLastPage_Click(object sender, RoutedEventArgs e)
         {
-            _codeTriggered = true;
             // this button no longer goes to the first page.  instead, it will jump forward 'x' number of pages.
             _currentPage = _currentPage >= _totalPageCount - pageSteps ? _totalPageCount : _currentPage + pageSteps;
             GetDatasetsDatatablesFromAPI();
@@ -300,17 +298,18 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 return;
             }
 
+            _selectionCodeTriggered = true;
             foreach (var item in lvDatasetsDatatables.Items)
             {
                 foreach (var data in AvailableDataHolders)
                 {
                     if (((Dataset)data).Code == ((Dataset)item).Code)
                     {
-                        _codeTriggered = true;
                         lvDatasetsDatatables.SelectedItems.Add(item);
                     }
                 }
             }
+            _selectionCodeTriggered = false;
         }
     }
 }

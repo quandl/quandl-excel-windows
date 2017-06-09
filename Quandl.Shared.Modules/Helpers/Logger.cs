@@ -14,7 +14,7 @@ namespace Quandl.Shared.Helpers
 {
     public class Logger
     {
-        public enum LogType {FULL, STATUS, NOSENTRY};
+        public enum LogType {FULL, STATUS, NOSENTRY, ERROR};
 
         public const string LogPath = @"Quandl\Excel\logs";
 
@@ -23,12 +23,22 @@ namespace Quandl.Shared.Helpers
 
         private const string FullLogPrefix = "quandl";
         private const string StatusLogPrefix = "status";
+        private const string ErrorLogPrefix = "error";
 
         private static Mutex mut = new Mutex();
 
-        public static void log(string message, Dictionary<string, string> additionalData = null, LogType t = LogType.FULL)
+        public static void log(string message, Dictionary<string, string> additionalData = null, LogType t = LogType.NOSENTRY)
         {
-            log(new Exception(message), additionalData, t);
+            if (additionalData == null)
+            {
+                additionalData = new Dictionary<string, string>() { };
+            }
+
+            // Write to disk logging if applicable
+            if (ENABLE_DISK_LOG)
+            {
+                LogToDisk(message, additionalData, t);
+            }
         }
 
         public static void log(Exception e, Dictionary<string, string> additionalData = null, LogType t = LogType.FULL)
@@ -36,27 +46,23 @@ namespace Quandl.Shared.Helpers
             Trace.WriteLine(e.Message);
             Trace.WriteLine(e.StackTrace);
 
-            // Add the stack trace into the additional data if one is available
             if (additionalData == null)
             {
                 additionalData = new Dictionary<string, string>() { };
             }
-            if(e.StackTrace != null && e.StackTrace.Length > 0) {
+
+            // Add the stack trace into the additional data if one is available
+            if (e.StackTrace != null && e.StackTrace.Length > 0) {
                 additionalData["StackTrace"] = e.StackTrace;
             }
 
             // Write to sentry logging if applicable
-            // TODO it look like in some strange case excel status case exception with normal status info
-            if (ENABLE_SENTRY_LOG && ( t != LogType.NOSENTRY || t != LogType.STATUS || !e.Message.ToLower().Contains("successfully") || !e.Message.ToLower().Contains("retrieving data")))
+            if (ENABLE_SENTRY_LOG && ( t != LogType.NOSENTRY || t != LogType.STATUS))
             {
                 LogToSentry(e, additionalData);
             }
 
-            // Write to disk logging if applicable
-            if (ENABLE_DISK_LOG)
-            {
-                LogToDisk(e, additionalData, t);
-            }
+            log(e.Message, additionalData, LogType.ERROR);
         }
 
         // Attempt to write to sentry but if it does not work then continue on.
@@ -89,22 +95,28 @@ namespace Quandl.Shared.Helpers
 
         // Attempt to write to disk but if it does not work then continue on.
         // Use a mutex to only allow writing from one thread at a time.
-        private static void LogToDisk(Exception exception, Dictionary<string, string> additionalData, LogType t = LogType.FULL)
+        private static void LogToDisk(String message, Dictionary<string, string> additionalData, LogType t = LogType.FULL)
         {
+            var prefix = FullLogPrefix;
+            if (t == LogType.STATUS)
+            {
+                LogToDisk(message, additionalData, LogType.FULL);
+                prefix = StatusLogPrefix;
+            }
+            else if (t == LogType.ERROR)
+            {
+                LogToDisk(message, additionalData, LogType.FULL);
+                prefix = ErrorLogPrefix;
+            }
+
             mut.WaitOne();
             try
             {
-                var prefix = FullLogPrefix;
-                if (t == LogType.STATUS)
-                {
-                    prefix = StatusLogPrefix;
-                }
-
                 Directory.CreateDirectory(LogPath);
                 using (StreamWriter w = File.AppendText($"{LogPath}/{prefix}-{DateTime.UtcNow.ToString("yyyy-MM-ddTHH-00-00Z")}.txt"))
                 {
                     var now = DateTime.UtcNow.ToString("yyyy-MM-ddTHH-mm-ssZ");
-                    w.WriteLine($"{now} : {exception.Message}");
+                    w.WriteLine($"{now} : {message}");
                     additionalData.ToList().ForEach((key, val) =>
                        w.WriteLine($"{now} : {key} {val}")
                     );
