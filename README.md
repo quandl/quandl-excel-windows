@@ -35,6 +35,7 @@ Following steps will create a setup package which works for both Microsoft Excel
 
 1. Follow the instructions list in `Development` section above to setup the project and its basic dependencies.
 2. Copy this file [Microsoft .NET Framework 4.6.1 Web.prq](Microsoft .NET Framework 4.6.1 Web.prq) to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
+2. Copy and say yes to overwrite both VSTO package `.pqr` files to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
 
 ### Releasing
 
