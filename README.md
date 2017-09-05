@@ -84,6 +84,10 @@ This could be a number of things but generally means that our implementation has
 
 Double check your installshield limited edition settings. Sometimes it will point to the wrong redistributables folder even after re-installation. In most cases it should be set to `C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites`
 
+### My installation failed!
+
+Uninstall (if it got that far) then run the installer again from the command line with the parameter `/debuglog` This should create a log in the same directory as the installer named `InstallShield.txt`. This should show you what went wrong.
+
 ## License
 
 See [LICENCE](LICENCE.md) file for licence rights and limitations (MIT)
