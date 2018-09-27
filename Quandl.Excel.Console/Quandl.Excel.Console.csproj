@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="DigitCertCodeCertificatesPrivate.p12.p12" />
     <None Include="Quandl.Excel.Console_2_TemporaryKey.pfx" />
     <None Include="Quandl.Excel.Console_3_TemporaryKey.pfx" />
   </ItemGroup>
