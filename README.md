@@ -13,19 +13,25 @@ A few things that will make your excel development experience much easier:
 ### Setup
 
 1. Download and install InstallSheild Limited Edition [here](http://learn.flexerasoftware.com/content/IS-EVAL-InstallShield-Limited-Edition-Visual-Studio)
-2. Right click solution file and select `Manage NuGet Packages for Solution`
+1. Right click solution file and select `Restore NuGet Packages`
 (If you don't have NuGet, please install it at [https://dist.nuget.org/index.html](https://dist.nuget.org/index.html))
-3. Select `Newtonsoft.Json` packages and install the latest stable version
-4. Select `Excel-DNA` packages and install the lastest stable version to QuandlFunctions project
-5. Go to the project properties for `Quandl.Excel.Addin`
-6. Click on signing tab
-7. Click `Create Test Certificate` without a password
-8. Do steps 5-7 for `Quandleild.Excel.Console`
-9. Go to the project properties for `Quandl.Excel.UDF.Functions`
-10. Under `Debug` change the `Start Action` from `Start Project` to `Start External Program`
-11. Fill in the path to your chosen version of Excel in the Textbox
-12. Under `Start Options` in the `Command Line Arguments` text field enter `Quandl.Excel.UDF.Functions-AddIn.xll`
-13. You should now be able to build the project.
+1. Go to the project properties for `Quandl.Excel.Addin`
+1. Click on signing tab
+1. Click `Create Test Certificate` without a password
+1. Do steps 5-7 for `Quandleild.Excel.Console`
+1. Go to the project properties for `Quandl.Excel.UDF.Functions`
+1. Under `Debug` change the `Start Action` from `Start Project` to `Start External Program`
+1. Fill in the path to your chosen version of Excel in the Textbox
+1. Under `Start Options` in the `Command Line Arguments` text field enter `Quandl.Excel.UDF.Functions-AddIn.xll`
+1. Whitelist your development plugin in Excel 
+	1. Open Excel
+	1. Click `File -> Options -> Truste Center`
+	1. Click `Trust Center Settings`
+	1. Click `Trusted Locations -> Add New Location`
+	1. Enter the root directory of your project, example `C:\Users\Developer\Projects\quandl-excel-windows\`
+	1. Ensure `Subfolders of this location are also trusted` is checked
+	1. Click OK    
+1. You should now be able to build the project.
 
 ## Building a Release package
 
@@ -34,30 +40,39 @@ Following steps will create a setup package which works for both Microsoft Excel
 ### Preparation
 
 1. Follow the instructions list in `Development` section above to setup the project and its basic dependencies.
-2. Copy this file [Microsoft .NET Framework 4.6.1 Web.prq](Microsoft .NET Framework 4.6.1 Web.prq) to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
-2. Copy and say yes to overwrite both VSTO package `.pqr` files to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
+1. Copy this file [Microsoft .NET Framework 4.6.1 Web.prq](Microsoft .NET Framework 4.6.1 Web.prq) to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
+1. Copy and say yes to overwrite both VSTO package `.pqr` files to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
+1. Install Redistributables
+	1. Start Visual Studio as Admin  
+	1. Expand the Quandl.Excel.Addin.Setup project
+	1. Click `2 -> Specify Application Data -> Redistributables`
+	1. In the new window that opens, right click on any item an click `Download All Required Items`
 
 ### Releasing
 
 1. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
   * See [SIGNING](SIGNING.md)
-2. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information`
+1. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information`
   1. Change the product code (use the helper - `{...}`)
-  2. Bump the version number.
+  1. Bump the version number.
     * Be sure to leave the upgrade code untouched.
-3. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
-4. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
-5. Switch your `Run Mode` to `release` instead of `debug`
-6. Right click solution file and select `Rebuild Solution`
-7. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
+1. Navigate to the `Quandl.Excel.Addin -> Properties => Publish` and update the version to match the setup version.
+1. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
+1. Switch your `Run Mode` to `release` instead of `debug`
+1. Right click solution file and select `Rebuild Solution`
+1. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
 
 Things to note:
 
 * UnRegisterAddin must have code `1501` in the `.isl` file.
 * Be sure to bump the version AND change your product code number under `Organize Your Setup` => `General Information`. This is necessary for a seemless upgrade.
-* Allow of our dependencies have been listed as `web` dependencies to keep our installer small. 
-  * Should you need to install them locally you can do that navigating to `Quandl.Excel.Addin.Setup -> 2 Specify Application Data => Redistributables`. You will need to do this in Visual Studio as an admin.
+* Allow of our dependencies have been listed as `web` dependencies to keep our installer small.
 * we are using [Markdown.XAML](https://github.com/theunrepentantgeek/Markdown.XAML) to generate the flowdocument from the github markup. For more info check out the github page.
+* When testing, if your plugin does not appear in Excel, check that it was not added to the `Disabled Items` list.  To check:
+	* Open Excel
+	* Click `File -> Options -> Add-Ins`
+	* Under the `Manage` dropdown, select `Disabled Items` and click `GO`
+	* Enable any instance of the Quandl Add-In that appear there 
 
 ## Unit testing
 

@@ -44,11 +44,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>578FCBD879AE8DCC7F5C4FA0A6231250C9F21D2A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>8FA2982652D1577FA4FA53A786CC0E59B02478F2</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>
-    </ManifestKeyFile>
+    <ManifestKeyFile>Quandl.Excel.Console_3_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
@@ -64,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Quandl.Excel.Console_2_TemporaryKey.pfx" />
+    <None Include="Quandl.Excel.Console_3_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

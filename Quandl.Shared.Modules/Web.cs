@@ -126,6 +126,8 @@ namespace Quandl.Shared
 
         public virtual JObject Authenticate(string body)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
             var client = new WebClient
             {
                 Headers =
@@ -163,6 +165,8 @@ namespace Quandl.Shared
             Dictionary<string, string> headers = null,
             CancellationToken token = default(CancellationToken))
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
             using (var client = new HttpClient())
             {
                 client.Timeout.Add(new TimeSpan(0, 0, 0, 0, MaxHTTPRequestTimeout));
