@@ -21,6 +21,8 @@ namespace Quandl.Shared.Helpers
         private GitHubClient GetClient {
             get
             {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
                 if (_client == null)
                 {
                     _client = new GitHubClient(new ProductHeaderValue("Quandl-Excel-Addin"));
