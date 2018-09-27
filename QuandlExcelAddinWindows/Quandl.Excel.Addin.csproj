@@ -314,7 +314,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="DigitCertCodeCertificatesPrivate.p12.p12" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
