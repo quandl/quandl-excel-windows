@@ -9,10 +9,11 @@ namespace Quandl.Shared.Helpers
     public class Updater
     {
         public Release latestRelease;
-        private bool _updateAvailable;
+        private bool? _updateAvailable;
         private GitHubClient _client;
 
-        public Updater()
+        
+        public void RunCheck()
         {
             _client = GetClient;
             CheckForUpdate();
@@ -21,8 +22,6 @@ namespace Quandl.Shared.Helpers
         private GitHubClient GetClient {
             get
             {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-
                 if (_client == null)
                 {
                     _client = new GitHubClient(new ProductHeaderValue("Quandl-Excel-Addin"));
@@ -31,7 +30,7 @@ namespace Quandl.Shared.Helpers
             }
         }
 
-        public bool UpdateAvailable { get { return _updateAvailable; } }
+        public bool? UpdateAvailable { get { return _updateAvailable; } }
 
         public void GetLastestUpdate()
         {
