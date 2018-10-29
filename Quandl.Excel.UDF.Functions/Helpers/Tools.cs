@@ -5,6 +5,7 @@ using ExcelDna.Integration;
 using Quandl.Shared;
 using System.Linq;
 using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace Quandl.Excel.UDF.Functions.Helpers
 {
@@ -66,8 +67,14 @@ namespace Quandl.Excel.UDF.Functions.Helpers
 
         public static dynamic ReferenceToRange(ExcelReference xlref)
         {
-            dynamic app = ExcelDnaUtil.Application;
+            var app = (Microsoft.Office.Interop.Excel._Application) ExcelDnaUtil.Application;
             return app.Range[XlCall.Excel(XlCall.xlfReftext, xlref, true)];
+            
+        }
+
+        public static void ExecuteOnForegroundThread(ExcelAction action)
+        {
+            ExcelAsyncUtil.QueueAsMacro(action);
         }
 
         public static List<object> GetArrayOfValues(object referenceOrString)
