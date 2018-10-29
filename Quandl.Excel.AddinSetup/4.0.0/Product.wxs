@@ -1,0 +1,656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="*" Name="Quandl.Excel.Addin" Language="!(loc.ID)" Version="4.0.0" Manufacturer="Default Company" UpgradeCode="{2582DBE4-011D-47DB-A979-523036AC285F}" >
+    <Package AdminImage="no" Comments="Quandl.Excel.Addin" Compressed="yes"  InstallerVersion="200" Languages="0,1033" Manufacturer="Default Company" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
+    <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
+    <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />
+    <Media Id="1" Cabinet="Quandl.Excel.Addin2.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
+    <Property Id="DiskPrompt" Value="Quandl.Excel.Addin Installation [1]" />
+    <Property Id="ARPCOMMENTS" Value="Quandl.Excel.Addin" />
+    <Property Id="ARPCONTACT" Value="Default Company" />
+    <Property Id="ALLUSERS" Secure="yes" Value="2" />
+    <Property Id="MSIINSTALLPERUSER" Secure="yes" Value="1" />
+    <Property Id="ISRUNASADMIN" Secure="yes" Value="0" />
+    <Property Id="USEIMPERSONATE" Secure="yes" Value="1" />
+    <Property Id="PROGRAMFILES_DIRPATH">
+      <RegistrySearch Id="_AD21FC27_97E3_49D0_85CA_C56FFB3F639E" Root="HKLM" Name="ProgramFilesDir" Type="raw" Key="SOFTWARE\Microsoft\Windows\CurrentVersion" />
+    </Property>
+    <Property Id="PREVIOUSINSTALLFOLDER">
+      <RegistrySearch Id="_DF27547D_E799_4423_979C_9E0571C4C3F3" Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="Installed" Type="raw" />
+    </Property>
+    <Property Id="PREVIOUSINSTALLSCOPE">
+      <RegistrySearch Id="_A3F2E109_09E8_4508_A06F_B1642D0FDA84" Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="InstallScope" Type="raw" />
+    </Property>
+    <!-- The ".NET Framework" launch condition. -->
+    <PropertyRef Id="NETFRAMEWORK45"/>
+    <Condition Message="This setup requires the .NET Framework 4.5.  Please install the .NET Framework and run this setup again."><![CDATA[Installed OR NETFRAMEWORK45]]></Condition>
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <Binary Id="adxregistrator_exe" SourceFile="$(var.ADX_PATH)\Redistributables\adxregistrator.exe" />
+    <Binary Id="dpca_dll" SourceFile="Resources\dpca.dll" />
+    <!-- The "adxregistrator.exe" custom action. -->
+    <CustomAction Id="_EB99BBCD_741C_4234_86A4_ACEA3C83C5E7" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/install=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin2.TargetFileName)&quot; /scope=&quot;perMachine&quot;" Impersonate="no" />
+    <CustomAction Id="_24A293B9_C9E6_47A4_AE23_45298B860470" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/install=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin2.TargetFileName)&quot; /scope=&quot;perUser&quot;" Impersonate="yes" />
+    <!-- The "adxregistrator.exe" custom action. -->
+    <CustomAction Id="_CAD45E4F_F8EA_4085_9979_EB13DEC87109" BinaryKey="adxregistrator_exe" Execute="rollback" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin2.TargetFileName)&quot; /scope=&quot;perMachine&quot; /generateLogFile=false" Impersonate="no" />
+    <CustomAction Id="_65197037_DEC0_43A1_9C58_7D0C179B0619" BinaryKey="adxregistrator_exe" Execute="rollback" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin2.TargetFileName)&quot; /scope=&quot;perUser&quot; /generateLogFile=false" Impersonate="yes" />
+    <!-- The "adxregistrator.exe" custom action. -->
+    <CustomAction Id="_DC2ECCA2_880C_4214_B3FE_CA31B878E2D1" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin2.TargetFileName)&quot; /scope=&quot;perMachine&quot;" Impersonate="no" />
+    <CustomAction Id="_6227312D_332B_41D3_8F64_4E8C7ACE79F8" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin2.TargetFileName)&quot; /scope=&quot;perUser&quot;" Impersonate="yes" />
+    <CustomAction Id="CA_CheckAdmin" BinaryKey="dpca_dll" DllEntry="CACheckRunAsAdmin" Execute="firstSequence" Impersonate="yes" />
+    <CustomAction Id="DIRCA_MACHINESCOPEDIR" Property="DefaultAppFolderRoot" Value="[PROGRAMFILES_DIRPATH]\" Execute="firstSequence" />
+    <CustomAction Id="DIRCA_USERSCOPEDIR" Property="DefaultAppFolderRoot" Value="[LocalAppDataFolder]" Execute="firstSequence" />
+    <CustomAction Id="DISABLE_IMPERSONATE" Property="USEIMPERSONATE" Value="0" Execute="firstSequence" />
+    <!-- Initialize the "TARGETDIR" directory property. -->
+    <CustomAction Id="DIRCA_TARGETDIR" Property="TARGETDIR" Value="[DefaultAppFolderRoot][Manufacturer]\[ProductName]" Execute="firstSequence" />
+    <CustomAction Id="DIRCA_TARGETDIR_UNINSTALL" Property="TARGETDIR" Value="[PREVIOUSINSTALLFOLDER]" Execute="firstSequence" />
+    <!-- The directory tree of the installation package. -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- The "Quandl.Excel.Addin2" project output. -->
+      <Directory Id="Quandl.Excel.Addin2.Binaries" />
+      <!-- The "Quandl.Excel.Addin2" project output. -->
+      <Directory Id="Quandl.Excel.Addin2.Satellites" />
+      <Directory Id="AppDataFolder">
+        <Directory Id="COMPANYAPPDATADIR" Name="Quandl">
+          <!-- !! THIS ID IS USED IN THE CUSTOM ACTION SO DO NOT CHANGE IT -->
+          <Directory Id="AddinFolder" Name="Quandl Add-in">
+          </Directory>
+        </Directory>
+      </Directory>
+      <Component Id="comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7" Guid="0F028870-9221-4E30-9D63-BA8CEAA05019" Permanent="no" SharedDllRefCount="no" Transitive="no">
+        <RegistryKey Root="HKCU" Key="Software\[Manufacturer]\[ProductName]">
+          <RegistryValue Type="string" Name="Installed" Value="[TARGETDIR]" KeyPath="yes" />
+        </RegistryKey>
+        <File Id="_A8C5B930_68B9_4834_A3CB_108186E089A1" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="adxloader64.dll" Source="$(var.Quandl.Excel.Addin2.ProjectDir)Loader\adxloader64.dll" />
+        <File Id="_8B10CC51_041E_4E1E_8C18_9EEEB19BE8AC" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="adxloader.dll.manifest" Source="$(var.Quandl.Excel.Addin2.ProjectDir)Loader\adxloader.dll.manifest" />
+        <File Id="_22BAF2B6_7BD9_495A_8177_20971BC826F6" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="adxloader.dll" Source="$(var.Quandl.Excel.Addin2.ProjectDir)Loader\adxloader.dll" />
+      </Component>
+      <Component Id="comp_441BA3AF_7A04_4330_92B6_8C473E69DE22" Guid="DCD31FC9-E47E-4C55-A361-B4C8D02BE367" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_441BA3AF_7A04_4330_92B6_8C473E69DE22" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="AddinExpress.MSO.2005.dll" Source="C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Bin\AddinExpress.MSO.2005.dll" />
+			</Component>
+				<Component Id="comp_AE9DD3D9_A8CC_4162_8463_159D6F14425E" Guid="BA464474-67A5-414D-8289-BF6A609F10EF" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_AE9DD3D9_A8CC_4162_8463_159D6F14425E" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Markdown.Xaml.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Markdown.Xaml.dll" />
+			</Component>
+				<Component Id="comp_888D4E7C_4709_4974_8CC8_F3C18FFEF13D" Guid="C9BEFB86-0ACA-482E-B8F8-63DB51336B72" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_888D4E7C_4709_4974_8CC8_F3C18FFEF13D" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Microsoft.Office.Interop.Excel.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Microsoft.Office.Interop.Excel.dll" />
+			</Component>
+				<Component Id="comp_642CDAA6_F84E_423A_8C5D_CC90A01C6EEA" Guid="C913C421-C24E-496F-86DC-5A2810E003F4" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_642CDAA6_F84E_423A_8C5D_CC90A01C6EEA" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Octokit.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Octokit.dll" />
+			</Component>
+				<Component Id="comp_4EFEF968_1DF4_405B_B8EA_0D570F231B6E" Guid="05224F16-FB28-4893-A857-4F28D0D766B9" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_4EFEF968_1DF4_405B_B8EA_0D570F231B6E" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Quandl.Shared.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Quandl.Shared.dll" />
+			</Component>
+				<Component Id="comp_49E7B486_C872_4ED8_A378_6C509B90636F" Guid="38F01CFF-A633-418B-8255-48C399EB069D" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_49E7B486_C872_4ED8_A378_6C509B90636F" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Xceed.Wpf.Toolkit.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Xceed.Wpf.Toolkit.dll" />
+			</Component>
+				<Component Id="comp_F8C19954_3409_45C7_8A1A_196BE202E299" Guid="037C6D9C-70A5-4DA0-8ACE-9E657753E08E" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_F8C19954_3409_45C7_8A1A_196BE202E299" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="GongSolutions.WPF.DragDrop.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)GongSolutions.WPF.DragDrop.dll" />
+			</Component>
+				<Component Id="comp_3B21CC2D_7649_4C1E_921B_B1CAAF1FA472" Guid="4907FFA6-92C2-4D12-8B7D-3A80A9501699" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_3B21CC2D_7649_4C1E_921B_B1CAAF1FA472" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="GongSolutions.WPF.DragDrop.pdb" Source="$(var.Quandl.Excel.Addin2.TargetDir)GongSolutions.WPF.DragDrop.pdb" />
+			</Component>
+				<Component Id="comp_5B4EE91D_E767_44B0_AFCF_29E8D48D70E2" Guid="75C90D6C-F018-4814-81BD-40764BE2DA93" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_5B4EE91D_E767_44B0_AFCF_29E8D48D70E2" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="GongSolutions.WPF.DragDrop.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)GongSolutions.WPF.DragDrop.xml" />
+			</Component>
+				<Component Id="comp_C61B93FC_0DC3_400C_B007_14D928A9D8DB" Guid="DF7B49D0-63CC-41D6-85D4-701EB83C8F13" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_C61B93FC_0DC3_400C_B007_14D928A9D8DB" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Microsoft.Vbe.Interop.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Microsoft.Vbe.Interop.dll" />
+			</Component>
+				<Component Id="comp_CB191DCA_4C1B_4A07_8D7E_331922F8ADAD" Guid="901648AD-7EED-452E-848D-47680E78D0D2" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_CB191DCA_4C1B_4A07_8D7E_331922F8ADAD" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="MoreLinq.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)MoreLinq.dll" />
+			</Component>
+				<Component Id="comp_D7665C73_0E39_4B6A_AD0B_A850C9520079" Guid="501FC08A-2053-40A6-90AA-856A44652637" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_D7665C73_0E39_4B6A_AD0B_A850C9520079" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="MoreLinq.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)MoreLinq.xml" />
+			</Component>
+				<Component Id="comp_E77E6274_41D8_4DDB_9168_53AD34633018" Guid="6B132F9C-4BEA-4F3D-98B9-951459BEE6B1" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_E77E6274_41D8_4DDB_9168_53AD34633018" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Newtonsoft.Json.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Newtonsoft.Json.dll" />
+			</Component>
+				<Component Id="comp_C6EC2037_1737_4428_BDC4_20FDAEDE0C5A" Guid="E20AC4C9-3775-4215-92D9-8332DAC6C2C6" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_C6EC2037_1737_4428_BDC4_20FDAEDE0C5A" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Newtonsoft.Json.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)Newtonsoft.Json.xml" />
+			</Component>
+				<Component Id="comp_43BA5DD1_91DF_46A5_BE1F_DC896A6E9B66" Guid="A620DA56-EAC6-4EF5-8F59-F2C19756820B" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_43BA5DD1_91DF_46A5_BE1F_DC896A6E9B66" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Octokit.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)Octokit.xml" />
+			</Component>
+				<Component Id="comp_3FBDF675_4D20_4DB1_AC0F_79CF889B6F40" Guid="31B2FF11-5C67-455F-B8BF-BCA9C4C4D449" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_3FBDF675_4D20_4DB1_AC0F_79CF889B6F40" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Office.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Office.dll" />
+			</Component>
+				<Component Id="comp_9FEED358_2E13_4DB7_8E2D_361ACAB9A94F" Guid="74716460-6A51-4108-90AB-47BA743157C3" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_9FEED358_2E13_4DB7_8E2D_361ACAB9A94F" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="PropertyChanged.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)PropertyChanged.dll" />
+			</Component>
+				<Component Id="comp_62F1EBE7_CE63_428F_99DE_AAD9B18F5E2B" Guid="5F846419-365F-4A96-8141-D771C0391F88" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_62F1EBE7_CE63_428F_99DE_AAD9B18F5E2B" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="PropertyChanged.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)PropertyChanged.xml" />
+			</Component>
+				<Component Id="comp_BE29E116_CEFC_4CBE_81F8_8BC2DDEF39C1" Guid="9A73C9C7-64F1-49C2-A1DE-FA73B4ADD5B2" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_BE29E116_CEFC_4CBE_81F8_8BC2DDEF39C1" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Quandl.Excel.Addin.dll.config" Source="$(var.Quandl.Excel.Addin2.TargetDir)Quandl.Excel.Addin.dll.config" />
+			</Component>
+				<Component Id="comp_7D5FBD94_691F_471E_B989_C557716097C4" Guid="264DDC81-0269-4AE2-8D98-5DBBFE5FF5BA" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_7D5FBD94_691F_471E_B989_C557716097C4" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Quandl.Shared.pdb" Source="$(var.Quandl.Excel.Addin2.TargetDir)Quandl.Shared.pdb" />
+			</Component>
+				<Component Id="comp_A8FB2740_865B_4AF9_AF63_66C4DA8CEF15" Guid="E963ED2B-5A4B-4050-8B10-11837160FF17" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_A8FB2740_865B_4AF9_AF63_66C4DA8CEF15" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="SharpRaven.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)SharpRaven.dll" />
+			</Component>
+				<Component Id="comp_89984D6D_8925_45F9_AE40_D3440DE14EB9" Guid="57E48DC2-5F4F-4575-B6E0-FE4134F6CDBF" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_89984D6D_8925_45F9_AE40_D3440DE14EB9" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="SharpRaven.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)SharpRaven.xml" />
+			</Component>
+				<Component Id="comp_8103D9FA_0B84_4861_9A9A_4DBE7905C3AC" Guid="D431F942-AA68-4AFA-B2F6-500B3AC06098" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_8103D9FA_0B84_4861_9A9A_4DBE7905C3AC" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="stdole.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)stdole.dll" />
+			</Component>
+				<Component Id="comp_4251CEB2_8071_469F_BB2C_49C783CE36A8" Guid="E6A47A78-B80A-43CE-AA52-3E9C20E71EAE" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_4251CEB2_8071_469F_BB2C_49C783CE36A8" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Syroot.Windows.IO.KnownFolders.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Syroot.Windows.IO.KnownFolders.dll" />
+			</Component>
+				<Component Id="comp_3703C8CB_C6FF_4C8B_A06F_342CAF1B4C6B" Guid="54F1F7BF-CDD9-4118-8EEE-E1D30CE56DDD" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_3703C8CB_C6FF_4C8B_A06F_342CAF1B4C6B" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Syroot.Windows.IO.KnownFolders.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)Syroot.Windows.IO.KnownFolders.xml" />
+			</Component>
+				<Component Id="comp_276B6362_4024_4944_80C5_BB3B0DE6F91E" Guid="B51C7BD7-C320-482D-BAA2-B32A0C559382" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_276B6362_4024_4944_80C5_BB3B0DE6F91E" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Xceed.Wpf.AvalonDock.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Xceed.Wpf.AvalonDock.dll" />
+			</Component>
+				<Component Id="comp_DF198C66_2B8C_4C80_BE09_9C1A03BB6CE3" Guid="747C75BB-C208-4C61-9001-87D0DBE4F476" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_DF198C66_2B8C_4C80_BE09_9C1A03BB6CE3" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Xceed.Wpf.AvalonDock.Themes.Aero.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
+			</Component>
+				<Component Id="comp_E89996B2_88C7_40FF_9BDF_F00F7FA57998" Guid="F17F8BF5-D283-4784-8EF9-949FF1D79EAF" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_E89996B2_88C7_40FF_9BDF_F00F7FA57998" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Xceed.Wpf.AvalonDock.Themes.Metro.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
+			</Component>
+				<Component Id="comp_350D34AE_FE65_4DB0_9C3A_34909379AA75" Guid="4D605247-7020-4350-8567-5501276FC652" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_350D34AE_FE65_4DB0_9C3A_34909379AA75" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+			</Component>
+				<Component Id="comp_4309AE93_981A_48E8_9BD4_AE26E57DB528" Guid="A46CB880-39F1-4FED-A384-0ACE43FAB1E0" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_4309AE93_981A_48E8_9BD4_AE26E57DB528" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Xceed.Wpf.DataGrid.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Xceed.Wpf.DataGrid.dll" />
+			</Component>   
+    </Directory>
+    <!-- The FileSystem group of the installation package. -->
+    <ComponentGroup Id="FileSystemGroup">
+      <ComponentGroupRef Id="Quandl.Excel.Addin2.Binaries" />
+      <ComponentGroupRef Id="Quandl.Excel.Addin2.Satellites" />
+      <ComponentRef Id="comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7" />
+			<ComponentRef Id="comp_441BA3AF_7A04_4330_92B6_8C473E69DE22" />
+			<ComponentRef Id="comp_AE9DD3D9_A8CC_4162_8463_159D6F14425E" />
+			<ComponentRef Id="comp_888D4E7C_4709_4974_8CC8_F3C18FFEF13D" />
+			<ComponentRef Id="comp_642CDAA6_F84E_423A_8C5D_CC90A01C6EEA" />
+			<ComponentRef Id="comp_4EFEF968_1DF4_405B_B8EA_0D570F231B6E" />
+			<ComponentRef Id="comp_49E7B486_C872_4ED8_A378_6C509B90636F" />
+			<ComponentRef Id="comp_F8C19954_3409_45C7_8A1A_196BE202E299" />
+			<ComponentRef Id="comp_3B21CC2D_7649_4C1E_921B_B1CAAF1FA472" />
+			<ComponentRef Id="comp_5B4EE91D_E767_44B0_AFCF_29E8D48D70E2" />
+			<ComponentRef Id="comp_C61B93FC_0DC3_400C_B007_14D928A9D8DB" />
+			<ComponentRef Id="comp_CB191DCA_4C1B_4A07_8D7E_331922F8ADAD" />
+			<ComponentRef Id="comp_D7665C73_0E39_4B6A_AD0B_A850C9520079" />
+			<ComponentRef Id="comp_E77E6274_41D8_4DDB_9168_53AD34633018" />
+			<ComponentRef Id="comp_C6EC2037_1737_4428_BDC4_20FDAEDE0C5A" />
+			<ComponentRef Id="comp_43BA5DD1_91DF_46A5_BE1F_DC896A6E9B66" />
+			<ComponentRef Id="comp_3FBDF675_4D20_4DB1_AC0F_79CF889B6F40" />
+			<ComponentRef Id="comp_9FEED358_2E13_4DB7_8E2D_361ACAB9A94F" />
+			<ComponentRef Id="comp_62F1EBE7_CE63_428F_99DE_AAD9B18F5E2B" />
+			<ComponentRef Id="comp_BE29E116_CEFC_4CBE_81F8_8BC2DDEF39C1" />
+			<ComponentRef Id="comp_7D5FBD94_691F_471E_B989_C557716097C4" />
+			<ComponentRef Id="comp_A8FB2740_865B_4AF9_AF63_66C4DA8CEF15" />
+			<ComponentRef Id="comp_89984D6D_8925_45F9_AE40_D3440DE14EB9" />
+			<ComponentRef Id="comp_8103D9FA_0B84_4861_9A9A_4DBE7905C3AC" />
+			<ComponentRef Id="comp_4251CEB2_8071_469F_BB2C_49C783CE36A8" />
+			<ComponentRef Id="comp_3703C8CB_C6FF_4C8B_A06F_342CAF1B4C6B" />
+			<ComponentRef Id="comp_276B6362_4024_4944_80C5_BB3B0DE6F91E" />
+			<ComponentRef Id="comp_DF198C66_2B8C_4C80_BE09_9C1A03BB6CE3" />
+			<ComponentRef Id="comp_E89996B2_88C7_40FF_9BDF_F00F7FA57998" />
+			<ComponentRef Id="comp_350D34AE_FE65_4DB0_9C3A_34909379AA75" />
+			<ComponentRef Id="comp_4309AE93_981A_48E8_9BD4_AE26E57DB528" />
+    </ComponentGroup>
+    <!-- The composite feature of the installation package. -->
+    <Feature Id="CompleteInstall" Title="All Files" Level="1" ConfigurableDirectory="TARGETDIR">
+      <ComponentGroupRef Id="FileSystemGroup" />
+      <ComponentGroupRef Id="XLLDistributables"/>
+    </Feature>
+    <InstallExecuteSequence>
+      <Custom Action="CA_CheckAdmin" Before="CostInitialize"><![CDATA[Not Installed]]></Custom>
+      <Custom Action="DIRCA_MACHINESCOPEDIR" Before="DIRCA_TARGETDIR"><![CDATA[ALLUSERS=1 OR ISRUNASADMIN=1]]></Custom>
+      <Custom Action="DIRCA_USERSCOPEDIR" Before="DIRCA_TARGETDIR"><![CDATA[ALLUSERS<>1 AND ISRUNASADMIN<>1]]></Custom>
+      <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR=""]]></Custom>
+      <Custom Action="DIRCA_TARGETDIR_UNINSTALL" After="AppSearch"><![CDATA[PREVIOUSINSTALLFOLDER]]></Custom>
+      <Custom Action="DISABLE_IMPERSONATE" After="AppSearch"><![CDATA[PREVIOUSINSTALLSCOPE="1"]]></Custom>
+      <Custom Action="_EB99BBCD_741C_4234_86A4_ACEA3C83C5E7" After="StartServices"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7>2 AND USEIMPERSONATE="0"]]></Custom>
+      <Custom Action="_24A293B9_C9E6_47A4_AE23_45298B860470" After="StartServices"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7>2 AND USEIMPERSONATE="1"]]></Custom>
+      <Custom Action="_CAD45E4F_F8EA_4085_9979_EB13DEC87109" After="_EB99BBCD_741C_4234_86A4_ACEA3C83C5E7"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7>2 AND USEIMPERSONATE="0"]]></Custom>
+      <Custom Action="_65197037_DEC0_43A1_9C58_7D0C179B0619" After="_24A293B9_C9E6_47A4_AE23_45298B860470"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7>2 AND USEIMPERSONATE="1"]]></Custom>
+      <Custom Action="_DC2ECCA2_880C_4214_B3FE_CA31B878E2D1" After="MsiUnpublishAssemblies"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7=2 AND USEIMPERSONATE="0"]]></Custom>
+      <Custom Action="_6227312D_332B_41D3_8F64_4E8C7ACE79F8" After="MsiUnpublishAssemblies"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7=2 AND USEIMPERSONATE="1"]]></Custom>
+    </InstallExecuteSequence>
+    <InstallUISequence>
+      <FindRelatedProducts Sequence="200" />
+      <Custom Action="CA_CheckAdmin" Before="CostInitialize"><![CDATA[Not Installed]]></Custom>
+      <Custom Action="DIRCA_MACHINESCOPEDIR" Before="DIRCA_TARGETDIR"><![CDATA[ALLUSERS=1 OR ISRUNASADMIN=1]]></Custom>
+      <Custom Action="DIRCA_USERSCOPEDIR" Before="DIRCA_TARGETDIR"><![CDATA[ALLUSERS<>1 AND ISRUNASADMIN<>1]]></Custom>
+      <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR=""]]></Custom>
+      <Custom Action="DIRCA_TARGETDIR_UNINSTALL" After="AppSearch"><![CDATA[PREVIOUSINSTALLFOLDER]]></Custom>
+      <Custom Action="DISABLE_IMPERSONATE" After="AppSearch"><![CDATA[PREVIOUSINSTALLSCOPE="1"]]></Custom>
+      <Custom Action="ERRCA_UIANDADVERTISED" Sequence="5"><![CDATA[ProductState=1]]></Custom>
+      <Custom Action="VSDCA_FolderForm_ForAllUsersCheckBox" Sequence="995"><![CDATA[Installed="" AND NOT RESUME AND (ALLUSERS=1 OR (PREVIOUSINSTALLFOLDER<>"" AND PREVIOUSINSTALLSCOPE="1") OR ISRUNASADMIN=1)]]></Custom>
+      <Custom Action="VSDCA_FolderForm_ForMeOnlyCheckBox" Sequence="996"><![CDATA[Installed="" AND NOT RESUME AND (ALLUSERS=1 OR (PREVIOUSINSTALLFOLDER<>"" AND PREVIOUSINSTALLSCOPE="1") OR ISRUNASADMIN=1)]]></Custom>
+      <Custom Action="VSDCA_FolderForm_AllUsers" Sequence="997"><![CDATA[Installed="" AND NOT RESUME AND (ALLUSERS=1 OR (PREVIOUSINSTALLFOLDER<>"" AND PREVIOUSINSTALLSCOPE="1") OR ISRUNASADMIN=1)]]></Custom>
+      <Show Dialog="UserExitForm" OnExit="cancel" />
+      <Show Dialog="FatalErrorForm" OnExit="error"><![CDATA[NOT HideFatalErrorForm]]></Show>
+      <Show Dialog="MaintenanceForm" Sequence="999"><![CDATA[Installed<>""]]></Show>
+      <Show Dialog="ResumeForm" Sequence="998"><![CDATA[Installed="" AND RESUME]]></Show>
+    </InstallUISequence>
+    <AdminUISequence>
+      <Custom Action="CA_CheckAdmin" Before="CostInitialize"><![CDATA[Not Installed]]></Custom>
+      <Custom Action="DIRCA_MACHINESCOPEDIR" Before="DIRCA_TARGETDIR"><![CDATA[ALLUSERS=1 OR ISRUNASADMIN=1]]></Custom>
+      <Custom Action="DIRCA_USERSCOPEDIR" Before="DIRCA_TARGETDIR"><![CDATA[ALLUSERS<>1 AND ISRUNASADMIN<>1]]></Custom>
+      <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR=""]]></Custom>
+      <Custom Action="DIRCA_TARGETDIR_UNINSTALL" Before="CostInitialize"><![CDATA[PREVIOUSINSTALLFOLDER]]></Custom>
+      <Custom Action="DISABLE_IMPERSONATE" Before="CostInitialize"><![CDATA[PREVIOUSINSTALLSCOPE="1"]]></Custom>
+      <Custom Action="VSDCA_FolderForm_ForAllUsersCheckBox" Sequence="995"><![CDATA[Installed="" AND NOT RESUME AND (ALLUSERS=1 OR (PREVIOUSINSTALLFOLDER<>"" AND PREVIOUSINSTALLSCOPE="1") OR ISRUNASADMIN=1)]]></Custom>
+      <Custom Action="VSDCA_FolderForm_ForMeOnlyCheckBox" Sequence="996"><![CDATA[Installed="" AND NOT RESUME AND (ALLUSERS=1 OR (PREVIOUSINSTALLFOLDER<>"" AND PREVIOUSINSTALLSCOPE="1") OR ISRUNASADMIN=1)]]></Custom>
+      <Custom Action="VSDCA_FolderForm_AllUsers" Sequence="997"><![CDATA[Installed="" AND NOT RESUME AND (ALLUSERS=1 OR (PREVIOUSINSTALLFOLDER<>"" AND PREVIOUSINSTALLSCOPE="1") OR ISRUNASADMIN=1)]]></Custom>
+      <Show Dialog="AdminUserExitForm" OnExit="cancel" />
+      <Show Dialog="AdminFatalErrorForm" OnExit="error"><![CDATA[NOT HideFatalErrorForm]]></Show>
+      <Show Dialog="AdminMaintenanceForm" Sequence="999"><![CDATA[Installed<>""]]></Show>
+      <Show Dialog="AdminResumeForm" Sequence="998"><![CDATA[Installed="" AND RESUME]]></Show>
+    </AdminUISequence>
+    <CustomAction Id="VSDCA_FolderForm_AllUsers" Property="FolderForm_AllUsers" Value="ALL" />
+    <CustomAction Id="VSDCA_FolderForm_ForAllUsersCheckBox" Property="FolderForm_ForAllUsersCheckValue" Value="1" />
+    <CustomAction Id="VSDCA_FolderForm_ForMeOnlyCheckBox" Property="FolderForm_ForMeOnlyCheckValue" Value="" />
+    <CustomAction Id="ERRCA_UIANDADVERTISED" Error="[VSDUIANDADVERTISED]" />
+    <UIRef Id="WelcomeDlg" />
+    <UIRef Id="FinishedDlg" />
+    <UIRef Id="FolderDlg" />
+    <UIRef Id="ConfirmDlg" />
+    <UIRef Id="ProgressDlg" />
+    <UIRef Id="AdminWelcomeDlg" />
+    <UIRef Id="AdminFinishedDlg" />
+    <UIRef Id="AdminProgressDlg" />
+    <UIRef Id="AdminFolderDlg" />
+    <UIRef Id="AdminConfirmDlg" />
+    <UI Id="Base">
+      <Property Id="VSDNETURLMSG" Value="!(loc.StdUI_VSDNETURLMSG)" />
+      <Property Id="VSDIISMSG" Value="!(loc.StdUI_VSDIISMSG)" />
+      <Property Id="VSDUIANDADVERTISED" Value="!(loc.StdUI_VSDUIANDADVERTISED)" />
+      <Property Id="VSDNETMSG" Value="!(loc.StdUI_VSDNETMSG)" />
+      <Property Id="VSDINVALIDURLMSG" Value="!(loc.StdUI_VSDINVALIDURLMSG)" />
+      <Property Id="VSDVERSIONMSG" Value="!(loc.StdUI_VSDVERSIONMSG)" />
+    </UI>
+    <UI Id="BasicDialogs">
+      <Binary Id="NewFldrBtn" SourceFile="Resources\WiXNewFolderBtn.ico" />
+      <Binary Id="UpFldrBtn" SourceFile="Resources\WiXUpFolderBtn.ico" />
+      <Property Id="ErrorDialog" Value="ErrorDialog" />
+      <Property Id="SFF_UpFldrBtn" Value="UpFldrBtn" />
+      <Property Id="SFF_NewFldrBtn" Value="NewFldrBtn" />
+      <TextStyle Id="VSI_MS_Sans_Serif13.0_0_0" FaceName="MS Sans Serif" Size="9" Red="0" Green="0" Blue="0" />
+      <TextStyle Id="VSI_MS_Sans_Serif16.0_1_0" FaceName="MS Sans Serif" Size="12" Red="0" Green="0" Blue="0" Bold="yes" />
+      <TextStyle Id="VSI_MS_Shell_Dlg13.0_0_0" FaceName="MS Shell Dlg" Size="9" Red="0" Green="0" Blue="0" />
+      <Dialog Id="Cancel" X="50" Y="50" Width="271" Height="78" Title="!(loc.StdUI_Cancel_Title)" NoMinimize="yes">
+        <Control Id="NoButton" Type="PushButton" X="198" Y="48" Width="65" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Cancel_NoButton)" TabSkip="no" Default="yes" Cancel="yes">
+          <Publish Event="EndDialog" Value="Return" />
+        </Control>
+        <Control Id="YesButton" Type="PushButton" X="126" Y="48" Width="65" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Cancel_YesButton)" TabSkip="no">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+        <Control Id="BodyText" Type="Text" X="6" Y="9" Width="258" Height="24" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Cancel_BodyText)" TabSkip="yes" NoPrefix="yes" />
+      </Dialog>
+      <Dialog Id="ConfirmRemoveDialog" X="50" Y="50" Width="271" Height="78" Title="!(loc.StdUI_ConfirmRemove_Title)" NoMinimize="yes">
+        <Control Id="NoButton" Type="PushButton" X="198" Y="48" Width="65" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_ConfirmRemove_NoButton)" TabSkip="no" Default="yes" Cancel="yes">
+          <Publish Property="WelcomeForm_ConfirmRemove" Value="No" />
+          <Publish Event="EndDialog" Value="Return" />
+        </Control>
+        <Control Id="YesButton" Type="PushButton" X="126" Y="48" Width="65" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_ConfirmRemove_YesButton)" TabSkip="no">
+          <Publish Property="WelcomeForm_ConfirmRemove" Value="Yes" />
+          <Publish Event="EndDialog" Value="Return" />
+        </Control>
+        <Control Id="BodyText" Type="Text" X="6" Y="9" Width="258" Height="24" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_ConfirmRemove_BodyText)" TabSkip="yes" NoPrefix="yes" />
+      </Dialog>
+      <Dialog Id="DiskCost" X="50" Y="50" Width="361" Height="192" Title="!(loc.StdUI_DiskCost_Title)" NoMinimize="yes" TrackDiskSpace="yes">
+        <Control Id="OKButton" Type="PushButton" X="288" Y="165" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_DiskCost_OKButton)" TabSkip="no" Default="yes" Cancel="yes">
+          <Publish Event="EndDialog" Value="Return" />
+        </Control>
+        <Control Id="VolumeCostList1" Type="VolumeCostList" X="6" Y="39" Width="348" Height="114" Text="{\VSI_MS_Sans_Serif13.0_0_0}{116}{80}{80}{80}{80}" TabSkip="no" Sunken="yes" Removable="yes" Fixed="yes" Remote="yes" />
+        <Control Id="AvailableBodyText" Type="Text" X="6" Y="9" Width="348" Height="24" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_DiskCost_AvailableBodyText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[OutOfDiskSpace<>1]]></Condition>
+          <Condition Action="hide"><![CDATA[OutOfDiskSpace=1]]></Condition>
+        </Control>
+        <Control Id="RequiredBodyText" Type="Text" X="6" Y="9" Width="348" Height="24" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_DiskCost_RequiredBodyText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[OutOfDiskSpace=1]]></Condition>
+          <Condition Action="hide"><![CDATA[OutOfDiskSpace<>1]]></Condition>
+        </Control>
+      </Dialog>
+      <Dialog Id="FilesInUse" X="50" Y="50" Width="361" Height="177" Title="!(loc.StdUI_FilesInUse_Title)" NoMinimize="yes">
+        <Control Id="RetryButton" Type="PushButton" X="99" Y="150" Width="81" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_FilesInUse_RetryButton)" TabSkip="no" Default="yes">
+          <Publish Event="EndDialog" Value="Retry" />
+        </Control>
+        <Control Id="ContinueButton" Type="PushButton" X="186" Y="150" Width="81" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_FilesInUse_ContinueButton)" TabSkip="no">
+          <Publish Event="EndDialog" Value="Ignore" />
+        </Control>
+        <Control Id="ExitButton" Type="PushButton" X="273" Y="150" Width="81" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_FilesInUse_ExitButton)" TabSkip="no" Cancel="yes">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+        <Control Id="ListFilesInUse" Type="ListBox" X="6" Y="51" Width="348" Height="90" Property="FileInUseProcess" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiFilesInUse" TabSkip="no" Sunken="yes" Sorted="yes" />
+        <Control Id="InstallBodyText" Type="Text" X="6" Y="9" Width="345" Height="36" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_FilesInUse_InstallBodyText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+        <Control Id="RemoveBodyText" Type="Text" X="6" Y="9" Width="345" Height="36" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_FilesInUse_RemoveBodyText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+      </Dialog>
+      <Dialog Id="SelectFolderDialog" X="50" Y="50" Width="313" Height="223" Title="!(loc.StdUI_SelectFolder_Title)" NoMinimize="yes">
+        <Control Id="OKButton" Type="PushButton" X="168" Y="198" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_SelectFolder_OKButton)" TabSkip="no" Default="yes">
+          <Publish Event="SetTargetPath" Value="[SelectFolderDialog_Property]">1</Publish>
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="240" Y="198" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="Reset" Value="{}">1</Publish>
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+        <Control Id="BrowseText" Type="Text" X="6" Y="9" Width="60" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_SelectFolder_BrowseText)" TabSkip="no" />
+        <Control Id="FolderCombo" Type="DirectoryCombo" X="66" Y="6" Width="198" Height="120" Property="SelectFolderDialog_Property" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiDirectoryCombo" TabSkip="no" Indirect="yes" Removable="yes" Fixed="yes" Remote="yes" RAMDisk="yes" Floppy="yes" />
+        <Control Id="FolderUpButton" Type="PushButton" X="270" Y="6" Width="18" Height="18" Text="[SFF_UpFldrBtn]" TabSkip="no" IconSize="16" FixedSize="yes" Icon="yes">
+          <Publish Event="DirectoryListUp" Value="{}">1</Publish>
+        </Control>
+        <Control Id="NewFolderButton" Type="PushButton" X="288" Y="6" Width="18" Height="18" Text="[SFF_NewFldrBtn]" TabSkip="no" IconSize="16" FixedSize="yes" Icon="yes">
+          <Publish Event="DirectoryListNew" Value="{}">1</Publish>
+        </Control>
+        <Control Id="FolderList" Type="DirectoryList" X="6" Y="30" Width="300" Height="129" Property="SelectFolderDialog_Property" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiDirectoryList" TabSkip="no" Sunken="yes" Indirect="yes" />
+        <Control Id="FolderText" Type="Text" X="6" Y="171" Width="60" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_SelectFolder_FolderText)" TabSkip="no" />
+        <Control Id="FolderPathEdit" Type="PathEdit" X="66" Y="168" Width="240" Height="18" Property="SelectFolderDialog_Property" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiPathEdit" TabSkip="no" Sunken="yes" Indirect="yes" />
+      </Dialog>
+      <Dialog Id="ErrorDialog" X="50" Y="50" Width="330" Height="101" Title="!(loc.StdUI_Error_Title)" ErrorDialog="yes">
+        <Control Id="ErrorText" Type="Text" X="6" Y="9" Width="318" Height="48" Text="{\VSI_MS_Sans_Serif13.0_0_0}" TabSkip="no" Disabled="yes" NoPrefix="yes" />
+        <Control Id="Y" Type="PushButton" X="240" Y="72" Width="81" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Error_Y)" TabSkip="yes">
+          <Publish Event="EndDialog" Value="ErrorYes" />
+        </Control>
+        <Control Id="A" Type="PushButton" X="0" Y="72" Width="81" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Error_A)" TabSkip="yes">
+          <Publish Event="EndDialog" Value="ErrorAbort" />
+        </Control>
+        <Control Id="C" Type="PushButton" X="42" Y="72" Width="81" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Error_C)" TabSkip="yes">
+          <Publish Event="EndDialog" Value="ErrorCancel" />
+        </Control>
+        <Control Id="I" Type="PushButton" X="81" Y="72" Width="81" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Error_I)" TabSkip="yes">
+          <Publish Event="EndDialog" Value="ErrorIgnore" />
+        </Control>
+        <Control Id="N" Type="PushButton" X="120" Y="72" Width="81" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Error_N)" TabSkip="yes">
+          <Publish Event="EndDialog" Value="ErrorNo" />
+        </Control>
+        <Control Id="O" Type="PushButton" X="159" Y="72" Width="81" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Error_O)" TabSkip="yes">
+          <Publish Event="EndDialog" Value="ErrorOk" />
+        </Control>
+        <Control Id="R" Type="PushButton" X="198" Y="72" Width="81" Height="21" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Error_R)" TabSkip="yes">
+          <Publish Event="EndDialog" Value="ErrorRetry" />
+        </Control>
+      </Dialog>
+    </UI>
+    <UI Id="UserInterface">
+      <Binary Id="DefBannerBitmap" SourceFile="Resources\WiXDefBannerBitmap.bmp" />
+      <Property Id="DefaultUIFont" Value="VsdDefaultUIFont.524F4245_5254_5341_4C45_534153783400" />
+      <TextStyle Id="VsdDefaultUIFont.524F4245_5254_5341_4C45_534153783400" FaceName="MS Sans Serif" Size="9" Red="0" Green="0" Blue="0" />
+      <UIText Id="MenuLocal">!(loc.StdUI_MenuLocal)</UIText>
+      <UIText Id="SelParentCostNegNeg">!(loc.StdUI_SelParentCostNegNeg)</UIText>
+      <UIText Id="SelNetworkNetwork">!(loc.StdUI_SelNetworkNetwork)</UIText>
+      <UIText Id="SelNetworkLocal">!(loc.StdUI_SelNetworkLocal)</UIText>
+      <UIText Id="SelNetworkAdvertise">!(loc.StdUI_SelNetworkAdvertise)</UIText>
+      <UIText Id="SelNetworkAbsent">!(loc.StdUI_SelNetworkAbsent)</UIText>
+      <UIText Id="SelAbsentAbsent">!(loc.StdUI_SelAbsentAbsent)</UIText>
+      <UIText Id="ScriptInProgress">!(loc.StdUI_ScriptInProgress)</UIText>
+      <UIText Id="MenuCD">!(loc.StdUI_MenuCD)</UIText>
+      <UIText Id="SelChildCostNeg">!(loc.StdUI_SelChildCostNeg)</UIText>
+      <UIText Id="SelCDLocal">!(loc.StdUI_SelCDLocal)</UIText>
+      <UIText Id="MenuAbsent">!(loc.StdUI_MenuAbsent)</UIText>
+      <UIText Id="SelCDAdvertise">!(loc.StdUI_SelCDAdvertise)</UIText>
+      <UIText Id="MenuAllNetwork">!(loc.StdUI_MenuAllNetwork)</UIText>
+      <UIText Id="SelLocalNetwork">!(loc.StdUI_SelLocalNetwork)</UIText>
+      <UIText Id="SelAdvertiseNetwork">!(loc.StdUI_SelAdvertiseNetwork)</UIText>
+      <UIText Id="MenuAllLocal">!(loc.StdUI_MenuAllLocal)</UIText>
+      <UIText Id="SelAdvertiseLocal">!(loc.StdUI_SelAdvertiseLocal)</UIText>
+      <UIText Id="MenuAllCD">!(loc.StdUI_MenuAllCD)</UIText>
+      <UIText Id="SelCDAbsent">!(loc.StdUI_SelCDAbsent)</UIText>
+      <UIText Id="MenuAdvertise">!(loc.StdUI_MenuAdvertise)</UIText>
+      <UIText Id="SelAdvertiseCD">!(loc.StdUI_SelAdvertiseCD)</UIText>
+      <UIText Id="bytes">!(loc.StdUI_bytes)</UIText>
+      <UIText Id="SelAdvertiseAdvertise">!(loc.StdUI_SelAdvertiseAdvertise)</UIText>
+      <UIText Id="AbsentPath" />
+      <UIText Id="MB">!(loc.StdUI_MB)</UIText>
+      <UIText Id="SelAdvertiseAbsent">!(loc.StdUI_SelAdvertiseAbsent)</UIText>
+      <UIText Id="KB">!(loc.StdUI_KB)</UIText>
+      <UIText Id="GB">!(loc.StdUI_GB)</UIText>
+      <UIText Id="SelAbsentNetwork">!(loc.StdUI_SelAbsentNetwork)</UIText>
+      <UIText Id="SelAbsentCD">!(loc.StdUI_SelAbsentCD)</UIText>
+      <UIText Id="SelAbsentAdvertise">!(loc.StdUI_SelAbsentAdvertise)</UIText>
+      <UIText Id="SelAbsentLocal">!(loc.StdUI_SelAbsentLocal)</UIText>
+      <UIText Id="SelCDCD">!(loc.StdUI_SelCDCD)</UIText>
+      <UIText Id="NewFolder">!(loc.StdUI_NewFolder)</UIText>
+      <UIText Id="MenuNetwork">!(loc.StdUI_MenuNetwork)</UIText>
+      <UIText Id="SelLocalCD">!(loc.StdUI_SelLocalCD)</UIText>
+      <UIText Id="SelLocalAbsent">!(loc.StdUI_SelLocalAbsent)</UIText>
+      <UIText Id="SelCostPending">!(loc.StdUI_SelCostPending)</UIText>
+      <UIText Id="SelLocalLocal">!(loc.StdUI_SelLocalLocal)</UIText>
+      <UIText Id="SelChildCostPos">!(loc.StdUI_SelChildCostPos)</UIText>
+      <UIText Id="SelLocalAdvertise">!(loc.StdUI_SelLocalAdvertise)</UIText>
+      <UIText Id="SelParentCostNegPos">!(loc.StdUI_SelParentCostNegPos)</UIText>
+      <UIText Id="SelParentCostPosNeg">!(loc.StdUI_SelParentCostPosNeg)</UIText>
+      <UIText Id="SelParentCostPosPos">!(loc.StdUI_SelParentCostPosPos)</UIText>
+      <UIText Id="TimeRemaining">!(loc.StdUI_TimeRemaining)</UIText>
+      <UIText Id="VolumeCostAvailable">!(loc.StdUI_VolumeCostAvailable)</UIText>
+      <UIText Id="VolumeCostDifference">!(loc.StdUI_VolumeCostDifference)</UIText>
+      <UIText Id="VolumeCostRequired">!(loc.StdUI_VolumeCostRequired)</UIText>
+      <UIText Id="VolumeCostSize">!(loc.StdUI_VolumeCostSize)</UIText>
+      <UIText Id="VolumeCostVolume">!(loc.StdUI_VolumeCostVolume)</UIText>
+    </UI>
+    <UI Id="FinishDialogs">
+      <Property Id="MaintenanceForm_Action" Value="Repair" />
+      <RadioButtonGroup Property="MaintenanceForm_Action">
+        <RadioButton Height="17" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_MaintenanceAction_Repair)" Value="Repair" Width="348" X="0" Y="0" />
+        <RadioButton Height="17" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_MaintenanceAction_Remove)" Value="Remove" Width="348" X="0" Y="18" />
+      </RadioButtonGroup>
+      <Dialog Id="UserExitForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_UserExit_Title)">
+        <Control Id="CloseButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_UserExit_ButtonClose)" TabSkip="no" Default="yes" Cancel="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_UserExit_ButtonCancel)" TabSkip="no" Disabled="yes" />
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_UserExit_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_UserExit_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="BodyTextRemove" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_UserExit_BodyTextRemove)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+        <Control Id="BodyTextInstall" Type="Text" X="18" Y="63" Width="342" Height="24" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_UserExit_BodyTextInstall)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+      </Dialog>
+      <Dialog Id="FatalErrorForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_FatalError_Title)">
+        <Control Id="CloseButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_FatalError_ButtonClose)" TabSkip="no" Default="yes" Cancel="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_FatalError_ButtonCancel)" TabSkip="no" Disabled="yes" />
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_FatalError_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_FatalError_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="BodyTextRemove" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_FatalError_BodyTextRemove)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+        <Control Id="BodyTextInstall" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_FatalError_BodyTextInstall)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+      </Dialog>
+      <Dialog Id="MaintenanceForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_Maintenance_Title)">
+        <Control Id="FinishButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Maintenance_ButtonFinish)" TabSkip="no" Default="yes">
+          <Publish Property="REINSTALL" Value="ALL"><![CDATA[MaintenanceForm_Action="Repair"]]></Publish>
+          <Publish Event="Reinstall" Value="ALL"><![CDATA[MaintenanceForm_Action="Repair"]]></Publish>
+          <Publish Property="REMOVE" Value="ALL"><![CDATA[MaintenanceForm_Action="Remove"]]></Publish>
+          <Publish Event="Remove" Value="ALL"><![CDATA[MaintenanceForm_Action="Remove"]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="RepairRadioGroup" Type="RadioButtonGroup" X="18" Y="108" Width="348" Height="48" Property="MaintenanceForm_Action" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiRadioButtonGroup" TabSkip="no" />
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Maintenance_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Maintenance_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_Maintenance_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="BodyText" Type="Text" X="9" Y="63" Width="354" Height="42" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Maintenance_BodyText)" TabSkip="yes" NoPrefix="yes" />
+      </Dialog>
+      <Dialog Id="ResumeForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_Resume_Title)">
+        <Control Id="FinishButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Resume_ButtonFinish)" TabSkip="no" Default="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Resume_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Resume_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_Resume_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="BodyText" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Resume_BodyText)" TabSkip="yes" NoPrefix="yes" />
+      </Dialog>
+    </UI>
+    <UI Id="AdminFinishDialogs">
+      <Property Id="AdminMaintenanceForm_Action" Value="Repair" />
+      <RadioButtonGroup Property="AdminMaintenanceForm_Action">
+        <RadioButton Height="17" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminMaintenanceAction_Repair)" Value="Repair" Width="348" X="0" Y="0" />
+        <RadioButton Height="17" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminMaintenanceAction_Remove)" Value="Remove" Width="348" X="0" Y="18" />
+      </RadioButtonGroup>
+      <Dialog Id="AdminUserExitForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_AdminUserExit_Title)">
+        <Control Id="CloseButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminUserExit_ButtonClose)" TabSkip="no" Default="yes" Cancel="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminUserExit_ButtonCancel)" TabSkip="no" Disabled="yes" />
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminUserExit_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_AdminUserExit_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="BodyTextInstall" Type="Text" X="18" Y="63" Width="342" Height="24" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminUserExit_BodyTextInstall)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+        <Control Id="BodyTextRemove" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminUserExit_BodyTextRemove)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+      </Dialog>
+      <Dialog Id="AdminFatalErrorForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_AdminFatalError_Title)">
+        <Control Id="CloseButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFatalError_ButtonClose)" TabSkip="no" Default="yes" Cancel="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFatalError_ButtonCancel)" TabSkip="no" Disabled="yes" />
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFatalError_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_AdminFatalError_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="BodyTextInstall" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFatalError_BodyTextInstall)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+        <Control Id="BodyTextRemove" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFatalError_BodyTextRemove)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+      </Dialog>
+      <Dialog Id="AdminMaintenanceForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_AdminMaintenance_Title)">
+        <Control Id="FinishButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminMaintenance_ButtonFinish)" TabSkip="no" Default="yes">
+          <Publish Property="REINSTALL" Value="ALL"><![CDATA[AdminMaintenanceForm_Action="Repair"]]></Publish>
+          <Publish Event="Reinstall" Value="ALL"><![CDATA[AdminMaintenanceForm_Action="Repair"]]></Publish>
+          <Publish Property="REMOVE" Value="ALL"><![CDATA[AdminMaintenanceForm_Action="Remove"]]></Publish>
+          <Publish Event="Remove" Value="ALL"><![CDATA[AdminMaintenanceForm_Action="Remove"]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="RepairRadioGroup" Type="RadioButtonGroup" X="18" Y="108" Width="348" Height="48" Property="AdminMaintenanceForm_Action" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiRadioButtonGroup" TabSkip="no" />
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminMaintenance_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminMaintenance_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_AdminMaintenance_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="BodyText" Type="Text" X="9" Y="63" Width="354" Height="42" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminMaintenance_BodyText)" TabSkip="yes" NoPrefix="yes" />
+      </Dialog>
+      <Dialog Id="AdminResumeForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_AdminResume_Title)">
+        <Control Id="FinishButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminResume_ButtonFinish)" TabSkip="no" Default="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminResume_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminResume_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_AdminResume_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="BodyText" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminResume_BodyText)" TabSkip="yes" NoPrefix="yes" />
+      </Dialog>
+    </UI>
+    <!--IMPORTANT ALL MS OFFICE SUPPORTED VERSIONS ARE HERE: Office 2003, 2007, 2010, 2013, 2016 Keep it uptodate-->
+    <!-- these numbers will be parsed individually in the custom actions with InvariantCulture and NumberStyles.Any -->
+    <Property Id="OFFICEREGKEYS" Value="11.0,12.0,14.0,15.0,16.0" />
+    <Property Id="XLL32" Value="Quandl.Excel.UDF.Functions32.xll" />
+    <Property Id="XLL64" Value="Quandl.Excel.UDF.Functions64.xll" />
+
+    <!-- The property below will disable the repair button. -->
+    <!--<Property Id="ARPNOREPAIR" Value="yes" />-->
+    <Property Id="PromptToCloseProcesses" Value="EXCEL" />
+    <Property Id="PromptToCloseDisplayNames" Value="Microsoft Excel" />
+
+    <Binary Id="InstallerCA.CA.dll" SourceFile="$(var.InstallerCA.TargetDir)$(var.InstallerCA.TargetName).CA.dll" />
+    <CustomAction Id="Action_RegisterAddIn.SetProperty" Return="check" Property="Action_RegisterAddIn" Value="OFFICEREGKEYS=[OFFICEREGKEYS];XLL32=[XLL32];XLL64=[XLL64]" />
+    <CustomAction Id="Action_RegisterAddIn" BinaryKey="InstallerCA.CA.dll" DllEntry="CaRegisterAddIn" Return="check" Execute="immediate">
+    </CustomAction>
+    <CustomAction Id="Action_UnRegisterAddIn.SetProperty" Return="check" Property="Action_UnRegisterAddIn" Value="OFFICEREGKEYS=[OFFICEREGKEYS];XLL32=[XLL32];XLL64=[XLL64]" />
+    <CustomAction Id="Action_UnRegisterAddIn" BinaryKey="InstallerCA.CA.dll" DllEntry="CaUnRegisterAddIn" Return="check" Execute="immediate" />
+    <CustomAction Id="Action_CloseAppsPrompt" BinaryKey="InstallerCA.CA.dll" DllEntry="ClosePrompt" Return="check" />
+    <InstallExecuteSequence>
+      <Custom Action="Action_CloseAppsPrompt" After="Action_RegisterAddIn.SetProperty" />
+      <Custom Action="Action_RegisterAddIn.SetProperty" Before="Action_RegisterAddIn">NOT Installed</Custom>
+      <Custom Action="Action_RegisterAddIn" Before="InstallFinalize">NOT Installed</Custom>
+      <Custom Action="Action_UnRegisterAddIn.SetProperty" Before="Action_UnRegisterAddIn">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
+      <Custom Action="Action_UnRegisterAddIn" Before="InstallFinalize">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
+    </InstallExecuteSequence>
+    <AdminExecuteSequence>
+      <Custom Action="Action_CloseAppsPrompt" After="Action_RegisterAddIn.SetProperty" />
+      <Custom Action="Action_RegisterAddIn.SetProperty" Before="InstallFinalize">NOT Installed</Custom>
+      <Custom Action="Action_RegisterAddIn" After="Action_RegisterAddIn.SetProperty">NOT Installed</Custom>
+      <Custom Action="Action_UnRegisterAddIn.SetProperty" Before="InstallFinalize">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
+      <Custom Action="Action_UnRegisterAddIn" After="Action_UnRegisterAddIn.SetProperty">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
+    </AdminExecuteSequence>
+  </Product>
+
+
+
+
+  <Fragment>
+    <!-- 
+    Components always have unique GUIDs so that Windows can track every file installed. This information is stored in the registry.
+    Components should only contain a single file. KeyPath files will be replaced if missing by the repair button on the installer.
+    Try using for source: $(var.PROJECTREF.TargetDir)$(var.PROJECTREF.TargetName)-AddIn64-packed.xll
+    -->
+    <ComponentGroup Id="XLLDistributables">
+      <Component Id="XLL32" Guid="ea20b4ec-078f-44ae-bfb1-851442448082" Directory="AddinFolder">
+        <RegistryValue Root="HKCU" Key="Software\Quandl\Excel Add-In" Name="Xll32Bit" Value="AddIns" 
+                       KeyPath="yes" Type="string" />
+
+        <File Id="EXCELXLL32PACKED.XLL" Name="Quandl.Excel.UDF.Functions32.xll" 
+              Source="$(var.Quandl.Excel.UDF.Functions.TargetDir)Quandl.Excel.UDF.Functions-AddIn-packed.xll" >
+          <netfx:NativeImage Id="ngen_32Xll" Platform="32bit" Priority="0"/>
+        </File>
+      </Component>
+      <Component Id="XLL64" Guid="e4497a4c-3e94-4d1e-9cbe-c0f2deda1ac8" Directory="AddinFolder">
+        <RegistryValue Root="HKCU" Key="Software\Quandl\Excel Add-In" Name="Xll64Bit" Value="AddIns" KeyPath="yes" Type="string" />
+
+        <File Id="EXCELXLL64PACKED.XLL" Name="Quandl.Excel.UDF.Functions64.xll"
+              Source="$(var.Quandl.Excel.UDF.Functions.TargetDir)Quandl.Excel.UDF.Functions-AddIn64-packed.xll"
+              >
+          <netfx:NativeImage Id="ngen_64Xll" Platform="64bit" Priority="0"/>
+        </File>
+        <RemoveFile On="uninstall" Id="XLL32" Directory="AddinFolder" Name="Quandl.Excel.UDF.Functions32.xll" />
+        <RemoveFile On="uninstall" Id="XLL64" Directory="AddinFolder" Name="Quandl.Excel.UDF.Functions64.xll" />
+        <RemoveFolder Id="AddinFolderRemove" Directory="AddinFolder" On="uninstall" />
+        <RemoveFolder Id="COMPANYAPPDATADIRRemove" Directory="COMPANYAPPDATADIR" On="uninstall" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
