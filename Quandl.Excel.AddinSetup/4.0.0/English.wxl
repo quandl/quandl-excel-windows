@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG">1033</String>
+  <String Id="ProductName">Quandl Excel Add-in</String>
+  <String Id="ProductNameNoSpace">Quandl Excel</String>
+  <String Id="ProductDescription">Installer for Quandl Excel Add-In</String>
+  <String Id="ProductManufacturer">Quandl</String>
+  <String Id="ProductVersion">1</String>
+  <String Id="ProductCopyright">(c) 2018 Quandle</String>
+  <String Id="ProductUninstallDescription">Uninstall !(loc.ProductName)</String>
+  <String Id="AppName">!(loc.ProductName)</String>
+</WixLocalization>

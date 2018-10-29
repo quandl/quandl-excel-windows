@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-US" Language="1033" Codepage="1252" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="ID">1033</String>
+  <String Id="LangID">StdUI_ENU</String>
+  <!-- UserInterface dialogs -->
+  <String Id="StdUI_MenuLocal"><![CDATA[Will be installed on local hard drive]]></String>
+  <String Id="StdUI_SelParentCostNegNeg"><![CDATA[This feature frees up [1] on your hard drive. It has [2] of [3] subfeatures selected. The subfeatures free up [4] on your hard drive.]]></String>
+  <String Id="StdUI_SelNetworkNetwork"><![CDATA[This feature will remain to be run from the network]]></String>
+  <String Id="StdUI_SelNetworkLocal"><![CDATA[This feature will change from run from network state to be installed on the local hard drive]]></String>
+  <String Id="StdUI_SelNetworkAdvertise"><![CDATA[This feature will change from run from network state to set to be installed when required]]></String>
+  <String Id="StdUI_SelNetworkAbsent"><![CDATA[This feature will be uninstalled completely, you won't be able to run it from the network]]></String>
+  <String Id="StdUI_SelAbsentAbsent"><![CDATA[This feature will remain uninstalled]]></String>
+  <String Id="StdUI_ScriptInProgress"><![CDATA[Gathering required information...]]></String>
+  <String Id="StdUI_MenuCD"><![CDATA[Will be installed to run from CD]]></String>
+  <String Id="StdUI_SelChildCostNeg"><![CDATA[This feature frees up [1] on your hard drive.]]></String>
+  <String Id="StdUI_SelCDLocal"><![CDATA[This feature will change from run from CD state to be installed on the local hard drive]]></String>
+  <String Id="StdUI_MenuAbsent"><![CDATA[Entire feature will be unavailable]]></String>
+  <String Id="StdUI_SelCDAdvertise"><![CDATA[This feature will change from run from CD state to set to be installed when required]]></String>
+  <String Id="StdUI_MenuAllNetwork"><![CDATA[Entire feature will be installed to run from network]]></String>
+  <String Id="StdUI_SelLocalNetwork"><![CDATA[This feature will be removed from your local hard drive, but will be still available to run from the network]]></String>
+  <String Id="StdUI_SelAdvertiseNetwork"><![CDATA[This feature will be available to run from the network]]></String>
+  <String Id="StdUI_MenuAllLocal"><![CDATA[Entire feature will be installed on local hard drive]]></String>
+  <String Id="StdUI_SelAdvertiseLocal"><![CDATA[This feature will be installed on your local hard drive]]></String>
+  <String Id="StdUI_MenuAllCD"><![CDATA[Entire feature will be installed to run from CD]]></String>
+  <String Id="StdUI_SelCDAbsent"><![CDATA[This feature will be uninstalled completely, you won't be able to run it from CD]]></String>
+  <String Id="StdUI_MenuAdvertise"><![CDATA[Feature will be installed when required]]></String>
+  <String Id="StdUI_SelAdvertiseCD"><![CDATA[This feature will be available to run from CD]]></String>
+  <String Id="StdUI_bytes"><![CDATA[bytes]]></String>
+  <String Id="StdUI_SelAdvertiseAdvertise"><![CDATA[Will be installed when required]]></String>
+  <String Id="StdUI_MB"><![CDATA[MB]]></String>
+  <String Id="StdUI_SelAdvertiseAbsent"><![CDATA[This feature will become unavailable]]></String>
+  <String Id="StdUI_KB"><![CDATA[KB]]></String>
+  <String Id="StdUI_GB"><![CDATA[GB]]></String>
+  <String Id="StdUI_SelAbsentNetwork"><![CDATA[This feature will be installed to run from the network]]></String>
+  <String Id="StdUI_SelAbsentCD"><![CDATA[This feature will be installed to run from CD]]></String>
+  <String Id="StdUI_SelAbsentAdvertise"><![CDATA[This feature will be set to be installed when required]]></String>
+  <String Id="StdUI_SelAbsentLocal"><![CDATA[This feature will be installed on the local hard drive]]></String>
+  <String Id="StdUI_SelCDCD"><![CDATA[This feature will remain to be run from CD]]></String>
+  <String Id="StdUI_NewFolder"><![CDATA[Folder|New Folder]]></String>
+  <String Id="StdUI_MenuNetwork"><![CDATA[Will be installed to run from network]]></String>
+  <String Id="StdUI_SelLocalCD"><![CDATA[This feature will be removed from your local hard drive, but will be still available to run from CD]]></String>
+  <String Id="StdUI_SelLocalAbsent"><![CDATA[This feature will be completely removed]]></String>
+  <String Id="StdUI_SelCostPending"><![CDATA[Compiling cost for this feature...]]></String>
+  <String Id="StdUI_SelLocalLocal"><![CDATA[This feature will remain on you local hard drive]]></String>
+  <String Id="StdUI_SelChildCostPos"><![CDATA[This feature requires [1] on your hard drive.]]></String>
+  <String Id="StdUI_SelLocalAdvertise"><![CDATA[This feature will be removed from your local hard drive, but will be set to be installed when required]]></String>
+  <String Id="StdUI_SelParentCostNegPos"><![CDATA[This feature frees up [1] on your hard drive. It has [2] of [3] subfeatures selected. The subfeatures require [4] on your hard drive.]]></String>
+  <String Id="StdUI_SelParentCostPosNeg"><![CDATA[This feature requires [1] on your hard drive. It has [2] of [3] subfeatures selected. The subfeatures free up [4] on your hard drive.]]></String>
+  <String Id="StdUI_SelParentCostPosPos"><![CDATA[This feature requires [1] on your hard drive. It has [2] of [3] subfeatures selected. The subfeatures require [4] on your hard drive.]]></String>
+  <String Id="StdUI_TimeRemaining"><![CDATA[Time remaining: {[1] minutes }{[2] seconds}]]></String>
+  <String Id="StdUI_VolumeCostAvailable"><![CDATA[Available]]></String>
+  <String Id="StdUI_VolumeCostDifference"><![CDATA[Difference]]></String>
+  <String Id="StdUI_VolumeCostRequired"><![CDATA[Required]]></String>
+  <String Id="StdUI_VolumeCostSize"><![CDATA[Disk Size]]></String>
+  <String Id="StdUI_VolumeCostVolume"><![CDATA[Volume]]></String>
+  <!-- common controls -->
+  <String Id="StdUI_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_ButtonClose"><![CDATA[&Close]]></String>
+  <String Id="StdUI_ButtonFinish"><![CDATA[&Finish]]></String>
+  <!-- WelcomeDlg Dialog -->
+  <String Id="StdUI_Welcome_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Welcome_CopyrightWarningText"><![CDATA[WARNING: This computer program is protected by copyright law and international treaties. Unauthorized duplication or distribution of this program, or any portion of it, may result in severe civil or criminal penalties, and will be prosecuted to the maximum extent possible under the law.]]></String>
+  <String Id="StdUI_Welcome_BannerText"><![CDATA[Welcome to the [ProductName] Setup Wizard]]></String>
+  <String Id="StdUI_Welcome_WelcomeText"><![CDATA[The installer will guide you through the steps required to install [ProductName] on your computer.
+
+Click "Next" to continue.]]></String>
+  <String Id="StdUI_Welcome_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_Welcome_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_Welcome_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- WebFolderDlg Dialog -->
+  <String Id="StdUI_WebFolder_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_WebFolder_SiteLabel"><![CDATA[&Site:]]></String>
+  <String Id="StdUI_WebFolder_DiskCost"><![CDATA[&Disk Cost...]]></String>
+  <String Id="StdUI_WebFolder_VDirLabel"><![CDATA[&Virtual directory:]]></String>
+  <String Id="StdUI_WebFolder_AppPoolsLabel"><![CDATA[&Application Pool:]]></String>
+  <String Id="StdUI_WebFolder_Heading"><![CDATA[Select Installation Address]]></String>
+  <String Id="StdUI_WebFolder_Body1"><![CDATA[The installer will install [ProductName] to the following web location. 
+
+To install to this web location, click "Next". To install to a different web location, enter it below.]]></String>
+  <String Id="StdUI_WebFolder_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_WebFolder_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_WebFolder_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- SplashDlg Dialog -->
+  <String Id="StdUI_Splash_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Splash_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_Splash_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_Splash_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- ProgressDlg Dialog -->
+  <String Id="StdUI_Progress_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Progress_ProgressLabelText"><![CDATA[Please wait...]]></String>
+  <String Id="StdUI_Progress_InstalledBodyText"><![CDATA[[ProductName] is being installed.]]></String>
+  <String Id="StdUI_Progress_RemovedBodyText"><![CDATA[[ProductName] is being removed.]]></String>
+  <String Id="StdUI_Progress_InstalledBannerText"><![CDATA[Installing [ProductName]]]></String>
+  <String Id="StdUI_Progress_RemoveBannerText"><![CDATA[Removing [ProductName]]]></String>
+  <String Id="StdUI_Progress_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_Progress_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_Progress_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- RegisterDlg Dialog -->
+  <String Id="StdUI_Register_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Register_RegisterButton"><![CDATA[&Register Now...]]></String>
+  <String Id="StdUI_Register_BannerText"><![CDATA[Register [ProductName]]]></String>
+  <String Id="StdUI_Register_Body1"><![CDATA[Please register your copy of [ProductName].
+
+Click "Register Now" to start the registration process, or click "Next" if you do not want to register now.]]></String>
+  <String Id="StdUI_Register_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_Register_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_Register_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- ReadmeDlg Dialog -->
+  <String Id="StdUI_Readme_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Readme_BannerText"><![CDATA[[ProductName] Information]]></String>
+  <String Id="StdUI_Readme_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_Readme_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_Readme_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- LicenseDlg Dialog -->
+  <String Id="StdUI_License_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_License_NotAgree"><![CDATA[I &Do Not Agree]]></String>
+  <String Id="StdUI_License_Agree"><![CDATA[I &Agree]]></String>
+  <String Id="StdUI_License_BannerText"><![CDATA[License Agreement]]></String>
+  <String Id="StdUI_License_BodyText"><![CDATA[Please take a moment to read the license agreement now. If you accept the terms below, click "I Agree", then "Next". Otherwise click "Cancel".]]></String>
+  <String Id="StdUI_License_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_License_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_License_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- FolderDlg Dialog -->
+  <String Id="StdUI_Folder_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Folder_Everyone"><![CDATA[&Everyone]]></String>
+  <String Id="StdUI_Folder_JustMe"><![CDATA[Just &me]]></String>
+  <String Id="StdUI_Folder_FolderLabel"><![CDATA[&Folder:]]></String>
+  <String Id="StdUI_Folder_BrowseButton"><![CDATA[B&rowse...]]></String>
+  <String Id="StdUI_Folder_DiskCostButton"><![CDATA[&Disk Cost...]]></String>
+  <String Id="StdUI_Folder_BannerText"><![CDATA[Select Installation Folder]]></String>
+  <String Id="StdUI_Folder_Body"><![CDATA[The installer will install [ProductName] to the following folder.
+
+To install in this folder, click "Next". To install to a different folder, enter it below or click "Browse".]]></String>
+  <String Id="StdUI_Folder_AllUsersText"><![CDATA[Install [ProductName] for yourself, or for anyone who uses this computer:]]></String>
+  <String Id="StdUI_Folder_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_Folder_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_Folder_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- FinishedDlg Dialog -->
+  <String Id="StdUI_Finished_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Finished_BannerText"><![CDATA[Installation Complete]]></String>
+  <String Id="StdUI_Finished_BodyTextRemove"><![CDATA[[ProductName] has been successfully removed.
+
+Click "Close" to exit.]]></String>
+  <String Id="StdUI_Finished_UpdateText"><![CDATA[Please use Windows Update to check for any critical updates to the .NET Framework.]]></String>
+  <String Id="StdUI_Finished_BodyText"><![CDATA[[ProductName] has been successfully installed.
+
+Click "Close" to exit.]]></String>
+  <String Id="StdUI_Finished_ButtonClose"><![CDATA[&Close]]></String>
+  <String Id="StdUI_Finished_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_Finished_ButtonBack"><![CDATA[< &Back]]></String>
+  <!-- FinishDialogs -->
+  <String Id="StdUI_MaintenanceAction_Repair"><![CDATA[&Repair [ProductName]]]></String>
+  <String Id="StdUI_MaintenanceAction_Remove"><![CDATA[Re&move [ProductName]]]></String>
+  <String Id="StdUI_UserExit_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_UserExit_BannerText"><![CDATA[Installation Interrupted]]></String>
+  <String Id="StdUI_UserExit_BodyTextRemove"><![CDATA[The installer was interrupted before [ProductName] could be removed. You need to restart the installer to try again.
+
+Click "Close" to exit.]]></String>
+  <String Id="StdUI_UserExit_BodyTextInstall"><![CDATA[The installation was interrupted before [ProductName] could be installed. You need to restart the installer to try again.]]></String>
+  <String Id="StdUI_UserExit_ButtonClose"><![CDATA[&Close]]></String>
+  <String Id="StdUI_UserExit_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_UserExit_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_FatalError_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_FatalError_BannerText"><![CDATA[Installation Incomplete]]></String>
+  <String Id="StdUI_FatalError_BodyTextRemove"><![CDATA[The installer was interrupted before [ProductName] could be installed. You need to restart the installer to try again.
+
+Click "Close" to exit.]]></String>
+  <String Id="StdUI_FatalError_BodyTextInstall"><![CDATA[The installer was interrupted before [ProductName] could be removed. You need to restart the installer to try again.
+
+Click "Close" to exit.]]></String>
+  <String Id="StdUI_FatalError_ButtonClose"><![CDATA[&Close]]></String>
+  <String Id="StdUI_FatalError_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_FatalError_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_Maintenance_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Maintenance_BannerText"><![CDATA[Welcome to the [ProductName] Setup Wizard]]></String>
+  <String Id="StdUI_Maintenance_BodyText"><![CDATA[Select whether you want to repair or remove [ProductName].]]></String>
+  <String Id="StdUI_Maintenance_ButtonFinish"><![CDATA[&Finish]]></String>
+  <String Id="StdUI_Maintenance_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_Maintenance_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_Resume_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Resume_BannerText"><![CDATA[Welcome to the [ProductName] Setup Wizard]]></String>
+  <String Id="StdUI_Resume_BodyText"><![CDATA[The installer will resume the installation of [ProductName] on your computer.
+
+Click "Finish" to continue.]]></String>
+  <String Id="StdUI_Resume_ButtonFinish"><![CDATA[&Finish]]></String>
+  <String Id="StdUI_Resume_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_Resume_ButtonBack"><![CDATA[< &Back]]></String>
+  <!-- CustomText1 Dialogs -->
+  <String Id="StdUI_CustomText1_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_CustomText1_Label1"><![CDATA[Edit1:]]></String>
+  <String Id="StdUI_CustomText1_Label2"><![CDATA[Edit2:]]></String>
+  <String Id="StdUI_CustomText1_Label3"><![CDATA[Edit3:]]></String>
+  <String Id="StdUI_CustomText1_Label4"><![CDATA[Edit4:]]></String>
+  <String Id="StdUI_CustomText1_BodyText"><![CDATA[BodyText]]></String>
+  <String Id="StdUI_CustomText1_BannerText"><![CDATA[BannerText]]></String>
+  <String Id="StdUI_CustomText1_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_CustomText1_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_CustomText1_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- CustomText2 Dialogs -->
+  <String Id="StdUI_CustomText2_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_CustomText2_Label1"><![CDATA[Edit1:]]></String>
+  <String Id="StdUI_CustomText2_Label2"><![CDATA[Edit2:]]></String>
+  <String Id="StdUI_CustomText2_Label3"><![CDATA[Edit3:]]></String>
+  <String Id="StdUI_CustomText2_Label4"><![CDATA[Edit4:]]></String>
+  <String Id="StdUI_CustomText2_BodyText"><![CDATA[BodyText]]></String>
+  <String Id="StdUI_CustomText2_BannerText"><![CDATA[BannerText]]></String>
+  <String Id="StdUI_CustomText2_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_CustomText2_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_CustomText2_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- CustomText3 Dialogs -->
+  <String Id="StdUI_CustomText3_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_CustomText3_Label1"><![CDATA[Edit1:]]></String>
+  <String Id="StdUI_CustomText3_Label2"><![CDATA[Edit2:]]></String>
+  <String Id="StdUI_CustomText3_Label3"><![CDATA[Edit3:]]></String>
+  <String Id="StdUI_CustomText3_Label4"><![CDATA[Edit4:]]></String>
+  <String Id="StdUI_CustomText3_BodyText"><![CDATA[BodyText]]></String>
+  <String Id="StdUI_CustomText3_BannerText"><![CDATA[BannerText]]></String>
+  <String Id="StdUI_CustomText3_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_CustomText3_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_CustomText3_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- CustomerInfoDlg Dialog -->
+  <String Id="StdUI_CustomerInfo_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_CustomerInfo_NameLabel"><![CDATA[N&ame:]]></String>
+  <String Id="StdUI_CustomerInfo_OrganizationLabel"><![CDATA[&Organization:]]></String>
+  <String Id="StdUI_CustomerInfo_SerialLabel"><![CDATA[&Serial number:]]></String>
+  <String Id="StdUI_CustomerInfo_BannerText"><![CDATA[Customer Information]]></String>
+  <String Id="StdUI_CustomerInfo_SerialBodyText"><![CDATA[Enter your serial number below. The installer will use this information for subsequent installations.]]></String>
+  <String Id="StdUI_CustomerInfo_OrganizationBodyText"><![CDATA[Enter your name and company or organization in the box below. The installer will use this information for subsequent installations.]]></String>
+  <String Id="StdUI_CustomerInfo_NameBodyText"><![CDATA[Enter your name in the box below. The installer will use this information for subsequent installations.]]></String>
+  <String Id="StdUI_CustomerInfo_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_CustomerInfo_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_CustomerInfo_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- CustomCheck1 Dialogs -->
+  <String Id="StdUI_CustomCheck1_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_CustomCheck1_Checkbox1"><![CDATA[Checkbox1]]></String>
+  <String Id="StdUI_CustomCheck1_Checkbox2"><![CDATA[Checkbox2]]></String>
+  <String Id="StdUI_CustomCheck1_Checkbox3"><![CDATA[Checkbox3]]></String>
+  <String Id="StdUI_CustomCheck1_Checkbox4"><![CDATA[Checkbox4]]></String>
+  <String Id="StdUI_CustomCheck1_BodyText"><![CDATA[BodyText]]></String>
+  <String Id="StdUI_CustomCheck1_BannerText"><![CDATA[BannerText]]></String>
+  <String Id="StdUI_CustomCheck1_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_CustomCheck1_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_CustomCheck1_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- CustomCheck2 Dialogs -->
+  <String Id="StdUI_CustomCheck2_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_CustomCheck2_Checkbox1"><![CDATA[Checkbox1]]></String>
+  <String Id="StdUI_CustomCheck2_Checkbox2"><![CDATA[Checkbox2]]></String>
+  <String Id="StdUI_CustomCheck2_Checkbox3"><![CDATA[Checkbox3]]></String>
+  <String Id="StdUI_CustomCheck2_Checkbox4"><![CDATA[Checkbox4]]></String>
+  <String Id="StdUI_CustomCheck2_BodyText"><![CDATA[BodyText]]></String>
+  <String Id="StdUI_CustomCheck2_BannerText"><![CDATA[BannerText]]></String>
+  <String Id="StdUI_CustomCheck2_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_CustomCheck2_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_CustomCheck2_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- CustomCheck3 Dialogs -->
+  <String Id="StdUI_CustomCheck3_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_CustomCheck3_Checkbox1"><![CDATA[Checkbox1]]></String>
+  <String Id="StdUI_CustomCheck3_Checkbox2"><![CDATA[Checkbox2]]></String>
+  <String Id="StdUI_CustomCheck3_Checkbox3"><![CDATA[Checkbox3]]></String>
+  <String Id="StdUI_CustomCheck3_Checkbox4"><![CDATA[Checkbox4]]></String>
+  <String Id="StdUI_CustomCheck3_BodyText"><![CDATA[BodyText]]></String>
+  <String Id="StdUI_CustomCheck3_BannerText"><![CDATA[BannerText]]></String>
+  <String Id="StdUI_CustomCheck3_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_CustomCheck3_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_CustomCheck3_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- CustomButtons2 Dialogs -->
+  <String Id="StdUI_CustomButton2_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_CustomButton2_Button1"><![CDATA[Button1]]></String>
+  <String Id="StdUI_CustomButton2_Button2"><![CDATA[Button2]]></String>
+  <String Id="StdUI_CustomButton2_Button3"><![CDATA[Button3]]></String>
+  <String Id="StdUI_CustomButton2_Button4"><![CDATA[Button4]]></String>
+  <String Id="StdUI_CustomButton2_BodyText"><![CDATA[BodyText]]></String>
+  <String Id="StdUI_CustomButton2_BannerText"><![CDATA[BannerText]]></String>
+  <String Id="StdUI_CustomButton2_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_CustomButton2_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_CustomButton2_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- CustomButtons3 Dialogs -->
+  <String Id="StdUI_CustomButton3_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_CustomButton3_Button1"><![CDATA[Button1]]></String>
+  <String Id="StdUI_CustomButton3_Button2"><![CDATA[Button2]]></String>
+  <String Id="StdUI_CustomButton3_Button3"><![CDATA[Button3]]></String>
+  <String Id="StdUI_CustomButton3_Button4"><![CDATA[Button4]]></String>
+  <String Id="StdUI_CustomButton3_BodyText"><![CDATA[BodyText]]></String>
+  <String Id="StdUI_CustomButton3_BannerText"><![CDATA[BannerText]]></String>
+  <String Id="StdUI_CustomButton3_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_CustomButton3_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_CustomButton3_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- CustomButtons4 Dialogs -->
+  <String Id="StdUI_CustomButton4_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_CustomButton4_Button1"><![CDATA[Button1]]></String>
+  <String Id="StdUI_CustomButton4_Button2"><![CDATA[Button2]]></String>
+  <String Id="StdUI_CustomButton4_Button3"><![CDATA[Button3]]></String>
+  <String Id="StdUI_CustomButton4_Button4"><![CDATA[Button4]]></String>
+  <String Id="StdUI_CustomButton4_BodyText"><![CDATA[BodyText]]></String>
+  <String Id="StdUI_CustomButton4_BannerText"><![CDATA[BannerText]]></String>
+  <String Id="StdUI_CustomButton4_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_CustomButton4_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_CustomButton4_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- ConfirmDlg Dialog -->
+  <String Id="StdUI_Confirm_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Confirm_BannerText"><![CDATA[Confirm Installation]]></String>
+  <String Id="StdUI_Confirm_BodyText1"><![CDATA[The installer is ready to install [ProductName] on your computer.
+
+Click "Next" to start the installation.]]></String>
+  <String Id="StdUI_Confirm_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_Confirm_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_Confirm_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- BasicDialogs -->
+  <String Id="StdUI_Cancel_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Cancel_NoButton"><![CDATA[&No]]></String>
+  <String Id="StdUI_Cancel_YesButton"><![CDATA[&Yes]]></String>
+  <String Id="StdUI_Cancel_BodyText"><![CDATA[The installation is not yet complete. Are you sure you want to exit?]]></String>
+  <String Id="StdUI_ConfirmRemove_Title"><![CDATA[Remove [ProductName]]]></String>
+  <String Id="StdUI_ConfirmRemove_NoButton"><![CDATA[&No]]></String>
+  <String Id="StdUI_ConfirmRemove_YesButton"><![CDATA[&Yes]]></String>
+  <String Id="StdUI_ConfirmRemove_BodyText"><![CDATA[You have chosen to remove [ProductName] from your computer. Are you sure you want to remove it?]]></String>
+  <String Id="StdUI_DiskCost_Title"><![CDATA[[ProductName] Disk Space]]></String>
+  <String Id="StdUI_DiskCost_OKButton"><![CDATA[OK]]></String>
+  <String Id="StdUI_DiskCost_AvailableBodyText"><![CDATA[The list below includes the drives you can install [ProductName] to, along with each drive's available and required disk space.]]></String>
+  <String Id="StdUI_DiskCost_RequiredBodyText"><![CDATA[The amount of required disk space exceeds the amount of available disk space. The highlighted items indicate the drives with insufficient disk space.]]></String>
+  <String Id="StdUI_FilesInUse_Title"><![CDATA[[ProductName] Files in Use]]></String>
+  <String Id="StdUI_FilesInUse_RetryButton"><![CDATA[&Try Again]]></String>
+  <String Id="StdUI_FilesInUse_ContinueButton"><![CDATA[&Continue]]></String>
+  <String Id="StdUI_FilesInUse_ExitButton"><![CDATA[E&xit Installation]]></String>
+  <String Id="StdUI_FilesInUse_InstallBodyText"><![CDATA[The following applications are using files which the installer must update. You can either close the applications and click "Try Again", or click "Continue" so that the installer continues the installation, and replaces these files when your system restarts.]]></String>
+  <String Id="StdUI_FilesInUse_RemoveBodyText"><![CDATA[The following applications are using files which the installer must remove. You can either close the applications and click "Try Again", or click "Continue" so that the installer continues the installation, and replaces these files when your system restarts.]]></String>
+  <String Id="StdUI_SelectFolder_Title"><![CDATA[Browse for Folder]]></String>
+  <String Id="StdUI_SelectFolder_OKButton"><![CDATA[OK]]></String>
+  <String Id="StdUI_SelectFolder_CancelButton"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_SelectFolder_BrowseText"><![CDATA[&Browse:]]></String>
+  <String Id="StdUI_SelectFolder_FolderText"><![CDATA[&Folder:]]></String>
+  <String Id="StdUI_Error_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_Error_Y"><![CDATA[&Yes]]></String>
+  <String Id="StdUI_Error_A"><![CDATA[E&xit Installation]]></String>
+  <String Id="StdUI_Error_C"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_Error_I"><![CDATA[C&ontinue]]></String>
+  <String Id="StdUI_Error_N"><![CDATA[&No]]></String>
+  <String Id="StdUI_Error_O"><![CDATA[OK]]></String>
+  <String Id="StdUI_Error_R"><![CDATA[&Try Again]]></String>
+  <!-- Base -->
+  <String Id="StdUI_VSDNETURLMSG"><![CDATA[This setup requires the .NET Framework version [1].  Please install the .NET Framework and run this setup again.  The .NET Framework can be obtained from the web.  Would you like to do this now?]]></String>
+  <String Id="StdUI_VSDIISMSG"><![CDATA[This setup requires Internet Information Server 5.1 or higher and Windows XP or higher.  This setup cannot be installed on Windows 2000.  Please install Internet Information Server or a newer operating system and run this setup again.]]></String>
+  <String Id="StdUI_VSDUIANDADVERTISED"><![CDATA[This advertised application will not be installed because it might be unsafe. Contact your administrator to change the installation user interface option of the package to basic.]]></String>
+  <String Id="StdUI_VSDNETMSG"><![CDATA[This setup requires the .NET Framework version [1].  Please install the .NET Framework and run this setup again.]]></String>
+  <String Id="StdUI_VSDINVALIDURLMSG"><![CDATA[The specified path '[2]' is unavailable. The Internet Information Server might not be running or the path exists and is redirected to another machine. Please check the status of this virtual directory in the Internet Services Manager.]]></String>
+  <String Id="StdUI_VSDVERSIONMSG"><![CDATA[Unable to install because a newer version of this product is already installed.]]></String>
+  <!-- AdminWelcomeDlg Dialog -->
+  <String Id="StdUI_AdminWelcome_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminWelcome_CopyrightWarningText"><![CDATA[WARNING: This computer program is protected by copyright law and international treaties. Unauthorized duplication or distribution of this program, or any portion of it, may result in severe civil or criminal penalties, and will be prosecuted to the maximum extent possible under the law.]]></String>
+  <String Id="StdUI_AdminWelcome_BannerText"><![CDATA[Welcome to the [ProductName] Network Setup Wizard]]></String>
+  <String Id="StdUI_AdminWelcome_WelcomeText"><![CDATA[The installer will guide you through the steps required to create a network image of [ProductName].
+
+Click "Next" to continue.]]></String>
+  <String Id="StdUI_AdminWelcome_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_AdminWelcome_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminWelcome_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- AdminWebFolderDlg Dialog -->
+  <String Id="StdUI_AdminWebFolder_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminWebFolder_SiteLabel"><![CDATA[&Site:]]></String>
+  <String Id="StdUI_AdminWebFolder_DiskCost"><![CDATA[&Disk Cost...]]></String>
+  <String Id="StdUI_AdminWebFolder_VDirLabel"><![CDATA[&Virtual directory:]]></String>
+  <String Id="StdUI_AdminWebFolder_AppPoolsLabel"><![CDATA[&Application Pool:]]></String>
+  <String Id="StdUI_AdminWebFolder_Heading"><![CDATA[Select Installation Address]]></String>
+  <String Id="StdUI_AdminWebFolder_Body1"><![CDATA[The installer will install [ProductName] to the following web location. 
+
+To install to this web location, click "Next". To install to a different web location, enter it below.]]></String>
+  <String Id="StdUI_AdminWebFolder_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_AdminWebFolder_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminWebFolder_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- AdminSplashDlg Dialog -->
+  <String Id="StdUI_AdminSplash_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminSplash_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_AdminSplash_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminSplash_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- AdminReadmeDlg Dialog -->
+  <String Id="StdUI_AdminReadme_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminReadme_BannerText"><![CDATA[[ProductName] Information]]></String>
+  <String Id="StdUI_AdminReadme_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_AdminReadme_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminReadme_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- AdminProgressDlg Dialog -->
+  <String Id="StdUI_AdminProgress_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminProgress_ProgressLabelText"><![CDATA[Please wait...]]></String>
+  <String Id="StdUI_AdminProgress_InstalledBodyText"><![CDATA[[ProductName] is being installed.]]></String>
+  <String Id="StdUI_AdminProgress_RemovedBodyText"><![CDATA[[ProductName] is being removed.]]></String>
+  <String Id="StdUI_AdminProgress_InstalledBannerText"><![CDATA[Installing [ProductName]]]></String>
+  <String Id="StdUI_AdminProgress_RemoveBannerText"><![CDATA[Removing [ProductName]]]></String>
+  <String Id="StdUI_AdminProgress_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_AdminProgress_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminProgress_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- AdminLicenseDlg Dialog -->
+  <String Id="StdUI_AdminLicense_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminLicense_NotAgree"><![CDATA[I &Do Not Agree]]></String>
+  <String Id="StdUI_AdminLicense_Agree"><![CDATA[I &Agree]]></String>
+  <String Id="StdUI_AdminLicense_BannerText"><![CDATA[License Agreement]]></String>
+  <String Id="StdUI_AdminLicense_BodyText"><![CDATA[Please take a moment to read the license agreement now. If you accept the terms below, click "I Agree", then "Next". Otherwise click "Cancel".]]></String>
+  <String Id="StdUI_AdminLicense_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_AdminLicense_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminLicense_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- AdminFolderDlg Dialog -->
+  <String Id="StdUI_AdminFolder_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminFolder_FolderLabel"><![CDATA[&Folder:]]></String>
+  <String Id="StdUI_AdminFolder_BrowseButton"><![CDATA[B&rowse...]]></String>
+  <String Id="StdUI_AdminFolder_DiskCostButton"><![CDATA[&Disk Cost...]]></String>
+  <String Id="StdUI_AdminFolder_BannerText"><![CDATA[Network Location]]></String>
+  <String Id="StdUI_AdminFolder_Body"><![CDATA[The installer will create a network image at the following location.
+
+To create an image in this folder, click "Next". To use a different folder, enter it below or click "Browse".]]></String>
+  <String Id="StdUI_AdminFolder_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_AdminFolder_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminFolder_ButtonCancel"><![CDATA[Cancel]]></String>
+  <!-- AdminFinishedDlg Dialog -->
+  <String Id="StdUI_AdminFinished_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminFinished_BannerText"><![CDATA[Installation Complete]]></String>
+  <String Id="StdUI_AdminFinished_BodyTextInstall"><![CDATA[A network image of [ProductName] has been successfully created.
+
+Click "Close" to exit.]]></String>
+  <String Id="StdUI_AdminFinished_BodyText"><![CDATA[[ProductName] has been successfully removed.
+
+Click "Close" to exit.]]></String>
+  <String Id="StdUI_AdminFinished_ButtonClose"><![CDATA[&Close]]></String>
+  <String Id="StdUI_AdminFinished_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_AdminFinished_ButtonBack"><![CDATA[< &Back]]></String>
+  <!-- AdminFinishDialogs -->
+  <String Id="StdUI_AdminMaintenanceAction_Repair"><![CDATA[&Repair [ProductName]]]></String>
+  <String Id="StdUI_AdminMaintenanceAction_Remove"><![CDATA[Re&move [ProductName]]]></String>
+  <String Id="StdUI_AdminUserExit_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminUserExit_BannerText"><![CDATA[Installation Interrupted]]></String>
+  <String Id="StdUI_AdminUserExit_BodyTextInstall"><![CDATA[The installation was interrupted before [ProductName] could be installed. You need to restart the installer to try again.]]></String>
+  <String Id="StdUI_AdminUserExit_BodyTextRemove"><![CDATA[The installer was interrupted before [ProductName] could be removed. You need to restart the installer to try again.
+
+Click "Close" to exit.]]></String>
+  <String Id="StdUI_AdminUserExit_ButtonClose"><![CDATA[&Close]]></String>
+  <String Id="StdUI_AdminUserExit_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_AdminUserExit_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminFatalError_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminFatalError_BannerText"><![CDATA[Installation Incomplete]]></String>
+  <String Id="StdUI_AdminFatalError_BodyTextRemove"><![CDATA[The installer was interrupted before [ProductName] could be removed. You need to restart the installer to try again.
+
+Click "Close" to exit.]]></String>
+  <String Id="StdUI_AdminFatalError_BodyTextInstall"><![CDATA[The installer was interrupted before [ProductName] could be installed. You need to restart the installer to try again.
+
+Click "Close" to exit.]]></String>
+  <String Id="StdUI_AdminFatalError_ButtonClose"><![CDATA[&Close]]></String>
+  <String Id="StdUI_AdminFatalError_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_AdminFatalError_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminMaintenance_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminMaintenance_BannerText"><![CDATA[Welcome to the [ProductName] Setup Wizard]]></String>
+  <String Id="StdUI_AdminMaintenance_BodyText"><![CDATA[Select whether you want to repair or remove [ProductName].]]></String>
+  <String Id="StdUI_AdminMaintenance_ButtonFinish"><![CDATA[&Finish]]></String>
+  <String Id="StdUI_AdminMaintenance_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_AdminMaintenance_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminResume_Title"><![CDATA[[ProductName]]]></String>
+  <String Id="StdUI_AdminResume_BannerText"><![CDATA[Welcome to the [ProductName] Setup Wizard]]></String>
+  <String Id="StdUI_AdminResume_BodyText"><![CDATA[The installer will resume the installation of [ProductName] on your computer.
+
+Click "Finish" to continue.]]></String>
+  <String Id="StdUI_AdminResume_ButtonFinish"><![CDATA[&Finish]]></String>
+  <String Id="StdUI_AdminResume_ButtonCancel"><![CDATA[Cancel]]></String>
+  <String Id="StdUI_AdminResume_ButtonBack"><![CDATA[< &Back]]></String>
+  <!-- AdminConfirmDlg Dialog -->
+  <String Id="StdUI_AdminConfirm_Title"><![CDATA[ProductName]]></String>
+  <String Id="StdUI_AdminConfirm_BannerText"><![CDATA[Confirm Installation]]></String>
+  <String Id="StdUI_AdminConfirm_BodyText1"><![CDATA[The installer is ready to install [ProductName] on your computer.
+
+Click "Next" to start the installation.]]></String>
+  <String Id="StdUI_AdminConfirm_ButtonNext"><![CDATA[&Next >]]></String>
+  <String Id="StdUI_AdminConfirm_ButtonBack"><![CDATA[< &Back]]></String>
+  <String Id="StdUI_AdminConfirm_ButtonCancel"><![CDATA[Cancel]]></String>
+</WixLocalization>

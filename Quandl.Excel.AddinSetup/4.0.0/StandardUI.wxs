@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="WelcomeDlg">
+    <Property Id="WelcomeForm_NextArgs" Value="FolderForm" />
+    <UI Id="WelcomeDlg">
+      <Dialog Id="WelcomeForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_Welcome_Title)">
+        <Control Id="NextButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Welcome_ButtonNext)" TabSkip="no" Default="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[WelcomeForm_NextArgs=""]]></Publish>
+          <Publish Event="NewDialog" Value="[WelcomeForm_NextArgs]"><![CDATA[WelcomeForm_NextArgs<>""]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Welcome_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Welcome_ButtonBack)" TabSkip="no">
+          <Condition Action="disable"><![CDATA[WelcomeForm_PrevArgs=""]]></Condition>
+          <Condition Action="enable"><![CDATA[WelcomeForm_PrevArgs<>""]]></Condition>
+          <Publish Event="NewDialog" Value="[WelcomeForm_PrevArgs]"><![CDATA[WelcomeForm_PrevArgs<>""]]></Publish>
+        </Control>
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="CopyrightWarningText" Type="Text" X="9" Y="186" Width="354" Height="66" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Welcome_CopyrightWarningText)" TabSkip="yes" NoPrefix="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_Welcome_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="WelcomeText" Type="Text" X="9" Y="63" Width="354" Height="114" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Welcome_WelcomeText)" TabSkip="yes" NoPrefix="yes" />
+      </Dialog>
+    </UI>
+    <InstallUISequence>
+      <Show Dialog="WelcomeForm" Sequence="1001"><![CDATA[Installed="" AND NOT RESUME]]></Show>
+    </InstallUISequence>
+  </Fragment>
+  <Fragment Id="FinishedDlg">
+    <UI Id="FinishedDlg">
+      <Dialog Id="FinishedForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_Finished_Title)">
+        <Control Id="CloseButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Finished_ButtonClose)" TabSkip="no" Default="yes" Cancel="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Finished_ButtonCancel)" TabSkip="no" Disabled="yes" />
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Finished_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_Finished_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="BodyTextRemove" Type="Text" X="9" Y="63" Width="354" Height="138" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Finished_BodyTextRemove)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+        <Control Id="UpdateText" Type="Text" X="9" Y="216" Width="354" Height="36" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Finished_UpdateText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+        <Control Id="BodyText" Type="Text" X="9" Y="63" Width="354" Height="138" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Finished_BodyText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+      </Dialog>
+    </UI>
+    <InstallUISequence>
+      <Show Dialog="FinishedForm" OnExit="success" />
+    </InstallUISequence>
+  </Fragment>
+  <Fragment Id="FolderDlg">
+    <Property Id="FolderForm_PrevArgs" Value="WelcomeForm" />
+    <Property Id="FolderForm_NextArgs" Value="ConfirmInstallForm" />
+    <UI Id="FolderDlg">
+      <Property Id="FolderForm_ForMeOnlyCheckValue" Value="1" />
+      <Property Id="FolderForm_AllUsers" Value="ME" />
+      <Property Id="FolderForm_AllUsersVisible" Value="1" />
+      <Dialog Id="FolderForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_Folder_Title)" TrackDiskSpace="yes">
+        <Control Id="NextButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_ButtonNext)" TabSkip="no" Default="yes">
+          <Publish Event="SetTargetPath" Value="TARGETDIR"><![CDATA[1]]></Publish>
+          <Publish Event="SpawnDialog" Value="DiskCost"><![CDATA[OutOfDiskSpace=1]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[FolderForm_NextArgs="" AND OutOfDiskSpace<>1]]></Publish>
+          <Publish Event="NewDialog" Value="[FolderForm_NextArgs]"><![CDATA[FolderForm_NextArgs<>"" AND OutOfDiskSpace<>1]]></Publish>
+          <Publish Property="MSIINSTALLPERUSER" Value="0"><![CDATA[FolderForm_AllUsers="ALL" AND VersionNT>=400 AND Privileged=1 AND FolderForm_AllUsersVisible=1]]></Publish>
+          <Publish Property="ALLUSERS" Value="2"><![CDATA[FolderForm_AllUsers="ALL" AND VersionNT>=400 AND Privileged=1 AND FolderForm_AllUsersVisible=1]]></Publish>
+          <Publish Property="ALLUSERS"><![CDATA[FolderForm_AllUsers="ME" AND VersionNT>=400 AND Privileged=1 AND FolderForm_AllUsersVisible=1]]></Publish>
+          <Publish Property="USEIMPERSONATE" Value="1"><![CDATA[FolderForm_AllUsers="ME"]]></Publish>
+          <Publish Property="USEIMPERSONATE" Value="0"><![CDATA[FolderForm_AllUsers="ALL"]]></Publish>
+          <Publish Event="DoAction" Value="FindRelatedProducts">1</Publish>
+        </Control>
+        <Control Id="FolderLabel" Type="Text" X="18" Y="114" Width="348" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_FolderLabel)" TabSkip="no" />
+        <Control Id="FolderEdit" Type="PathEdit" X="18" Y="126" Width="252" Height="18" Property="TARGETDIR" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiPathEdit" TabSkip="no" Sunken="yes" />
+        <Control Id="BrowseButton" Type="PushButton" X="276" Y="126" Width="90" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_BrowseButton)" TabSkip="no">
+          <Publish Property="SelectFolderDialog_Property" Value="TARGETDIR"><![CDATA[1]]></Publish>
+          <Publish Event="SpawnDialog" Value="SelectFolderDialog"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="DiskCostButton" Type="PushButton" X="276" Y="150" Width="90" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_DiskCostButton)" TabSkip="no">
+          <Publish Event="SetTargetPath" Value="TARGETDIR"><![CDATA[1]]></Publish>
+          <Publish Event="SpawnDialog" Value="DiskCost"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="ForAllUsersCheckBox" Type="CheckBox" X="24" Y="210" Width="342" Height="17" Property="FolderForm_ForAllUsersCheckValue" CheckBoxValue="1" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_Everyone)" TabSkip="no">
+          <Condition Action="show"><![CDATA[VersionNT>=400 AND FolderForm_AllUsersVisible=1]]></Condition>
+          <Condition Action="hide"><![CDATA[NOT (VersionNT>=400 AND FolderForm_AllUsersVisible=1)]]></Condition>
+          <Condition Action="enable"><![CDATA[PREVIOUSINSTALLFOLDER="" AND ISRUNASADMIN=0]]></Condition>
+          <Condition Action="disable"><![CDATA[PREVIOUSINSTALLFOLDER<>"" OR ISRUNASADMIN=1]]></Condition>
+          <Publish Property="FolderForm_ForAllUsersCheckValue" Value="1"><![CDATA[FolderForm_ForAllUsersCheckValue=""]]></Publish>
+          <Publish Property="FolderForm_ForMeOnlyCheckValue"><![CDATA[FolderForm_ForAllUsersCheckValue="1"]]></Publish>
+          <Publish Property="FolderForm_AllUsers" Value="ALL"><![CDATA[1]]></Publish>
+          <Publish Property="TARGETDIR" Value="[PROGRAMFILES_DIRPATH]\[Manufacturer]\[ProductName]"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="ForMeOnlyCheckBox" Type="CheckBox" X="24" Y="228" Width="342" Height="17" Property="FolderForm_ForMeOnlyCheckValue" CheckBoxValue="1" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_JustMe)" TabSkip="no">
+          <Condition Action="show"><![CDATA[VersionNT>=400 AND FolderForm_AllUsersVisible=1]]></Condition>
+          <Condition Action="hide"><![CDATA[NOT (VersionNT>=400 AND FolderForm_AllUsersVisible=1)]]></Condition>
+          <Condition Action="enable"><![CDATA[PREVIOUSINSTALLFOLDER="" AND ISRUNASADMIN=0]]></Condition>
+          <Condition Action="disable"><![CDATA[PREVIOUSINSTALLFOLDER<>"" OR ISRUNASADMIN=1]]></Condition>
+          <Publish Property="FolderForm_ForMeOnlyCheckValue" Value="1"><![CDATA[FolderForm_ForAllUsersCheckValue=""]]></Publish>
+          <Publish Property="FolderForm_ForAllUsersCheckValue"><![CDATA[FolderForm_ForMeOnlyCheckValue="1"]]></Publish>
+          <Publish Property="FolderForm_AllUsers" Value="ME"><![CDATA[1]]></Publish>
+          <Publish Property="TARGETDIR" Value="[LocalAppDataFolder][Manufacturer]\[ProductName]"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_ButtonBack)" TabSkip="no">
+          <Condition Action="disable"><![CDATA[FolderForm_PrevArgs=""]]></Condition>
+          <Condition Action="enable"><![CDATA[FolderForm_PrevArgs<>""]]></Condition>
+          <Publish Event="NewDialog" Value="[FolderForm_PrevArgs]"><![CDATA[FolderForm_PrevArgs<>""]]></Publish>
+        </Control>
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_Folder_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="Body" Type="Text" X="9" Y="63" Width="354" Height="48" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_Body)" TabSkip="yes" NoPrefix="yes" />
+        <Control Id="AllUsersText" Type="Text" X="18" Y="186" Width="348" Height="24" Text="{\VSI_MS_Shell_Dlg13.0_0_0}!(loc.StdUI_Folder_AllUsersText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[VersionNT>=400 AND FolderForm_AllUsersVisible=1]]></Condition>
+          <Condition Action="hide"><![CDATA[NOT (VersionNT>=400 AND FolderForm_AllUsersVisible=1)]]></Condition>
+        </Control>
+      </Dialog>
+    </UI>
+  </Fragment>
+  <Fragment Id="ConfirmDlg">
+    <Property Id="ConfirmInstallForm_PrevArgs" Value="FolderForm" />
+    <UI Id="ConfirmDlg">
+      <Dialog Id="ConfirmInstallForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_Confirm_Title)">
+        <Control Id="NextButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Confirm_ButtonNext)" TabSkip="no" Default="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[ConfirmInstallForm_NextArgs=""]]></Publish>
+          <Publish Event="NewDialog" Value="[ConfirmInstallForm_NextArgs]"><![CDATA[ConfirmInstallForm_NextArgs<>""]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Confirm_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Confirm_ButtonBack)" TabSkip="no">
+          <Condition Action="disable"><![CDATA[ConfirmInstallForm_PrevArgs=""]]></Condition>
+          <Condition Action="enable"><![CDATA[ConfirmInstallForm_PrevArgs<>""]]></Condition>
+          <Publish Event="NewDialog" Value="[ConfirmInstallForm_PrevArgs]"><![CDATA[ConfirmInstallForm_PrevArgs<>""]]></Publish>
+        </Control>
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_Confirm_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BodyText1" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Confirm_BodyText1)" TabSkip="yes" NoPrefix="yes" />
+      </Dialog>
+    </UI>
+  </Fragment>
+  <Fragment Id="ProgressDlg">
+    <UI Id="ProgressDlg">
+      <Dialog Id="ProgressForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_Progress_Title)" Modeless="yes">
+        <Control Id="NextButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Progress_ButtonNext)" TabSkip="no" Disabled="yes" />
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Progress_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Progress_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="ProgressBar" Type="ProgressBar" X="18" Y="108" Width="336" Height="15" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiProgressBar" TabSkip="yes" Disabled="yes">
+          <Subscribe Event="InstallFiles" Attribute="Progress" />
+          <Subscribe Event="WriteRegistryValues" Attribute="Progress" />
+          <Subscribe Event="WriteIniValues" Attribute="Progress" />
+          <Subscribe Event="UnmoveFiles" Attribute="Progress" />
+          <Subscribe Event="StopServices" Attribute="Progress" />
+          <Subscribe Event="StartServices" Attribute="Progress" />
+          <Subscribe Event="RemoveRegistryValues" Attribute="Progress" />
+          <Subscribe Event="RemoveFiles" Attribute="Progress" />
+          <Subscribe Event="MoveFiles" Attribute="Progress" />
+          <Subscribe Event="InstallAdminPackage" Attribute="Progress" />
+          <Subscribe Event="DeleteServices" Attribute="Progress" />
+          <Subscribe Event="SetProgress" Attribute="Progress" />
+        </Control>
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="ProgressLabel" Type="Text" X="18" Y="96" Width="336" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Progress_ProgressLabelText)" TabSkip="yes" />
+        <Control Id="InstalledBody" Type="Text" X="9" Y="63" Width="354" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Progress_InstalledBodyText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+        <Control Id="RemovedBody" Type="Text" X="18" Y="63" Width="336" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Progress_RemovedBodyText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+        <Control Id="RemoveBannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_Progress_RemoveBannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+        <Control Id="InstalledBannerText" Type="Text" X="9" Y="9" Width="255" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_Progress_InstalledBannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+      </Dialog>
+    </UI>
+    <InstallUISequence>
+      <Show Dialog="ProgressForm" Sequence="1299" />
+    </InstallUISequence>
+  </Fragment>
+  <Fragment Id="AdminWelcomeDlg">
+    <Property Id="AdminWelcomeForm_NextArgs" Value="AdminFolderForm" />
+    <UI Id="AdminWelcomeDlg">
+      <Dialog Id="AdminWelcomeForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_AdminWelcome_Title)">
+        <Control Id="NextButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminWelcome_ButtonNext)" TabSkip="no" Default="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[AdminWelcomeForm_NextArgs=""]]></Publish>
+          <Publish Event="NewDialog" Value="[AdminWelcomeForm_NextArgs]"><![CDATA[AdminWelcomeForm_NextArgs<>""]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminWelcome_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminWelcome_ButtonBack)" TabSkip="no">
+          <Condition Action="disable"><![CDATA[AdminWelcomeForm_PrevArgs=""]]></Condition>
+          <Condition Action="enable"><![CDATA[AdminWelcomeForm_PrevArgs<>""]]></Condition>
+          <Publish Event="NewDialog" Value="[AdminWelcomeForm_PrevArgs]"><![CDATA[AdminWelcomeForm_PrevArgs<>""]]></Publish>
+        </Control>
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_AdminWelcome_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="CopyrightWarningText" Type="Text" X="9" Y="186" Width="354" Height="66" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminWelcome_CopyrightWarningText)" TabSkip="yes" NoPrefix="yes" />
+        <Control Id="WelcomeText" Type="Text" X="9" Y="63" Width="354" Height="114" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminWelcome_WelcomeText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[Installed="" AND NOT RESUME]]></Condition>
+          <Condition Action="hide"><![CDATA[Installed<>"" OR RESUME]]></Condition>
+        </Control>
+      </Dialog>
+    </UI>
+    <AdminUISequence>
+      <Show Dialog="AdminWelcomeForm" Sequence="1001"><![CDATA[Installed="" AND NOT RESUME]]></Show>
+    </AdminUISequence>
+  </Fragment>
+  <Fragment Id="AdminFinishedDlg">
+    <UI Id="AdminFinishedDlg">
+      <Dialog Id="AdminFinishedForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_AdminFinished_Title)">
+        <Control Id="CloseButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFinished_ButtonClose)" TabSkip="no" Default="yes" Cancel="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFinished_ButtonCancel)" TabSkip="no" Disabled="yes" />
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFinished_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_AdminFinished_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="BodyTextInstall" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFinished_BodyTextInstall)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+        <Control Id="BodyText" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFinished_BodyText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+      </Dialog>
+    </UI>
+    <AdminUISequence>
+      <Show Dialog="AdminFinishedForm" OnExit="success" />
+    </AdminUISequence>
+  </Fragment>
+  <Fragment Id="AdminProgressDlg">
+    <UI Id="AdminProgressDlg">
+      <Dialog Id="AdminProgressForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_AdminProgress_Title)" Modeless="yes">
+        <Control Id="NextButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminProgress_ButtonNext)" TabSkip="no" Disabled="yes" />
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminProgress_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminProgress_ButtonBack)" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="ProgressBar" Type="ProgressBar" X="18" Y="108" Width="336" Height="15" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiProgressBar" TabSkip="yes" Disabled="yes">
+          <Subscribe Event="InstallFiles" Attribute="Progress" />
+          <Subscribe Event="WriteRegistryValues" Attribute="Progress" />
+          <Subscribe Event="WriteIniValues" Attribute="Progress" />
+          <Subscribe Event="UnmoveFiles" Attribute="Progress" />
+          <Subscribe Event="StopServices" Attribute="Progress" />
+          <Subscribe Event="StartServices" Attribute="Progress" />
+          <Subscribe Event="RemoveRegistryValues" Attribute="Progress" />
+          <Subscribe Event="RemoveFiles" Attribute="Progress" />
+          <Subscribe Event="MoveFiles" Attribute="Progress" />
+          <Subscribe Event="InstallAdminPackage" Attribute="Progress" />
+          <Subscribe Event="DeleteServices" Attribute="Progress" />
+          <Subscribe Event="SetProgress" Attribute="Progress" />
+        </Control>
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="ProgressLabel" Type="Text" X="18" Y="96" Width="336" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminProgress_ProgressLabelText)" TabSkip="yes" />
+        <Control Id="InstalledBody" Type="Text" X="9" Y="63" Width="354" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminProgress_InstalledBodyText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+        <Control Id="RemovedBody" Type="Text" X="18" Y="63" Width="336" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminProgress_RemovedBodyText)" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+        <Control Id="RemoveBannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_AdminProgress_RemoveBannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE<>""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE=""]]></Condition>
+        </Control>
+        <Control Id="InstalledBannerText" Type="Text" X="9" Y="9" Width="255" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_AdminProgress_InstalledBannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[REMOVE=""]]></Condition>
+          <Condition Action="hide"><![CDATA[REMOVE<>""]]></Condition>
+        </Control>
+      </Dialog>
+    </UI>
+    <AdminUISequence>
+      <Show Dialog="AdminProgressForm" Sequence="1299" />
+    </AdminUISequence>
+  </Fragment>
+  <Fragment Id="AdminFolderDlg">
+    <Property Id="AdminFolderForm_PrevArgs" Value="AdminWelcomeForm" />
+    <Property Id="AdminFolderForm_NextArgs" Value="AdminConfirmInstallForm" />
+    <UI Id="AdminFolderDlg">
+      <Dialog Id="AdminFolderForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_AdminFolder_Title)" TrackDiskSpace="yes">
+        <Control Id="NextButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFolder_ButtonNext)" TabSkip="no" Default="yes">
+          <Publish Event="SetTargetPath" Value="TARGETDIR"><![CDATA[1]]></Publish>
+          <Publish Event="SpawnDialog" Value="DiskCost"><![CDATA[OutOfDiskSpace=1]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[AdminFolderForm_NextArgs="" AND OutOfDiskSpace<>1]]></Publish>
+          <Publish Event="NewDialog" Value="[AdminFolderForm_NextArgs]"><![CDATA[AdminFolderForm_NextArgs<>"" AND OutOfDiskSpace<>1]]></Publish>
+          <Publish Property="ALLUSERS" Value="2"><![CDATA[AdminFolderForm_AllUsers="ALL"]]></Publish>
+        </Control>
+        <Control Id="FolderLabel" Type="Text" X="18" Y="114" Width="348" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFolder_FolderLabel)" TabSkip="no" />
+        <Control Id="FolderEdit" Type="PathEdit" X="18" Y="126" Width="258" Height="18" Property="TARGETDIR" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiPathEdit" TabSkip="no" Sunken="yes" />
+        <Control Id="BrowseButton" Type="PushButton" X="282" Y="126" Width="84" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFolder_BrowseButton)" TabSkip="no">
+          <Publish Property="SelectFolderDialog_Property" Value="TARGETDIR"><![CDATA[1]]></Publish>
+          <Publish Event="SpawnDialog" Value="SelectFolderDialog"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="DiskCostButton" Type="PushButton" X="282" Y="150" Width="84" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFolder_DiskCostButton)" TabSkip="no">
+          <Publish Event="SetTargetPath" Value="TARGETDIR"><![CDATA[1]]></Publish>
+          <Publish Event="SpawnDialog" Value="DiskCost"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFolder_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFolder_ButtonBack)" TabSkip="no">
+          <Condition Action="disable"><![CDATA[AdminFolderForm_PrevArgs=""]]></Condition>
+          <Condition Action="enable"><![CDATA[AdminFolderForm_PrevArgs<>""]]></Condition>
+          <Publish Event="NewDialog" Value="[AdminFolderForm_PrevArgs]"><![CDATA[AdminFolderForm_PrevArgs<>""]]></Publish>
+        </Control>
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_AdminFolder_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="Body" Type="Text" X="9" Y="63" Width="354" Height="48" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminFolder_Body)" TabSkip="yes" NoPrefix="yes" />
+      </Dialog>
+    </UI>
+  </Fragment>
+  <Fragment Id="AdminConfirmDlg">
+    <Property Id="AdminConfirmInstallForm_PrevArgs" Value="AdminFolderForm" />
+    <UI Id="AdminConfirmDlg">
+      <Dialog Id="AdminConfirmInstallForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_AdminConfirm_Title)">
+        <Control Id="NextButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminConfirm_ButtonNext)" TabSkip="no" Default="yes">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[AdminConfirmInstallForm_NextArgs=""]]></Publish>
+          <Publish Event="NewDialog" Value="[AdminConfirmInstallForm_NextArgs]"><![CDATA[AdminConfirmInstallForm_NextArgs<>""]]></Publish>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminConfirm_ButtonCancel)" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminConfirm_ButtonBack)" TabSkip="no">
+          <Condition Action="disable"><![CDATA[AdminConfirmInstallForm_PrevArgs=""]]></Condition>
+          <Condition Action="enable"><![CDATA[AdminConfirmInstallForm_PrevArgs<>""]]></Condition>
+          <Publish Event="NewDialog" Value="[AdminConfirmInstallForm_PrevArgs]"><![CDATA[AdminConfirmInstallForm_PrevArgs<>""]]></Publish>
+        </Control>
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}!(loc.StdUI_AdminConfirm_BannerText)" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BodyText1" Type="Text" X="9" Y="63" Width="354" Height="180" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_AdminConfirm_BodyText1)" TabSkip="yes" NoPrefix="yes" />
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>
