@@ -22,10 +22,10 @@ namespace Quandl.Excel.UDF.Functions.Helpers
         public const int RetryWaitTimeMs = 500;
 
         // Don't allow two UDF threads to write at once.
-        public static Mutex DataWriteMutex = new Mutex();
+        //public static Mutex DataWriteMutex = new Mutex();
 
         // Some basics for writing data.
-        private Range _currentFormulaCell;
+        //private Range _currentFormulaCell;
         private readonly bool _includeHeader;
         private readonly ResultsData _results;
         private readonly bool _threaded;
@@ -33,7 +33,7 @@ namespace Quandl.Excel.UDF.Functions.Helpers
         private readonly bool _transpose;
 
         // Helpers
-        private Worksheet _currentWorksheet => _currentFormulaCell.Worksheet;
+        //private Worksheet _currentWorksheet => _currentFormulaCell.Worksheet;
         private List<string> _remainingHeaders => _results.Headers.GetRange(1, _results.Headers.Count - 1);
 
         public bool? ConfirmedOverwrite = null;
@@ -47,10 +47,67 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             _transpose = transpose;
         }
 
+        sealed class ComCache : System.IDisposable
+        {
+            private Range _currentFormulaCell;
+            public ComCache(Range currentFormulaCell)
+            {
+                _currentFormulaCell = currentFormulaCell;
+            }
+
+            public Range CurrentRange
+            {
+                get { return _currentFormulaCell; }
+            }
+
+            public void Dispose()
+            {
+                if (_worksheet != null)
+                {
+                    Marshal.ReleaseComObject(_worksheet);
+                }
+                if (_worksheetCells != null)
+                {
+                    Marshal.ReleaseComObject(_worksheetCells);
+                }
+            }
+
+            private Worksheet _worksheet;
+
+            public Worksheet Worksheet
+            {
+                get { return _worksheet = _worksheet ?? _currentFormulaCell.Worksheet; }
+            }
+
+            private Range _worksheetCells;
+
+            private Range WorksheetCells
+            {
+                get { return _worksheetCells = _worksheetCells ?? Worksheet.Cells; }
+            }
+
+            public Range this[int x, int y]
+            {
+                get { return (Range) WorksheetCells[x, y]; }
+            }
+
+            
+        }
+
+        private ComCache cache;
         public void PopulateData(Range currentFormulaCell)
         {
-            _currentFormulaCell = currentFormulaCell;
-
+            cache = new ComCache(currentFormulaCell);
+            try
+            {
+                Shared.Excel.ExcelExecutionHelper.ExecuteWithAutoRetry(Populate);
+            }
+            finally
+            {
+                cache.Dispose();
+                cache = null;
+            }
+            /*
             try
             {
                 // Acquire Mutex to avoid multiple functions writing at the same time.
@@ -68,14 +125,12 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             {
                 Trace.WriteLine(e.Message);
 
-                // Release Mutex to allow another function to write data.
-                DataWriteMutex.ReleaseMutex();
 
                 // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER or VBA_E_IGNORE)
                 if (e.HResult == Exception.RPC_E_SERVERCALL_RETRYLATER || e.HResult == Exception.VBA_E_IGNORE)
                 {
                     Thread.Sleep(RetryWaitTimeMs);
-                    PopulateData(currentFormulaCell);
+                    Populate();
                 }
 
                 throw;
@@ -83,8 +138,8 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             finally
             {
                 // Release Mutex to allow another function to write data.
-                DataWriteMutex.ReleaseMutex();
-            }
+                //DataWriteMutex.ReleaseMutex();
+            }*/
         }
 
         // Determine the value present in the first cell depending on the user options and the data returned.
@@ -104,7 +159,7 @@ namespace Quandl.Excel.UDF.Functions.Helpers
                 return Locale.English.NoDataReturned;
             }
         }
-
+        /*
         // Wait for the calculations to be done or force adding data to sheet when they are not.
         private void WaitForExcelToBeReady()
         {
@@ -121,7 +176,7 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             {
                 Logger.log("Max wait calculations iterations exceeded.", null, Logger.LogType.NOSENTRY);
             }
-        }
+        }*/
 
         private void Populate()
         {
@@ -149,7 +204,18 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             else if (_firstRow && data.Count >= 1)
             {
                 for (var j = 1; j < data[0].Count; j++)
-                    _currentFormulaCell[1, j + 1].Value2 = data[0][j]?.ToString() ?? "";
+                {
+                    var setValueCell = this.cache.CurrentRange[1, j + 1];
+                    try
+                    {
+                        setValueCell.Value2 = data[0][j]?.ToString() ?? "";
+                    }
+                    finally
+                    {
+                        Marshal.ReleaseComObject(setValueCell);
+                    }
+                }
+                    
                 PopulateGrid(data.GetRange(1, data.Count - 1), 1);
             }
             // Purely populating data, the first row was written in another call.
@@ -165,20 +231,35 @@ namespace Quandl.Excel.UDF.Functions.Helpers
 
             var dataArray = new List<List<object>>() { _remainingHeaders.Select(d => (object)d).ToList() };
             if (_transpose) dataArray = Transpose(dataArray);
+            var _currentFormulaCell = cache.CurrentRange;
             var rowStart = _currentFormulaCell.Row + (_transpose ? 1 : 0);
             var columnStart = _currentFormulaCell.Column + (_transpose ? 0 : 1);
-            var startCell = (Range)_currentWorksheet.Cells[rowStart, columnStart];
-            WriteDataToGrid(dataArray, startCell);
+            var startCell = cache[rowStart, columnStart];
+            try
+            {
+                WriteDataToGrid(dataArray, startCell);
+            }
+            finally
+            {
+                Marshal.ReleaseComObject(startCell);
+            }
         }
 
         private void PopulateGrid(List<List<object>> dataArray, int rowOffset = 0, int colOffset = 0)
         {
             if (ConfirmedOverwrite == false) return;
-
+            var _currentFormulaCell = cache.CurrentRange;
             var rowStart = rowOffset + _currentFormulaCell.Row;
             var columnStart = colOffset + _currentFormulaCell.Column;
-            var startCell = (Range)_currentWorksheet.Cells[rowStart, columnStart];
-            WriteDataToGrid(dataArray, startCell);
+            var startCell = cache[rowStart, columnStart];
+            try
+            {
+                WriteDataToGrid(dataArray, startCell);
+            }
+            finally
+            {
+                Marshal.ReleaseComObject(startCell);
+            }
         }
         private void WriteDataToGrid(List<List<object>> dataArray, Range startCell)
         {
@@ -188,29 +269,57 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             }
 
             var data = ConvertNestedListToArray(dataArray);
-
+            Range endCell = null;
+            Range writeRange = null;
+            Range writeRangeCells = null;
+            Range writeRangeCellsToShow = null;
             try
             {
-                var endCell = (Range)_currentWorksheet.Cells[startCell.Row + data.GetLength(0) - 1, startCell.Column + data.GetLength(1) - 1];
-                var writeRange = _currentWorksheet.Range[startCell, endCell];
+                
 
                 if (!CanWriteData())
                 {
                     return;
                 }
-
+                endCell = cache[startCell.Row + data.GetLength(0) - 1, startCell.Column + data.GetLength(1) - 1];
+                writeRange = cache.Worksheet.Range[startCell, endCell]; // .Range is an indexed property
                 // Take control from user, write data, show it.
                 writeRange.Value2 = data;
 
                 if (QuandlConfig.ScrollOnInsert)
                 {
-                    writeRange.Cells[data.GetLength(0), 1].Show();
+                    writeRangeCells = writeRange.Cells;
+                    writeRangeCellsToShow = writeRangeCells[data.GetLength(0), 1];
+                    writeRangeCellsToShow.Show();
                 }
             }
             catch (COMException e)
             {
                 Logger.log(e);
                 throw;
+            }
+            finally
+            {
+                if (endCell != null)
+                {
+                    Marshal.ReleaseComObject(endCell);
+                }
+
+                if (writeRange != null)
+                {
+                    Marshal.ReleaseComObject(writeRange);
+                }
+
+                if (writeRangeCells != null)
+                {
+                    Marshal.ReleaseComObject(writeRangeCells);
+                }
+
+                if (writeRangeCellsToShow != null)
+                {
+                    Marshal.ReleaseComObject(writeRangeCellsToShow);
+                }
+
             }
         }
 
