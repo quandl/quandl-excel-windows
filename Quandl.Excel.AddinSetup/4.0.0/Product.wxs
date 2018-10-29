@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="Quandl.Excel.Addin" Language="!(loc.ID)" Version="4.0.0" Manufacturer="Default Company" UpgradeCode="{2582DBE4-011D-47DB-A979-523036AC285F}" >
+  <Product Id="*" Name="Quandl.Excel.Addin" Language="!(loc.ID)" Version="4.0.0" Manufacturer="Quandl" UpgradeCode="{2582DBE4-011D-47DB-A979-523036AC285F}" >
     <Package AdminImage="no" Comments="Quandl.Excel.Addin" Compressed="yes"  InstallerVersion="200" Languages="0,1033" Manufacturer="Default Company" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
     <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
     <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />
     <Media Id="1" Cabinet="Quandl.Excel.Addin2.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
     <Property Id="DiskPrompt" Value="Quandl.Excel.Addin Installation [1]" />
     <Property Id="ARPCOMMENTS" Value="Quandl.Excel.Addin" />
-    <Property Id="ARPCONTACT" Value="Default Company" />
+    <Property Id="ARPCONTACT" Value="Quandl" />
     <Property Id="ALLUSERS" Secure="yes" Value="2" />
     <Property Id="MSIINSTALLPERUSER" Secure="yes" Value="1" />
     <Property Id="ISRUNASADMIN" Secure="yes" Value="0" />
@@ -24,7 +24,7 @@
     <!-- The ".NET Framework" launch condition. -->
     <PropertyRef Id="NETFRAMEWORK45"/>
     <Condition Message="This setup requires the .NET Framework 4.5.  Please install the .NET Framework and run this setup again."><![CDATA[Installed OR NETFRAMEWORK45]]></Condition>
-    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." AllowSameVersionUpgrades="yes" />
     <Binary Id="adxregistrator_exe" SourceFile="$(var.ADX_PATH)\Redistributables\adxregistrator.exe" />
     <Binary Id="dpca_dll" SourceFile="Resources\dpca.dll" />
     <!-- The "adxregistrator.exe" custom action. -->
@@ -38,7 +38,7 @@
     <CustomAction Id="_6227312D_332B_41D3_8F64_4E8C7ACE79F8" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin2.TargetFileName)&quot; /scope=&quot;perUser&quot;" Impersonate="yes" />
     <CustomAction Id="CA_CheckAdmin" BinaryKey="dpca_dll" DllEntry="CACheckRunAsAdmin" Execute="firstSequence" Impersonate="yes" />
     <CustomAction Id="DIRCA_MACHINESCOPEDIR" Property="DefaultAppFolderRoot" Value="[PROGRAMFILES_DIRPATH]\" Execute="firstSequence" />
-    <CustomAction Id="DIRCA_USERSCOPEDIR" Property="DefaultAppFolderRoot" Value="[LocalAppDataFolder]" Execute="firstSequence" />
+    <CustomAction Id="DIRCA_USERSCOPEDIR" Property="DefaultAppFolderRoot" Value="[AppDataFolder]" Execute="firstSequence" />
     <CustomAction Id="DISABLE_IMPERSONATE" Property="USEIMPERSONATE" Value="0" Execute="firstSequence" />
     <!-- Initialize the "TARGETDIR" directory property. -->
     <CustomAction Id="DIRCA_TARGETDIR" Property="TARGETDIR" Value="[DefaultAppFolderRoot][Manufacturer]\[ProductName]" Execute="firstSequence" />
