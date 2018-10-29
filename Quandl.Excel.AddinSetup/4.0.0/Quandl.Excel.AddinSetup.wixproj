@@ -62,7 +62,7 @@
     <EmbeddedResource Include="English.wxl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\InstallerCA\InstallerCA.csproj">
+    <ProjectReference Include="..\..\InstallerCA\InstallerCA.csproj">
       <Name>InstallerCA</Name>
       <Project>{f135d7b8-747c-4c4f-a9fc-1f3a25fbd403}</Project>
       <Private>True</Private>
@@ -70,7 +70,7 @@
       <RefProjectOutputGroups>Binaries</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Quandl.Excel.UDF.Functions\Quandl.Excel.UDF.Functions.csproj">
+    <ProjectReference Include="..\..\Quandl.Excel.UDF.Functions\Quandl.Excel.UDF.Functions.csproj">
       <Name>Quandl.Excel.UDF.Functions</Name>
       <Project>{6ac4706d-5bc0-45dc-b517-683d19c57970}</Project>
       <Private>True</Private>
@@ -78,7 +78,7 @@
       <RefProjectOutputGroups>Binaries</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\Quandl.Excel.Addin2.csproj">
+    <ProjectReference Include="..\..\Quandl.Excel.Addin2\Quandl.Excel.Addin2.csproj">
       <Name>Quandl.Excel.Addin2</Name>
       <Project>{2582DBE4-011D-47DB-A979-523036AC285E}</Project>
       <Private>True</Private>
