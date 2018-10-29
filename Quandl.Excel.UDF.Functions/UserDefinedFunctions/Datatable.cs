@@ -1,5 +1,5 @@
 ﻿using ExcelDna.Integration;
-using Microsoft.Office.Interop.Excel;
+using MSExcel = Microsoft.Office.Interop.Excel;
 using Quandl.Shared;
 using Quandl.Shared.Excel;
 using Quandl.Shared.Models;
@@ -54,7 +54,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
         {
             // Need to reset cell volatility on each run-through
             Tools.SetCellVolatile(false);
-
             // Get the current cell formula.
             var reference = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
 
@@ -63,7 +62,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             {
                 return Locale.English.AutoDownloadTurnedOff;
             }
-
             return Process(reference, rawQuandlCode, rawColumns, argName1, argValue1, argName2, argValue2, argName3, argValue3, argName4, argValue4, argName5, argValue5, argName6, argValue6);
         }
 
@@ -124,7 +122,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 Common.StatusBar.AddMessage(Locale.English.UdfRetrievingData);
                 queryParams.AddInternalParam("qopts.per_page", 1);
                 var task = new Web().GetDatatableData(quandlCode, queryParams.QueryParams);
-                task.Wait();
+                //task.Wait();
                 var firstCellString = task.Result.Columns[0].Name;
 
                 // Reset to pull x rows at a time.
@@ -138,8 +136,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 thready.Start();
 
                 // Begin the reaping thread. This is necessary to kill off and formula that are functioning for a long time.
-                var range = Tools.ReferenceToRange(currentFormulaCellReference);
-                FunctionGrimReaper.AddNewThread(thready, range.Application);
+                //var range = Tools.ReferenceToRange(currentFormulaCellReference);
+                FunctionGrimReaper.AddNewThread(thready);
 
                 return Utilities.ValidateEmptyData(firstCellString);
             }
@@ -173,7 +171,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 }
                 return true;
             });
-            shouldContinue.Wait();
+            //shouldContinue.Wait();
             return shouldContinue.Result;
         }
 
@@ -184,16 +182,39 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             return d1.Concat(d2).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
         }
 
-        internal class RetrieveAndWriteData
+        internal class RetrieveAndWriteData 
         {
             private string _quandlCode;
             private DatatableParams _datatableParams;
-            private Range _currentCellRange;
+            private ExcelReference _currentCellReference;
+            private MSExcel.Range _currentCellRange;
+            ~RetrieveAndWriteData()
+            {
+                ReleaseRange();
+            }
 
+            void ReleaseRange()
+            {
+                try
+                {
+                    if (_currentCellRange != null)
+                    {
+                        Marshal.ReleaseComObject(_currentCellRange);
+                        _currentCellRange = null;
+                    }
+                }
+                catch // suppress any exception
+                {
+
+                }
+                GC.SuppressFinalize(this); // we only need to run this function once
+
+            }
             public RetrieveAndWriteData(string quandlCode, DatatableParams datatableParams, ExcelReference currentCellReference)
             {
                 this._quandlCode = quandlCode;
                 this._datatableParams = datatableParams;
+                this._currentCellReference = currentCellReference;
                 this._currentCellRange = Tools.ReferenceToRange(currentCellReference);
             }
 
@@ -209,15 +230,20 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     {
                         // Fetch rows
                         var task = new Web().GetDatatableData(_quandlCode, _datatableParams.QueryParams);
-                        task.Wait();
+                        //task.Wait();
                         var results = task.Result;
 
                         // Inform the user whats going on.
                         currentRow += results.Data.DataPoints.Count();
-                        Common.StatusBar.AddMessage(Locale.English.UdfRetrievingDataMoreDetails.Replace("{currentRow}", currentRow.ToString()));
+                        Common.StatusBar.AddMessage(
+                            Locale.English.UdfRetrievingDataMoreDetails.Replace("{currentRow}", currentRow.ToString()));
 
                         // Process fetched rows
-                        var processedData = new ResultsData(results.Data.DataPoints, results.Columns.Select(c => c.Code).ToList());
+                        var processedData = new ResultsData(results.Data.DataPoints,
+                            results.Columns.Select(c => c.Code).ToList());
+                        // async processing ends here.
+                        // however looks like this function executes synchronously
+
 
                         // Write fetch rows out to the sheet. If this is the first iteration save the value to display in the formula cell.
                         SheetHelper excelWriter = new SheetHelper(processedData, false, false, true);
@@ -226,8 +252,12 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                             excelWriter = new SheetHelper(processedData, true, true, true);
                         }
 
+                        
+
+
+
                         // Bail out if the worksheet no longer exists.
-                        if (!WorksheetStillExists())
+                        if (!WorksheetStillExists(_currentCellRange))
                         {
                             return;
                         }
@@ -257,8 +287,30 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 
                             nextCursorId = results.Data.Cursor;
                             _datatableParams.AddInternalParam("qopts.cursor_id", results.Data.Cursor);
+                            MSExcel.Worksheet currentWorksheet = null;
+                            MSExcel.Range wsCells = null;
+                            try
+                            {
+                                currentWorksheet = _currentCellRange.Worksheet;
+                                wsCells = currentWorksheet.Cells;
+                                var swapCell =
+                                    wsCells[_currentCellRange.Row + headerOffset + results.Data.DataPoints.Count,
+                                        _currentCellRange.Column];
+                                Marshal.ReleaseComObject(_currentCellRange);
+                                _currentCellRange = swapCell;
+                            }
+                            finally
+                            {
+                                if (currentWorksheet != null)
+                                {
+                                    Marshal.ReleaseComObject(currentWorksheet);
+                                }
 
-                            _currentCellRange = _currentCellRange.Worksheet.Cells[_currentCellRange.Row + headerOffset + results.Data.DataPoints.Count, _currentCellRange.Column];
+                                if (wsCells != null)
+                                {
+                                    Marshal.ReleaseComObject(wsCells);
+                                }
+                            }
                         }
                         else
                         {
@@ -272,7 +324,8 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 catch (COMException e)
                 {
                     // Most likely the worksheet no longer exists so bail out. These two codes seem to occur during those scenarios.
-                    if (e.HResult == Shared.Excel.Exception.BAD_REFERENCE || e.HResult == Shared.Excel.Exception.VBA_E_IGNORE)
+                    if (e.HResult == Shared.Excel.Exception.BAD_REFERENCE ||
+                        e.HResult == Shared.Excel.Exception.VBA_E_IGNORE)
                     {
                         return;
                     }
@@ -289,11 +342,32 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                     Common.HandlePotentialQuandlError(e, false, AdditionalInfo(_datatableParams));
                     Common.StatusBar.AddMessage(Locale.English.UdfCompleteError);
                 }
+                finally
+                {
+                    ReleaseRange(); 
+                }
             }
 
-            private bool WorksheetStillExists()
+            private bool WorksheetStillExists(MSExcel.Range range)
             {
-                return !(_currentCellRange == null || _currentCellRange.Worksheet == null);
+                if (range == null)
+                {
+                    return false;
+                }
+
+                MSExcel.Worksheet ws = null;
+                try
+                {
+                    ws = range.Worksheet;
+                    return ws != null;
+                }
+                finally
+                {
+                    if (ws != null)
+                    {
+                        Marshal.ReleaseComObject(ws);
+                    }
+                }
             }
         }
 

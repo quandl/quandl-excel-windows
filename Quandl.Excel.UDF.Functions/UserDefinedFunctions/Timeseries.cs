@@ -7,6 +7,7 @@ using Quandl.Shared;
 using Quandl.Shared.Models;
 using Quandl.Excel.UDF.Functions.Helpers;
 using MoreLinq;
+using System.Runtime.InteropServices;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
@@ -108,6 +109,9 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             }
             catch (Exception e)
             {
+#if DEBUG
+                System.Diagnostics.Debug.Assert(false);
+#endif
                 string msg = null;
 
                 if (e.InnerException != null && e.InnerException is Shared.Errors.QuandlErrorBase)
@@ -148,10 +152,18 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 }
                 else
                 {
-                    var range = Tools.ReferenceToRange(reference);
                     ExcelAsyncUtil.QueueAsMacro(() =>
                     {
-                        excelWriter.PopulateData(range);
+                        var range = Tools.ReferenceToRange(reference);
+                        try
+                        {
+                            excelWriter.PopulateData(range);
+                        }
+                        finally
+                        {
+                            Marshal.ReleaseComObject(range);
+                        }
+
                         Common.StatusBar.AddMessage(Locale.English.UdfDataWritingSuccess);
                     });
                 }
@@ -221,7 +233,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             foreach (var batchTask in tasks.Batch(numberOfTasksForEachBatch))
             {
                 var fetchTask = Task.WhenAll(batchTask);
-                fetchTask.Wait();
+                //fetchTask.Wait();
                 var result = fetchTask.Result;
                 fetchTaskCollection = fetchTaskCollection.Concat(result).ToArray();
             }
@@ -261,7 +273,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 {
                     // perform a metadata api query based on the dataset code
                     var fetchTask = Task.WhenAll(new Web().GetDatasetMetadata(code));
-                    fetchTask.Wait();
+                    //fetchTask.Wait();
 
                     var metadata = fetchTask.Result.First().Metadata;
                     datasetMetadata.Add(code, metadata);
