@@ -64,7 +64,7 @@
     <UI Id="FolderDlg">
       <Property Id="FolderForm_ForMeOnlyCheckValue" Value="1" />
       <Property Id="FolderForm_AllUsers" Value="ME" />
-      <Property Id="FolderForm_AllUsersVisible" Value="1" />
+      <Property Id="FolderForm_AllUsersVisible" Value="0" />
       <Dialog Id="FolderForm" X="50" Y="50" Width="373" Height="287" Title="!(loc.StdUI_Folder_Title)" TrackDiskSpace="yes">
         <Control Id="NextButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_ButtonNext)" TabSkip="no" Default="yes">
           <Publish Event="SetTargetPath" Value="TARGETDIR"><![CDATA[1]]></Publish>
@@ -106,7 +106,7 @@
           <Publish Property="FolderForm_ForMeOnlyCheckValue" Value="1"><![CDATA[FolderForm_ForAllUsersCheckValue=""]]></Publish>
           <Publish Property="FolderForm_ForAllUsersCheckValue"><![CDATA[FolderForm_ForMeOnlyCheckValue="1"]]></Publish>
           <Publish Property="FolderForm_AllUsers" Value="ME"><![CDATA[1]]></Publish>
-          <Publish Property="TARGETDIR" Value="[LocalAppDataFolder][Manufacturer]\[ProductName]"><![CDATA[1]]></Publish>
+          <Publish Property="TARGETDIR" Value="[AppDataFolder][Manufacturer]\[ProductName]"><![CDATA[1]]></Publish>
         </Control>
         <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}!(loc.StdUI_Folder_ButtonCancel)" TabSkip="no" Cancel="yes">
           <Publish Event="SpawnDialog" Value="Cancel" />
