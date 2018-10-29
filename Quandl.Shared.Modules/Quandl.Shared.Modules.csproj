@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Quandl.Shared</RootNamespace>
     <AssemblyName>Quandl.Shared</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -31,20 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>dummy.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LinqJoin, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqJoin.1.0.1\lib\portable-net4+sl4+wp7+win8\LinqJoin.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Visual Studio Tools for Office\PIA\Office15\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq, Version=2.0.20029.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.2.3.0\lib\net35\MoreLinq.dll</HintPath>
@@ -59,9 +54,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationFramework" />
-    <Reference Include="SharpRaven, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpRaven.2.2.0\lib\net45\SharpRaven.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="sharpraven, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SharpRaven.2.2.0\lib\net45\sharpraven.dll</HintPath>
     </Reference>
     <Reference Include="Syroot.Windows.IO.KnownFolders, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Syroot.Windows.IO.KnownFolders.1.0.2\lib\net40\Syroot.Windows.IO.KnownFolders.dll</HintPath>
@@ -86,14 +81,17 @@
   <ItemGroup>
     <Compile Include="Errors\MissingFormulaException.cs" />
     <Compile Include="Errors\QuandlErrorBase.cs" />
+    <Compile Include="Excel\DummyHostService.cs" />
+    <Compile Include="Excel\ExcelExecutionHelper.cs" />
     <Compile Include="Excel\Exception.cs" />
     <Compile Include="Excel\FunctionGrimReaper.cs" />
+    <Compile Include="Excel\IHostService.cs" />
     <Compile Include="Excel\IStatusBar.cs" />
     <Compile Include="Excel\NullStatusBar.cs" />
     <Compile Include="Excel\StatusBar.cs" />
-    <Compile Include="Excel\ThreadedStatusBar.cs" />
-    <Compile Include="FunctionUpdater.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="Helpers\CheckedItemHelper.cs" />
+    <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\Updater.cs" />
     <Compile Include="Locale\English.Designer.cs">
@@ -141,6 +139,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="dummy.snk" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

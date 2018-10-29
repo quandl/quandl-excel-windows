@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-using Quandl.Shared.Helpers;
+﻿using Quandl.Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +15,15 @@ namespace Quandl.Shared.Excel
 
         public static FunctionGrimReaper Instance => _instance ?? (_instance = new FunctionGrimReaper());
 
-        private static Application _application;
+        //private static Application _application;
         private static Mutex ThreadAccess = new Mutex();
         private static Thread _reaper;
 
         private static List<Thread> _runningThreads = new List<Thread>();
         private static FunctionGrimReaper _instance;
 
-        private static IStatusBar StatusBar => new StatusBar();
 
-        public static void AddNewThread(Thread t, Application application)
+        public static void AddNewThread(Thread t)
         {
             // Add a new thread to be reaped.
             ThreadAccess.WaitOne();
@@ -33,25 +31,25 @@ namespace Quandl.Shared.Excel
             ThreadAccess.ReleaseMutex();
 
             // Start reaping if not already started.
-            BeginTheReaping(application);
+            BeginTheReaping();
         }
 
         public static void EndReaping()
         {
-            _application = null;
+            //_application = null;
             if (_reaper != null)
             {
                 _reaper.Abort();
             }
         }
 
-        private static void BeginTheReaping(Application application)
+        private static void BeginTheReaping()
         {
             // If a reaper is already running abort it first before creating a new one.
             EndReaping();
 
             // Set the application
-            _application = application;
+            //_application = application;
 
             // Create a new background low priority reaper.
             _reaper = new Thread(Reap);
@@ -97,7 +95,7 @@ namespace Quandl.Shared.Excel
             try
             {
                 // Add a message indicating the formula's are stopping.
-                StatusBar.AddMessage(Locale.English.DownloadStopping);
+                Globals.Instance.StatusBar.AddMessage(Locale.English.DownloadStopping);
 
                 // Kill and remove from the queue all running threads.
                 _runningThreads.ForEach(t => t.Abort());
@@ -107,11 +105,11 @@ namespace Quandl.Shared.Excel
                 QuandlConfig.StopCurrentExecution = false;
 
                 // Add a message to indicate the formula's have stopped.
-                StatusBar.AddMessage(Locale.English.DownloadStopped);
+                Globals.Instance.StatusBar.AddMessage(Locale.English.DownloadStopped);
             }
             catch(System.Exception e)
             {
-                StatusBar.AddException(e);
+                Globals.Instance.StatusBar.AddException(e);
                 Logger.log(e);
                 return false;
             }

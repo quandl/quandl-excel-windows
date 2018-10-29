@@ -9,7 +9,7 @@ namespace Quandl.Shared
 {
     public class Utilities
     {
-        public const string ReleaseVersion = "v3.87.1";
+        public const string ReleaseVersion = "v4.0.0";
         public const string ReleaseSource = "excel";
         public const string DateFormat = "yyyy-MM-dd";
         public enum UserRoles
@@ -132,16 +132,19 @@ namespace Quandl.Shared
          */
         public static float WindowsScalingFactor()
         {
-            Graphics g = Graphics.FromHwnd(IntPtr.Zero);
-            float factor = g.DpiX / WinDefaultDpi;
-            g.Dispose();
-            return factor;
+            using (Graphics g = Graphics.FromHwnd(IntPtr.Zero))
+            {
+                float factor = g.DpiX / WinDefaultDpi;
+                return factor;
+            }
+
+            
         }
 
         public static string GetUserRole(JToken user)
         {
             UserRoles userRole;
-            string userRoleStr = user["user_role"].ToString().ToLower();
+            string userRoleStr = user["user_role"]?.ToString()?.ToLower();
             switch (userRoleStr)
             {
                 case "user":

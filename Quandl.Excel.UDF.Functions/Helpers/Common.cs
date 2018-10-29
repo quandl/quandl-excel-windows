@@ -14,8 +14,10 @@ namespace Quandl.Excel.UDF.Functions.Helpers
         private const int RetryWaitTimeMs = 500;
         private const int MaximumRetries = 20;
 
-        public static IStatusBar StatusBar => StatusBarInstance();
-        private static IStatusBar _StatusInstance = null;
+        public static IStatusBar StatusBar
+        {
+            get { return Globals.Instance.StatusBar; }
+        }
 
         public static string HandleQuandlError(QuandlErrorBase e, bool reThrow = true, Dictionary<string, string> additionalData = null)
         {
@@ -71,47 +73,6 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             return null;
         }
 
-        // Try really hard to get the instance of the status bar from the application.
-        public static IStatusBar StatusBarInstance(int retryCount = MaximumRetries)
-        {
-            if (_StatusInstance != null)
-            {
-                return _StatusInstance;
-            }
-
-            try
-            {
-                // Ran out of retries
-                if (retryCount == 0)
-                {
-                    return new NullStatusBar();
-                }
-
-                // Normal status bar access
-                try
-                {
-                    _StatusInstance = new StatusBar();
-                    return _StatusInstance;
-                }
-                catch (COMException e)
-                {
-                    // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER)
-                    if (e.HResult == Shared.Excel.Exception.RPC_E_SERVERCALL_RETRYLATER || e.HResult == Shared.Excel.Exception.VBA_E_IGNORE)
-                    {
-                        Thread.Sleep(RetryWaitTimeMs);
-                        _StatusInstance = StatusBarInstance(retryCount - 1);
-                        return _StatusInstance;
-                    }
-
-                    Logger.log(e, null, Logger.LogType.NOSENTRY);
-                    return new NullStatusBar();
-                }
-            }
-            catch (System.Exception e)
-            {
-                Logger.log(e, null, Logger.LogType.NOSENTRY);
-                return new NullStatusBar();
-            }
-        }
+       
     }
 }

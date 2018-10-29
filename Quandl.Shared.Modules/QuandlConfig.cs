@@ -98,7 +98,7 @@ namespace Quandl.Shared
             set
             {
                 SetRegistryKeyValue("AutoUpdateFrequency", value, RegistryValueKind.DWord);
-                OnAutoUpdateFrequencyChanged();
+                
             }
         }
 
@@ -111,11 +111,7 @@ namespace Quandl.Shared
         private string apiKey
         {
             get { return GetRegistry<string>("ApiKey"); }
-            set
-            {
-                SetRegistryKeyValue("ApiKey", value);
-                OnLoginChanged();
-            }
+            set { SetRegistryKeyValue("ApiKey", value); }
         }
 
         private string userRole
@@ -145,9 +141,8 @@ namespace Quandl.Shared
             return quandlRootKey != null && quandlRootKey.GetValueNames().Contains(key);
         }
 
-        public event LoginChangedHandler LoginChanged;
-        public event LoginChangedHandler AutoUpdateFrequencyChanged;
-
+        
+        
         public static async Task<bool> ApiKeyValid(string apiKey = null)
         {
             if (apiKey == null)
@@ -225,14 +220,8 @@ namespace Quandl.Shared
             return default(T);
         }
 
-        protected virtual void OnLoginChanged()
-        {
-            LoginChanged?.Invoke();
-        }
+     
 
-        protected virtual void OnAutoUpdateFrequencyChanged()
-        {
-            AutoUpdateFrequencyChanged?.Invoke();
-        }
+     
     }
 }
