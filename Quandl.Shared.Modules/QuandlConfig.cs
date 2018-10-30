@@ -102,6 +102,24 @@ namespace Quandl.Shared
             }
         }
 
+        private const string EnableFloatingTaskPaneNameKey = nameof(EnableFloatingTaskPane);
+        public static bool EnableFloatingTaskPane
+        {
+            get
+            {
+                try
+                {
+                    if (RegistryKeyExists(EnableFloatingTaskPaneNameKey))
+                    {
+                        return GetRegistry<bool>(EnableFloatingTaskPaneNameKey);
+                    }
+                }
+                catch
+                {
+                }
+                return false;
+            }
+        }
         public static AutoUpdateFrequencies AutoUpdateFrequency
         {
             get { return Instance.autoUpdateFrequency; }

@@ -226,9 +226,9 @@ namespace Quandl.Excel.Addin
                 // move to active screen when possible
                 try
                 {
-                    pane.Delete(context);
+                    //pane.Delete(context);
                     pane.Visible = true;
-                    pane.Create(context);
+                    //pane.Create(context);
                     var instance = pane[context];
                     if (instance != null)
                     {
