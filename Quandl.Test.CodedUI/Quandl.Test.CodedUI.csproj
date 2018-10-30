@@ -122,10 +122,6 @@
       <Project>{C77BC1E8-9AAA-4F9C-9B47-0E3EF672C72C}</Project>
       <Name>Quandl.Shared.Modules</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QuandlExcelAddinWindows\Quandl.Excel.Addin.csproj">
-      <Project>{46DC729E-5083-4F4B-BF2E-E20611D3C14E}</Project>
-      <Name>Quandl.Excel.Addin</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Settings.xml.sample" />
