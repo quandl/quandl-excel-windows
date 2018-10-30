@@ -91,6 +91,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 {
                     return e.Message;
                 }
+
                 Common.StatusBar.AddMessage(Locale.English.UdfDataRetrievalSuccess);
 
                 // Assume the first column is date column
@@ -109,6 +110,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             }
             catch (Exception e)
             {
+                Shared.Helpers.Logger.log(e);
 #if DEBUG
                 System.Diagnostics.Debug.Assert(false);
 #endif
