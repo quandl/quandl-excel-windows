@@ -187,15 +187,23 @@ namespace Quandl.Excel.Addin
 
         private void AddinModule_AddinInitialize(object sender, EventArgs e)
         {
+#if DEBUG
             System.Diagnostics.Debug.Assert(false);
-
-            //MessageBox.Show("AddinIni");
-            if (this.HostMajorVersion <= 14)
+#endif
+            // Note by Stan Ostashewski, 2018/10/29
+            // Displaying task panes to the right eliminates visual flickering.
+            // Also Excel will display Floating Pane on the primary display only, even if Excel is displayed on another display.
+            // In our case it is cleaner to display task panes docked to the right.
+            // To enable floating task panes set registry key
+            // HKEY_CURRENT_USER\Software\Quandl\Excel Add-in
+            // EnableFloatingTaskPane = 0x1 (DWORD)
+            if (!Quandl.Shared.QuandlConfig.EnableFloatingTaskPane)
             {
                 for (var taskPaneIndex = 0; taskPaneIndex < this.TaskPanes.Count; taskPaneIndex++)
                 {
                     var taskPane = TaskPanes[taskPaneIndex];
-                    // disallow floating position for Excel 2010 since it provokes initialization error
+                    // floating position also seems to be provoking initialization error for Excel 2010 and 2016
+                    // could have been consequence to WPF loading?
                     if (taskPane.DockPosition == ADXCTPDockPosition.ctpDockPositionFloating)
                     {
                         taskPane.DockPosition = ADXCTPDockPosition.ctpDockPositionRight;
@@ -280,6 +288,8 @@ namespace Quandl.Excel.Addin
         private void AddinModule_OnError(ADXErrorEventArgs e)
         {
             System.Diagnostics.Debug.Assert(false);
+            System.Diagnostics.Trace.TraceError(e.ADXError.ToString());
+            e.Handled = true;
         }
 
         private void adxExcelAppEvents1_WorkbookOpen(object sender, object hostObj)
