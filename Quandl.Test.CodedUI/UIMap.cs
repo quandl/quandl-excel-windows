@@ -141,8 +141,8 @@
         public void OpenExcelAndWorksheet()
         {
             var blankWorkbookListItem = UIExcelWindow.UIFeaturedList.UIBlankworkbookListItem;
-            string ExePath = "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\EXCEL.EXE";
-            string AlternateExePath = "%ProgramFiles%\\Microsoft Office\\root\\Office16\\EXCEL.EXE";
+            string ExePath = "C:\\Program Files\\Microsoft Office 15\\root\\Office15\\EXCEL.EXE";
+            string AlternateExePath = "%ProgramFiles%\\Microsoft Office\\root\\Office15\\EXCEL.EXE";
 
             ApplicationUnderTest excelApplication = ApplicationUnderTest.Launch(ExePath, AlternateExePath);
             Mouse.Click(blankWorkbookListItem);

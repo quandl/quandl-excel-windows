@@ -85,29 +85,14 @@
       <Component Id="comp_F8C19954_3409_45C7_8A1A_196BE202E299" Guid="037C6D9C-70A5-4DA0-8ACE-9E657753E08E" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_F8C19954_3409_45C7_8A1A_196BE202E299" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="GongSolutions.WPF.DragDrop.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)GongSolutions.WPF.DragDrop.dll" />
       </Component>
-      <Component Id="comp_3B21CC2D_7649_4C1E_921B_B1CAAF1FA472" Guid="4907FFA6-92C2-4D12-8B7D-3A80A9501699" Permanent="no" SharedDllRefCount="no" Transitive="no">
-        <File Id="_3B21CC2D_7649_4C1E_921B_B1CAAF1FA472" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="GongSolutions.WPF.DragDrop.pdb" Source="$(var.Quandl.Excel.Addin2.TargetDir)GongSolutions.WPF.DragDrop.pdb" />
-      </Component>
-      <Component Id="comp_5B4EE91D_E767_44B0_AFCF_29E8D48D70E2" Guid="75C90D6C-F018-4814-81BD-40764BE2DA93" Permanent="no" SharedDllRefCount="no" Transitive="no">
-        <File Id="_5B4EE91D_E767_44B0_AFCF_29E8D48D70E2" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="GongSolutions.WPF.DragDrop.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)GongSolutions.WPF.DragDrop.xml" />
-      </Component>
       <Component Id="comp_C61B93FC_0DC3_400C_B007_14D928A9D8DB" Guid="DF7B49D0-63CC-41D6-85D4-701EB83C8F13" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_C61B93FC_0DC3_400C_B007_14D928A9D8DB" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Microsoft.Vbe.Interop.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Microsoft.Vbe.Interop.dll" />
       </Component>
       <Component Id="comp_CB191DCA_4C1B_4A07_8D7E_331922F8ADAD" Guid="901648AD-7EED-452E-848D-47680E78D0D2" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_CB191DCA_4C1B_4A07_8D7E_331922F8ADAD" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="MoreLinq.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)MoreLinq.dll" />
       </Component>
-      <Component Id="comp_D7665C73_0E39_4B6A_AD0B_A850C9520079" Guid="501FC08A-2053-40A6-90AA-856A44652637" Permanent="no" SharedDllRefCount="no" Transitive="no">
-        <File Id="_D7665C73_0E39_4B6A_AD0B_A850C9520079" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="MoreLinq.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)MoreLinq.xml" />
-      </Component>
       <Component Id="comp_E77E6274_41D8_4DDB_9168_53AD34633018" Guid="6B132F9C-4BEA-4F3D-98B9-951459BEE6B1" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_E77E6274_41D8_4DDB_9168_53AD34633018" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Newtonsoft.Json.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Newtonsoft.Json.dll" />
-      </Component>
-      <Component Id="comp_C6EC2037_1737_4428_BDC4_20FDAEDE0C5A" Guid="E20AC4C9-3775-4215-92D9-8332DAC6C2C6" Permanent="no" SharedDllRefCount="no" Transitive="no">
-        <File Id="_C6EC2037_1737_4428_BDC4_20FDAEDE0C5A" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Newtonsoft.Json.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)Newtonsoft.Json.xml" />
-      </Component>
-      <Component Id="comp_43BA5DD1_91DF_46A5_BE1F_DC896A6E9B66" Guid="A620DA56-EAC6-4EF5-8F59-F2C19756820B" Permanent="no" SharedDllRefCount="no" Transitive="no">
-        <File Id="_43BA5DD1_91DF_46A5_BE1F_DC896A6E9B66" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Octokit.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)Octokit.xml" />
       </Component>
       <Component Id="comp_3FBDF675_4D20_4DB1_AC0F_79CF889B6F40" Guid="31B2FF11-5C67-455F-B8BF-BCA9C4C4D449" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_3FBDF675_4D20_4DB1_AC0F_79CF889B6F40" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Office.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Office.dll" />
@@ -115,29 +100,17 @@
       <Component Id="comp_9FEED358_2E13_4DB7_8E2D_361ACAB9A94F" Guid="74716460-6A51-4108-90AB-47BA743157C3" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_9FEED358_2E13_4DB7_8E2D_361ACAB9A94F" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="PropertyChanged.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)PropertyChanged.dll" />
       </Component>
-      <Component Id="comp_62F1EBE7_CE63_428F_99DE_AAD9B18F5E2B" Guid="5F846419-365F-4A96-8141-D771C0391F88" Permanent="no" SharedDllRefCount="no" Transitive="no">
-        <File Id="_62F1EBE7_CE63_428F_99DE_AAD9B18F5E2B" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="PropertyChanged.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)PropertyChanged.xml" />
-      </Component>
       <Component Id="comp_BE29E116_CEFC_4CBE_81F8_8BC2DDEF39C1" Guid="9A73C9C7-64F1-49C2-A1DE-FA73B4ADD5B2" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_BE29E116_CEFC_4CBE_81F8_8BC2DDEF39C1" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Quandl.Excel.Addin.dll.config" Source="$(var.Quandl.Excel.Addin2.TargetDir)Quandl.Excel.Addin.dll.config" />
       </Component>
-      <Component Id="comp_7D5FBD94_691F_471E_B989_C557716097C4" Guid="264DDC81-0269-4AE2-8D98-5DBBFE5FF5BA" Permanent="no" SharedDllRefCount="no" Transitive="no">
-        <File Id="_7D5FBD94_691F_471E_B989_C557716097C4" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Quandl.Shared.pdb" Source="$(var.Quandl.Excel.Addin2.TargetDir)Quandl.Shared.pdb" />
-      </Component>
       <Component Id="comp_A8FB2740_865B_4AF9_AF63_66C4DA8CEF15" Guid="E963ED2B-5A4B-4050-8B10-11837160FF17" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_A8FB2740_865B_4AF9_AF63_66C4DA8CEF15" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="SharpRaven.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)SharpRaven.dll" />
-      </Component>
-      <Component Id="comp_89984D6D_8925_45F9_AE40_D3440DE14EB9" Guid="57E48DC2-5F4F-4575-B6E0-FE4134F6CDBF" Permanent="no" SharedDllRefCount="no" Transitive="no">
-        <File Id="_89984D6D_8925_45F9_AE40_D3440DE14EB9" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="SharpRaven.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)SharpRaven.xml" />
       </Component>
       <Component Id="comp_8103D9FA_0B84_4861_9A9A_4DBE7905C3AC" Guid="D431F942-AA68-4AFA-B2F6-500B3AC06098" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_8103D9FA_0B84_4861_9A9A_4DBE7905C3AC" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="stdole.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)stdole.dll" />
       </Component>
       <Component Id="comp_4251CEB2_8071_469F_BB2C_49C783CE36A8" Guid="E6A47A78-B80A-43CE-AA52-3E9C20E71EAE" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_4251CEB2_8071_469F_BB2C_49C783CE36A8" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Syroot.Windows.IO.KnownFolders.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Syroot.Windows.IO.KnownFolders.dll" />
-      </Component>
-      <Component Id="comp_3703C8CB_C6FF_4C8B_A06F_342CAF1B4C6B" Guid="54F1F7BF-CDD9-4118-8EEE-E1D30CE56DDD" Permanent="no" SharedDllRefCount="no" Transitive="no">
-        <File Id="_3703C8CB_C6FF_4C8B_A06F_342CAF1B4C6B" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Syroot.Windows.IO.KnownFolders.xml" Source="$(var.Quandl.Excel.Addin2.TargetDir)Syroot.Windows.IO.KnownFolders.xml" />
       </Component>
       <Component Id="comp_276B6362_4024_4944_80C5_BB3B0DE6F91E" Guid="B51C7BD7-C320-482D-BAA2-B32A0C559382" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_276B6362_4024_4944_80C5_BB3B0DE6F91E" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Xceed.Wpf.AvalonDock.dll" Source="$(var.Quandl.Excel.Addin2.TargetDir)Xceed.Wpf.AvalonDock.dll" />
@@ -167,24 +140,15 @@
       <ComponentRef Id="comp_4EFEF968_1DF4_405B_B8EA_0D570F231B6E" />
       <ComponentRef Id="comp_49E7B486_C872_4ED8_A378_6C509B90636F" />
       <ComponentRef Id="comp_F8C19954_3409_45C7_8A1A_196BE202E299" />
-      <ComponentRef Id="comp_3B21CC2D_7649_4C1E_921B_B1CAAF1FA472" />
-      <ComponentRef Id="comp_5B4EE91D_E767_44B0_AFCF_29E8D48D70E2" />
       <ComponentRef Id="comp_C61B93FC_0DC3_400C_B007_14D928A9D8DB" />
       <ComponentRef Id="comp_CB191DCA_4C1B_4A07_8D7E_331922F8ADAD" />
-      <ComponentRef Id="comp_D7665C73_0E39_4B6A_AD0B_A850C9520079" />
       <ComponentRef Id="comp_E77E6274_41D8_4DDB_9168_53AD34633018" />
-      <ComponentRef Id="comp_C6EC2037_1737_4428_BDC4_20FDAEDE0C5A" />
-      <ComponentRef Id="comp_43BA5DD1_91DF_46A5_BE1F_DC896A6E9B66" />
       <ComponentRef Id="comp_3FBDF675_4D20_4DB1_AC0F_79CF889B6F40" />
       <ComponentRef Id="comp_9FEED358_2E13_4DB7_8E2D_361ACAB9A94F" />
-      <ComponentRef Id="comp_62F1EBE7_CE63_428F_99DE_AAD9B18F5E2B" />
       <ComponentRef Id="comp_BE29E116_CEFC_4CBE_81F8_8BC2DDEF39C1" />
-      <ComponentRef Id="comp_7D5FBD94_691F_471E_B989_C557716097C4" />
       <ComponentRef Id="comp_A8FB2740_865B_4AF9_AF63_66C4DA8CEF15" />
-      <ComponentRef Id="comp_89984D6D_8925_45F9_AE40_D3440DE14EB9" />
       <ComponentRef Id="comp_8103D9FA_0B84_4861_9A9A_4DBE7905C3AC" />
       <ComponentRef Id="comp_4251CEB2_8071_469F_BB2C_49C783CE36A8" />
-      <ComponentRef Id="comp_3703C8CB_C6FF_4C8B_A06F_342CAF1B4C6B" />
       <ComponentRef Id="comp_276B6362_4024_4944_80C5_BB3B0DE6F91E" />
       <ComponentRef Id="comp_DF198C66_2B8C_4C80_BE09_9C1A03BB6CE3" />
       <ComponentRef Id="comp_E89996B2_88C7_40FF_9BDF_F00F7FA57998" />
