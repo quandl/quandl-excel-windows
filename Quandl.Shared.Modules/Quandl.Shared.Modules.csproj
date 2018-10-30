@@ -49,18 +49,18 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Octokit, Version=0.24.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Octokit.0.24.0\lib\net45\Octokit.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="octokit, Version=0.24.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\octokit.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="sharpraven, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SharpRaven.2.2.0\lib\net45\sharpraven.dll</HintPath>
+      <HintPath>..\3rdparty\sharpraven.dll</HintPath>
     </Reference>
     <Reference Include="Syroot.Windows.IO.KnownFolders, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Syroot.Windows.IO.KnownFolders.1.0.2\lib\net40\Syroot.Windows.IO.KnownFolders.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\Syroot.Windows.IO.KnownFolders.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
