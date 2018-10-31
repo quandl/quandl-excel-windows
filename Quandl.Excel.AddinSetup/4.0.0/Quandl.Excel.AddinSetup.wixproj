@@ -39,7 +39,7 @@
     <Content Include="XSLT\XslProjectOutput.xslt" />
     <Content Include="XSLT\readme.txt" />
     <Content Include="XSLT\_InstallerCA.xml" />
-    <Content Include="XSLT\_Quandl.Excel.Addin2.xml" />
+    <Content Include="XSLT\_Quandl.Excel.Addin.xml" />
     <Content Include="XSLT\_Quandl.Excel.UDF.Functions.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -78,8 +78,8 @@
       <RefProjectOutputGroups>Binaries</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\Quandl.Excel.Addin2\Quandl.Excel.Addin2.csproj">
-      <Name>Quandl.Excel.Addin2</Name>
+    <ProjectReference Include="..\..\Quandl.Excel.Addin\Quandl.Excel.Addin.csproj">
+      <Name>Quandl.Excel.Addin</Name>
       <Project>{2582DBE4-011D-47DB-A979-523036AC285E}</Project>
       <Private>True</Private>
       <DoNotHarvest />
