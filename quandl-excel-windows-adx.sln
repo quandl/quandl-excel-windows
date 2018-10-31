@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Shared.Modules", "Qu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Test.UnitTests", "Quandl.Test.UnitTests\Quandl.Test.UnitTests\Quandl.Test.UnitTests.csproj", "{00D17695-96F6-4A70-B29B-17E6B89EFBF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Excel.Addin2", "Quandl.Excel.Addin2\Quandl.Excel.Addin2.csproj", "{2582DBE4-011D-47DB-A979-523036AC285E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.Excel.Addin", "Quandl.Excel.Addin\Quandl.Excel.Addin.csproj", "{2582DBE4-011D-47DB-A979-523036AC285E}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Quandl.Excel.AddinSetup", "Quandl.Excel.AddinSetup\4.0.0\Quandl.Excel.AddinSetup.wixproj", "{E15D07F2-5114-4873-BFD2-1DECF71141FD}"
 EndProject

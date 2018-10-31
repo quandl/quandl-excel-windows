@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ProjectOutput Name="Quandl.Excel.Addin2" ProjectDirVar="$(var.Quandl.Excel.Addin2.ProjectDir)" TargetDirVar="$(var.Quandl.Excel.Addin2.TargetDir)" SharedFileId="_FA6862AA_662E_4D62_8B9C_9C8663769941">
+<ProjectOutput Name="Quandl.Excel.Addin" ProjectDirVar="$(var.Quandl.Excel.Addin.ProjectDir)" TargetDirVar="$(var.Quandl.Excel.Addin.TargetDir)" SharedFileId="_FA6862AA_662E_4D62_8B9C_9C8663769941">
   <Binaries>
     <DiskId>1</DiskId>
     <Compressed />
