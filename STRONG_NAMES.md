@@ -1,5 +1,7 @@
 # Strong names to all assemblies
 
+Restore NuGet packages and run script "3rdParty\makesn.cmd" to create assemblies with strong names.
+
 All 3rd party dependency assemblies must have strong names. Repeat the following steps for sharpraven.dll, octokit.dll, Syroot.Windows.IO.KnownFolders.dll, Markdown.Xaml.dll
 
 1. Generate a KeyFile: sn -k keyPair.snk
