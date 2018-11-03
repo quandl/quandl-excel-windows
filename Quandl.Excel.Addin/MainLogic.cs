@@ -198,63 +198,176 @@ namespace Quandl.Excel.Addin
     class TaskPaneUpdater
     {
         private readonly float _scalingFactor = Shared.Utilities.WindowsScalingFactor();
-        public void UpdateTaskPane<T>(ADXTaskPane taskPane)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="taskPane"><code>null</code> for standalone form (not a task pane)</param>
+        public void UpdateTaskPane<T>(ADXTaskPane taskPane, bool useForm)
         {
-            if (string.IsNullOrEmpty(taskPane.ControlProgID))
+            if (useForm)
             {
-                taskPane.ControlProgID = typeof(T).FullName;
+                taskPane.ControlProgID = "";
             }
-            //taskPane.DockPosition = ADXCTPDockPosition.ctpDockPositionFloating;
-            //taskPane.DockPositionRestrict = ADXCTPDockPositionRestrict.ctpDockPositionRestrictNoHorizontal;
-            taskPane.Width = (int)(taskPane.Width * _scalingFactor);
-            taskPane.Height = (int)(taskPane.Height * _scalingFactor);
-            registeredPanes.Add(typeof(T), taskPane);
+            else
+            {
+                if (string.IsNullOrEmpty(taskPane.ControlProgID))
+                {
+                    taskPane.ControlProgID = typeof(T).FullName;
+                }
+            }
+
+            taskPane.Width = (int) (taskPane.Width * _scalingFactor);
+            taskPane.Height = (int) (taskPane.Height * _scalingFactor);
+
+            registeredPanes.Add(typeof(T),
+                new PaneInfo
+                {
+                    TaskPane = taskPane,
+                    UseForm = useForm
+                });
+
         }
 
-        private readonly System.Collections.Generic.Dictionary<Type, ADXTaskPane> registeredPanes
-            = new System.Collections.Generic.Dictionary<Type, ADXTaskPane>();
+        class PaneInfo
+        {
+            public ADXTaskPane TaskPane { get; set; }
+            public bool UseForm { get; set; }
+            public Form CurrentForm { get; set; }
+            public UI.TaskPaneWpfControlHost ControlHost { get; set; }
+        }
+        private readonly Dictionary<Type, PaneInfo> registeredPanes
+            = new Dictionary<Type, PaneInfo>();
+        
 
         public void Show<T>(object context)
+            where T : UI.TaskPaneWpfControlHost
         {
             Show<T>(context, null);
         }
+        
         public void Show<T>(object context, Action<T> showAction)
+            where T:UI.TaskPaneWpfControlHost
         {
-            var pane = registeredPanes[typeof(T)];
-            if (pane.DockPosition == ADXCTPDockPosition.ctpDockPositionFloating)
+            var paneInfo = registeredPanes[typeof(T)];
+            var pane = paneInfo.TaskPane;
+            if (paneInfo.UseForm)
             {
-                // move to active screen when possible
-                try
+                var f = paneInfo.CurrentForm;
+                if (f == null || f.IsDisposed)
                 {
-                    //pane.Delete(context);
-                    pane.Visible = true;
-                    //pane.Create(context);
-                    var instance = pane[context];
-                    if (instance != null)
-                    {
-                        SetCustomPanePositionWhenFloating(instance, Screen.FromPoint(Cursor.Position));
-                    }
+                    f = null;
                 }
-                catch // this is unimportant functionality, let it fail without logging
+
+                if (f == null)
                 {
+
+                    f = new Form()
+                    {
+                        Height = pane.Height,
+                        Width = pane.Width,
+                        StartPosition = FormStartPosition.CenterParent,
+                        FormBorderStyle = FormBorderStyle.SizableToolWindow,
+                        Text  = AddinModule.CurrentInstance.AddinName,
+                        MinimizeBox = false,
+                        MaximizeBox = false
+                    };
+                    var windowOwner = AddinModule.GetWindowOwner(context);
+                    var ownerRectangle = NativeMethods.GetWindowRectangle(windowOwner.Handle);
+                    if (!ownerRectangle.IsEmpty)
+                    {
+                        f.StartPosition = FormStartPosition.Manual;
+                        f.Left = ownerRectangle.Left + (ownerRectangle.Width - f.Width) / 2;
+                        f.Top = ownerRectangle.Top + (ownerRectangle.Height - f.Height) / 2;
+                        var activeScreen = Screen.FromHandle(windowOwner.Handle) ?? Screen.PrimaryScreen;
+                        var activeArea = activeScreen.WorkingArea;
+                        if (activeArea.IntersectsWith(ownerRectangle))
+                        {
+                            if (activeArea.Left > f.Left)
+                            {
+                                f.Left = activeArea.Left;
+                            }
+
+                            if (activeArea.Top > f.Top)
+                            {
+                                f.Top = activeArea.Top;
+                            }
+                        }
+                    }
+
+                    f.SuspendLayout();
+                    var newControl =  Activator.CreateInstance<T>();
+                    newControl.Dock = DockStyle.Fill;
+                    f.Controls.Add(newControl);
+                    f.ResumeLayout();
+                    f.Show(windowOwner);
+                    paneInfo.CurrentForm = f;
+                    paneInfo.ControlHost = newControl;
+                }
+                else
+                {
+                    f.Show();
+                    f.BringToFront();
+                }
+
+                if (showAction != null)
+                {
+
                 }
             }
             else
             {
-                pane.Visible = true;
+                if (pane.DockPosition == ADXCTPDockPosition.ctpDockPositionFloating)
+                {
+                    // move to active screen when possible
+                    try
+                    {
+                        //pane.Delete(context);
+                        pane.Visible = true;
+                        //pane.Create(context);
+                        var instance = pane[context];
+                        if (instance != null)
+                        {
+                            SetCustomPanePositionWhenFloating(instance, Screen.FromPoint(Cursor.Position));
+                        }
+                    }
+                    catch // this is unimportant functionality, let it fail without logging
+                    {
+                    }
+                }
+                else
+                {
+                    pane.Visible = true;
+                }
+                if (showAction != null)
+                {
+                    showAction.Invoke((T)pane[context].Control);
+                }
             }
 
-            if (showAction != null)
-            {
-                showAction.Invoke((T) pane[context].Control);
-            }
+            
         }
 
-        
         public void Hide<T>()
         {
-            var pane = registeredPanes[typeof(T)];
-            pane.Visible = false;
+            var paneInfo = registeredPanes[typeof(T)];
+            if (paneInfo.CurrentForm != null)
+            {
+                paneInfo.CurrentForm.Close();
+                paneInfo.CurrentForm = null;
+            }
+            else
+            {
+                var pane = paneInfo.TaskPane;
+                if (pane != null)
+                {
+                    pane.Visible = false;
+                }
+                else
+                {
+
+                }
+            }
         }
 
         public void SetCustomPanePositionWhenFloating(ADXTaskPane.ADXCustomTaskPaneInstance customTaskPane, object control)

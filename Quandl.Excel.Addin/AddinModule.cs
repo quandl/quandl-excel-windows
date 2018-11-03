@@ -81,6 +81,88 @@ namespace Quandl.Excel.Addin
             this.logic.TaskPaneUpdater.Show<UI.WizardGuideControlHost>(control.Context, h=>h.Reset());
         }
 
+        internal static IWin32Window GetWindowOwner(object controlContext)
+        {
+            IntPtr hwnd = IntPtr.Zero;
+            if (CurrentInstance.HostMajorVersion > 14) // Excel 2013
+            {
+                var wnd = controlContext as MicrosoftExcel.Window;
+                if (wnd != null)
+                {
+                    try
+                    {
+                        hwnd = new IntPtr((int) ((dynamic) wnd).Hwnd);
+                    }
+                    catch // ignore
+                    {
+                    }
+                }
+
+               
+            }
+            if (CurrentInstance.HostMajorVersion > 14 && hwnd == IntPtr.Zero)
+            {
+                try
+                {
+                    hwnd = new IntPtr(CurrentInstance.ExcelApp.Hwnd);
+                }
+                catch // ignore
+                {
+                }
+            }
+
+            if (hwnd == IntPtr.Zero)
+            {
+                hwnd = NativeMethods.GetActiveWindow();
+                // make sure it belongs to the correct process
+                uint processId;
+                if (NativeMethods.GetWindowThreadProcessId(hwnd, out processId) == 0)
+                {
+                    processId = 0;
+                }
+
+                if (processId == 0)
+                {
+                    hwnd = IntPtr.Zero;
+                }
+                else
+                {
+                    using (var p = System.Diagnostics.Process.GetCurrentProcess())
+                    {
+                        if (p.Id != processId)
+                        {
+                            hwnd = IntPtr.Zero;
+                        }
+                    }
+                }
+            }
+
+            if (hwnd == IntPtr.Zero)
+            {
+                hwnd = CurrentInstance.NativeWindowHandle;
+            }
+
+            return new WindowWrapper(hwnd);
+
+        }
+
+        class WindowWrapper : IWin32Window
+        {
+            private readonly IntPtr href;
+
+            public WindowWrapper(IntPtr handle)
+            {
+                href = handle;
+            }
+
+            public IntPtr Handle
+            {
+                get
+                {
+                    return href;
+                }
+            }
+        }
         private void adxRibbonTabQuandlRefreshSheet_OnClick(object sender, IRibbonControl control, bool pressed)
         {
             object worksheet = null;
@@ -214,16 +296,15 @@ namespace Quandl.Excel.Addin
             logic = new MainLogic();
             logic.OnStart();// starts background initialization
             SetExecutionToggleIcon(); // update the ribbon icon
-            logic.TaskPaneUpdater.UpdateTaskPane<UI.AboutControlHost>(adxTaskPaneAbout);
-            logic.TaskPaneUpdater.UpdateTaskPane<UI.UpdateControlHost>(adxTaskPaneUpdater);
-            logic.TaskPaneUpdater.UpdateTaskPane<UI.SettingsControlHost>(adxTaskPaneSettings);
-            logic.TaskPaneUpdater.UpdateTaskPane<UI.WizardGuideControlHost>(adxTaskPaneBuilder);
+            logic.TaskPaneUpdater.UpdateTaskPane<UI.AboutControlHost>(adxTaskPaneAbout,false);
+            logic.TaskPaneUpdater.UpdateTaskPane<UI.UpdateControlHost>(adxTaskPaneUpdater,false);
+            logic.TaskPaneUpdater.UpdateTaskPane<UI.SettingsControlHost>(adxTaskPaneSettings,false);
+            logic.TaskPaneUpdater.UpdateTaskPane<UI.WizardGuideControlHost>(adxTaskPaneBuilder,true);
 #if DEBUG
             //adxTaskPaneUpdater.ControlProgID = "";
             //adxTaskPaneSettings.ControlProgID = "";
             //adxTaskPaneBuilder.ControlProgID = "";
 #endif
-
         }
 
 
