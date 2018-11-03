@@ -48,6 +48,7 @@
     <Reference Include="Markdown.Xaml">
       <HintPath>..\3rdparty\Markdown.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="octokit, Version=0.24.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\3rdparty\octokit.dll</HintPath>
