@@ -232,3 +232,4 @@ Quandl.Test.CodedUI/Settings.xml
 
 # Certificates
 *.pfx
+/3rdparty/keyPair.snk
