@@ -159,6 +159,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         var range = Tools.ReferenceToRange(reference);
                         try
                         {
+                            // do not attempt to lock because this is executing on foreground thread
                             excelWriter.PopulateData(range);
                         }
                         finally
@@ -235,7 +236,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             foreach (var batchTask in tasks.Batch(numberOfTasksForEachBatch))
             {
                 var fetchTask = Task.WhenAll(batchTask);
-                //fetchTask.Wait();
                 var result = fetchTask.Result;
                 fetchTaskCollection = fetchTaskCollection.Concat(result).ToArray();
             }
@@ -275,8 +275,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 {
                     // perform a metadata api query based on the dataset code
                     var fetchTask = Task.WhenAll(new Web().GetDatasetMetadata(code));
-                    //fetchTask.Wait();
-
                     var metadata = fetchTask.Result.First().Metadata;
                     datasetMetadata.Add(code, metadata);
                 }

@@ -16,14 +16,12 @@ namespace Quandl.Excel.Addin.UI.Settings
     public partial class Settings : UserControl
     {
         public QuandlConfig.AutoUpdateFrequencies AutoUpdateFrequency;
-        //public TaskPaneControl ParentControl { get; set; }
-
+        
         public Settings()
         {
             InitializeComponent();
             Loaded += delegate
             {
-                //QuandlConfig.ApiKeyChanged += 
                 Reset();
                 BindingHelper.SetItemSourceViaEnum(AutoUpdateComboBox, typeof(QuandlConfig.AutoUpdateFrequencies));
             };
