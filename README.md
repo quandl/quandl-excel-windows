@@ -12,13 +12,17 @@ A few things that will make your excel development experience much easier:
 
 ### Setup
 
-1. Download and install InstallSheild Limited Edition [here](http://learn.flexerasoftware.com/content/IS-EVAL-InstallShield-Limited-Edition-Visual-Studio)
+1. Install Add-in Express for Office and .NET from [https://www.add-in-express.com/downloads/adxnet.php]. Any edition will work. Note that trial version is not available, you need to purchase your license.
+1. Install WiX toolset from http://wixtoolset.org/.
 1. Right click solution file and select `Restore NuGet Packages`
 (If you don't have NuGet, please install it at [https://dist.nuget.org/index.html](https://dist.nuget.org/index.html))
+1. Make sure that you have `ildasm` tool from Microsoft SDK installed. You need it to sign assemblies with strong name (see the next step). The solution has been tested with SDK 10.0A
+1. Modify `3rdparty\makesn.cmd` to change path to SDK folder (for `sn.exe`, `ildasm.exe` tools) and possibly to Microsoft.NET folder (for `ilasm.exe` tool), if appropriate.
+2. Run `3rdparty\makesn.cmd`. It should create strongly signed versions of `Markdown.Xaml.dll`, `octokit.dll`, `SharpRaven.dll` and `Syroot.Windows.IO.KnownFolders.dll`.
 1. Go to the project properties for `Quandl.Excel.Addin`
 1. Click on signing tab
 1. Click `Create Test Certificate` without a password
-1. Do steps 5-7 for `Quandleild.Excel.Console`
+1. Repeat 3 last steps for `Quandl.Excel.Console`
 1. Go to the project properties for `Quandl.Excel.UDF.Functions`
 1. Under `Debug` change the `Start Action` from `Start Project` to `Start External Program`
 1. Fill in the path to your chosen version of Excel in the Textbox
@@ -37,22 +41,12 @@ A few things that will make your excel development experience much easier:
 
 Following steps will create a setup package which works for both Microsoft Excel 32 bit and 64 bit.
 
-### Preparation
-
-1. Follow the instructions list in `Development` section above to setup the project and its basic dependencies.
-1. Copy this file [Microsoft .NET Framework 4.6.1 Web.prq](Microsoft .NET Framework 4.6.1 Web.prq) to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
-1. Copy and say yes to overwrite both VSTO package `.pqr` files to folder C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites
-1. Install Redistributables
-	1. Start Visual Studio as Admin  
-	1. Expand the Quandl.Excel.Addin.Setup project
-	1. Click `2 -> Specify Application Data -> Redistributables`
-	1. In the new window that opens, right click on any item an click `Download All Required Items`
 
 ### Releasing
 
 1. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
   * See [SIGNING](SIGNING.md)
-1. Navigate to `Quandl.Excel.Addin.Setup -> 1 Organize Your Setup => General Information`
+1. Navigate to `Quandl.Excel.Addin.Setup -> Product.wxs`
   1. Change the product code (use the helper - `{...}`)
   1. Bump the version number.
     * Be sure to leave the upgrade code untouched.
@@ -60,13 +54,11 @@ Following steps will create a setup package which works for both Microsoft Excel
 1. Navigate to the `Quandl.Shared.Modules -> Utilities => ReleaseVersion` and update the version to match the setup version.
 1. Switch your `Run Mode` to `release` instead of `debug`
 1. Right click solution file and select `Rebuild Solution`
-1. Select the `Quandl.Excel.Addin.Setup` project and in the topbar `InstallShield LE` menu select `Open release folder` to find your setup.exe file.
 
 Things to note:
 
-* UnRegisterAddin must have code `1501` in the `.isl` file.
-* Be sure to bump the version AND change your product code number under `Organize Your Setup` => `General Information`. This is necessary for a seemless upgrade.
-* Allow of our dependencies have been listed as `web` dependencies to keep our installer small.
+* You might need to kill processs `msbuild.exe` to recompile the solution. 
+* ProductId is set to `*` in `Quandl.Excel.AddinSetup -> Product.wsx`
 * we are using [Markdown.XAML](https://github.com/theunrepentantgeek/Markdown.XAML) to generate the flowdocument from the github markup. For more info check out the github page.
 * When testing, if your plugin does not appear in Excel, check that it was not added to the `Disabled Items` list.  To check:
 	* Open Excel
@@ -82,10 +74,6 @@ See [Unit Testing Guide](UNIT_TEST_GUIDE.md)
 
 For a list of excel exceptions and how to debug them please see: [Errors](./ERRORS.md)
 
-### The VSTO Add-in and or UDF excel plugin is listed but not displaying/activating
-
-Excel seems to a have a bug where even when you close all its windows it can leave the main process running in the background. This seems to be for quick preview reasons (when you click an excel file in explorer). When this happens excel unloads all its add-ins to save memory. However this also means that it won't reload them until next time its started properly. To reload the add-in you must forcibly close any remaing excel instances from the task manager `details` tab.
-
 ### My UDF function was running along great but then appears to have stopped updating
 
 This could be a number of things but generally means that our implementation has run into one of the following problems:
@@ -94,14 +82,6 @@ This could be a number of things but generally means that our implementation has
 * Threading deadlock - This can happen if we use our threads in a non thread safe way. Basically we are not handling a specific case properly.  
 * Excel request deadlock - This can occur when excel is busy and we try to make another request to it from a different thread.
 * Unhandled server error response - Our server is having issues and after a few retries our code simply gives up.
-
-### InstallShield Limited Edition is not displaying the Redistributables
-
-Double check your installshield limited edition settings. Sometimes it will point to the wrong redistributables folder even after re-installation. In most cases it should be set to `C:\Program Files (x86)\InstallShield\2015LE\SetupPrerequisites`
-
-### My installation failed!
-
-Uninstall (if it got that far) then run the installer again from the command line with the parameter `/debuglog` This should create a log in the same directory as the installer named `InstallShield.txt`. This should show you what went wrong.
 
 ## License
 
