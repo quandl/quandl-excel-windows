@@ -22,6 +22,7 @@ namespace Quandl.Shared.Excel
             ExecuteWithAutoRetry(action, MaximumRetries, RetryWaitTime);
 
         }
+
         public static void ExecuteWithAutoRetry(Action action, int retryCount, TimeSpan retryWait)
         {
             if (retryCount <= 1)

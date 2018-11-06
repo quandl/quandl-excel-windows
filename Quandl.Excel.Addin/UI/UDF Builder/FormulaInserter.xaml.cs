@@ -81,10 +81,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                 _setText.Invoke(setText ?? "Please select one cell to insert your formula into.");
             }
         }
-        private void Logic_SelectionChanged(object sender, System.EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
+       
 
         public string GetTitle()
         {
@@ -96,10 +93,5 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             return "Placement";
         }
 
-        private void DisplayRangeSelection()
-        {
-            
-
-        }
     }
 }

@@ -10,8 +10,10 @@ namespace Quandl.Excel.UDF.Functions
     {
         public void AutoOpen()
         {
-            System.Diagnostics.Debug.Assert(false);
-
+#if DEBUG
+            // uncomment to break into debugger with debug build (easier to debug)
+            //System.Diagnostics.Debug.Assert(false);
+#endif
             Shared.Helpers.HttpHelper.EnableTlsSupport();
             Shared.Globals.Instance.HostService = new ExcelDnaHostService();
             // This registers the intellisense server. ATM this plugin is slightly buggy and prone to crashes.

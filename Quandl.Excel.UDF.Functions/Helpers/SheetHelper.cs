@@ -21,19 +21,13 @@ namespace Quandl.Excel.UDF.Functions.Helpers
         // Retry wait if excel is busy
         public const int RetryWaitTimeMs = 500;
 
-        // Don't allow two UDF threads to write at once.
-        //public static Mutex DataWriteMutex = new Mutex();
 
-        // Some basics for writing data.
-        //private Range _currentFormulaCell;
         private readonly bool _includeHeader;
         private readonly ResultsData _results;
         private readonly bool _threaded;
         private readonly bool _firstRow;
         private readonly bool _transpose;
 
-        // Helpers
-        //private Worksheet _currentWorksheet => _currentFormulaCell.Worksheet;
         private List<string> _remainingHeaders => _results.Headers.GetRange(1, _results.Headers.Count - 1);
 
         public bool? ConfirmedOverwrite = null;
@@ -107,39 +101,6 @@ namespace Quandl.Excel.UDF.Functions.Helpers
                 cache.Dispose();
                 cache = null;
             }
-            /*
-            try
-            {
-                // Acquire Mutex to avoid multiple functions writing at the same time.
-                DataWriteMutex.WaitOne();
-
-                // Since this is executing in a thread wait for excel to be finished whatever calculations its currently doing before writing to other cells. Helps avoid some issues.
-                if (_threaded)
-                {
-                    WaitForExcelToBeReady();
-                }
-
-                Populate();
-            }
-            catch (COMException e)
-            {
-                Trace.WriteLine(e.Message);
-
-
-                // The excel RPC server is busy. We need to wait and then retry (RPC_E_SERVERCALL_RETRYLATER or VBA_E_IGNORE)
-                if (e.HResult == Exception.RPC_E_SERVERCALL_RETRYLATER || e.HResult == Exception.VBA_E_IGNORE)
-                {
-                    Thread.Sleep(RetryWaitTimeMs);
-                    Populate();
-                }
-
-                throw;
-            }
-            finally
-            {
-                // Release Mutex to allow another function to write data.
-                //DataWriteMutex.ReleaseMutex();
-            }*/
         }
 
         // Determine the value present in the first cell depending on the user options and the data returned.
@@ -159,24 +120,7 @@ namespace Quandl.Excel.UDF.Functions.Helpers
                 return Locale.English.NoDataReturned;
             }
         }
-        /*
-        // Wait for the calculations to be done or force adding data to sheet when they are not.
-        private void WaitForExcelToBeReady()
-        {
-            var iterations = 0;
-            var calculationState = _currentWorksheet.Application.CalculationState;
-            while (calculationState != XlCalculationState.xlDone && iterations < MaxCalculationWaitIntervals)
-            {
-                Thread.Sleep(CalculationWaitTimeMs);
-                calculationState = _currentWorksheet.Application.CalculationState;
-                iterations++;
-            }
 
-            if (iterations >= MaxCalculationWaitIntervals)
-            {
-                Logger.log("Max wait calculations iterations exceeded.", null, Logger.LogType.NOSENTRY);
-            }
-        }*/
 
         private void Populate()
         {
