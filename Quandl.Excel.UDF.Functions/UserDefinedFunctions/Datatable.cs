@@ -122,7 +122,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 Common.StatusBar.AddMessage(Locale.English.UdfRetrievingData);
                 queryParams.AddInternalParam("qopts.per_page", 1);
                 var task = new Web().GetDatatableData(quandlCode, queryParams.QueryParams);
-                //task.Wait();
                 var firstCellString = task.Result.Columns[0].Name;
 
                 // Reset to pull x rows at a time.
@@ -136,7 +135,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 thready.Start();
 
                 // Begin the reaping thread. This is necessary to kill off and formula that are functioning for a long time.
-                //var range = Tools.ReferenceToRange(currentFormulaCellReference);
                 FunctionGrimReaper.AddNewThread(thready);
 
                 return Utilities.ValidateEmptyData(firstCellString);
@@ -171,7 +169,6 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 }
                 return true;
             });
-            //shouldContinue.Wait();
             return shouldContinue.Result;
         }
 
@@ -218,19 +215,19 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 this._currentCellRange = Tools.ReferenceToRange(currentCellReference);
             }
 
+            private static readonly Mutex populationMutex
+                = new Mutex();
             public void fetchData()
             {
                 int currentRow = 0;
                 string nextCursorId = null;
                 bool? confirmedOverwrite = null;
-
                 try
                 {
                     do
                     {
                         // Fetch rows
                         var task = new Web().GetDatatableData(_quandlCode, _datatableParams.QueryParams);
-                        //task.Wait();
                         var results = task.Result;
 
                         // Inform the user whats going on.
@@ -266,7 +263,35 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         excelWriter.ConfirmedOverwrite = confirmedOverwrite;
 
                         // Write data and save state of whether to continue overwriting.
-                        excelWriter.PopulateData(_currentCellRange);
+                        // this logic currently executes from background thread, so use locking
+                        bool mutexAcquired;
+                        try
+                        {
+                            mutexAcquired = populationMutex.WaitOne();
+
+                        }
+                        catch
+                        {
+                            mutexAcquired = false;
+                        }
+                        try
+                        {
+                            excelWriter.PopulateData(_currentCellRange);
+                        }
+                        finally
+                        {
+                            if (mutexAcquired)
+                            {
+                                try
+                                {
+                                    populationMutex.ReleaseMutex();
+                                }
+                                catch
+                                {
+                                }
+                            }
+                        }
+                        
 
                         // Bail out if the user said no to overwriting data;
                         confirmedOverwrite = excelWriter.ConfirmedOverwrite;
