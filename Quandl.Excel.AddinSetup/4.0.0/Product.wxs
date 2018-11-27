@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" 
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     >
   <Product Id="*" Name="Quandl.Excel.Addin" Language="!(loc.ID)" Version="4.0.1" Manufacturer="Quandl" UpgradeCode="{5E31829B-2176-41EB-88FC-FE5BEA8538E0}">
     <Package AdminImage="no" Comments="Quandl.Excel.Addin" Compressed="yes" InstallerVersion="200" Languages="0,1033" Manufacturer="Quandl" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
     <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
@@ -43,6 +46,12 @@
     <!-- Initialize the "TARGETDIR" directory property. -->
     <CustomAction Id="DIRCA_TARGETDIR" Property="TARGETDIR" Value="[DefaultAppFolderRoot][Manufacturer]\[ProductName]" Execute="firstSequence" />
     <CustomAction Id="DIRCA_TARGETDIR_UNINSTALL" Property="TARGETDIR" Value="[PREVIOUSINSTALLFOLDER]" Execute="firstSequence" />
+    <util:CloseApplication Id="CloseExcel" 
+                           CloseMessage="yes"    
+                           Target="excel.exe" 
+                           RebootPrompt="yes" 
+                           PromptToContinue="yes" 
+                           Description="Microsoft Excel is still running. Please save your work and close Excel to install the plugin." />
     <!-- The directory tree of the installation package. -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <!-- The "Quandl.Excel.Addin" project output. -->
@@ -173,6 +182,7 @@
       <Custom Action="_65197037_DEC0_43A1_9C58_7D0C179B0619" After="_24A293B9_C9E6_47A4_AE23_45298B860470"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7>2 AND USEIMPERSONATE="1"]]></Custom>
       <Custom Action="_DC2ECCA2_880C_4214_B3FE_CA31B878E2D1" After="MsiUnpublishAssemblies"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7=2 AND USEIMPERSONATE="0"]]></Custom>
       <Custom Action="_6227312D_332B_41D3_8F64_4E8C7ACE79F8" After="MsiUnpublishAssemblies"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7=2 AND USEIMPERSONATE="1"]]></Custom>
+      <Custom Action="WixCloseApplications" After="InstallInitialize"  />
     </InstallExecuteSequence>
     <InstallUISequence>
       <FindRelatedProducts Sequence="200" />
@@ -564,16 +574,22 @@
     </CustomAction>
     <CustomAction Id="Action_UnRegisterAddIn.SetProperty" Return="check" Property="Action_UnRegisterAddIn" Value="OFFICEREGKEYS=[OFFICEREGKEYS];XLL32=[XLL32];XLL64=[XLL64]" />
     <CustomAction Id="Action_UnRegisterAddIn" BinaryKey="InstallerCA.CA.dll" DllEntry="CaUnRegisterAddIn" Return="check" Execute="immediate" />
-    <CustomAction Id="Action_CloseAppsPrompt" BinaryKey="InstallerCA.CA.dll" DllEntry="ClosePrompt" Return="check" />
+    <!--
+    <CustomAction Id="Action_CloseAppsPrompt" BinaryKey="InstallerCA.CA.dll" DllEntry="dc" Return="check" />
+    -->
     <InstallExecuteSequence>
+      <!--
       <Custom Action="Action_CloseAppsPrompt" After="Action_RegisterAddIn.SetProperty" />
+      -->
       <Custom Action="Action_RegisterAddIn.SetProperty" Before="Action_RegisterAddIn">NOT Installed</Custom>
       <Custom Action="Action_RegisterAddIn" Before="InstallFinalize">NOT Installed</Custom>
       <Custom Action="Action_UnRegisterAddIn.SetProperty" Before="Action_UnRegisterAddIn">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
       <Custom Action="Action_UnRegisterAddIn" Before="InstallFinalize">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
     </InstallExecuteSequence>
     <AdminExecuteSequence>
+      <!--
       <Custom Action="Action_CloseAppsPrompt" After="Action_RegisterAddIn.SetProperty" />
+      -->
       <Custom Action="Action_RegisterAddIn.SetProperty" Before="InstallFinalize">NOT Installed</Custom>
       <Custom Action="Action_RegisterAddIn" After="Action_RegisterAddIn.SetProperty">NOT Installed</Custom>
       <Custom Action="Action_UnRegisterAddIn.SetProperty" Before="InstallFinalize">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
