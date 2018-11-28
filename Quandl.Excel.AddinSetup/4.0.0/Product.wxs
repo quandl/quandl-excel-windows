@@ -570,31 +570,14 @@
     <Property Id="PromptToCloseDisplayNames" Value="Microsoft Excel" />
     <Binary Id="InstallerCA.CA.dll" SourceFile="$(var.InstallerCA.TargetDir)$(var.InstallerCA.TargetName).CA.dll" />
     <CustomAction Id="Action_RegisterAddIn.SetProperty" Return="check" Property="Action_RegisterAddIn" Value="OFFICEREGKEYS=[OFFICEREGKEYS];XLL32=[XLL32];XLL64=[XLL64]" />
-    <CustomAction Id="Action_RegisterAddIn" BinaryKey="InstallerCA.CA.dll" DllEntry="CaRegisterAddIn" Return="check" Execute="immediate">
+    <CustomAction Id="Action_RegisterAddIn" BinaryKey="InstallerCA.CA.dll" DllEntry="CaRegisterAddIn" Return="check" Execute="immediate" Impersonate="yes">
     </CustomAction>
     <CustomAction Id="Action_UnRegisterAddIn.SetProperty" Return="check" Property="Action_UnRegisterAddIn" Value="OFFICEREGKEYS=[OFFICEREGKEYS];XLL32=[XLL32];XLL64=[XLL64]" />
-    <CustomAction Id="Action_UnRegisterAddIn" BinaryKey="InstallerCA.CA.dll" DllEntry="CaUnRegisterAddIn" Return="check" Execute="immediate" />
+    <CustomAction Id="Action_UnRegisterAddIn" BinaryKey="InstallerCA.CA.dll" DllEntry="CaUnRegisterAddIn" Return="check" Execute="immediate" Impersonate="yes" />
     <!--
     <CustomAction Id="Action_CloseAppsPrompt" BinaryKey="InstallerCA.CA.dll" DllEntry="dc" Return="check" />
     -->
-    <InstallExecuteSequence>
-      <!--
-      <Custom Action="Action_CloseAppsPrompt" After="Action_RegisterAddIn.SetProperty" />
-      -->
-      <Custom Action="Action_RegisterAddIn.SetProperty" Before="Action_RegisterAddIn">NOT Installed</Custom>
-      <Custom Action="Action_RegisterAddIn" Before="InstallFinalize">NOT Installed</Custom>
-      <Custom Action="Action_UnRegisterAddIn.SetProperty" Before="Action_UnRegisterAddIn">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
-      <Custom Action="Action_UnRegisterAddIn" Before="InstallFinalize">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
-    </InstallExecuteSequence>
-    <AdminExecuteSequence>
-      <!--
-      <Custom Action="Action_CloseAppsPrompt" After="Action_RegisterAddIn.SetProperty" />
-      -->
-      <Custom Action="Action_RegisterAddIn.SetProperty" Before="InstallFinalize">NOT Installed</Custom>
-      <Custom Action="Action_RegisterAddIn" After="Action_RegisterAddIn.SetProperty">NOT Installed</Custom>
-      <Custom Action="Action_UnRegisterAddIn.SetProperty" Before="InstallFinalize">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
-      <Custom Action="Action_UnRegisterAddIn" After="Action_UnRegisterAddIn.SetProperty">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
-    </AdminExecuteSequence>
+ 
   </Product>
   <Fragment>
     <!-- 
@@ -620,5 +603,23 @@
         <RemoveFolder Id="COMPANYAPPDATADIRRemove" Directory="COMPANYAPPDATADIR" On="uninstall" />
       </Component>
     </ComponentGroup>
+    <InstallExecuteSequence>
+      <!--
+      <Custom Action="Action_CloseAppsPrompt" After="Action_RegisterAddIn.SetProperty" />
+      -->
+      <Custom Action="Action_RegisterAddIn.SetProperty" After="StartServices"><![CDATA[$XLL32>2 OR $XLL64>2]]></Custom>
+      <Custom Action="Action_RegisterAddIn" After="Action_RegisterAddIn.SetProperty"><![CDATA[$XLL32>2 OR $XLL64>2]]></Custom>
+      <Custom Action="Action_UnRegisterAddIn.SetProperty" After="MsiUnpublishAssemblies"><![CDATA[$XLL32=2 AND $XLL64=2]]></Custom>
+      <Custom Action="Action_UnRegisterAddIn" After="Action_UnRegisterAddIn.SetProperty"><![CDATA[$XLL32=2 AND $XLL64=2]]></Custom>
+    </InstallExecuteSequence>
+    <AdminExecuteSequence>
+      <!--
+      <Custom Action="Action_CloseAppsPrompt" After="Action_RegisterAddIn.SetProperty" />
+      -->
+      <Custom Action="Action_RegisterAddIn.SetProperty" After="StartServices"><![CDATA[$XLL32>2 OR $XLL64>2]]></Custom>
+      <Custom Action="Action_RegisterAddIn" After="Action_RegisterAddIn.SetProperty"><![CDATA[$XLL32>2 OR $XLL64>2]]></Custom>
+      <Custom Action="Action_UnRegisterAddIn.SetProperty" After="MsiUnpublishAssemblies"><![CDATA[$XLL32=2 AND $XLL64=2]]></Custom>
+      <Custom Action="Action_UnRegisterAddIn" After="Action_UnRegisterAddIn.SetProperty"><![CDATA[$XLL32=2 AND $XLL64=2]]></Custom>
+    </AdminExecuteSequence>
   </Fragment>
 </Wix>
