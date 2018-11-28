@@ -612,14 +612,5 @@
       <Custom Action="Action_UnRegisterAddIn.SetProperty" After="MsiUnpublishAssemblies"><![CDATA[$XLL32=2 AND $XLL64=2]]></Custom>
       <Custom Action="Action_UnRegisterAddIn" After="Action_UnRegisterAddIn.SetProperty"><![CDATA[$XLL32=2 AND $XLL64=2]]></Custom>
     </InstallExecuteSequence>
-    <AdminExecuteSequence>
-      <!--
-      <Custom Action="Action_CloseAppsPrompt" After="Action_RegisterAddIn.SetProperty" />
-      -->
-      <Custom Action="Action_RegisterAddIn.SetProperty" After="StartServices"><![CDATA[$XLL32>2 OR $XLL64>2]]></Custom>
-      <Custom Action="Action_RegisterAddIn" After="Action_RegisterAddIn.SetProperty"><![CDATA[$XLL32>2 OR $XLL64>2]]></Custom>
-      <Custom Action="Action_UnRegisterAddIn.SetProperty" After="MsiUnpublishAssemblies"><![CDATA[$XLL32=2 AND $XLL64=2]]></Custom>
-      <Custom Action="Action_UnRegisterAddIn" After="Action_UnRegisterAddIn.SetProperty"><![CDATA[$XLL32=2 AND $XLL64=2]]></Custom>
-    </AdminExecuteSequence>
-  </Fragment>
+ </Fragment>
 </Wix>
