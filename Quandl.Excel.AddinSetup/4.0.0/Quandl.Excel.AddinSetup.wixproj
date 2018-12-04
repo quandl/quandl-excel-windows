@@ -29,6 +29,7 @@
     <Compile Include="StandardUI.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\quandl.ico" />
     <Content Include="Resources\vdwtool.exe" />
     <Content Include="Resources\WiXDefBannerBitmap.bmp" />
     <Content Include="Resources\WiXNewFolderBtn.ico" />
