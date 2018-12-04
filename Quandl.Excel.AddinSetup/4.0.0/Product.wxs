@@ -3,8 +3,8 @@
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
      >
-  <Product Id="*" Name="Quandl.Excel.Addin" Language="!(loc.ID)" Version="4.0.2" Manufacturer="Quandl" UpgradeCode="{5E31829B-2176-41EB-88FC-FE5BEA8538E0}">
-    <Package AdminImage="no" Comments="Quandl.Excel.Addin" Compressed="yes" InstallerVersion="200" Languages="0,1033" Manufacturer="Quandl" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
+  <Product Id="*" Name="Quandl Excel Addin" Language="!(loc.ID)" Version="4.0.3" Manufacturer="Quandl" UpgradeCode="{5E31829B-2176-41EB-88FC-FE5BEA8538E0}">
+    <Package AdminImage="no" Comments="Quandl Excel Addin" Compressed="yes" InstallerVersion="200" Languages="0,1033" Manufacturer="Quandl" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
     <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
     <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />
     <Media Id="1" Cabinet="Quandl.Excel.Addin.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
@@ -15,6 +15,8 @@
     <Property Id="MSIINSTALLPERUSER" Secure="yes" Value="1" />
     <Property Id="ISRUNASADMIN" Secure="yes" Value="0" />
     <Property Id="USEIMPERSONATE" Secure="yes" Value="1" />
+    <Icon Id="quandl.ico" SourceFile="Resources\quandl.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="quandl.ico" />
     <Property Id="PROGRAMFILES_DIRPATH">
       <RegistrySearch Id="_AD21FC27_97E3_49D0_85CA_C56FFB3F639E" Root="HKLM" Name="ProgramFilesDir" Type="raw" Key="SOFTWARE\Microsoft\Windows\CurrentVersion" />
     </Property>
