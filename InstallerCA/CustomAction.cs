@@ -51,6 +51,16 @@ namespace InstallerCA
             return null;
         }
         #endregion
+
+        static bool CheckRegistryKeyExists(string keyName)
+        {
+            using (var checkKey =
+                Registry.CurrentUser.OpenSubKey(keyName, false))
+            {
+                return checkKey != null;
+            }
+
+        }
         #region CaRegisterAddIn
         [CustomAction]
         public static ActionResult CaRegisterAddIn(Session session)
@@ -94,6 +104,7 @@ namespace InstallerCA
                             detectBitnessDirect = null;
                             break;
                     }
+
                     foreach (string szOfficeVersionKey in lstVersions)
                     {
                         nVersion = double.Parse(szOfficeVersionKey, NumberStyles.Any, CultureInfo.InvariantCulture);
@@ -101,11 +112,12 @@ namespace InstallerCA
                         session.Log("Retrieving Registry Information for : " + szBaseAddInKey + szOfficeVersionKey);
 
                         // get the OPEN keys from the Software\Microsoft\Office\[Version]\Excel\Options key, skip if office version not found.
-                        if (Registry.CurrentUser.OpenSubKey(szBaseAddInKey + szOfficeVersionKey, false) != null)
+                       if (CheckRegistryKeyExists(szBaseAddInKey + szOfficeVersionKey))
                         {
                             string szKeyName = szBaseAddInKey + szOfficeVersionKey + @"\Excel\Options";
 
-                            szXllToRegister = detectBitnessDirect ?? GetAddInName(szXll32Bit, szXll64Bit, szOfficeVersionKey, nVersion);
+                            szXllToRegister = detectBitnessDirect ??
+                                              GetAddInName(szXll32Bit, szXll64Bit, szOfficeVersionKey, nVersion);
 
                             using (var rkExcelXll = Registry.CurrentUser.OpenSubKey(szKeyName, true))
                             {
@@ -166,7 +178,8 @@ namespace InstallerCA
                         }
                         else
                         {
-                            session.Log("Unable to retrieve registry Information for : " + szBaseAddInKey + szOfficeVersionKey);
+                            session.Log("Unable to retrieve registry Information for : " + szBaseAddInKey +
+                                        szOfficeVersionKey);
                         }
                     }
                 }
@@ -225,23 +238,27 @@ namespace InstallerCA
                     foreach (string szOfficeVersionKey in lstVersions)
                     {
                         // only remove keys where office version is found
-                        if (Registry.CurrentUser.OpenSubKey(szBaseAddInKey + szOfficeVersionKey, false) != null)
+                        if (CheckRegistryKeyExists(szBaseAddInKey + szOfficeVersionKey))
                         {
                             bFoundOffice = true;
 
                             string szKeyName = szBaseAddInKey + szOfficeVersionKey + @"\Excel\Options";
 
-                            RegistryKey rkAddInKey = Registry.CurrentUser.OpenSubKey(szKeyName, true);
-                            if (rkAddInKey != null)
+                            using (var rkAddInKey = Registry.CurrentUser.OpenSubKey(szKeyName, true))
                             {
-                                string[] szValueNames = rkAddInKey.GetValueNames();
-
-                                foreach (string szValueName in szValueNames)
+                                if (rkAddInKey != null)
                                 {
-                                     //unregister both 32 and 64 xll
-                                    if (szValueName.StartsWith("OPEN") && (rkAddInKey.GetValue(szValueName).ToString().Contains(szXll32Bit) || rkAddInKey.GetValue(szValueName).ToString().Contains(szXll64Bit)))
+                                    string[] szValueNames = rkAddInKey.GetValueNames();
+
+                                    foreach (string szValueName in szValueNames)
                                     {
-                                        rkAddInKey.DeleteValue(szValueName);
+                                        //unregister both 32 and 64 xll
+                                        if (szValueName.StartsWith("OPEN") &&
+                                            (rkAddInKey.GetValue(szValueName).ToString().Contains(szXll32Bit) ||
+                                             rkAddInKey.GetValue(szValueName).ToString().Contains(szXll64Bit)))
+                                        {
+                                            rkAddInKey.DeleteValue(szValueName);
+                                        }
                                     }
                                 }
                             }
@@ -303,77 +320,88 @@ namespace InstallerCA
         #region GetAddInName
         public static string GetAddInName(string szXll32Name, string szXll64Name, string szOfficeVersionKey, double nVersion)
         {
-            string szXllToRegister = string.Empty;
+            
 
             if (nVersion >= 14)
             {
-                // determine if office is 32-bit or 64-bit
-            	RegistryKey localMachineRegistry = // 64bit machines need to determine correct hive.
-            		RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, 
-                        Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32);
-                RegistryKey rkBitness = localMachineRegistry.OpenSubKey(@"Software\Microsoft\Office\" + szOfficeVersionKey + @"\Outlook", false);
-                if (rkBitness != null)
-                {
-                    object oBitValue = rkBitness.GetValue("Bitness");
-                    if (oBitValue != null)
+                { 
+                    // determine if office is 32-bit or 64-bit
+                    using (RegistryKey localMachineRegistry = // 64bit machines need to determine correct hive.
+                        RegistryKey.OpenBaseKey(RegistryHive.LocalMachine,
+                            Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32))
                     {
-                        if (oBitValue.ToString() == "x64")
-                        {
-                            szXllToRegister = szXll64Name;
-                        }
-                        else
-                        {
-                            szXllToRegister = szXll32Name;
-                        }
-                    }
-                    else
-                    {
-                        szXllToRegister = szXll32Name;
-                    }
-                }
-                else
-                {
-                    if (Environment.Is64BitOperatingSystem)
-                    {
-                        localMachineRegistry = //64bit machines need to check 32bit registry too!
-                            RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
-                        rkBitness =
+                        using (RegistryKey rkBitness =
                             localMachineRegistry.OpenSubKey(
-                                @"Software\Microsoft\Office\" + szOfficeVersionKey + @"\Outlook", false);
-                        if (rkBitness != null)
+                                @"Software\Microsoft\Office\" + szOfficeVersionKey + @"\Outlook", false))
                         {
-                            var oBitValue = rkBitness.GetValue("Bitness");
-                            if (oBitValue != null)
+
+
+                            if (rkBitness != null)
                             {
-                                if (oBitValue.ToString() == "x64")
+                                object oBitValue = rkBitness.GetValue("Bitness");
+                                if (oBitValue != null)
                                 {
-                                    szXllToRegister = szXll64Name;
+                                    if (oBitValue.ToString() == "x64")
+                                    {
+                                        return szXll64Name;
+                                    }
+                                    else
+                                    {
+                                        return szXll32Name;
+                                    }
                                 }
                                 else
                                 {
-                                    szXllToRegister = szXll32Name;
+                                    return szXll32Name;
                                 }
                             }
-                            else
-                            {
-                                szXllToRegister = szXll32Name;
-                            }
-                        }
-                        else
-                        {
-                            szXllToRegister = szXll32Name;
                         }
                     }
-                    else
-                        szXllToRegister = szXll32Name;
-                }
-            }
-            else
-            {
-                szXllToRegister = szXll32Name;
-            }
 
-            return szXllToRegister;
+
+                    if (Environment.Is64BitOperatingSystem)
+                    {
+                        using (var localMachineRegistry = //64bit machines need to check 32bit registry too!
+                            RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                        {
+                            using (var rkBitness =
+                                localMachineRegistry.OpenSubKey(
+                                    @"Software\Microsoft\Office\" + szOfficeVersionKey + @"\Outlook", false))
+                            {
+
+
+                                if (rkBitness != null)
+                                {
+                                    var oBitValue = rkBitness.GetValue("Bitness");
+                                    if (oBitValue != null)
+                                    {
+                                        if (oBitValue.ToString() == "x64")
+                                        {
+                                            return szXll64Name;
+                                        }
+                                        else
+                                        {
+                                            return szXll32Name;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        return szXll32Name;
+                                    }
+                                }
+                                else
+                                {
+                                    return szXll32Name;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            
+
+            return szXll32Name;
         }
         #endregion
 
