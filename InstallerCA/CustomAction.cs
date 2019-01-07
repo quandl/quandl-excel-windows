@@ -6,13 +6,51 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace InstallerCA
 {
     public class CustomActions
     {
         #region Methods
+        #region DetectExcelBinaryType
 
+        [DllImport("kernel32.dll")]
+        static extern bool GetBinaryType(string lpApplicationName, out int lpBinaryType);
+        enum BinaryType
+        {
+            BIT32 = 0, // A 32-bit Windows-based application,           SCS_32BIT_BINARY
+            DOS = 1, // An MS-DOS – based application,            SCS_DOS_BINARY
+            WOW = 2, // A 16-bit Windows-based application,           SCS_WOW_BINARY
+            PIF = 3, // A PIF file that executes an MS-DOS based application, SCS_PIF_BINARY
+            POSIX = 4, // A POSIX based application,                SCS_POSIX_BINARY
+            OS216 = 5, // A 16-bit OS/2-based application,              SCS_OS216_BINARY
+            BIT64 = 6  // A 64-bit Windows-based application,           SCS_64BIT_BINARY
+        }
+
+        static BinaryType? DetectExcelBinaryType()
+        {
+            using (var checkDefaultKey =
+                Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+                    @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\excel.exe", false))
+            {
+                if (checkDefaultKey != null)
+                {
+                    var defaultPath = checkDefaultKey.GetValue("") as string;
+                    if (!string.IsNullOrEmpty(defaultPath))
+                    {
+                        int binaryType = 0;
+                        if (GetBinaryType(defaultPath, out binaryType))
+                        {
+                            return (BinaryType)binaryType;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+        #endregion
         #region CaRegisterAddIn
         [CustomAction]
         public static ActionResult CaRegisterAddIn(Session session)
@@ -43,7 +81,19 @@ namespace InstallerCA
                 if (szOfficeRegKeyVersions.Length > 0)
                 {
                     lstVersions = szOfficeRegKeyVersions.Split(',').ToList();
-
+                    string detectBitnessDirect;
+                    switch (DetectExcelBinaryType().GetValueOrDefault(BinaryType.DOS))
+                    {
+                        case BinaryType.BIT32:
+                            detectBitnessDirect = szXll32Bit;
+                            break;
+                        case BinaryType.BIT64:
+                            detectBitnessDirect = szXll64Bit;
+                            break;
+                        default:
+                            detectBitnessDirect = null;
+                            break;
+                    }
                     foreach (string szOfficeVersionKey in lstVersions)
                     {
                         nVersion = double.Parse(szOfficeVersionKey, NumberStyles.Any, CultureInfo.InvariantCulture);
@@ -55,7 +105,7 @@ namespace InstallerCA
                         {
                             string szKeyName = szBaseAddInKey + szOfficeVersionKey + @"\Excel\Options";
 
-                            szXllToRegister = GetAddInName(szXll32Bit, szXll64Bit, szOfficeVersionKey, nVersion);
+                            szXllToRegister = detectBitnessDirect ?? GetAddInName(szXll32Bit, szXll64Bit, szOfficeVersionKey, nVersion);
 
                             RegistryKey rkExcelXll = Registry.CurrentUser.OpenSubKey(szKeyName, true);
 
