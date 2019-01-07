@@ -133,9 +133,10 @@
         public void ClearRegistryApiKey()
         {
             string RegistrySubKey = @"SOFTWARE\Quandl\Excel Add-in";
-            var appKeyPath = Registry.CurrentUser.CreateSubKey(RegistrySubKey);
-            appKeyPath.SetValue("ApiKey", "", RegistryValueKind.String);
-            appKeyPath.Close();
+            using (var appKeyPath = Registry.CurrentUser.CreateSubKey(RegistrySubKey))
+            {
+                appKeyPath.SetValue("ApiKey", "", RegistryValueKind.String);
+            }
         }
 
         public void OpenExcelAndWorksheet()

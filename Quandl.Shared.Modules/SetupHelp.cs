@@ -57,9 +57,10 @@ namespace Quandl.Shared
         private static void SetRegistryKeyValue(string subKey, string key, object value,
             RegistryValueKind regValueKing = RegistryValueKind.String)
         {
-            var keyPath = Registry.CurrentUser.CreateSubKey(subKey);
-            keyPath.SetValue(key, value, regValueKing);
-            keyPath.Close();
+            using (var keyPath = Registry.CurrentUser.CreateSubKey(subKey))
+            {
+                keyPath.SetValue(key, value, regValueKing);
+            }
         }
 
         private static KeySearchResult CheckQuandlAddinRegistry(string subKey, string keyName)
