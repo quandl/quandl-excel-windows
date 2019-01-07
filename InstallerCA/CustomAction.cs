@@ -107,55 +107,61 @@ namespace InstallerCA
 
                             szXllToRegister = detectBitnessDirect ?? GetAddInName(szXll32Bit, szXll64Bit, szOfficeVersionKey, nVersion);
 
-                            RegistryKey rkExcelXll = Registry.CurrentUser.OpenSubKey(szKeyName, true);
-
-                            if (szXllToRegister != string.Empty && rkExcelXll != null)
+                            using (var rkExcelXll = Registry.CurrentUser.OpenSubKey(szKeyName, true))
                             {
-                                string[] szValueNames = rkExcelXll.GetValueNames();
-                                bool bIsOpen = false;
-                                int nMaxOpen = -1;
 
-                                // check every value for OPEN keys
-                                foreach (string szValueName in szValueNames)
+                                if (szXllToRegister != string.Empty && rkExcelXll != null)
                                 {
-                                    // if there are already OPEN keys, determine if our key is installed
-                                    if (szValueName.StartsWith("OPEN"))
-                                    {
-                                        nOpenVersion = int.TryParse(szValueName.Substring(4), NumberStyles.Any, CultureInfo.InvariantCulture, out nOpenVersion) ? nOpenVersion : 0;
-                                        int nNewOpen = szValueName == "OPEN" ? 0 : nOpenVersion;
-                                        if (nNewOpen > nMaxOpen)
-                                        {
-                                            nMaxOpen = nNewOpen;
-                                        }
+                                    string[] szValueNames = rkExcelXll.GetValueNames();
+                                    bool bIsOpen = false;
+                                    int nMaxOpen = -1;
 
-                                        // if the key is our key, set the open flag
-										//NOTE: this line means if the user has changed its office from 32 to 64 (or conversly) without removing the addin then we will not update the key properly
-                                        //The user will have to uninstall addin before installing it again
-                                        if (rkExcelXll.GetValue(szValueName).ToString().Contains(szXllToRegister))
+                                    // check every value for OPEN keys
+                                    foreach (string szValueName in szValueNames)
+                                    {
+                                        // if there are already OPEN keys, determine if our key is installed
+                                        if (szValueName.StartsWith("OPEN"))
                                         {
-                                            bIsOpen = true;
+                                            nOpenVersion = int.TryParse(szValueName.Substring(4), NumberStyles.Any,
+                                                CultureInfo.InvariantCulture, out nOpenVersion)
+                                                ? nOpenVersion
+                                                : 0;
+                                            int nNewOpen = szValueName == "OPEN" ? 0 : nOpenVersion;
+                                            if (nNewOpen > nMaxOpen)
+                                            {
+                                                nMaxOpen = nNewOpen;
+                                            }
+
+                                            // if the key is our key, set the open flag
+                                            //NOTE: this line means if the user has changed its office from 32 to 64 (or conversly) without removing the addin then we will not update the key properly
+                                            //The user will have to uninstall addin before installing it again
+                                            if (rkExcelXll.GetValue(szValueName).ToString().Contains(szXllToRegister))
+                                            {
+                                                bIsOpen = true;
+                                            }
                                         }
                                     }
-                                }
 
-                                // if adding a new key
-                                if (!bIsOpen)
+                                    // if adding a new key
+                                    if (!bIsOpen)
+                                    {
+                                        if (nMaxOpen == -1)
+                                        {
+                                            rkExcelXll.SetValue("OPEN", "/R \"" + szXllToRegister + "\"");
+                                        }
+                                        else
+                                        {
+                                            rkExcelXll.SetValue("OPEN" + (nMaxOpen + 1).ToString(),
+                                                "/R \"" + szXllToRegister + "\"");
+                                        }
+                                    }
+
+                                    bFoundOffice = true;
+                                }
+                                else
                                 {
-                                    if (nMaxOpen == -1)
-                                    {
-                                        rkExcelXll.SetValue("OPEN", "/R \"" + szXllToRegister + "\"");
-                                    }
-                                    else
-                                    {
-                                        rkExcelXll.SetValue("OPEN" + (nMaxOpen + 1).ToString(), "/R \"" + szXllToRegister + "\"");
-                                    }
-                                    rkExcelXll.Close();
+                                    session.Log("Unable to retrieve key for : " + szKeyName);
                                 }
-                                bFoundOffice = true;
-                            }
-                            else
-                            {
-                                session.Log("Unable to retrieve key for : " + szKeyName);
                             }
                         }
                         else

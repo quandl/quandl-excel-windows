@@ -215,9 +215,10 @@ namespace Quandl.Shared
         private static void SetRegistryKeyValue(string key, object value,
             RegistryValueKind regValueKing = RegistryValueKind.String)
         {
-            var appKeyPath = Registry.CurrentUser.CreateSubKey(RegistrySubKey);
-            appKeyPath.SetValue(key, value, regValueKing);
-            appKeyPath.Close();
+            using (var appKeyPath = Registry.CurrentUser.CreateSubKey(RegistrySubKey))
+            {
+                appKeyPath.SetValue(key, value, regValueKing);
+            }
         }
 
         private static T GetRegistry<T>(string key)
