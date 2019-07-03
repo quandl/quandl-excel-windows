@@ -45,16 +45,16 @@
       <HintPath>..\packages\Costura.Fody.3.1.5\lib\net46\Costura.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ExcelDna.Integration, Version=0.34.6373.42344, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExcelDna.Integration.0.34.6\lib\ExcelDna.Integration.dll</HintPath>
+    <Reference Include="ExcelDna.Integration, Version=1.0.7056.37028, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDna.Integration.1.0.0\lib\ExcelDna.Integration.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ExcelDna.IntelliSense, Version=1.0.3.31546, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExcelDna.IntelliSense.1.0.3\lib\net40\ExcelDna.IntelliSense.dll</HintPath>
+    <Reference Include="ExcelDna.IntelliSense, Version=1.1.0.41869, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDna.IntelliSense.1.1.0\lib\net40\ExcelDna.IntelliSense.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ExcelDna.Registration, Version=0.34.6379.28657, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExcelDna.Registration.0.34.6\lib\net40\ExcelDna.Registration.dll</HintPath>
+    <Reference Include="ExcelDna.Registration, Version=0.34.6455.41786, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDna.Registration.0.34.7\lib\net40\ExcelDna.Registration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Interop.UIAutomationClient, Version=12.0.20617.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -161,11 +161,6 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\ExcelDna.AddIn.0.34.6\tools\ExcelDna.AddIn.targets" Condition="Exists('..\packages\ExcelDna.AddIn.0.34.6\tools\ExcelDna.AddIn.targets')" />
-  <Target Name="EnsureExcelDnaTargetsImported" BeforeTargets="BeforeBuild" Condition="'$(ExcelDnaTargetsImported)' == ''">
-    <Error Condition="!Exists('..\packages\ExcelDna.AddIn.0.34.6\tools\ExcelDna.AddIn.targets') And ('$(RunExcelDnaBuild)' != '' And $(RunExcelDnaBuild))" Text="You are trying to build with ExcelDna, but the NuGet targets file that ExcelDna depends on is not available on this computer. This is probably because the ExcelDna package has not been committed to source control, or NuGet Package Restore is not enabled. Please enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\ExcelDna.AddIn.0.34.6\tools\ExcelDna.AddIn.targets') And ('$(RunExcelDnaBuild)' != '' And $(RunExcelDnaBuild))" Text="ExcelDna cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
   <Import Project="..\packages\Fody.3.2.9\build\Fody.targets" Condition="Exists('..\packages\Fody.3.2.9\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -174,8 +169,10 @@
     <Error Condition="!Exists('..\packages\Fody.3.2.9\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.3.2.9\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.3.1.5\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.1.5\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.3.1.5\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.1.5\build\Costura.Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\ExcelDna.AddIn.1.0.0\build\ExcelDna.AddIn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ExcelDna.AddIn.1.0.0\build\ExcelDna.AddIn.targets'))" />
   </Target>
   <Import Project="..\packages\Costura.Fody.3.1.5\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.3.1.5\build\Costura.Fody.targets')" />
+  <Import Project="..\packages\ExcelDna.AddIn.1.0.0\build\ExcelDna.AddIn.targets" Condition="Exists('..\packages\ExcelDna.AddIn.1.0.0\build\ExcelDna.AddIn.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
