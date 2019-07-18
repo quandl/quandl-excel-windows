@@ -17,7 +17,10 @@ namespace Quandl.Excel.UDF.Functions
             Shared.Helpers.HttpHelper.EnableTlsSupport();
             Shared.Globals.Instance.HostService = new ExcelDnaHostService();
             // This registers the intellisense server. ATM this plugin is slightly buggy and prone to crashes.
+            // For IntelliSense 1.0.9
             IntelliSenseServer.Register();
+            // For IntelliSense 1.1.0
+            //IntelliSenseServer.Install();
 
             // Reset the stop execution function incase excel crashed last time.
             QuandlConfig.StopCurrentExecution = false;
@@ -36,6 +39,8 @@ namespace Quandl.Excel.UDF.Functions
         public void AutoClose()
         {
             FunctionGrimReaper.EndReaping();
+            // For Intellisense 1.1.0
+            // IntelliSenseServer.Uninstall();
         }
     }
 }
