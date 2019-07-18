@@ -45,13 +45,11 @@
       <HintPath>..\packages\Costura.Fody.3.1.5\lib\net46\Costura.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ExcelDna.Integration, Version=1.0.7056.37028, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ExcelDna.Integration">
       <HintPath>..\packages\ExcelDna.Integration.1.0.0\lib\ExcelDna.Integration.dll</HintPath>
-      <Private>False</Private>
     </Reference>
-    <Reference Include="ExcelDna.IntelliSense, Version=1.1.0.41869, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExcelDna.IntelliSense.1.1.0\lib\net40\ExcelDna.IntelliSense.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ExcelDna.IntelliSense, Version=1.0.8.21909, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDna.IntelliSense.1.0.8\lib\net40\ExcelDna.IntelliSense.dll</HintPath>
     </Reference>
     <Reference Include="ExcelDna.Registration, Version=0.34.6455.41786, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDna.Registration.0.34.7\lib\net40\ExcelDna.Registration.dll</HintPath>
@@ -118,9 +116,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Properties\ExcelDna.Build.props" />
-    <None Include="Quandl.Excel.UDF.Functions-AddIn.xll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
