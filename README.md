@@ -10,6 +10,18 @@ A few things that will make your excel development experience much easier:
 * Use Async tasks and don't block with long running code. This will block the Excel UI due to it being single threaded.
 * When making calls to excel via ExcelDNA thing of Excel as the `server` and our ExcelDNA app as the `client`. Design your application as if you are making `requests` of excel which it may or may not fulfill. Also not that the Excel `server` can be busy (overloaded) due to its single threaded nature and you may need to wait and retry your call later to fulfill it.
 
+### Generating Certificate
+
+1. Download DigiCert Utility if not already done. https://www.digicert.com/util
+
+1. Create CSR
+
+1. Submit the CSR to DigiCert order and re-issue certificate
+
+1. Download the certificate as .p7b file and import it into the utility.
+
+1. Export it has a pfx file in order to use it when signing the code.
+
 ### Setup
 
 1. Install Add-in Express for Office and .NET from [https://www.add-in-express.com/downloads/adxnet.php]. Any edition will work. Note that trial version is not available, you need to purchase your license.
@@ -19,6 +31,9 @@ A few things that will make your excel development experience much easier:
 1. Make sure that you have `ildasm` tool from Microsoft SDK installed. You need it to sign assemblies with strong name (see the next step). The solution has been tested with SDK 10.0A
 1. Modify `3rdparty\makesn.cmd` to change path to SDK folder (for `sn.exe`, `ildasm.exe` tools) and possibly to Microsoft.NET folder (for `ilasm.exe` tool), if appropriate.
 2. Run `3rdparty\makesn.cmd`. It should create strongly signed versions of `Markdown.Xaml.dll`, `octokit.dll`, `SharpRaven.dll` and `Syroot.Windows.IO.KnownFolders.dll`.
+1. Make sure adxloader64 and adxloader are copied in Quandl.Excel.Addin\Loader directory. You can find them in C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Redistributables
+1. Make sure dpca.dll is copied (should be in the Downloads folder of the Windows VM) to Quandl.Excel.AddinSetup\4.0.0\Resources.
+1. Make sure vdwtool.exe (should be in C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Redistributables) is copied to Quandl.Excel.AddinSetup\4.0.0\Resources.
 1. Go to the project properties for `Quandl.Excel.Addin`
 1. Click on signing tab
 1. Click `Create Test Certificate` without a password
@@ -46,6 +61,11 @@ Following steps will create a setup package which works for both Microsoft Excel
 
 1. Ensure the setup project is signed `Quandl.Excel.Addin.Setup -> 6 Prepare for Release => Releases => SingleImage => Signing`
   * See [SIGNING](SIGNING.md)
+  * In the middle of this process you will need to actually build the addin: 
+   	- First you should do: 
+      		Have 6 out 8 projects loaded. Proceed to “rebuild” main solution ‘quandl-excel-windows-adx’. 
+	- During the break in signing script, when prompted to build the actual AddinSetup installer, do: 
+      		“Build” the Quandl.Excel.AddinSetup project
 1. Navigate to `Quandl.Excel.Addin.Setup -> Product.wxs`
   1. Change the product code (use the helper - `{...}`)
   1. Bump the version number.
