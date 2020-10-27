@@ -30,7 +30,7 @@ A few things that will make your excel development experience much easier:
 (If you don't have NuGet, please install it at [https://dist.nuget.org/index.html](https://dist.nuget.org/index.html))
 1. Make sure that you have `ildasm` tool from Microsoft SDK installed. You need it to sign assemblies with strong name (see the next step). The solution has been tested with SDK 10.0A
 1. Modify `3rdparty\makesn.cmd` to change path to SDK folder (for `sn.exe`, `ildasm.exe` tools) and possibly to Microsoft.NET folder (for `ilasm.exe` tool), if appropriate.
-2. Run `3rdparty\makesn.cmd`. It should create strongly signed versions of `Markdown.Xaml.dll`, `octokit.dll`, `SharpRaven.dll` and `Syroot.Windows.IO.KnownFolders.dll`.
+1. Run `3rdparty\makesn.cmd`. It should create strongly signed versions of `Markdown.Xaml.dll`, `octokit.dll`, `SharpRaven.dll` and `Syroot.Windows.IO.KnownFolders.dll`.
 1. Go to the project properties for `Quandl.Excel.Addin`
 1. Click on signing tab
 1. Click `Create Test Certificate` without a password
