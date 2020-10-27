@@ -31,9 +31,6 @@ A few things that will make your excel development experience much easier:
 1. Make sure that you have `ildasm` tool from Microsoft SDK installed. You need it to sign assemblies with strong name (see the next step). The solution has been tested with SDK 10.0A
 1. Modify `3rdparty\makesn.cmd` to change path to SDK folder (for `sn.exe`, `ildasm.exe` tools) and possibly to Microsoft.NET folder (for `ilasm.exe` tool), if appropriate.
 2. Run `3rdparty\makesn.cmd`. It should create strongly signed versions of `Markdown.Xaml.dll`, `octokit.dll`, `SharpRaven.dll` and `Syroot.Windows.IO.KnownFolders.dll`.
-1. Make sure adxloader64 and adxloader are copied in Quandl.Excel.Addin\Loader directory. You can find them in C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Redistributables
-1. Make sure dpca.dll is copied (should be in the Downloads folder of the Windows VM) to Quandl.Excel.AddinSetup\4.0.0\Resources.
-1. Make sure vdwtool.exe (should be in C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Redistributables) is copied to Quandl.Excel.AddinSetup\4.0.0\Resources.
 1. Go to the project properties for `Quandl.Excel.Addin`
 1. Click on signing tab
 1. Click `Create Test Certificate` without a password
