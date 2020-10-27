@@ -1,5 +1,5 @@
-"%ProgramFiles(x86)%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools\sn.exe" -k keyPair.snk
-set PATH_ILDASM="%ProgramFiles(x86)%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools\ildasm.exe"
+"%ProgramFiles(x86)%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools\sn.exe" -k keyPair.snk
+set PATH_ILDASM="%ProgramFiles(x86)%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools\ildasm.exe"
 set PATH_ILASM=%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\ilasm.exe
 set PATH_AIE="%ProgramFiles(x86)%\Add-in Express\Add-in Express for .NET\Redistributables"
 call :runsn ..\lib\Markdown.Xaml.dll Markdown.Xaml
