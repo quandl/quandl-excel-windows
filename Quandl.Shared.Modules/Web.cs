@@ -15,6 +15,8 @@ using Quandl.Shared.Models.Browse;
 using Quandl.Shared.Properties;
 using System.Windows;
 using Quandl.Shared.Helpers;
+using System.Text;
+using System.Diagnostics.Contracts;
 
 namespace Quandl.Shared
 {
@@ -88,7 +90,7 @@ namespace Quandl.Shared
         public virtual async Task<Datatable> GetDatatableData(string quandlCode, Dictionary<string, object> queryParams)
         {
             var relativeUrl = "datatables/" + quandlCode;
-            var resp = await RequestAsync<DataArray>(relativeUrl, CallTypes.Data, queryParams);
+            var resp = await RequestAsync<DataArray>(relativeUrl, CallTypes.Data, queryParams, null, default(CancellationToken), true);
             var datatable = new Datatable { Data = resp, Columns = resp.Columns };
             datatable.VendorCode = quandlCode.Split('/')[0];
             datatable.DatatableCode = quandlCode.Split('/')[1];
@@ -161,7 +163,8 @@ namespace Quandl.Shared
             CallTypes callType = CallTypes.Data,
             Dictionary<string, object> queryParams = null,
             Dictionary<string, string> headers = null,
-            CancellationToken token = default(CancellationToken))
+            CancellationToken token = default(CancellationToken),
+            Boolean isPostReq = false)
         {
             using (var client = new HttpClient())
             {
@@ -189,13 +192,13 @@ namespace Quandl.Shared
                     }
                 }
 
-                if (queryParams != null)
+                if (queryParams != null && !isPostReq)
                 {
-                    relativeUrl = relativeUrl + "?" + StringifyQueryParams(queryParams);
+                    relativeUrl += "?" + StringifyQueryParams(queryParams);
                 }
 
-                // Attempt to fetch the data. 
-                var resp = await RetrieveResponseWithRetries(client, relativeUrl, token);
+                // Attempt to fetch the data.
+                var resp = await RetrieveResponseWithRetries(client, relativeUrl, token, isPostReq, queryParams);
                 var data = await resp.Content.ReadAsStringAsync();
 
                 if (resp.StatusCode != HttpStatusCode.OK)
@@ -208,15 +211,25 @@ namespace Quandl.Shared
             }
         }
 
-        private static async Task<HttpResponseMessage> RetrieveResponseWithRetries(HttpClient client, string relativeUrl, CancellationToken token, int remainingRetries = MaxHTTPRequestRetries)
+        private static async Task<HttpResponseMessage> RetrieveResponseWithRetries(HttpClient client, string relativeUrl, CancellationToken token, Boolean isPostReq = false, Dictionary<string, object> queryParams = null, int remainingRetries = MaxHTTPRequestRetries)
         {
-            var resp = await client.GetAsync(relativeUrl, token).ConfigureAwait(false);
+            HttpResponseMessage resp = null;
+
+            if (isPostReq)
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(queryParams));
+                resp = await client.PostAsync(relativeUrl, content, token).ConfigureAwait(false);
+            }
+            else
+            {
+                resp = await client.GetAsync(relativeUrl, token).ConfigureAwait(false);
+            }
 
             // Data fetching failed. There are retries remaining.
             if ((int)resp.StatusCode >= 500 && remainingRetries > 0)
             {
                 await Task.Delay(MaxHTTPRequestTimeout);
-                return await RetrieveResponseWithRetries(client, relativeUrl, token, remainingRetries - 1);
+                return await RetrieveResponseWithRetries(client, relativeUrl, token, isPostReq, queryParams, remainingRetries - 1);
             }
 
             // The server returned an error and there are no retries remaining.
@@ -247,7 +260,7 @@ namespace Quandl.Shared
                 }
                 if (queryParam.Value is IList && queryParam.Value.GetType().IsGenericType)
                 {
-                    queryArr.Add(ConvertListToQueryString(queryParam.Key, (List<string>) queryParam.Value));
+                    queryArr.Add(ConvertListToQueryString(queryParam.Key, (List<string>)queryParam.Value));
                 }
                 else
                 {
