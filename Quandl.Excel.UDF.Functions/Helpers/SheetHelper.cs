@@ -233,8 +233,8 @@ namespace Quandl.Excel.UDF.Functions.Helpers
                 }
                 endCell = cache[startCell.Row + data.GetLength(0) - 1, startCell.Column + data.GetLength(1) - 1];
                 writeRange = cache.Worksheet.Range[startCell, endCell]; // .Range is an indexed property
+                
                 // Take control from user, write data, show it.
-                // writeRange.NumberFormat = "@";
                 if (columnInfo != null)
                 {
                     var columnsToFormat = GetColumnsToFormatIndexes(columnInfo);
@@ -243,7 +243,7 @@ namespace Quandl.Excel.UDF.Functions.Helpers
                         writeRange.Cells[startCell.Row, startCell.Column + index].EntireColumn.NumberFormat = "@";
                     }
                 }
-                // writeRange.Cells[1, 4].EntireColumn.NumberFormat = "@";
+
                 writeRange.Value2 = data;
 
                 if (QuandlConfig.ScrollOnInsert)
