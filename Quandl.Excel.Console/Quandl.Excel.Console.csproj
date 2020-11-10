@@ -41,7 +41,7 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>8FA2982652D1577FA4FA53A786CC0E59B02478F2</ManifestCertificateThumbprint>
