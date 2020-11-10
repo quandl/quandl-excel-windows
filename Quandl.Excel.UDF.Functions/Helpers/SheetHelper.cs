@@ -27,18 +27,20 @@ namespace Quandl.Excel.UDF.Functions.Helpers
         private readonly bool _threaded;
         private readonly bool _firstRow;
         private readonly bool _transpose;
+        private readonly DatatableMetadata _metaData;
 
         private List<string> _remainingHeaders => _results.Headers.GetRange(1, _results.Headers.Count - 1);
 
         public bool? ConfirmedOverwrite = null;
 
-        public SheetHelper(ResultsData results, bool includeHeader, bool firstRow = false, bool threaded = false, bool transpose = false)
+        public SheetHelper(ResultsData results, bool includeHeader, bool firstRow = false, bool threaded = false, bool transpose = false, DatatableMetadata metaData = null)
         {
             _results = results;
             _includeHeader = includeHeader;
             _threaded = threaded;
             _firstRow = firstRow;
             _transpose = transpose;
+            _metaData = metaData;
         }
 
         sealed class ComCache : System.IDisposable
@@ -165,7 +167,7 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             // Purely populating data, the first row was written in another call.
             else if (data.Count >= 1)
             {
-                PopulateGrid(data, 0);
+                PopulateGrid(data);
             }
         }
 
@@ -212,6 +214,12 @@ namespace Quandl.Excel.UDF.Functions.Helpers
                 return;
             }
 
+            IList<DataColumn> columnInfo = null;
+            if (_metaData != null)
+            {
+                columnInfo = _metaData.datatable.Columns;
+            }
+
             var data = ConvertNestedListToArray(dataArray);
             Range endCell = null;
             Range writeRange = null;
@@ -219,15 +227,29 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             Range writeRangeCellsToShow = null;
             try
             {
-                
-
                 if (!CanWriteData())
                 {
                     return;
                 }
                 endCell = cache[startCell.Row + data.GetLength(0) - 1, startCell.Column + data.GetLength(1) - 1];
                 writeRange = cache.Worksheet.Range[startCell, endCell]; // .Range is an indexed property
+                
                 // Take control from user, write data, show it.
+                if (columnInfo != null)
+                {
+                    var columnsToFormatText = GetColumnsToFormatIndexes(columnInfo, "text");
+                    foreach (int index in columnsToFormatText)
+                    {
+                        writeRange.Cells[startCell.Row, startCell.Column + index].EntireColumn.NumberFormat = "@";
+                    }
+
+                    var columnsToFormatInteger = GetColumnsToFormatIndexes(columnInfo, "Integer");
+                    foreach (int index in columnsToFormatInteger)
+                    {
+                        writeRange.Cells[startCell.Row, startCell.Column + index].EntireColumn.NumberFormat = "0";
+                    }
+                }
+
                 writeRange.Value2 = data;
 
                 if (QuandlConfig.ScrollOnInsert)
@@ -263,8 +285,22 @@ namespace Quandl.Excel.UDF.Functions.Helpers
                 {
                     Marshal.ReleaseComObject(writeRangeCellsToShow);
                 }
-
             }
+        }
+
+        private IList<int> GetColumnsToFormatIndexes(IList<DataColumn> dataColumns, string type)
+        {
+            IList<int> offsetArray = new List<int>();
+
+            for (int i = 0; i < dataColumns.Count; i++)
+            {
+                if (dataColumns[i].Type == type)
+                {
+                    offsetArray.Add(i);
+                }    
+            }
+
+            return offsetArray;
         }
 
         private object[,] ConvertNestedListToArray(List<List<object>> data)

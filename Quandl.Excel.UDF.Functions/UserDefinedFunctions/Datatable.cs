@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Quandl.Shared.Helpers;
+using Microsoft.Office.Interop.Excel;
 
 namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
 {
@@ -241,17 +242,16 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                         // async processing ends here.
                         // however looks like this function executes synchronously
 
+                        // Get table metadata
+                        var metaDataTask = new Web().GetDatatableMetadata(_quandlCode);
+                        var metaDataResults = metaDataTask.Result;
 
                         // Write fetch rows out to the sheet. If this is the first iteration save the value to display in the formula cell.
-                        SheetHelper excelWriter = new SheetHelper(processedData, false, false, true);
+                        SheetHelper excelWriter = new SheetHelper(processedData, false, false, true, false, metaDataResults);
                         if (nextCursorId == null)
                         {
-                            excelWriter = new SheetHelper(processedData, true, true, true);
+                            excelWriter = new SheetHelper(processedData, true, true, true, false, metaDataResults);
                         }
-
-                        
-
-
 
                         // Bail out if the worksheet no longer exists.
                         if (!WorksheetStillExists(_currentCellRange))
