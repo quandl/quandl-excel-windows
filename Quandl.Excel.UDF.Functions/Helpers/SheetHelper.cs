@@ -237,10 +237,16 @@ namespace Quandl.Excel.UDF.Functions.Helpers
                 // Take control from user, write data, show it.
                 if (columnInfo != null)
                 {
-                    var columnsToFormat = GetColumnsToFormatIndexes(columnInfo);
-                    foreach (int index in columnsToFormat)
+                    var columnsToFormatText = GetColumnsToFormatIndexes(columnInfo, "text");
+                    foreach (int index in columnsToFormatText)
                     {
                         writeRange.Cells[startCell.Row, startCell.Column + index].EntireColumn.NumberFormat = "@";
+                    }
+
+                    var columnsToFormatInteger = GetColumnsToFormatIndexes(columnInfo, "Integer");
+                    foreach (int index in columnsToFormatInteger)
+                    {
+                        writeRange.Cells[startCell.Row, startCell.Column + index].EntireColumn.NumberFormat = "0";
                     }
                 }
 
@@ -282,13 +288,13 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             }
         }
 
-        private IList<int> GetColumnsToFormatIndexes(IList<DataColumn> dataColumns)
+        private IList<int> GetColumnsToFormatIndexes(IList<DataColumn> dataColumns, string type)
         {
             IList<int> offsetArray = new List<int>();
 
             for (int i = 0; i < dataColumns.Count; i++)
             {
-                if (dataColumns[i].Type == "text")
+                if (dataColumns[i].Type == type)
                 {
                     offsetArray.Add(i);
                 }    
