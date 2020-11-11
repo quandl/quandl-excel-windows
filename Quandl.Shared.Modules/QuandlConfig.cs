@@ -132,6 +132,12 @@ namespace Quandl.Shared
             set { SetRegistryKeyValue("ApiKey", value); }
         }
 
+        private string apiHost
+        {
+            get { return GetRegistry<string>("ApiHost"); }
+            set { SetRegistryKeyValue("ApiHost", value); }
+        }
+
         private string userRole
         {
             get { return GetRegistry<string>("UserRole"); }
@@ -145,6 +151,12 @@ namespace Quandl.Shared
         {
             get { return Instance.apiKey; }
             set { Instance.apiKey = value; }
+        }
+
+        public static string ApiHost
+        {
+            get { return Instance.apiHost; }
+            set { Instance.apiHost = value; }
         }
 
         public static string UserRole
@@ -210,6 +222,24 @@ namespace Quandl.Shared
         public static void Reset()
         {
             Registry.CurrentUser.DeleteSubKeyTree(RegistrySubKey);
+        }
+
+        public static void DeleteApiHost()
+        {
+            DeleteRegistryKeyValue("ApiHost");
+        }
+
+        public static void DeleteApiKey()
+        {
+            DeleteRegistryKeyValue("ApiKey");
+        }
+
+        private static void DeleteRegistryKeyValue(string key)
+        {
+            using (var appKeyPath = Registry.CurrentUser.CreateSubKey(RegistrySubKey))
+            {
+                appKeyPath.DeleteValue(key, false);
+            }
         }
 
         private static void SetRegistryKeyValue(string key, object value,
