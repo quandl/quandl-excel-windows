@@ -3,7 +3,7 @@
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
      >
-  <Product Id="*" Name="Quandl Excel Addin" Language="!(loc.ID)" Version="3.95.1" Manufacturer="Quandl" UpgradeCode="{5E31829B-2176-41EB-88FC-FE5BEA8538E0}">
+  <Product Id="*" Name="Quandl Excel Addin" Language="!(loc.ID)" Version="3.95.2" Manufacturer="Quandl" UpgradeCode="{5E31829B-2176-41EB-88FC-FE5BEA8538E0}">
     <Package AdminImage="no" Comments="Quandl Excel Addin" Compressed="yes" InstallerVersion="200" Languages="0,1033" Manufacturer="Quandl" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
     <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
     <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />
