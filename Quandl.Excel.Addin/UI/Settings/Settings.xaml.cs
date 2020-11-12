@@ -7,6 +7,7 @@ using Quandl.Excel.Addin.UI.Helpers;
 using Quandl.Shared;
 using Quandl.Shared.Helpers;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace Quandl.Excel.Addin.UI.Settings
 {
@@ -36,6 +37,7 @@ namespace Quandl.Excel.Addin.UI.Settings
         public void Reset()
         {
             ApiKeyTextBox.Text = QuandlConfig.ApiKey;
+            ApiDomainTextBox.Text = QuandlConfig.ApiHost;
             LongRunningWarningTextBox.IsChecked = QuandlConfig.LongRunningQueryWarning;
             OverwriteWarningTextBox.IsChecked = QuandlConfig.OverwriteDataWarning;
             AutoUpdateComboBox.SelectedValue = QuandlConfig.AutoUpdateFrequency;
@@ -51,6 +53,41 @@ namespace Quandl.Excel.Addin.UI.Settings
             QuandlConfig.ScrollOnInsert = ScollEnabledCheckBox.IsChecked.Value;
         }
 
+        private bool IsValidDomain(string domain)
+        {
+            IPHostEntry entry;
+
+            if (Uri.CheckHostName(domain) == UriHostNameType.Unknown)
+                return false;
+
+            try
+            {
+                entry = Dns.GetHostEntry(domain);
+                return entry != null;
+            }
+            catch (Exception)
+            { } // intentionally ignore thrown exception
+
+            return false;
+        }
+
+        private void SaveDomainIfPossible(string domain)
+        {
+            if (string.IsNullOrEmpty(domain))
+                return;
+
+            if (QuandlConfig.ApiHost == domain)
+                return;
+
+            if (!IsValidDomain(domain))
+            {
+                DisplayErrorMessage(Properties.Resources.InvalidDomainEntered);
+                return;
+            }
+
+            QuandlConfig.ApiHost = domain;
+        }
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             ConfirmSave();
@@ -61,6 +98,19 @@ namespace Quandl.Excel.Addin.UI.Settings
             Close();
         }
 
+        private void ResetDomainButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResetDomain();
+        }
+
+        private void ResetDomain()
+        {
+            ApiKeyTextBox.Text = null;
+            ApiDomainTextBox.Text = null;
+            QuandlConfig.DeleteApiHost();
+            QuandlConfig.DeleteApiKey();
+        }
+
         private void ConfirmSave()
         {
             var result = MessageBox.Show(Properties.Resources.SettingsSaveWarning,
@@ -69,6 +119,10 @@ namespace Quandl.Excel.Addin.UI.Settings
             if (result == MessageBoxResult.Yes)
             {
                 var key = ApiKeyTextBox.Text.Trim();
+                var domain = ApiDomainTextBox.Text.Trim();
+
+                SaveDomainIfPossible(domain);
+
                 if (string.IsNullOrEmpty(key))
                 {
                     SaveSettings(key);
