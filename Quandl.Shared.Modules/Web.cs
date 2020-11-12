@@ -279,6 +279,12 @@ namespace Quandl.Shared
         private static string BaseUrl()
         {
             string domain = Settings.Default.BaseDomain;
+
+            if (!string.IsNullOrEmpty(QuandlConfig.ApiHost))
+            {
+                domain = QuandlConfig.ApiHost;
+            }
+
             UriBuilder uri = new UriBuilder(Uri.UriSchemeHttps, domain)
             {
                 Path = Settings.Default.BasePath
