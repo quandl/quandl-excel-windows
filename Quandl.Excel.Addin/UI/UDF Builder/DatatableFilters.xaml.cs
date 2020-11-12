@@ -119,7 +119,7 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             }
             switch (type)
             {
-                case "string":
+                case "text":
                     FiltersGroup.Children.Add(new StringFilter(name, new FilterHelper()));
                     break;
                 case "date":
