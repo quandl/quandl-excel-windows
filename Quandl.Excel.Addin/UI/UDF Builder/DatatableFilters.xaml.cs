@@ -105,7 +105,10 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                     foreach (string filter in items.datatable.Filters)
                     {
                         var column = items.datatable.Columns.FirstOrDefault(x => x.Name.Equals(filter));
-                        PopulateFilters(column.Name, column.Type.ToLower());
+                        if (column != null)
+                        {
+                            PopulateFilters(column.Name, column.Type.ToLower());
+                        }
                     }
                 }
             });
@@ -120,15 +123,23 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
             switch (type)
             {
                 case "text":
+                case "string":
+                case "mediumtext":
                     FiltersGroup.Children.Add(new StringFilter(name, new FilterHelper()));
                     break;
                 case "date":
                     FiltersGroup.Children.Add(new DateFilter(name, new FilterHelper()));
                     break;
+                case "datetime":
+                    FiltersGroup.Children.Add(new DateFilter(name, new FilterHelper(), true));
+                    break;
                 case "integer":
+                case "bigint":
                     FiltersGroup.Children.Add(new IntegerFilter(name, new FilterHelper()));
                     break;
                 case "bigcecimal":
+                case "double":
+                case "decimal":
                     FiltersGroup.Children.Add(new FloatNumberFilter(name, new FilterHelper()));
                     break;
             }
