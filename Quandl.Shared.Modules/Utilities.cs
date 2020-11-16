@@ -9,7 +9,7 @@ namespace Quandl.Shared
 {
     public class Utilities
     {
-        public const string ReleaseVersion = "v3.95.4";
+        public const string ReleaseVersion = "v3.95.5";
         public const string ReleaseSource = "excel";
         public const string DateFormat = "yyyy-MM-dd";
         public enum UserRoles
