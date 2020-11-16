@@ -18,12 +18,14 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
     {
         private DateConditionSelection _dateFrom = null;
         private DateConditionSelection _dateTo = null;
+        bool _isDateTime;
 
-        public DateFilter(string identifier, FilterHelper filterHelper)
+        public DateFilter(string identifier, FilterHelper filterHelper, bool isDateTime = false)
         {
             InitializeComponent();
             Identifier = identifier;
             FilterHelper = filterHelper;
+            _isDateTime = isDateTime;
             PopulateDateCondition();
             Filterlabel.Content = string.Format(Properties.Resources.DatatableFilterDateRange, Identifier);
         }
@@ -34,12 +36,12 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder.Filters
 
         private void PopulateDateCondition()
         {
-            _dateFrom = new DateConditionSelection(Identifier, new FilterHelper());
+            _dateFrom = new DateConditionSelection(Identifier, new FilterHelper(), _isDateTime);
             _dateFrom.HorizontalAlignment = HorizontalAlignment.Left;
             _dateFrom.Margin = new Thickness(10,0,10,30);
             _dateFrom.SelectedDateChanged += Date_OnSelectedDateChanged;
 
-            _dateTo = new DateConditionSelection(Identifier, new FilterHelper());
+            _dateTo = new DateConditionSelection(Identifier, new FilterHelper(), _isDateTime);
             _dateTo.dateRangeSelector();
             _dateTo.HorizontalAlignment = HorizontalAlignment.Left;
             _dateTo.Margin = new Thickness(180, 0, 10, 30);
