@@ -20,12 +20,15 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
                                                                new Operator { Value = "gt", Label = ">" },
                                                                new Operator { Value = "gte", Label = ">=" } };
 
-        public DateConditionSelection(string identifier, FilterHelper filterHelper)
+        bool _isDateTime;
+
+        public DateConditionSelection(string identifier, FilterHelper filterHelper, bool isDateTime = false)
         {
             InitializeComponent();
       
             Identifier = identifier;
             FilterHelper = filterHelper;
+            _isDateTime = isDateTime;
             dateSingleSelector();
             
         }
@@ -48,8 +51,18 @@ namespace Quandl.Excel.Addin.UI.UDF_Builder
 
         private void setComboboxList(List<Operator> listData, string selected)
         {
-            ConditionBox.ItemsSource = listData;
-            ConditionBox.SelectedValue = selected;
+            if (_isDateTime)
+            {
+                List<Operator> filteredOps = listData.FindAll(o => o.Label == ">" || o.Label == "<");
+                ConditionBox.ItemsSource = filteredOps;
+                ConditionBox.SelectedValue = "gt";
+            }
+            else
+            {
+                ConditionBox.ItemsSource = listData;
+                ConditionBox.SelectedValue = selected;
+            }
+
             ConditionBox.DisplayMemberPath = "Label";
             ConditionBox.SelectedValuePath = "Value";
         }
