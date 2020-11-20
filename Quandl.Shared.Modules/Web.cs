@@ -146,7 +146,7 @@ namespace Quandl.Shared
                 client.Headers["X-API-Token"] = QuandlConfig.ApiKey;
             }
 
-            var requestUri = Settings.Default.BaseUrl + "users/token_auth";
+            var requestUri = BaseUrl() + "users/token_auth";
             var response = client.UploadString(requestUri, body);
             return JObject.Parse(response);
         }
@@ -169,7 +169,7 @@ namespace Quandl.Shared
             using (var client = new HttpClient())
             {
                 client.Timeout.Add(new TimeSpan(0, 0, 0, 0, MaxHTTPRequestTimeout));
-                client.BaseAddress = new Uri(Settings.Default.BaseUrl);
+                client.BaseAddress = new Uri(BaseUrl());
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.UserAgent.Clear();
@@ -287,6 +287,23 @@ namespace Quandl.Shared
         private static string UserAgent(CallTypes callType)
         {
             return $"QuandlExcelAddIn/3.0 {CallTypeMapper(callType)}";
+        }
+
+        private static string BaseUrl()
+        {
+            string domain = Settings.Default.BaseDomain;
+
+            if (!string.IsNullOrEmpty(QuandlConfig.ApiHost))
+            {
+                domain = QuandlConfig.ApiHost;
+            }
+
+            UriBuilder uri = new UriBuilder(Uri.UriSchemeHttps, domain)
+            {
+                Path = Settings.Default.BasePath
+            };
+
+            return uri.ToString();
         }
     }
 }

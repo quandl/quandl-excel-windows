@@ -223,4 +223,7 @@
   <data name="InvalidApiKeyEntered" xml:space="preserve">
     <value>You entered invalid API key.</value>
   </data>
+  <data name="InvalidDomainEntered" xml:space="preserve">
+    <value>You entered an invalid domain.</value>
+  </data>
 </root>

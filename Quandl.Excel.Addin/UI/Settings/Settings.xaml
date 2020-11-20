@@ -7,13 +7,14 @@
              xmlns:local="clr-namespace:Quandl.Excel.Addin.UI.Settings"
              xmlns:shared="clr-namespace:Quandl.Shared;assembly=Quandl.Shared"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300" Padding="10">
+             d:DesignHeight="385" d:DesignWidth="300" Padding="10">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -34,13 +35,33 @@
         <TextBox x:Name="ApiKeyTextBox" Grid.Column="1" Grid.Row="1" Margin="10,10,0,10" Height="25"
                  VerticalContentAlignment="Center" ToolTip="The API key that will be used to fetch data." />
 
-        <Label Content="Scroll on Insert" Grid.Column="0" Grid.Row="2" HorizontalContentAlignment="Right"
+        <GroupBox Header="Platform Client" Grid.ColumnSpan="2" Grid.Row="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Label Content="API Domain" Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Right"
                VerticalAlignment="Center" />
-        <CheckBox x:Name="ScollEnabledCheckBox" Grid.Column="1" Grid.Row="2" Margin="10,10,0,10" Height="25"
+                <TextBox x:Name="ApiDomainTextBox" Grid.Column="1" Grid.Row="0" Margin="10,10,0,10" Height="25"
+                 VerticalContentAlignment="Center" ToolTip="Alternative Quandl API domain." />
+                <Button x:Name="ResetDomainButton" Content="Reset to Quandl Domain" Grid.Column="1" Grid.Row="1" Margin="10,10,0,10" Height="25"
+                HorizontalAlignment="Right" ToolTip="Reset to default Quandl domain" Click="ResetDomainButton_Click"/>
+            </Grid>
+        </GroupBox>
+
+
+        <Label Content="Scroll on Insert" Grid.Column="0" Grid.Row="4" HorizontalContentAlignment="Right"
+               VerticalAlignment="Center" />
+        <CheckBox x:Name="ScollEnabledCheckBox" Grid.Column="1" Grid.Row="4" Margin="10,10,0,10" Height="25"
                  VerticalContentAlignment="Center" ToolTip="While data is being inserted scroll to the first column of the last row."/>
 
-        <Label Content="Warnings" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="0" Grid.Row="4" Margin="0,5,0,0" />
-        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Vertical" ToolTip="If set a warning message will display for Quandl formulas that may be potentially long running and have a potential to crash Excel.">
+        <Label Content="Warnings" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="0" Grid.Row="5" Margin="0,5,0,0" />
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Vertical" ToolTip="If set a warning message will display for Quandl formulas that may be potentially long running and have a potential to crash Excel.">
             <StackPanel Orientation="Horizontal">
                 <CheckBox x:Name="LongRunningWarningTextBox" Margin="10,10,0,10" />
                 <Label Content="Long running formula" VerticalAlignment="Center"/>
@@ -51,11 +72,11 @@
                 <Label Content="Overwrite existing data" VerticalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Vertical" ToolTip="Check Quandl excel addin updates at start">
+        <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Vertical" ToolTip="Check Quandl excel addin updates at start">
             <StackPanel Orientation="Horizontal" ToolTip="Check Quandl excel addin updates at start"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+        <StackPanel Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                     Orientation="Horizontal">
             <Button x:Name="CancelButton" Content="Cancel" Padding="5" Margin="10"  Click="CandelButton_Click" IsDefault="True" />
             <Button x:Name="SaveButton" Content="Save" Padding="5" Margin="10"  Click="SaveButton_Click" />
