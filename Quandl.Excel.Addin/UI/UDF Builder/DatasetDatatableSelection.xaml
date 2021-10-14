@@ -77,7 +77,7 @@
                     Width="35" Height="30" Click="btnLastPage_Click" Background="#C5D1D8" BorderBrush="#D8E7EF" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" AutomationProperties.AutomationId="StepTwoBottomBar">
-                <Label Content="Selected Quandl codes" VerticalContentAlignment="Center" />
+                <Label Content="Selected Table codes" VerticalContentAlignment="Center" />
                 <TextBox x:Name="SelectedDataHolderTextBox" Margin="5,0,0,0" MinWidth="150"
                          VerticalContentAlignment="Center" IsEnabled="False" Padding="5"
                          ToolTip="Your selected codes." AutomationProperties.AutomationId="DatabaseCodeBox">

@@ -57,7 +57,7 @@ namespace Quandl.Test.CodedUI
             Assert.AreEqual(this.AssertCorrectUDFSignatureExpectedValues.UIUdfOutputEditText, uIUdfOutputEdit.Text, "Generated QSERIES function not correct");
 
             // Verify that the 'Text' property of 'SelectedDataHolderTextBox' text box equals 'WIKI/IBM'
-            Assert.AreEqual(this.AssertCorrectUDFSignatureExpectedValues.UISelectedDataHolderTeEditText, uISelectedDataHolderTeEdit.Text, "Quandl code not correct");
+            Assert.AreEqual(this.AssertCorrectUDFSignatureExpectedValues.UISelectedDataHolderTeEditText, uISelectedDataHolderTeEdit.Text, "Time-series code not correct");
         }
         
         /// <summary>

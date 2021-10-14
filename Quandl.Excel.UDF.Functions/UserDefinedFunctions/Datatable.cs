@@ -30,7 +30,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
          * 2. When UDF runs immediately mark it as non-volatile
          * 3. When outputting the data run this in a Queued macro function so that it does not influence the running calculation thread. 
          */
-        [ExcelFunction("Pull in Quandl data via the API",
+        [ExcelFunction("Pull in Data Link data via the API",
             Name = "QTABLE",
             Category = "Financial",
             IsMacroType = true,
@@ -38,7 +38,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             IsThreadSafe = false,
             IsVolatile = true)]
         public static string Qtable(
-            [ExcelArgument("A single Quandl code", Name = "Quandl Code", AllowReference = true)] object rawQuandlCode,
+            [ExcelArgument("A single table code", Name = "Table Code", AllowReference = true)] object rawQuandlCode,
             [ExcelArgument("(optional) A list of columns to fetch", Name = "Columns", AllowReference = true)] object rawColumns,
             [ExcelArgument("(optional) The name of filter 1", AllowReference = true)] object argName1,
             [ExcelArgument("(optional) The value of filter 1", AllowReference = true)] object argValue1,

@@ -70,7 +70,7 @@
       <ParameterName />
       <PropertyName>Text</PropertyName>
       <ExpectedValue>WIKI/IBM</ExpectedValue>
-      <MessageOnValidationFailure>Quandl code not correct</MessageOnValidationFailure>
+      <MessageOnValidationFailure>Time-series code not correct</MessageOnValidationFailure>
       <Type>String</Type>
       <PropertyCondition>AreEqual</PropertyCondition>
     </AssertAction>
