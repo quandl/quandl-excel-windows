@@ -6,7 +6,7 @@
     <ProductVersion>3.5</ProductVersion>
     <ProjectGuid>{e15d07f2-5114-4873-bfd2-1decf71141fd}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Quandl.Excel.AddinSetup</OutputName>
+    <OutputName>NasdaqDataLink.Excel.AddinSetup</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
@@ -150,8 +150,8 @@
     <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
       <!-- Add bootstrapper items here -->
     </ItemGroup>
-    <GenerateBootstrapper ApplicationFile="$(TargetFileName)" ApplicationName="Quandl.Excel.Addin" BootstrapperItems="@(BootstrapperFile)" ComponentsLocation="HomeSite" CopyComponents="False" OutputPath="$(OutputPath)" Path="c:\Program Files (x86)\Microsoft SDKs\ClickOnce Bootstrapper\" ApplicationRequiresElevation="False" Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' " />
-    <GenerateBootstrapper ApplicationFile="$(TargetFileName)" ApplicationName="Quandl.Excel.Addin" BootstrapperItems="@(BootstrapperFile)" ComponentsLocation="HomeSite" CopyComponents="False" OutputPath="$(OutputPath)" Path="c:\Program Files (x86)\Microsoft SDKs\ClickOnce Bootstrapper\" ApplicationRequiresElevation="False" Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' " />
+    <GenerateBootstrapper ApplicationFile="$(TargetFileName)" ApplicationName="Nasdaq Data Link Excel Addin" BootstrapperItems="@(BootstrapperFile)" ComponentsLocation="HomeSite" CopyComponents="False" OutputPath="$(OutputPath)" Path="c:\Program Files (x86)\Microsoft SDKs\ClickOnce Bootstrapper\" ApplicationRequiresElevation="False" Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' " />
+    <GenerateBootstrapper ApplicationFile="$(TargetFileName)" ApplicationName="Nasdaq Data Link Excel Addin" BootstrapperItems="@(BootstrapperFile)" ComponentsLocation="HomeSite" CopyComponents="False" OutputPath="$(OutputPath)" Path="c:\Program Files (x86)\Microsoft SDKs\ClickOnce Bootstrapper\" ApplicationRequiresElevation="False" Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' " />
     <RemoveDir Directories="$(IntermediateOutputPath)Harvested MST" Condition="'$(OutputType)'=='Package' OR '$(OutputType)'=='Module'" />
     <MakeDir Directories="$(IntermediateOutputPath)Harvested MST" Condition="'$(OutputType)'=='Package' OR '$(OutputType)'=='Module'" />
     <Exec Command="&quot;$(Wix)Bin\torch.exe&quot; -nologo -serr f &quot;$(OutputPath)$(OutputName).msi&quot; &quot;$(OutputPath)en-US\$(OutputName).msi&quot; -o &quot;$(IntermediateOutputPath)Harvested MST\en-US.mst&quot;" IgnoreExitCode="false" WorkingDirectory="$(MSBuildProjectDirectory)" Condition="('$(OutputType)'=='Package' OR '$(OutputType)'=='Module') AND Exists('$(OutputPath)$(OutputName).msi') AND Exists('$(OutputPath)en-US\$(OutputName).msi')" />

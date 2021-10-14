@@ -12,4 +12,4 @@ if (-NOT  (0 -eq $LastExitCode)) {
 
 Read-Host -Prompt "Please rebuild the installer before pressing Enter"
 
-.\signtool.exe  sign /tr http://timestamp.digicert.com /td sha256 /fd sha256 /v /f $cert_location /p $cert_password "$code_dir\Quandl.Excel.AddinSetup\4.0.0\bin\Release\en-US\Quandl.Excel.AddinSetup.msi"
+.\signtool.exe  sign /tr http://timestamp.digicert.com /td sha256 /fd sha256 /v /f $cert_location /p $cert_password "$code_dir\Quandl.Excel.AddinSetup\4.0.0\bin\Release\en-US\NasdaqDataLink.Excel.AddinSetup.msi"
