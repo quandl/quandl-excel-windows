@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-  <Product Id="*" Name="Nasdaq Data Link" Language="!(loc.ID)" Version="3.95.5" Manufacturer="Nasdaq" UpgradeCode="{5E31829B-2176-41EB-88FC-FE5BEA8538E0}">
+  <Product Id="*" Name="Nasdaq Data Link" Language="!(loc.ID)" Version="3.96.0" Manufacturer="Nasdaq" UpgradeCode="{5E31829B-2176-41EB-88FC-FE5BEA8538E0}">
     <Package AdminImage="no" Comments="Nasdaq Data Link Excel Addin" Compressed="yes" InstallerVersion="200" Languages="0,1033" Manufacturer="Nasdaq" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" Description="Nasdaq Data Link Excel Addin for Excel" InstallScope="perUser" />
     <CustomAction Id="VSDCA_AllUsers" Property="ALLUSERS" Value="" Execute="firstSequence" />
     <Property Id="ARPHELPLINK" Value="https://data.nasdaq.com/tools/excel" />
