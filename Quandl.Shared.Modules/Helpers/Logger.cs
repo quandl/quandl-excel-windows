@@ -16,12 +16,12 @@ namespace Quandl.Shared.Helpers
     {
         public enum LogType {FULL, STATUS, NOSENTRY, ERROR};
 
-        public const string LogPath = @"Quandl\Excel\logs";
+        public const string LogPath = @"Nasdaq\DataLink\logs";
 
         private const bool ENABLE_SENTRY_LOG = true;
         private const bool ENABLE_DISK_LOG = true;
 
-        private const string FullLogPrefix = "quandl";
+        private const string FullLogPrefix = "addin";
         private const string StatusLogPrefix = "status";
         private const string ErrorLogPrefix = "error";
 

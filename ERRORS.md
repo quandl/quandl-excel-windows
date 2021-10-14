@@ -1,6 +1,6 @@
 ## Debugging issues
 
-This plugin supports basic logging. When problems arise a log file will be written out to your `Documents/Quandl/Excel/logs` folder. In this folder you can find a trace of the errors that have occurred and can be used for helping to debug issues. 
+This plugin supports basic logging. When problems arise a log file will be written out to your `Documents/Nasdaq/Excel/logs` folder. In this folder you can find a trace of the errors that have occurred and can be used for helping to debug issues.
 
 _There are rare cases when logs files cannot be generated due to security settings or potentially unhandled exceptions._
 
