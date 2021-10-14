@@ -48,7 +48,7 @@
                             <Style.Resources>
                                 <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
                                     <VisualBrush.Visual>
-                                        <Label Content="Your Quandl formula will appear here when ready" Padding="8,12"
+                                        <Label Content="Your Data Link formula will appear here when ready" Padding="8,12"
                                         Width="10000000" Foreground="LightGray" Background="White" />
                                     </VisualBrush.Visual>
                                 </VisualBrush>

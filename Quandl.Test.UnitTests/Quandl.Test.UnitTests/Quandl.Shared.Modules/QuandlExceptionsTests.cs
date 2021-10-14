@@ -15,7 +15,7 @@ namespace Quandl.Shared.Tests
             QuandlDataNotFoundException exp =
                 Assert.Throws<QuandlDataNotFoundException>(
                     delegate { throw new QuandlDataNotFoundException(); });
-            Assert.That(exp.Message, Is.EqualTo("Quandl data is not found!"));
+            Assert.That(exp.Message, Is.EqualTo("Data could not be found!"));
         }
 
         [Test()]

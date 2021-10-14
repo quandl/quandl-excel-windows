@@ -121,9 +121,9 @@
     <value>We are unable to download the requested data at this moment. Please try again later or reduce the amount of data requested with additional filters.</value>
   </data>
   <data name="DownloadStopped" xml:space="preserve">
-    <value>Quandl downloads stopped.</value>
+    <value>Data Link downloads stopped.</value>
   </data>
   <data name="DownloadStopping" xml:space="preserve">
-    <value>Stopping all Quandl data downloads.</value>
+    <value>Stopping all Data Link data downloads.</value>
   </data>
 </root>

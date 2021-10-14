@@ -124,14 +124,14 @@
     <Content Include="Loader\adxloader64.dll" />
     <Content Include="Resources\disable.png" />
     <Content Include="Resources\enable.png" />
+    <Content Include="Resources\favicon.ico" />
     <Content Include="Resources\FileSave.png" />
     <Content Include="Resources\formulas_disabled.png" />
     <Content Include="Resources\formulas_enabled.png" />
     <Content Include="Resources\get_data.png" />
-    <Content Include="Resources\quandl.ico" />
-    <Content Include="Resources\quandl_hq.png" />
-    <Content Include="Resources\quandl_hq_sqr.png" />
-    <Content Include="Resources\quandl_lq_sqr.png" />
+    <Content Include="Resources\logo_hq.png" />
+    <Content Include="Resources\logo_hq_lg.png" />
+    <Content Include="Resources\logo_sm.png" />
     <Content Include="Resources\refresh_sheet.png" />
     <Content Include="Resources\refresh_workbook.png" />
     <Content Include="Resources\settings.png" />
@@ -230,6 +230,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TaskPaneWpfControlHost.resx">

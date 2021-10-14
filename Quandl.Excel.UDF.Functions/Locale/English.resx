@@ -127,7 +127,7 @@
     <value>Potential Long Running Formula</value>
   </data>
   <data name="AutoDownloadTurnedOff" xml:space="preserve">
-    <value>Quandl formulas have been turned off. Please enable Quandl formulas and then click the 'Refresh' button.</value>
+    <value>Data Link formulas have been turned off. Please enable Data Link formulas and then click the 'Refresh' button.</value>
   </data>
   <data name="DatasetParamsInvalidCollapse" xml:space="preserve">
     <value>Invalid collapse parameter given : {collapse}</value>

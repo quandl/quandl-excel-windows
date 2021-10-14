@@ -88,7 +88,7 @@ namespace Quandl.Excel.UDF.Functions.Locale {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quandl formulas have been turned off. Please enable Quandl formulas and then click the &apos;Refresh&apos; button..
+        ///   Looks up a localized string similar to Data Link formulas have been turned off. Please enable Data Link formulas and then click the &apos;Refresh&apos; button..
         /// </summary>
         internal static string AutoDownloadTurnedOff {
             get {

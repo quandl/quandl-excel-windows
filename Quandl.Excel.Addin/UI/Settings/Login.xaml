@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" HorizontalAlignment="Center">
-            <Image Source="ms-appx:///Resources/quandl_hq_sqr.png" Width="100" Height="100"
+            <Image Source="ms-appx:///Resources/logo_hq_lg.png" Width="100" Height="100"
                    Margin="0,0,0,10" Stretch="UniformToFill" Panel.ZIndex="3" />
             <Label x:Name="errorLabel" HorizontalContentAlignment="Center" Padding="0" Margin="10,0,10,0"
                    Visibility="Hidden" Foreground="Red" />

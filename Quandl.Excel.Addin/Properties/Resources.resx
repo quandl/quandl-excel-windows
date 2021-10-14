@@ -154,18 +154,6 @@
   <data name="update_available" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\update_available.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="quandl_hq" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\quandl_hq.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="quandl" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\quandl.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="quandl_hq_sqr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\quandl_hq_sqr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="quandl_lq_sqr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\quandl_lq_sqr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="CheckUpdateNewUpdateAvailable" xml:space="preserve">
     <value>New version available for download</value>
   </data>
@@ -218,12 +206,24 @@
     <value>Update Data</value>
   </data>
   <data name="UpdateWorkbookFormulas" xml:space="preserve">
-    <value>Your workbook(s) contain Quandl formulas. Would you like to update your data?</value>
+    <value>Your workbook(s) contain Data Link formulas. Would you like to update your data?</value>
   </data>
   <data name="InvalidApiKeyEntered" xml:space="preserve">
     <value>You entered invalid API key.</value>
   </data>
   <data name="InvalidDomainEntered" xml:space="preserve">
     <value>You entered an invalid domain.</value>
+  </data>
+  <data name="favicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\favicon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_hq" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_hq.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_hq_lg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_hq_lg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_sm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

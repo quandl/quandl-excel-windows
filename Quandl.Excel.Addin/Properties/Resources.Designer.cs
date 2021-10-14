@@ -171,6 +171,16 @@ namespace Quandl.Excel.Addin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon favicon {
+            get {
+                object obj = ResourceManager.GetObject("favicon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap FileSave {
@@ -227,23 +237,13 @@ namespace Quandl.Excel.Addin.Properties {
                 return ResourceManager.GetString("InvalidDomainEntered", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon quandl {
-            get {
-                object obj = ResourceManager.GetObject("quandl", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap quandl_hq {
+        internal static System.Drawing.Bitmap logo_hq {
             get {
-                object obj = ResourceManager.GetObject("quandl_hq", resourceCulture);
+                object obj = ResourceManager.GetObject("logo_hq", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -251,9 +251,9 @@ namespace Quandl.Excel.Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap quandl_hq_sqr {
+        internal static System.Drawing.Bitmap logo_hq_lg {
             get {
-                object obj = ResourceManager.GetObject("quandl_hq_sqr", resourceCulture);
+                object obj = ResourceManager.GetObject("logo_hq_lg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -261,9 +261,9 @@ namespace Quandl.Excel.Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap quandl_lq_sqr {
+        internal static System.Drawing.Bitmap logo_sm {
             get {
-                object obj = ResourceManager.GetObject("quandl_lq_sqr", resourceCulture);
+                object obj = ResourceManager.GetObject("logo_sm", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -392,7 +392,7 @@ namespace Quandl.Excel.Addin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your workbook(s) contain Quandl formulas. Would you like to update your data?.
+        ///   Looks up a localized string similar to Your workbook(s) contain Data Link formulas. Would you like to update your data?.
         /// </summary>
         internal static string UpdateWorkbookFormulas {
             get {

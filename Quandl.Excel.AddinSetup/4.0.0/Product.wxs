@@ -15,8 +15,8 @@
     <Property Id="MSIINSTALLPERUSER" Secure="yes" Value="1" />
     <Property Id="ISRUNASADMIN" Secure="yes" Value="0" />
     <Property Id="USEIMPERSONATE" Secure="yes" Value="1" />
-    <Icon Id="quandl.ico" SourceFile="Resources\quandl.ico"/>
-    <Property Id="ARPPRODUCTICON" Value="quandl.ico" />
+    <Icon Id="favicon.ico" SourceFile="Resources\favicon.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="favicon.ico" />
     <Property Id="PROGRAMFILES_DIRPATH">
       <RegistrySearch Id="_AD21FC27_97E3_49D0_85CA_C56FFB3F639E" Root="HKLM" Name="ProgramFilesDir" Type="raw" Key="SOFTWARE\Microsoft\Windows\CurrentVersion" />
     </Property>

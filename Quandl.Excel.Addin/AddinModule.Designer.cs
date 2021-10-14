@@ -64,7 +64,7 @@
             // 
             // adxRibbonTabQuandl
             // 
-            this.adxRibbonTabQuandl.Caption = "Quandl";
+            this.adxRibbonTabQuandl.Caption = "Nasdaq Data Link";
             this.adxRibbonTabQuandl.Controls.Add(this.adxRibbonTabQuandlData);
             this.adxRibbonTabQuandl.Controls.Add(this.adxRibbonTabQuandlGroup1);
             this.adxRibbonTabQuandl.Controls.Add(this.adxRibbonTabQuandlGroupSettings);
@@ -104,7 +104,7 @@
             this.imageList32.Images.SetKeyName(7, "formulas_enabled.png");
             this.imageList32.Images.SetKeyName(8, "settings.png");
             this.imageList32.Images.SetKeyName(9, "stop.png");
-            this.imageList32.Images.SetKeyName(10, "quandl_lq_sqr.png");
+            this.imageList32.Images.SetKeyName(10, "logo_sm.png");
             this.imageList32.Images.SetKeyName(11, "update_available.png");
             this.imageList32.Images.SetKeyName(12, "update_check.png");
             // 
@@ -217,7 +217,7 @@
             this.adxRibbonTabQuandlAbout.Id = "adxRibbonButton_f8e95f39724e44bda044894787003fcf";
             this.adxRibbonTabQuandlAbout.Image = 10;
             this.adxRibbonTabQuandlAbout.ImageList = this.imageList32;
-            this.adxRibbonTabQuandlAbout.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.adxRibbonTabQuandlAbout.ImageTransparentColor = System.Drawing.Color.White;
             this.adxRibbonTabQuandlAbout.Ribbons = AddinExpress.MSO.ADXRibbons.msrExcelWorkbook;
             this.adxRibbonTabQuandlAbout.Size = AddinExpress.MSO.ADXRibbonXControlSize.Large;
             this.adxRibbonTabQuandlAbout.OnClick += new AddinExpress.MSO.ADXRibbonOnAction_EventHandler(this.adxRibbonTabQuandlAbout_OnClick);
@@ -276,7 +276,7 @@
             // 
             // AddinModule
             // 
-            this.AddinName = "Quandl for Excel";
+            this.AddinName = "Nasdaq Data Link for Excel";
             this.SupportedApps = AddinExpress.MSO.ADXOfficeHostApp.ohaExcel;
             this.TaskPanes.Add(this.adxTaskPaneAbout);
             this.TaskPanes.Add(this.adxTaskPaneSettings);
