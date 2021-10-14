@@ -2,9 +2,10 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <Product Id="*" Name="Nasdaq Data Link" Language="!(loc.ID)" Version="3.95.5" Manufacturer="Nasdaq" UpgradeCode="{5E31829B-2176-41EB-88FC-FE5BEA8538E0}">
     <Package AdminImage="no" Comments="Nasdaq Data Link Excel Addin" Compressed="yes" InstallerVersion="200" Languages="0,1033" Manufacturer="Nasdaq" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" Description="Nasdaq Data Link Excel Addin for Excel" />
+    <CustomAction Id="VSDCA_AllUsers" Property="ALLUSERS" Value="" Execute="firstSequence" />
     <Property Id="ARPHELPLINK" Value="https://data.nasdaq.com/tools/excel" />
-    <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
-    <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />
+    <Property Id="ARPNOMODIFY" Value="no" Secure="yes" />
+    <Property Id="ARPNOREPAIR" Value="no" Secure="yes" />
     <Media Id="1" Cabinet="Quandl.Excel.Addin.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
     <Property Id="DiskPrompt" Value="Nasdaq Data Link Excel Addin Installation [1]" />
     <Property Id="ARPCOMMENTS" Value="Nasdaq Data Link Excel Addin" />
@@ -178,6 +179,7 @@
       <Custom Action="_DC2ECCA2_880C_4214_B3FE_CA31B878E2D1" After="MsiUnpublishAssemblies"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7=2 AND USEIMPERSONATE="0"]]></Custom>
       <Custom Action="_6227312D_332B_41D3_8F64_4E8C7ACE79F8" After="MsiUnpublishAssemblies"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7=2 AND USEIMPERSONATE="1"]]></Custom>
       <Custom Action="WixCloseApplications" After="InstallInitialize" />
+      <Custom Action="VSDCA_AllUsers" After="CostInitialize"><![CDATA[Installed="" AND NOT RESUME AND ALLUSERS=1]]></Custom>
     </InstallExecuteSequence>
     <InstallUISequence>
       <FindRelatedProducts Sequence="200" />
@@ -195,6 +197,7 @@
       <Show Dialog="FatalErrorForm" OnExit="error"><![CDATA[NOT HideFatalErrorForm]]></Show>
       <Show Dialog="MaintenanceForm" Sequence="999"><![CDATA[Installed<>""]]></Show>
       <Show Dialog="ResumeForm" Sequence="998"><![CDATA[Installed="" AND RESUME]]></Show>
+      <Custom Action="VSDCA_AllUsers" After="CostInitialize"><![CDATA[Installed="" AND NOT RESUME AND ALLUSERS=1]]></Custom>
     </InstallUISequence>
     <AdminUISequence>
       <Custom Action="CA_CheckAdmin" Before="CostInitialize"><![CDATA[Not Installed]]></Custom>
