@@ -584,13 +584,13 @@
     -->
     <ComponentGroup Id="XLLDistributables">
       <Component Id="XLL32" Guid="ea20b4ec-078f-44ae-bfb1-851442448082" Directory="AddinFolder">
-        <RegistryValue Root="HKCU" Key="Software\Quandl\Excel Add-In" Name="Xll32Bit" Value="AddIns" KeyPath="yes" Type="string" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="Xll32Bit" Value="AddIns" KeyPath="yes" Type="string" />
         <File Id="EXCELXLL32PACKED.XLL" Name="Quandl.Excel.UDF.Functions32.xll" Source="$(var.Quandl.Excel.UDF.Functions.TargetDir)Quandl.Excel.UDF.Functions-AddIn-packed.xll">
           <netfx:NativeImage Id="ngen_32Xll" Platform="32bit" Priority="0" />
         </File>
       </Component>
       <Component Id="XLL64" Guid="e4497a4c-3e94-4d1e-9cbe-c0f2deda1ac8" Directory="AddinFolder">
-        <RegistryValue Root="HKCU" Key="Software\Quandl\Excel Add-In" Name="Xll64Bit" Value="AddIns" KeyPath="yes" Type="string" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="Xll64Bit" Value="AddIns" KeyPath="yes" Type="string" />
         <File Id="EXCELXLL64PACKED.XLL" Name="Quandl.Excel.UDF.Functions64.xll" Source="$(var.Quandl.Excel.UDF.Functions.TargetDir)Quandl.Excel.UDF.Functions-AddIn64-packed.xll">
           <netfx:NativeImage Id="ngen_64Xll" Platform="64bit" Priority="0" />
         </File>
