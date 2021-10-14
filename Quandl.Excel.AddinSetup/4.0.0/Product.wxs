@@ -46,12 +46,7 @@
     <!-- Initialize the "TARGETDIR" directory property. -->
     <CustomAction Id="DIRCA_TARGETDIR" Property="TARGETDIR" Value="[DefaultAppFolderRoot][Manufacturer]\[ProductName]" Execute="firstSequence" />
     <CustomAction Id="DIRCA_TARGETDIR_UNINSTALL" Property="TARGETDIR" Value="[PREVIOUSINSTALLFOLDER]" Execute="firstSequence" />
-    <util:CloseApplication Id="CloseExcel" 
-                           CloseMessage="yes"    
-                           Target="excel.exe" 
-                           RebootPrompt="yes" 
-                           PromptToContinue="yes" 
-                           Description="Microsoft Excel is still running. Please save your work and close Excel to install the plugin." />
+    <util:CloseApplication Id="CloseExcel" CloseMessage="yes" Target="excel.exe" RebootPrompt="yes" PromptToContinue="yes" Description="Microsoft Excel is still running. Please save your work and close Excel to install the plugin." />
     <!-- The directory tree of the installation package. -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <!-- The "Quandl.Excel.Addin" project output. -->
@@ -577,7 +572,6 @@
     <!--
     <CustomAction Id="Action_CloseAppsPrompt" BinaryKey="InstallerCA.CA.dll" DllEntry="dc" Return="check" />
     -->
- 
   </Product>
   <Fragment>
     <!-- 
@@ -614,4 +608,3 @@
     </InstallExecuteSequence>
   </Fragment>
 </Wix>
-
