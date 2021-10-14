@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Quandl UDF Functions")]
+[assembly: AssemblyTitle("Nasdaq Data Link UDF Functions")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("QuandlFunctions")]
-[assembly: AssemblyCopyright("Copyright ©  201")]
+[assembly: AssemblyCompany("Nasdaq, Inc.")]
+[assembly: AssemblyProduct("DataLinkFunctions")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
