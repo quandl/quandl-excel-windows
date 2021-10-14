@@ -24,8 +24,10 @@ A few things that will make your excel development experience much easier:
 
 ### Setup
 
+1. This project depends on WIX designer, and works best with visual studio 2015.
 1. Install Add-in Express for Office and .NET from [https://www.add-in-express.com/downloads/adxnet.php]. Any edition will work. Note that trial version is not available, you need to purchase your license.
 1. Install WiX toolset from http://wixtoolset.org/.
+1. Go to Extensions > Manage Extensions | Search and Install `Designer for Visual Studio WiX Setup Projects`.
 1. Right click solution file and select `Restore NuGet Packages`
 (If you don't have NuGet, please install it at [https://dist.nuget.org/index.html](https://dist.nuget.org/index.html))
 1. Make sure that you have `ildasm` tool from Microsoft SDK installed. You need it to sign assemblies with strong name (see the next step). The solution has been tested with SDK 10.0A
