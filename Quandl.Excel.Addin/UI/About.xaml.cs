@@ -30,7 +30,7 @@ namespace Quandl.Excel.Addin.UI
 
         private void LogButton_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(Directory.GetCurrentDirectory() + @"\" + Logger.LogPath);
+            Process.Start(Logger.getLogPath());
         }
     }
 }
