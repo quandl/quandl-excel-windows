@@ -101,7 +101,7 @@ namespace Quandl.Excel.Addin.UI.Settings
 
         private void registerButton_click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://www.quandl.com/?modal=register");
+            Process.Start("https://data.nasdaq.com/?modal=register");
         }
 
         private void InitializePasswordBoxHint()
