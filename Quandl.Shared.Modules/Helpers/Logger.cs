@@ -1,13 +1,9 @@
 ﻿using System;
 using System.IO;
-using SharpRaven;
-using SharpRaven.Data;
 using System.Diagnostics;
 using System.Collections.Generic;
-using Quandl.Shared.Properties;
 using MoreLinq;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Threading;
 
 namespace Quandl.Shared.Helpers
@@ -56,41 +52,7 @@ namespace Quandl.Shared.Helpers
                 additionalData["StackTrace"] = e.StackTrace;
             }
 
-            // Write to sentry logging if applicable
-            if (ENABLE_SENTRY_LOG && ( t != LogType.NOSENTRY || t != LogType.STATUS))
-            {
-                LogToSentry(e, additionalData);
-            }
-
             log(e.Message, additionalData, LogType.ERROR);
-        }
-
-        // Attempt to write to sentry but if it does not work then continue on.
-        private static async void LogToSentry(Exception exception, Dictionary<string, string> additionalData)
-        {
-            try
-            {
-                SetSentryData(exception, "Excel-Version", Utilities.ExcelVersionNumber);
-                SetSentryData(exception, "Addin-Release-Version", Utilities.ReleaseVersion);
-                SetSentryData(exception, "X-API-Token", QuandlConfig.ApiKey);
-                if (additionalData != null)
-                {
-                    additionalData.ForEach(k => SetSentryData(exception, k.Key, k.Value));
-                }
-                var ravenClient = new RavenClient(Settings.Default.SentryUrl);
-                await ravenClient.CaptureAsync(new SentryEvent(exception));
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLine(e.Message);
-                Trace.WriteLine(e.StackTrace);
-            }
-        }
-
-        private static void SetSentryData(Exception exception, string key, string value)
-        {
-            if (key != null && !exception.Data.Contains(key))
-                exception.Data.Add(key, value);
         }
 
         // Attempt to write to disk but if it does not work then continue on.

@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" 
-     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
-     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
-     >
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <Product Id="*" Name="Quandl Excel Addin" Language="!(loc.ID)" Version="3.95.5" Manufacturer="Quandl" UpgradeCode="{5E31829B-2176-41EB-88FC-FE5BEA8538E0}">
     <Package AdminImage="no" Comments="Quandl Excel Addin" Compressed="yes" InstallerVersion="200" Languages="0,1033" Manufacturer="Quandl" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
     <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
@@ -114,9 +111,6 @@
       <Component Id="comp_BE29E116_CEFC_4CBE_81F8_8BC2DDEF39C1" Guid="9A73C9C7-64F1-49C2-A1DE-FA73B4ADD5B2" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_BE29E116_CEFC_4CBE_81F8_8BC2DDEF39C1" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Quandl.Excel.Addin.dll.config" Source="$(var.Quandl.Excel.Addin.TargetDir)Quandl.Excel.Addin.dll.config" />
       </Component>
-      <Component Id="comp_A8FB2740_865B_4AF9_AF63_66C4DA8CEF15" Guid="E963ED2B-5A4B-4050-8B10-11837160FF17" Permanent="no" SharedDllRefCount="no" Transitive="no">
-        <File Id="_A8FB2740_865B_4AF9_AF63_66C4DA8CEF15" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="SharpRaven.dll" Source="$(var.Quandl.Excel.Addin.TargetDir)SharpRaven.dll" />
-      </Component>
       <Component Id="comp_8103D9FA_0B84_4861_9A9A_4DBE7905C3AC" Guid="D431F942-AA68-4AFA-B2F6-500B3AC06098" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_8103D9FA_0B84_4861_9A9A_4DBE7905C3AC" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="stdole.dll" Source="$(var.Quandl.Excel.Addin.TargetDir)stdole.dll" />
       </Component>
@@ -157,7 +151,6 @@
       <ComponentRef Id="comp_3FBDF675_4D20_4DB1_AC0F_79CF889B6F40" />
       <ComponentRef Id="comp_9FEED358_2E13_4DB7_8E2D_361ACAB9A94F" />
       <ComponentRef Id="comp_BE29E116_CEFC_4CBE_81F8_8BC2DDEF39C1" />
-      <ComponentRef Id="comp_A8FB2740_865B_4AF9_AF63_66C4DA8CEF15" />
       <ComponentRef Id="comp_8103D9FA_0B84_4861_9A9A_4DBE7905C3AC" />
       <ComponentRef Id="comp_4251CEB2_8071_469F_BB2C_49C783CE36A8" />
       <ComponentRef Id="comp_276B6362_4024_4944_80C5_BB3B0DE6F91E" />
