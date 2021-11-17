@@ -12,16 +12,24 @@ namespace Quandl.Shared.Helpers
     {
         public enum LogType {FULL, STATUS, NOSENTRY, ERROR};
 
-        public const string LogPath = @"Quandl\Excel\logs";
+        public const string LogPath = @"Nasdaq\DataLink\logs";
 
         private const bool ENABLE_SENTRY_LOG = true;
         private const bool ENABLE_DISK_LOG = true;
 
-        private const string FullLogPrefix = "quandl";
+        private const string FullLogPrefix = "addin";
         private const string StatusLogPrefix = "status";
         private const string ErrorLogPrefix = "error";
 
         private static Mutex mut = new Mutex();
+
+        public static string getLogPath()
+        {
+            var path = Path.Combine(Environment.CurrentDirectory, LogPath);
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            return path;
+        }
 
         public static void log(string message, Dictionary<string, string> additionalData = null, LogType t = LogType.NOSENTRY)
         {
@@ -74,8 +82,9 @@ namespace Quandl.Shared.Helpers
             mut.WaitOne();
             try
             {
-                Directory.CreateDirectory(LogPath);
-                using (StreamWriter w = File.AppendText($"{LogPath}/{prefix}-{DateTime.UtcNow.ToString("yyyy-MM-ddTHH-00-00Z")}.txt"))
+                var path = getLogPath();
+                Directory.CreateDirectory(path);
+                using (StreamWriter w = File.AppendText($"{path}/{prefix}-{DateTime.UtcNow.ToString("yyyy-MM-ddTHH-00-00Z")}.txt"))
                 {
                     var now = DateTime.UtcNow.ToString("yyyy-MM-ddTHH-mm-ssZ");
                     w.WriteLine($"{now} : {message}");

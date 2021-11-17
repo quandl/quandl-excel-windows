@@ -14,11 +14,11 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Image Source="/Resources/quandl_hq.png" Width="150" Height="169"
-                  VerticalAlignment="Top" Margin="0,17" Grid.Column="0" Grid.Row="0" Stretch="UniformToFill" />
+            <Image Width="150" Height="169"
+                  VerticalAlignment="Top" Margin="0,17" Grid.Column="0" Grid.Row="0" Source="../Resources/logo_hq.png" />
             <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,10" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Stretch">
-                <Label Content="Quandl Excel Add-In" FontSize="16" FontWeight="Bold"/>
-                <Label>Copyright Quandl Inc.</Label>
+                <Label Content="Nasdaq Data Link Excel Add-In" FontSize="16" FontWeight="Bold"/>
+                <Label>Copyright Nasdaq Inc.</Label>
                 <Grid Margin="0,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -35,19 +35,19 @@
                     <Label Content="{Binding Version}" Grid.Column="1" Grid.Row="0" Margin="10,0,0,0"/>
                     <Label Content="Website:" Grid.Row="1" Grid.Column="0"/>
                     <Label Margin="10,0,0,0" Grid.Column="1" Grid.Row="1">
-                        <Hyperlink Name="Link" NavigateUri="https://www.quandl.com/tools/excel" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">https://www.quandl.com/tools/excel</Hyperlink>
+                        <Hyperlink Name="Link" NavigateUri="https://data.nasdaq.com/tools/excel" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">Excel Home</Hyperlink>
                     </Label>
                     <Label Content="Documentation:" Grid.Row="2" Grid.Column="0"/>
                     <Label Margin="10,0,0,0" Grid.Column="1" Grid.Row="2">
-                        <Hyperlink Name="second" NavigateUri="https://docs.quandl.com/docs/excel-add-in" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">https://docs.quandl.com/docs/excel-add-in</Hyperlink>
+                        <Hyperlink Name="second" NavigateUri="https://docs.data.nasdaq.com/docs/excel-add-in" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">Documentation</Hyperlink>
                     </Label>
                     <Label Content="FAQ:" Grid.Row="3" Grid.Column="0"/>
                     <Label Margin="10,0,0,0" Grid.Column="1" Grid.Row="3">
-                        <Hyperlink Name="third" NavigateUri="http://help.quandl.com/collection/237-using-the-excel-add-in" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">http://help.quandl.com/collection/237-using-the-excel-add-in</Hyperlink>
+                        <Hyperlink Name="third" NavigateUri="https://help.data.nasdaq.com/category/462-excel-add-in" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">FAQ</Hyperlink>
                     </Label>
                     <Label Content="Support:" Grid.Row="4" Grid.Column="0"/>
                     <Label Margin="10,0,0,0" Grid.Column="1" Grid.Row="4">
-                        <Hyperlink Name="Email" NavigateUri="mailto:excel@quandl.com?subject=Quandl%20Excel" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">excel@quandl.com</Hyperlink>
+                        <Hyperlink Name="Email" NavigateUri="mailto:connect@data.nasdaq.com?subject=Excel%20Addin" RequestNavigate="Hyperlink_RequestNavigate" FontSize="12">connect@data.nasdaq.com</Hyperlink>
                     </Label>
                 </Grid>
                 <Button Name="LogButton" Content="Open Logs" Click="LogButton_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,10" />

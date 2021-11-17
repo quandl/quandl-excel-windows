@@ -24,7 +24,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
          * 2. When UDF runs immediately mark it as non-volatile
          * 3. When outputting the data run this in a Queued macro function so that it does not influence the running calculation thread. 
          */
-        [ExcelFunction("Pull time series data from the Quandl time series API",
+        [ExcelFunction("Pull time series data from the Data Link time series API",
             Name = "QSERIES",
             Category = "Financial",
             IsMacroType = true,
@@ -33,7 +33,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
             IsVolatile = true)]
         public static string QSERIES(
             [ExcelArgument(Name = "quandlCode",
-                Description = "Single or multiple Quandl codes with optional columns references", AllowReference = true)
+                Description = "Single or multiple Time-series codes with optional columns references", AllowReference = true)
             ] object rawQuandlCodeColumns,
             [ExcelArgument(Name = "dateRange", Description = "(optional) The date or range of dates to filter on", AllowReference = true)] object rawDates = null,
             [ExcelArgument(Name = "frequency", Description = "(optional) Change the sampling frequency of the returned data", AllowReference = true
@@ -222,7 +222,7 @@ namespace Quandl.Excel.UDF.Functions.UserDefinedFunctions
                 // Invalid format
                 else
                 {
-                    throw new DatasetParamError($"Invalid Quandl code: {quandlCodeColumn}");
+                    throw new DatasetParamError($"Invalid Time-series code: {quandlCodeColumn}");
                 }
             }
 

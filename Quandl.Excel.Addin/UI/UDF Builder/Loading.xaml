@@ -7,7 +7,7 @@
              mc:Ignorable="d">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="/Quandl.Excel.Addin;component/Resources/quandl_hq_sqr.png" Width="100" Margin="0,0,0,10" Height="100" />
+            <Image Source="/Quandl.Excel.Addin;component/Resources/logo_hq.png" Width="100" Margin="0,0,0,10" Height="100" />
             <Label Content="Verifying your connection" HorizontalContentAlignment="Center" />
             <ProgressBar Width="200" Height="23" IsIndeterminate="True" />
         </StackPanel>

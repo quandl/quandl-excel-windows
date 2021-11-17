@@ -27,7 +27,7 @@ namespace Quandl.Test.CodedUI.Helpers
             var excelApp = new ExcelApp.Application();
             excelApp.Workbooks.Add();
             excelApp.Visible = true;
-            string path = Path.Combine(@"C:\Users\", Environment.UserName, @"AppData\Roaming\Quandl\Quandl.Excel.UDF.Functions-AddIn.xll");
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Nasdaq\DataLink Addin\Quandl.Excel.UDF.Functions64.xll");
             var myAddin = excelApp.AddIns.Add(path);
             myAddin.Installed = true;
             returnList.Add(excelApp);

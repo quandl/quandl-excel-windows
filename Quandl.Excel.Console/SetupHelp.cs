@@ -149,8 +149,11 @@ namespace Quandl.Excel.Console
 
         private static void CleanLogs()
         {
-            var documentsPath = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents", "Quandl");
-            Directory.Delete(documentsPath, true);
+            var documentsPath = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents", "Nasdaq");
+            if (Directory.Exists(documentsPath))
+            {
+                Directory.Delete(documentsPath, true);
+            }
         }
 
         

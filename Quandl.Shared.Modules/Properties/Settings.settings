@@ -9,7 +9,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="BaseDomain" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">www.quandl.com</Value>
+      <Value Profile="(Default)">data.nasdaq.com</Value>
     </Setting>
     <Setting Name="BasePath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">/api/v3/</Value>

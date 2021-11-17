@@ -7,10 +7,10 @@ namespace Quandl.Excel.Console
 {
     public class Version
     {
-        private static string AddinPackageString = "Quandl.Excel.UDF.Functions-AddIn.xll";
-        private static string BaseValue = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\Quandl";
-        private string ValueFor32 = $@"/R ""{BaseValue}\32bit\{AddinPackageString}""";
-        private string ValueFor64 = $@"/R ""{BaseValue}\64bit\{AddinPackageString}""";
+        private static string AddinPackageString = "Quandl.Excel.UDF.Functions";
+        private static string BaseValue = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\Nasdaq\DataLink Addin";
+        private string ValueFor32 = $@"/R ""{BaseValue}\{AddinPackageString}32.xll""";
+        private string ValueFor64 = $@"/R ""{BaseValue}\{AddinPackageString}64.xll""";
         private string ExcelExecutable = "excel.exe";
         private string[] ExcelInstallFolders = new string[8]
         {

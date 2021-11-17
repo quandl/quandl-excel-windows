@@ -28,6 +28,7 @@ namespace Quandl.Excel.Console
                 using (StreamWriter w = File.AppendText(GetTempPath() + @".\quandl_excel_install_error_log.txt"))
                 {
                     Log(e.Message, w);
+                    return;
                 }
             }
             

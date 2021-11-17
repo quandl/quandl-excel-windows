@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Quandl Excel Addin")]
+[assembly: AssemblyTitle("Nasdaq Data Link Excel Addin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Nasdaq, Inc.")]
 [assembly: AssemblyProduct("Quandl.Excel.Addin")]
-[assembly: AssemblyCopyright("Copyright ©  2016-2018")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

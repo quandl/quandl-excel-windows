@@ -42,7 +42,7 @@ namespace Quandl.Excel.Addin.UI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // _updater.GetLastestUpdate(); // Download the latest update to their computer.
-            Process.Start("https://www.quandl.com/tools/excel");
+            Process.Start("https://data.nasdaq.com/tools/excel");
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

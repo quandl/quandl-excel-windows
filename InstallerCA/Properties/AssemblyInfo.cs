@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("InstallerCA")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Nasdaq, Inc.")]
 [assembly: AssemblyProduct("InstallerCA")]
-[assembly: AssemblyCopyright("Copyright © 2013")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

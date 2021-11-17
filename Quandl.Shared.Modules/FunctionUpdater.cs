@@ -88,7 +88,7 @@ namespace Quandl.Shared
                 }
                 
             }
-            if (!foundFormulas) throw new MissingFormulaException("No Quandl formula's were found to update.");
+            if (!foundFormulas) throw new MissingFormulaException("No formula's were found to update.");
         }
 
         public static void RecalculateQuandlFunctions(Worksheet ws)
@@ -99,7 +99,7 @@ namespace Quandl.Shared
             }
             else
             {
-                throw new MissingFormulaException("No Quandl formula's were found to update.");
+                throw new MissingFormulaException("No formula's were found to update.");
             }
         }
 

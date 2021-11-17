@@ -57,7 +57,7 @@ namespace Quandl.Test.CodedUI
             Assert.AreEqual(this.AssertCorrectUDFSignatureExpectedValues.UIUdfOutputEditText, uIUdfOutputEdit.Text, "Generated QSERIES function not correct");
 
             // Verify that the 'Text' property of 'SelectedDataHolderTextBox' text box equals 'WIKI/IBM'
-            Assert.AreEqual(this.AssertCorrectUDFSignatureExpectedValues.UISelectedDataHolderTeEditText, uISelectedDataHolderTeEdit.Text, "Quandl code not correct");
+            Assert.AreEqual(this.AssertCorrectUDFSignatureExpectedValues.UISelectedDataHolderTeEditText, uISelectedDataHolderTeEdit.Text, "Time-series code not correct");
         }
         
         /// <summary>
@@ -1228,7 +1228,7 @@ namespace Quandl.Test.CodedUI
                 {
                     this.mUIQuandlTabPage = new WinTabPage(this);
                     #region Search Criteria
-                    this.mUIQuandlTabPage.SearchProperties[WinTabPage.PropertyNames.Name] = "Quandl";
+                    this.mUIQuandlTabPage.SearchProperties[WinTabPage.PropertyNames.Name] = "Data Link";
                     this.mUIQuandlTabPage.WindowTitles.Add("Book1 - Excel");
                     #endregion
                 }
@@ -1843,9 +1843,9 @@ namespace Quandl.Test.CodedUI
         public UIQuandlFormulaBuilderWindow()
         {
             #region Search Criteria
-            this.SearchProperties[WinWindow.PropertyNames.Name] = "Quandl Formula Builder";
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Data Link Formula Builder";
             this.SearchProperties[WinWindow.PropertyNames.ClassName] = "MsoWorkPane";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -1877,7 +1877,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WinWindow.PropertyNames.ControlName] = "WpfElementHost";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -1908,7 +1908,7 @@ namespace Quandl.Test.CodedUI
                 base(searchLimitContainer)
         {
             #region Search Criteria
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -1939,7 +1939,7 @@ namespace Quandl.Test.CodedUI
                 base(searchLimitContainer)
         {
             #region Search Criteria
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -2111,7 +2111,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.WizardGuide";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -2137,7 +2137,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDatabaseButton = new WpfButton(this);
                     #region Search Criteria
                     this.mUIDatabaseButton.SearchProperties[WpfButton.PropertyNames.Name] = "Database";
-                    this.mUIDatabaseButton.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDatabaseButton.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDatabaseButton;
@@ -2153,7 +2153,7 @@ namespace Quandl.Test.CodedUI
                     this.mUINextButton = new WpfButton(this);
                     #region Search Criteria
                     this.mUINextButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "nextButton";
-                    this.mUINextButton.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUINextButton.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUINextButton;
@@ -2169,7 +2169,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIUdfOutputEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUIUdfOutputEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "udfOutput";
-                    this.mUIUdfOutputEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIUdfOutputEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIUdfOutputEdit;
@@ -2185,7 +2185,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIInsertButton = new WpfButton(this);
                     #region Search Criteria
                     this.mUIInsertButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "insertButton";
-                    this.mUIInsertButton.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIInsertButton.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIInsertButton;
@@ -2216,7 +2216,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.Frame";
             this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "stepFrame";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -2230,7 +2230,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIEmailEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUIEmailEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "email";
-                    this.mUIEmailEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIEmailEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIEmailEdit;
@@ -2246,7 +2246,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIPasswordEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUIPasswordEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "password";
-                    this.mUIPasswordEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIPasswordEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIPasswordEdit;
@@ -2262,7 +2262,7 @@ namespace Quandl.Test.CodedUI
                     this.mUILoginButton = new WpfButton(this);
                     #region Search Criteria
                     this.mUILoginButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "loginButton";
-                    this.mUILoginButton.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUILoginButton.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUILoginButton;
@@ -2278,7 +2278,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIApiKeyEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUIApiKeyEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "apiKey";
-                    this.mUIApiKeyEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIApiKeyEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIApiKeyEdit;
@@ -2294,7 +2294,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDatabaseCodeBoxEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUIDatabaseCodeBoxEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "DatabaseCodeBox";
-                    this.mUIDatabaseCodeBoxEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDatabaseCodeBoxEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDatabaseCodeBoxEdit;
@@ -2310,7 +2310,7 @@ namespace Quandl.Test.CodedUI
                     this.mUITxtFilterResultsEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUITxtFilterResultsEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "txtFilterResults";
-                    this.mUITxtFilterResultsEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUITxtFilterResultsEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUITxtFilterResultsEdit;
@@ -2326,7 +2326,7 @@ namespace Quandl.Test.CodedUI
                     this.mUILvDatasetsList = new WpfList(this);
                     #region Search Criteria
                     this.mUILvDatasetsList.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasets";
-                    this.mUILvDatasetsList.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUILvDatasetsList.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUILvDatasetsList;
@@ -2342,7 +2342,7 @@ namespace Quandl.Test.CodedUI
                     this.mUISelectedDataHolderTeEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUISelectedDataHolderTeEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "SelectedDataHolderTextBox";
-                    this.mUISelectedDataHolderTeEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUISelectedDataHolderTeEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUISelectedDataHolderTeEdit;
@@ -2358,7 +2358,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIComboBoxDateSelectioComboBox = new WpfComboBox(this);
                     #region Search Criteria
                     this.mUIComboBoxDateSelectioComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "ComboBoxDateSelection";
-                    this.mUIComboBoxDateSelectioComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIComboBoxDateSelectioComboBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIComboBoxDateSelectioComboBox;
@@ -2374,7 +2374,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDatePickerStartDatePicker = new WpfDatePicker(this);
                     #region Search Criteria
                     this.mUIDatePickerStartDatePicker.SearchProperties[WpfDatePicker.PropertyNames.AutomationId] = "DatePickerStart";
-                    this.mUIDatePickerStartDatePicker.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDatePickerStartDatePicker.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDatePickerStartDatePicker;
@@ -2390,7 +2390,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIItemCustom = new WpfCustom(this);
                     #region Search Criteria
                     this.mUIItemCustom.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.TimeSeriesFilters";
-                    this.mUIItemCustom.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIItemCustom.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIItemCustom;
@@ -2406,7 +2406,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDataManipulationText = new WpfText(this);
                     #region Search Criteria
                     this.mUIDataManipulationText.SearchProperties[WpfText.PropertyNames.Name] = "Data Manipulation";
-                    this.mUIDataManipulationText.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDataManipulationText.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDataManipulationText;
@@ -2422,7 +2422,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIAutoSelectTextBoxEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUIAutoSelectTextBoxEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "AutoSelectTextBox";
-                    this.mUIAutoSelectTextBoxEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIAutoSelectTextBoxEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIAutoSelectTextBoxEdit;
@@ -2438,7 +2438,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIComboBoxFrequencyComboBox = new WpfComboBox(this);
                     #region Search Criteria
                     this.mUIComboBoxFrequencyComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "ComboBoxFrequency";
-                    this.mUIComboBoxFrequencyComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIComboBoxFrequencyComboBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIComboBoxFrequencyComboBox;
@@ -2454,7 +2454,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIComboBoxTransformatiComboBox = new WpfComboBox(this);
                     #region Search Criteria
                     this.mUIComboBoxTransformatiComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "ComboBoxTransformation";
-                    this.mUIComboBoxTransformatiComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIComboBoxTransformatiComboBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIComboBoxTransformatiComboBox;
@@ -2470,7 +2470,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIItemButton = new WpfButton(this);
                     #region Search Criteria
                     this.mUIItemButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "btnFirstPage";
-                    this.mUIItemButton.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIItemButton.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIItemButton;
@@ -2486,7 +2486,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIItemButton1 = new WpfButton(this);
                     #region Search Criteria
                     this.mUIItemButton1.SearchProperties[WpfButton.PropertyNames.AutomationId] = "btnPrevPage";
-                    this.mUIItemButton1.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIItemButton1.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIItemButton1;
@@ -2502,7 +2502,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIItemButton2 = new WpfButton(this);
                     #region Search Criteria
                     this.mUIItemButton2.SearchProperties[WpfButton.PropertyNames.AutomationId] = "btnNextPage";
-                    this.mUIItemButton2.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIItemButton2.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIItemButton2;
@@ -2518,7 +2518,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIItemButton3 = new WpfButton(this);
                     #region Search Criteria
                     this.mUIItemButton3.SearchProperties[WpfButton.PropertyNames.AutomationId] = "btnLastPage";
-                    this.mUIItemButton3.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIItemButton3.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIItemButton3;
@@ -2534,7 +2534,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDateRangeTypeFilterComboBox = new WpfComboBox(this);
                     #region Search Criteria
                     this.mUIDateRangeTypeFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "DateRangeTypeFilter";
-                    this.mUIDateRangeTypeFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDateRangeTypeFilterComboBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDateRangeTypeFilterComboBox;
@@ -2550,7 +2550,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIFrequencyFilterComboBox = new WpfComboBox(this);
                     #region Search Criteria
                     this.mUIFrequencyFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "FrequencyFilter";
-                    this.mUIFrequencyFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIFrequencyFilterComboBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIFrequencyFilterComboBox;
@@ -2566,7 +2566,7 @@ namespace Quandl.Test.CodedUI
                     this.mUITransformationFilterComboBox = new WpfComboBox(this);
                     #region Search Criteria
                     this.mUITransformationFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "TransformationFilter";
-                    this.mUITransformationFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUITransformationFilterComboBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUITransformationFilterComboBox;
@@ -2582,7 +2582,7 @@ namespace Quandl.Test.CodedUI
                     this.mUISortFilterComboBox = new WpfComboBox(this);
                     #region Search Criteria
                     this.mUISortFilterComboBox.SearchProperties[WpfComboBox.PropertyNames.AutomationId] = "SortFilter";
-                    this.mUISortFilterComboBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUISortFilterComboBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUISortFilterComboBox;
@@ -2598,7 +2598,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIIncludeheadersCheckBox = new WpfCheckBox(this);
                     #region Search Criteria
                     this.mUIIncludeheadersCheckBox.SearchProperties[WpfCheckBox.PropertyNames.AutomationId] = "IncludeHeaders";
-                    this.mUIIncludeheadersCheckBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIIncludeheadersCheckBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIIncludeheadersCheckBox;
@@ -2614,7 +2614,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIEnterinthetickerthatText = new WpfText(this);
                     #region Search Criteria
                     this.mUIEnterinthetickerthatText.SearchProperties[WpfText.PropertyNames.AutomationId] = "Filterlabel";
-                    this.mUIEnterinthetickerthatText.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIEnterinthetickerthatText.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIEnterinthetickerthatText;
@@ -2630,7 +2630,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIStringFilterInputEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUIStringFilterInputEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "StringFilterInput";
-                    this.mUIStringFilterInputEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIStringFilterInputEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIStringFilterInputEdit;
@@ -2702,7 +2702,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatabaseSelection";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -2762,7 +2762,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTree.PropertyNames.AutomationId] = "BrowseData";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -2812,7 +2812,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIFuturesDataTreeItem = new WpfTreeItem(this);
                     #region Search Criteria
                     this.mUIFuturesDataTreeItem.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Futures Data";
-                    this.mUIFuturesDataTreeItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIFuturesDataTreeItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIFuturesDataTreeItem;
@@ -2839,7 +2839,7 @@ namespace Quandl.Test.CodedUI
                 base(searchLimitContainer)
         {
             #region Search Criteria
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -2872,7 +2872,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
             this.SearchConfigurations.Add(SearchConfiguration.DisambiguateChild);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -2887,7 +2887,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIItemTreeItem.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
                     this.mUIItemTreeItem.SearchConfigurations.Add(SearchConfiguration.DisambiguateChild);
-                    this.mUIItemTreeItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIItemTreeItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIItemTreeItem;
@@ -2904,7 +2904,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIItemTreeItem2.SearchProperties[WpfTreeItem.PropertyNames.Instance] = "3";
                     this.mUIItemTreeItem2.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIItemTreeItem2.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIItemTreeItem2.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIItemTreeItem2;
@@ -2921,7 +2921,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIItemTreeItem3.SearchProperties[WpfTreeItem.PropertyNames.Instance] = "10";
                     this.mUIItemTreeItem3.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIItemTreeItem3.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIItemTreeItem3.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIItemTreeItem3;
@@ -2947,7 +2947,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Instance] = "3";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -2980,7 +2980,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Agriculture";
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -2995,7 +2995,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIAgricultureFuturesOpTreeItem.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Agriculture Futures Options";
                     this.mUIAgricultureFuturesOpTreeItem.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIAgricultureFuturesOpTreeItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIAgricultureFuturesOpTreeItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIAgricultureFuturesOpTreeItem;
@@ -3017,7 +3017,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Stock Data";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3050,7 +3050,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "United States";
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3065,7 +3065,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIStockPricesEndofDayCTreeItem.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Stock Prices End of Day, Current and Historical";
                     this.mUIStockPricesEndofDayCTreeItem.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIStockPricesEndofDayCTreeItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIStockPricesEndofDayCTreeItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIStockPricesEndofDayCTreeItem;
@@ -3087,7 +3087,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTabList.PropertyNames.AutomationId] = "TabControl";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3113,7 +3113,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIPremiumTabPage = new WpfTabPage(this);
                     #region Search Criteria
                     this.mUIPremiumTabPage.SearchProperties[WpfTabPage.PropertyNames.Name] = "Premium";
-                    this.mUIPremiumTabPage.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIPremiumTabPage.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIPremiumTabPage;
@@ -3137,7 +3137,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTabPage.PropertyNames.Name] = "All";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3169,7 +3169,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfList.PropertyNames.AutomationId] = "AllDatabaseList";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3183,7 +3183,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIQuandlSharedModelsBrListItem = new WpfListItem(this);
                     #region Search Criteria
                     this.mUIQuandlSharedModelsBrListItem.SearchProperties[WpfListItem.PropertyNames.Name] = "Quandl.Shared.Models.Browse.ViewData";
-                    this.mUIQuandlSharedModelsBrListItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIQuandlSharedModelsBrListItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIQuandlSharedModelsBrListItem;
@@ -3199,7 +3199,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIPremiumZCPZacksCompaListItem = new WpfListItem(this);
                     #region Search Criteria
                     this.mUIPremiumZCPZacksCompaListItem.SearchProperties[WpfListItem.PropertyNames.Name] = "Premium ZCP Zacks Company Profiles";
-                    this.mUIPremiumZCPZacksCompaListItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIPremiumZCPZacksCompaListItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIPremiumZCPZacksCompaListItem;
@@ -3223,7 +3223,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfText.PropertyNames.AutomationId] = "ErrorMessage";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3238,7 +3238,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIEODFBisnotavalidcodeText1.SearchProperties[WpfText.PropertyNames.Name] = "\"EOD/FB\" is not a valid code.";
                     this.mUIEODFBisnotavalidcodeText1.SearchConfigurations.Add(SearchConfiguration.DisambiguateChild);
-                    this.mUIEODFBisnotavalidcodeText1.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIEODFBisnotavalidcodeText1.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIEODFBisnotavalidcodeText1;
@@ -3260,7 +3260,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.ColumnSelection";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3292,7 +3292,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTree.PropertyNames.AutomationId] = "AvailableColumnsTreeView";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3324,7 +3324,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Quandl.Shared.Models.Dataset";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3357,7 +3357,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Quandl.Shared.Models.DataColumn";
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3372,7 +3372,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIDateCheckBox.SearchProperties[WpfCheckBox.PropertyNames.Name] = "Date";
                     this.mUIDateCheckBox.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIDateCheckBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDateCheckBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDateCheckBox;
@@ -3394,7 +3394,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.ColumnSelection";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3426,7 +3426,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTree.PropertyNames.AutomationId] = "AvailableColumnsTreeView";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3458,7 +3458,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Quandl.Shared.Models.Dataset";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3492,7 +3492,7 @@ namespace Quandl.Test.CodedUI
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Quandl.Shared.Models.DataColumn";
             this.SearchProperties[WpfTreeItem.PropertyNames.Instance] = "2";
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3507,7 +3507,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIOpenCheckBox.SearchProperties[WpfCheckBox.PropertyNames.Name] = "Open";
                     this.mUIOpenCheckBox.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIOpenCheckBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIOpenCheckBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIOpenCheckBox;
@@ -3529,7 +3529,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.ColumnSelection";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3561,7 +3561,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTree.PropertyNames.AutomationId] = "AvailableColumnsTreeView";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3593,7 +3593,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Quandl.Shared.Models.Dataset";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3627,7 +3627,7 @@ namespace Quandl.Test.CodedUI
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Quandl.Shared.Models.DataColumn";
             this.SearchProperties[WpfTreeItem.PropertyNames.Instance] = "5";
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3642,7 +3642,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUICloseCheckBox.SearchProperties[WpfCheckBox.PropertyNames.Name] = "Close";
                     this.mUICloseCheckBox.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUICloseCheckBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUICloseCheckBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUICloseCheckBox;
@@ -3664,7 +3664,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.ColumnSelection";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3696,7 +3696,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTree.PropertyNames.AutomationId] = "AvailableColumnsTreeView";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3728,7 +3728,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Quandl.Shared.Models.Dataset";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3762,7 +3762,7 @@ namespace Quandl.Test.CodedUI
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Quandl.Shared.Models.DataColumn";
             this.SearchProperties[WpfTreeItem.PropertyNames.Instance] = "6";
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3777,7 +3777,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIVolumeCheckBox.SearchProperties[WpfCheckBox.PropertyNames.Name] = "Volume";
                     this.mUIVolumeCheckBox.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIVolumeCheckBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIVolumeCheckBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIVolumeCheckBox;
@@ -3799,7 +3799,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatasetDatatableSelection";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3845,7 +3845,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasets";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3859,7 +3859,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIFacebookIncFBStockPrListItem = new WpfListItem(this);
                     #region Search Criteria
                     this.mUIFacebookIncFBStockPrListItem.SearchProperties[WpfListItem.PropertyNames.Name] = "Facebook Inc. (FB) Stock Prices, Dividends and Splits";
-                    this.mUIFacebookIncFBStockPrListItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIFacebookIncFBStockPrListItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIFacebookIncFBStockPrListItem;
@@ -3881,7 +3881,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasetsDatatables";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3896,7 +3896,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIDigitalRealtyTrustInListItem.SearchProperties[WpfListItem.PropertyNames.Name] = "Digital Realty Trust Inc. Redeemable Preferred Stock Series H (DLR_P_H) Stock Pri" +
                         "ces, Dividends and Splits";
-                    this.mUIDigitalRealtyTrustInListItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDigitalRealtyTrustInListItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDigitalRealtyTrustInListItem;
@@ -3919,7 +3919,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatasetDatatableSelection";
             this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "StepTwoPane";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3945,7 +3945,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDatabaseCodeBoxEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUIDatabaseCodeBoxEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "DatabaseCodeBox";
-                    this.mUIDatabaseCodeBoxEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDatabaseCodeBoxEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDatabaseCodeBoxEdit;
@@ -3969,7 +3969,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasetsDatatables";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -3984,7 +3984,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIBlackrockMuniYieldCaListItem.SearchProperties[WpfListItem.PropertyNames.Name] = "Blackrock MuniYield California Fund Inc. (MYC) Stock Prices, Dividends and Splits" +
                         "";
-                    this.mUIBlackrockMuniYieldCaListItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIBlackrockMuniYieldCaListItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIBlackrockMuniYieldCaListItem;
@@ -4007,7 +4007,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.ColumnSelection";
             this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "StepThreePane";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4053,7 +4053,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTree.PropertyNames.AutomationId] = "ColumnsTreeView";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4085,7 +4085,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Apple Inc. (AAPL) Stock Prices, Dividends and Splits";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4112,7 +4112,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIColumnTreeListtemCollection.SearchProperties.Add(new PropertyExpression(WpfTreeItem.PropertyNames.ClassName, "Uia.TreeViewItem", PropertyExpressionOperator.Contains));
                     this.mUIColumnTreeListtemCollection.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIColumnTreeListtemCollection.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIColumnTreeListtemCollection.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIColumnTreeListtemCollection;
@@ -4151,7 +4151,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Apple Inc. (AAPL) Stock Prices, Dividends and Splits - Open";
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4166,7 +4166,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIColumnListItemCheckBox.SearchProperties[WpfCheckBox.PropertyNames.AutomationId] = "Open";
                     this.mUIColumnListItemCheckBox.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIColumnListItemCheckBox.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIColumnListItemCheckBox.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIColumnListItemCheckBox;
@@ -4189,7 +4189,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties.Add(new PropertyExpression(WpfTreeItem.PropertyNames.ClassName, "Uia.TreeViewItem", PropertyExpressionOperator.Contains));
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4204,7 +4204,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIColumnListItemCheckBoxCollection.SearchProperties.Add(new PropertyExpression(WpfCheckBox.PropertyNames.ClassName, "Uia.CheckBox", PropertyExpressionOperator.Contains));
                     this.mUIColumnListItemCheckBoxCollection.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIColumnListItemCheckBoxCollection.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIColumnListItemCheckBoxCollection.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIColumnListItemCheckBoxCollection;
@@ -4226,7 +4226,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfList.PropertyNames.AutomationId] = "SelectedColumns";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4240,7 +4240,7 @@ namespace Quandl.Test.CodedUI
                     this.mUISelectedColumnListItem = new WpfListItem(this);
                     #region Search Criteria
                     this.mUISelectedColumnListItem.SearchProperties[WpfListItem.PropertyNames.Name] = "Apple Inc. (AAPL) Stock Prices, Dividends and Splits - Open";
-                    this.mUISelectedColumnListItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUISelectedColumnListItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUISelectedColumnListItem;
@@ -4256,7 +4256,7 @@ namespace Quandl.Test.CodedUI
                     this.mUISelectedColumnListItems = new WpfListItem(this);
                     #region Search Criteria
                     this.mUISelectedColumnListItems.SearchProperties.Add(new PropertyExpression(WpfListItem.PropertyNames.ClassName, "Uia.ListBoxItem", PropertyExpressionOperator.Contains));
-                    this.mUISelectedColumnListItems.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUISelectedColumnListItems.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUISelectedColumnListItems;
@@ -4281,7 +4281,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.Frame";
             this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "stepFrame";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4314,7 +4314,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.ColumnSelection";
             this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "StepThreePane";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4328,7 +4328,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIAddAllButton = new WpfButton(this);
                     #region Search Criteria
                     this.mUIAddAllButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "ButtonAddAll";
-                    this.mUIAddAllButton.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIAddAllButton.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIAddAllButton;
@@ -4344,7 +4344,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIRemoveAllButton = new WpfButton(this);
                     #region Search Criteria
                     this.mUIRemoveAllButton.SearchProperties[WpfButton.PropertyNames.AutomationId] = "ButtonRemoveAll";
-                    this.mUIRemoveAllButton.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIRemoveAllButton.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIRemoveAllButton;
@@ -4368,7 +4368,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.TimeSeriesFilters";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4382,7 +4382,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDateFromFilterDatePicker = new WpfDatePicker(this);
                     #region Search Criteria
                     this.mUIDateFromFilterDatePicker.SearchProperties[WpfDatePicker.PropertyNames.AutomationId] = "DateFromFilter";
-                    this.mUIDateFromFilterDatePicker.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDateFromFilterDatePicker.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDateFromFilterDatePicker;
@@ -4402,9 +4402,9 @@ namespace Quandl.Test.CodedUI
         public UIQuandlFormulaBuilderWindow1()
         {
             #region Search Criteria
-            this.SearchProperties[WinWindow.PropertyNames.Name] = "Quandl Formula Builder";
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "Data Link Formula Builder";
             this.SearchProperties[WinWindow.PropertyNames.ClassName] = "MsoCommandBar";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4436,7 +4436,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WinWindow.PropertyNames.ControlName] = "WpfElementHost";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4467,7 +4467,7 @@ namespace Quandl.Test.CodedUI
                 base(searchLimitContainer)
         {
             #region Search Criteria
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4498,7 +4498,7 @@ namespace Quandl.Test.CodedUI
                 base(searchLimitContainer)
         {
             #region Search Criteria
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4572,7 +4572,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatabaseSelection";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4618,7 +4618,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTabList.PropertyNames.AutomationId] = "TabControl";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4650,7 +4650,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTabPage.PropertyNames.Name] = "All";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4664,7 +4664,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIAllDatabaseListList = new WpfList(this);
                     #region Search Criteria
                     this.mUIAllDatabaseListList.SearchProperties[WpfList.PropertyNames.AutomationId] = "AllDatabaseList";
-                    this.mUIAllDatabaseListList.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIAllDatabaseListList.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIAllDatabaseListList;
@@ -4686,7 +4686,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTree.PropertyNames.AutomationId] = "BrowseData";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4724,7 +4724,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIStockDataTreeItem = new WpfTreeItem(this);
                     #region Search Criteria
                     this.mUIStockDataTreeItem.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Stock Data";
-                    this.mUIStockDataTreeItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIStockDataTreeItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIStockDataTreeItem;
@@ -4749,7 +4749,7 @@ namespace Quandl.Test.CodedUI
                 base(searchLimitContainer)
         {
             #region Search Criteria
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4782,7 +4782,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
             this.SearchConfigurations.Add(SearchConfiguration.DisambiguateChild);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4797,7 +4797,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIItemTreeItem3.SearchProperties[WpfTreeItem.PropertyNames.Instance] = "13";
                     this.mUIItemTreeItem3.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIItemTreeItem3.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIItemTreeItem3.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIItemTreeItem3;
@@ -4819,7 +4819,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Commodity Data";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4852,7 +4852,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Agriculture";
             this.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4867,7 +4867,7 @@ namespace Quandl.Test.CodedUI
                     #region Search Criteria
                     this.mUIAgricultureFuturesOpTreeItem.SearchProperties[WpfTreeItem.PropertyNames.Name] = "Agriculture Futures Options";
                     this.mUIAgricultureFuturesOpTreeItem.SearchConfigurations.Add(SearchConfiguration.ExpandWhileSearching);
-                    this.mUIAgricultureFuturesOpTreeItem.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIAgricultureFuturesOpTreeItem.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIAgricultureFuturesOpTreeItem;
@@ -4889,7 +4889,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.WizardGuide";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4922,7 +4922,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.Frame";
             this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "stepFrame";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -4936,7 +4936,7 @@ namespace Quandl.Test.CodedUI
                     this.mUILvDatasetsList = new WpfList(this);
                     #region Search Criteria
                     this.mUILvDatasetsList.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasets";
-                    this.mUILvDatasetsList.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUILvDatasetsList.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUILvDatasetsList;
@@ -4952,7 +4952,7 @@ namespace Quandl.Test.CodedUI
                     this.mUITxtFilterResultsEdit = new WpfEdit(this);
                     #region Search Criteria
                     this.mUITxtFilterResultsEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "txtFilterResults";
-                    this.mUITxtFilterResultsEdit.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUITxtFilterResultsEdit.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUITxtFilterResultsEdit;
@@ -4968,7 +4968,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDateToFilterDatePicker = new WpfDatePicker(this);
                     #region Search Criteria
                     this.mUIDateToFilterDatePicker.SearchProperties[WpfDatePicker.PropertyNames.AutomationId] = "DateToFilter";
-                    this.mUIDateToFilterDatePicker.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDateToFilterDatePicker.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDateToFilterDatePicker;
@@ -4994,7 +4994,7 @@ namespace Quandl.Test.CodedUI
         {
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatasetDatatableSelection";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -5041,7 +5041,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.ScrollViewer";
             this.SearchProperties[WpfPane.PropertyNames.Name] = "DatasetsDatatables";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -5055,7 +5055,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDatasetsDatatblesLisList = new WpfList(this);
                     #region Search Criteria
                     this.mUIDatasetsDatatblesLisList.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasets";
-                    this.mUIDatasetsDatatblesLisList.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDatasetsDatatblesLisList.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDatasetsDatatblesLisList;
@@ -5078,7 +5078,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.ScrollViewer";
             this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "DatasetsDatatablesScrollViewer";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -5092,7 +5092,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDatasetsDatatablesLiList = new WpfList(this);
                     #region Search Criteria
                     this.mUIDatasetsDatatablesLiList.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasetsDatatables";
-                    this.mUIDatasetsDatatablesLiList.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDatasetsDatatablesLiList.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDatasetsDatatablesLiList;
@@ -5115,7 +5115,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.DatasetDatatableSelection";
             this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "StepTwoPane";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -5148,7 +5148,7 @@ namespace Quandl.Test.CodedUI
             #region Search Criteria
             this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.ScrollViewer";
             this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "DatasetsDatatablesScrollViewer";
-            this.WindowTitles.Add("Quandl Formula Builder");
+            this.WindowTitles.Add("Data Link Formula Builder");
             #endregion
         }
         
@@ -5162,7 +5162,7 @@ namespace Quandl.Test.CodedUI
                     this.mUIDatasetsDatatablesLiList = new WpfList(this);
                     #region Search Criteria
                     this.mUIDatasetsDatatablesLiList.SearchProperties[WpfList.PropertyNames.AutomationId] = "lvDatasetsDatatables";
-                    this.mUIDatasetsDatatablesLiList.WindowTitles.Add("Quandl Formula Builder");
+                    this.mUIDatasetsDatatablesLiList.WindowTitles.Add("Data Link Formula Builder");
                     #endregion
                 }
                 return this.mUIDatasetsDatatablesLiList;
@@ -5196,7 +5196,7 @@ namespace Quandl.Test.CodedUI
                 {
                     this.mUIQuandlFormulaBuilderToolBar = new WinToolBar(this);
                     #region Search Criteria
-                    this.mUIQuandlFormulaBuilderToolBar.SearchProperties[WinToolBar.PropertyNames.Name] = "Quandl Formula Builder";
+                    this.mUIQuandlFormulaBuilderToolBar.SearchProperties[WinToolBar.PropertyNames.Name] = "Data Link Formula Builder";
                     #endregion
                 }
                 return this.mUIQuandlFormulaBuilderToolBar;

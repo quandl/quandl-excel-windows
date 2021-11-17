@@ -49,13 +49,13 @@ namespace Quandl.Shared.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("www.quandl.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("data.nasdaq.com")]
         public string BaseDomain {
             get {
                 return ((string)(this["BaseDomain"]));
             }
         }
-        
+
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("/api/v3/")]

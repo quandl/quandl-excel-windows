@@ -276,8 +276,9 @@ namespace Quandl.Excel.Addin
             // Displaying task panes to the right eliminates visual flickering.
             // Also Excel will display Floating Pane on the primary display only, even if Excel is displayed on another display.
             // In our case it is cleaner to display task panes docked to the right.
-            // To enable floating task panes set registry key
-            // HKEY_CURRENT_USER\Software\Quandl\Excel Add-in
+            // To enable floating task panes set registry key;
+            // refer to Product.wxs for placeholder values:
+            // HKEY_CURRENT_USER\Software\[Manufacturer]\[ProductName]
             // EnableFloatingTaskPane = 0x1 (DWORD)
             if (!Quandl.Shared.QuandlConfig.EnableFloatingTaskPane)
             {

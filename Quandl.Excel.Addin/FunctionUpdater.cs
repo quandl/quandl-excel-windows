@@ -145,7 +145,7 @@ namespace Quandl.Excel.Addin
 
             if (!foundFormulas)
             {
-                throw new MissingFormulaException("No Quandl formula's were found to update.");
+                throw new MissingFormulaException("No formula's were found to update.");
             }
         }
     
@@ -158,7 +158,7 @@ namespace Quandl.Excel.Addin
             }
             else
             {
-                throw new MissingFormulaException("No Quandl formula's were found to update.");
+                throw new MissingFormulaException("No formula's were found to update.");
             }
         }
 

@@ -1,13 +1,17 @@
 ﻿using Microsoft.Win32;
+using System;
+using System.IO;
 
 namespace Quandl.Shared
 {
     public class SetupHelp
     {
-        private const string OpenValue =
-            @"/R ""C:\Program Files (x86)\Quandl Inc\Quandl-Excel-Addin\Quandl.Excel.UDF.Functions-AddIn-packed.xll""";
+        private static readonly string installPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Nasdaq\DataLink Addin");
 
-        private const string AddinPackageString = "Quandl.Excel.UDF.Functions-AddIn-packed.xll";
+        private static readonly string OpenValue =
+            @"/R """ + installPath + @"\" + AddinPackageString + @"""";
+
+        private const string AddinPackageString = "Quandl.Excel.UDF.Functions64.xll";
         private const int DEFAULT_NUMBER_OF_USER_SELECTED_ADDIN = 1000;
 
         private static readonly string[] AddinRegisterKey =
