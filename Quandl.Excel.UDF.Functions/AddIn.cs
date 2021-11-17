@@ -32,7 +32,10 @@ namespace Quandl.Excel.UDF.Functions
         {
             public void SetStatusBar(string message)
             {
-                ((dynamic) ExcelDnaUtil.Application).StatusBar = message;
+                var application = ((dynamic) ExcelDnaUtil.Application);
+                if (application == null)
+                    return;
+                application.Statusbar = message;
             }
         }
 
