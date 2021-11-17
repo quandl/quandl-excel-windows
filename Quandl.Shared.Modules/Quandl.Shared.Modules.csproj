@@ -54,10 +54,6 @@
       <HintPath>..\3rdparty\octokit.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
-    <Reference Include="sharpraven, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\3rdparty\sharpraven.dll</HintPath>
-    </Reference>
     <Reference Include="Syroot.Windows.IO.KnownFolders, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\3rdparty\Syroot.Windows.IO.KnownFolders.dll</HintPath>
