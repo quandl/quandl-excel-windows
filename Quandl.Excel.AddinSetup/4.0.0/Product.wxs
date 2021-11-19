@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <Product Id="*" Name="Nasdaq Data Link" Language="!(loc.ID)" Version="3.96.0" Manufacturer="Nasdaq" UpgradeCode="{5E31829B-2176-41EB-88FC-FE5BEA8538E0}">
-    <Package AdminImage="no" Comments="Nasdaq Data Link Excel Addin" Compressed="yes" InstallerVersion="200" Languages="0,1033" Manufacturer="Nasdaq" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" Description="Nasdaq Data Link Excel Addin for Excel" InstallScope="perUser" />
+    <Package AdminImage="no" Comments="Nasdaq Data Link Excel Addin" Compressed="yes" InstallerVersion="200" Languages="0,1033" Manufacturer="Nasdaq" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" Description="Nasdaq Data Link Excel Addin for Excel" />
     <CustomAction Id="VSDCA_AllUsers" Property="ALLUSERS" Value="" Execute="firstSequence" />
     <Property Id="ARPHELPLINK" Value="https://data.nasdaq.com/tools/excel" />
     <Property Id="ARPNOMODIFY" Value="no" Secure="yes" />
@@ -32,10 +32,13 @@
     <Binary Id="adxregistrator_exe" SourceFile="$(var.ADX_PATH)\Redistributables\adxregistrator.exe" />
     <Binary Id="dpca_dll" SourceFile="Resources\dpca.dll" />
     <!-- The "adxregistrator.exe" custom action. -->
+    <CustomAction Id="_EB99BBCD_741C_4234_86A4_ACEA3C83C5E7" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/install=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin.TargetFileName)&quot; /scope=&quot;perMachine&quot;" Impersonate="no" />
     <CustomAction Id="_24A293B9_C9E6_47A4_AE23_45298B860470" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/install=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin.TargetFileName)&quot; /scope=&quot;perUser&quot;" Impersonate="yes" />
     <!-- The "adxregistrator.exe" custom action. -->
+    <CustomAction Id="_CAD45E4F_F8EA_4085_9979_EB13DEC87109" BinaryKey="adxregistrator_exe" Execute="rollback" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin.TargetFileName)&quot; /scope=&quot;perMachine&quot; /generateLogFile=false" Impersonate="no" />
     <CustomAction Id="_65197037_DEC0_43A1_9C58_7D0C179B0619" BinaryKey="adxregistrator_exe" Execute="rollback" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin.TargetFileName)&quot; /scope=&quot;perUser&quot; /generateLogFile=false" Impersonate="yes" />
     <!-- The "adxregistrator.exe" custom action. -->
+    <CustomAction Id="_DC2ECCA2_880C_4214_B3FE_CA31B878E2D1" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin.TargetFileName)&quot; /scope=&quot;perMachine&quot;" Impersonate="no" />
     <CustomAction Id="_6227312D_332B_41D3_8F64_4E8C7ACE79F8" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.Quandl.Excel.Addin.TargetFileName)&quot; /scope=&quot;perUser&quot;" Impersonate="yes" />
     <CustomAction Id="CA_CheckAdmin" BinaryKey="dpca_dll" DllEntry="CACheckRunAsAdmin" Execute="firstSequence" Impersonate="yes" />
     <CustomAction Id="DIRCA_MACHINESCOPEDIR" Property="DefaultAppFolderRoot" Value="[PROGRAMFILES_DIRPATH]\" Execute="firstSequence" />
@@ -165,8 +168,11 @@
       <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR=""]]></Custom>
       <Custom Action="DIRCA_TARGETDIR_UNINSTALL" After="AppSearch"><![CDATA[PREVIOUSINSTALLFOLDER]]></Custom>
       <Custom Action="DISABLE_IMPERSONATE" After="AppSearch"><![CDATA[PREVIOUSINSTALLSCOPE="1"]]></Custom>
+      <Custom Action="_EB99BBCD_741C_4234_86A4_ACEA3C83C5E7" After="StartServices"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7>2 AND USEIMPERSONATE="0"]]></Custom>
       <Custom Action="_24A293B9_C9E6_47A4_AE23_45298B860470" After="StartServices"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7>2 AND USEIMPERSONATE="1"]]></Custom>
+      <Custom Action="_CAD45E4F_F8EA_4085_9979_EB13DEC87109" After="_EB99BBCD_741C_4234_86A4_ACEA3C83C5E7"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7>2 AND USEIMPERSONATE="0"]]></Custom>
       <Custom Action="_65197037_DEC0_43A1_9C58_7D0C179B0619" After="_24A293B9_C9E6_47A4_AE23_45298B860470"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7>2 AND USEIMPERSONATE="1"]]></Custom>
+      <Custom Action="_DC2ECCA2_880C_4214_B3FE_CA31B878E2D1" After="MsiUnpublishAssemblies"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7=2 AND USEIMPERSONATE="0"]]></Custom>
       <Custom Action="_6227312D_332B_41D3_8F64_4E8C7ACE79F8" After="MsiUnpublishAssemblies"><![CDATA[$comp_30D7FEF3_AF0C_4AD1_9F24_4AA7A1A6F7D7=2 AND USEIMPERSONATE="1"]]></Custom>
       <Custom Action="WixCloseApplications" After="InstallInitialize" />
       <Custom Action="VSDCA_AllUsers" After="CostInitialize"><![CDATA[Installed="" AND NOT RESUME AND ALLUSERS=1]]></Custom>
