@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <assemblyIdentity name="Quandl.Excel.Addin, PublicKeyToken=c04d9f8c96f0d9e9" imageRuntimeVersion="v4.0.30319" />
-  <loaderSettings generateLogFile="true" shadowCopyEnabled="false" privileges="user" minOfficeVersionSupported="14" />
-</configuration>
