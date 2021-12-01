@@ -183,7 +183,7 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             var startCell = cache[rowStart, columnStart];
             try
             {
-                WriteDataToGrid(dataArray, startCell);
+                WriteDataToGrid(dataArray, startCell, true);
             }
             finally
             {
@@ -207,7 +207,7 @@ namespace Quandl.Excel.UDF.Functions.Helpers
                 Marshal.ReleaseComObject(startCell);
             }
         }
-        private void WriteDataToGrid(List<List<object>> dataArray, Range startCell)
+        private void WriteDataToGrid(List<List<object>> dataArray, Range startCell, bool headerRow = false)
         {
             if (dataArray.Count == 0)
             {
@@ -222,9 +222,12 @@ namespace Quandl.Excel.UDF.Functions.Helpers
 
             var data = ConvertNestedListToArray(dataArray);
             Range endCell = null;
+            Range startFormatRange = null;
+            Range endFormatRange = null;
             Range writeRange = null;
             Range writeRangeCells = null;
             Range writeRangeCellsToShow = null;
+        
             try
             {
                 if (!CanWriteData())
@@ -233,20 +236,29 @@ namespace Quandl.Excel.UDF.Functions.Helpers
                 }
                 endCell = cache[startCell.Row + data.GetLength(0) - 1, startCell.Column + data.GetLength(1) - 1];
                 writeRange = cache.Worksheet.Range[startCell, endCell]; // .Range is an indexed property
-                
+
                 // Take control from user, write data, show it.
-                if (columnInfo != null)
+                if (columnInfo != null && !headerRow)
                 {
-                    var columnsToFormatText = GetColumnsToFormatIndexes(columnInfo, "text");
-                    foreach (int index in columnsToFormatText)
+                    for (int j = 0; j < _results.Headers.Count; j++)
                     {
-                        writeRange.Cells[startCell.Row, startCell.Column + index].EntireColumn.NumberFormat = "@";
+                        startFormatRange = cache.Worksheet.Cells[startCell.Row, startCell.Column + j];
+                        endFormatRange = cache.Worksheet.Cells[startCell.Row + data.GetLength(0) - 1, startCell.Column + j];
+                        cache.Worksheet.Range[startFormatRange, endFormatRange].NumberFormat = ""; // General
                     }
 
-                    var columnsToFormatInteger = GetColumnsToFormatIndexes(columnInfo, "Integer");
-                    foreach (int index in columnsToFormatInteger)
+                    var columnsToFormat = GetColumnsToFormat(columnInfo);
+                    var numberFormat = "";
+   
+                    foreach (KeyValuePair<string, IList<int>> formatter in columnsToFormat)
                     {
-                        writeRange.Cells[startCell.Row, startCell.Column + index].EntireColumn.NumberFormat = "0";
+                        numberFormat = ColumnFormatters()[formatter.Key];
+                        foreach (int index in formatter.Value)
+                        {
+                            startFormatRange = cache.Worksheet.Cells[startCell.Row, startCell.Column + index];
+                            endFormatRange = cache.Worksheet.Cells[startCell.Row + data.GetLength(0) - 1, startCell.Column + index];
+                            cache.Worksheet.Range[startFormatRange, endFormatRange].NumberFormat = numberFormat;
+                        }
                     }
                 }
 
@@ -288,19 +300,48 @@ namespace Quandl.Excel.UDF.Functions.Helpers
             }
         }
 
-        private IList<int> GetColumnsToFormatIndexes(IList<DataColumn> dataColumns, string type)
+        private Dictionary<string, string> ColumnFormatters()
         {
-            IList<int> offsetArray = new List<int>();
+            Dictionary<string, string> formatters = new Dictionary<string, string>();
+            formatters["text"] = "@";
+            formatters["integer"] = "0";
 
-            for (int i = 0; i < dataColumns.Count; i++)
+            return formatters;
+        }
+
+        private Dictionary<string, IList<int>> GetColumnsToFormat(IList<DataColumn> dataColumns)
+        {
+            Dictionary<string, IList<int>> formatColumns = new Dictionary<string, IList<int>>();
+            var columnType = "";
+            var columnName = "";
+            var headerName = "";
+
+            foreach (KeyValuePair<string, string> formatter in ColumnFormatters())
             {
-                if (dataColumns[i].Type == type)
+                formatColumns[formatter.Key] = new List<int>();
+
+                for (int j = 0; j < _results.Headers.Count; j++)
                 {
-                    offsetArray.Add(i);
-                }    
+                    foreach (DataColumn dataColumn in dataColumns)
+                    {
+                        columnType = dataColumn.Type.ToLower();
+                        if (!string.Equals(columnType, formatter.Key))
+                        {
+                            continue;
+                        }
+
+                        columnName = dataColumn.Name.ToLower();
+                        headerName = _results.Headers[j].ToLower();
+                        if (string.Equals(columnType, formatter.Key) && string.Equals(columnName, headerName))
+                        {
+                            formatColumns[formatter.Key].Add(j);
+                            break;
+                        }
+                    }
+                }
             }
 
-            return offsetArray;
+            return formatColumns;
         }
 
         private object[,] ConvertNestedListToArray(List<List<object>> data)
